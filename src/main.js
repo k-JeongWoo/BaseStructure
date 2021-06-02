@@ -3,6 +3,14 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueCookie from 'vue-cookie'
+
+router.beforeEach((to, from, next) => {
+  console.log(4321)
+  next()
+})
+
+Vue.use(VueCookie)
 
 Vue.config.productionTip = false
 

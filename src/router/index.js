@@ -1,22 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/components/Index'
-import Mainhome from '@/components/Mainhome'
+import sample from '@/router/sample'
 
 Vue.use(Router)
 
+const routes = [
+  ...sample
+]
+
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Index',
-      component: Index
-    },
-    {
-      path: '/mainhome',
-      name: 'Mainhome',
-      component: Mainhome
-    }
-  ],
-  mode: 'history'
+  routes: routes,
+  mode: 'history',
+  base: process.env.BASE_URL
 })

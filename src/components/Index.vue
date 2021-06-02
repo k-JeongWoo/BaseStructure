@@ -14,14 +14,14 @@
       <div class="snsLogin_box tac">
         <h2 class="title_purple">
           당신의 건강돌봄, <br>
-          <span>(브랜드네임미정)</span>로 시작해보세요.
+          <span>(브랜드네임미정_test)</span>로 시작해보세요.
         </h2>
         <div class="sns_btn">
           <a href="" class="btn_border_snsLog sm"><i class="ico_snsApple"></i>애플로 시작하기</a>
-          <a href="" class="btn_border_snsLog sm"><i class="ico_snsGoogle"></i>구글로 시작하기</a>
-          <a href="" class="btn_border_snsLog sm"><i class="ico_snsKakao"></i>카카오로 시작하기</a>
-          <a href="" class="btn_border_snsLog sm"><i class="ico_snsfacebook"></i>페이스북으로 시작하기</a>
-          <a href="" class="btn_border_snsLog sm"><i class="ico_snsNaver"></i>네이버로 시작하기</a>
+          <a href="http://test.neodreams.co.kr:8080/oauth2/authorization/google" class="btn_border_snsLog sm"><i class="ico_snsGoogle"></i>구글로 시작하기</a>
+          <a href="http://test.neodreams.co.kr:8080/oauth2/authorization/kakao" class="btn_border_snsLog sm"><i class="ico_snsKakao"></i>카카오로 시작하기</a>
+          <a href="http://test.neodreams.co.kr:8080/oauth2/authorization/facebook" class="btn_border_snsLog sm"><i class="ico_snsfacebook"></i>페이스북으로 시작하기</a>
+          <a href="http://test.neodreams.co.kr:8080/oauth2/authorization/naver" class="btn_border_snsLog sm"><i class="ico_snsNaver"></i>네이버로 시작하기</a>
 
           <!--
             class만 맞춰주시면 a태그도 button도 p도 원하시는대로 쓰셔도 됩니다
@@ -39,6 +39,14 @@
 </template>
 
 <script>
+export default {
+  data () {
+    return {
+      usr_name: '',
+      usr_telnum: ''
+    }
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
