@@ -6,7 +6,6 @@ import router from './router'
 import VueCookie from 'vue-cookie'
 
 router.beforeEach((to, from, next) => {
-  console.log(4321)
   next()
 })
 
