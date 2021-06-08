@@ -8,7 +8,7 @@ import axios from 'axios'
 
 router.beforeEach((to, from, next) => {
   const var1 = '24321'
-  const var2 = 'a'
+  const var2 = 'a412412'
   if (var1 === var2) {
     axios.get('/api')
       .then(function (response) {
