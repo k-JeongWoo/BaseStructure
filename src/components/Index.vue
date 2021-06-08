@@ -24,6 +24,8 @@
           <a href="http://test.neodreams.co.kr:8080/oauth2/authorization/naver" class="btn_border_snsLog sm"><i class="ico_snsNaver"></i>네이버로 시작하기</a>
           <router-link to="/mainhome" class="btn_border_snsLog sm">메인으로</router-link>
 
+          <router-link to="/main/medicalprogram">Medical</router-link>
+
           <!--
             class만 맞춰주시면 a태그도 button도 p도 원하시는대로 쓰셔도 됩니다
           <button type="button" class="btn_border_snsLog sm"><i class="ico_apple"></i>애플로 시작하기</button>

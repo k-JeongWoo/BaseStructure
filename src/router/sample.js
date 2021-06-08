@@ -1,6 +1,7 @@
 import Index from '@/components/Index'
 import Mainhome from '@/components/Mainhome'
 import Agreement from '@/components/Agreement'
+import NotFound from '@/components/common/NotFound'
 import axios from 'axios'
 
 export default [
@@ -8,6 +9,10 @@ export default [
     path: '/',
     name: 'Index',
     component: Index
+  },
+  {
+    path: '*',
+    component: NotFound
   },
   {
     path: '/mainhome',
