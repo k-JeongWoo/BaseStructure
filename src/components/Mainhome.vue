@@ -23,7 +23,7 @@
     <div class="contents">
       <div class="box_wrap">
         <section class="box_shadow01">
-          <h2 class="title_02">안녕하세요, <span class="colorA">김씨젠</span> 님!</h2>
+          <h2 class="title_02">안녕하세요, <span class="colorA">{{ usr_name }}</span> 님!</h2>
           <!-- <h2 class="title_02">반갑습니다! </h2> -->
           <div class="mt4">
             <!--
@@ -373,6 +373,17 @@
 </template>
 
 <script>
+export default {
+  data () {
+    return {
+      usr_name: '',
+      usr_telnum: ''
+    }
+  },
+  created () {
+    this.usr_name = sessionStorage.getItem('usr_name')
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

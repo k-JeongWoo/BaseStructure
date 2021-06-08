@@ -4,9 +4,21 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueCookie from 'vue-cookie'
+import axios from 'axios'
 
 router.beforeEach((to, from, next) => {
-  console.log(4321)
+  const var1 = '1'
+  const var2 = 'a'
+  if (var1 === var2) {
+    axios.get('/api')
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+
   next()
 })
 
