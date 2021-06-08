@@ -19,7 +19,7 @@ export default [
     name: 'Mainhome',
     component: Mainhome,
     beforeEnter: (to, from, next) => {
-      let var1 = '1'
+      let var1 = 'azxczxcsdasd1'
       let var2 = 'a'
       let usrName = ''
       if (var1 === var2) {
