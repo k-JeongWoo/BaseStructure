@@ -7,7 +7,7 @@ import VueCookie from 'vue-cookie'
 import axios from 'axios'
 
 router.beforeEach((to, from, next) => {
-  const var1 = '1'
+  const var1 = '24321'
   const var2 = 'a'
   if (var1 === var2) {
     axios.get('/api')
@@ -16,6 +16,7 @@ router.beforeEach((to, from, next) => {
       })
       .catch(function (error) {
         console.log(error)
+        console.log('에러')
       })
   }
 
