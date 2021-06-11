@@ -11,7 +11,7 @@
                   <h2 class="title_02">
                     <i class="ico_metabolism01"></i>대사
                   </h2>
-                  <a href="" class="btn_right"><i class="ico_more"></i>더보기</a>
+                  <button class="btn_right" @click="programContext"><i class="ico_more"></i>더보기</button>
                 </div>
                 <div class="metabolism_cont">
                   <p class="contTxt_06 mt4">각 항목에 관한 일반적인 가이드라인이 들어가는 자리입니다. 각 항목에 관한 일반적인 가이드라인이
@@ -95,18 +95,16 @@
             <h2 class="title_05 mb6">진료가능 병원</h2>
             <ul>
               <li class="hospital_list"
-                  v-for="(item,index) in hospitalList"
-                  :key="index">
-                <input type="radio" id="hospital_open01" class="opener" checked=""
-                       v-model="radioValue"
-                       :name="index"
-                       :value="index">
+                  v-for="(item,index) in hospitalList" v-bind:key="index">
                 <div class="hospital_item">
                   <div class="hospital_tit">
                     <p class="inputRadio typeA">
-                      <input type="radio" name="radio01" id="radio01" checked="">
-                      <label for="radio01" class="title_05">
-                        <span class="bul"></span> 씨젠클리닉
+                      <input type="radio" class="opener"
+                             name="hospi"
+                             :id="index"
+                             :value="index" v-model="radioValue">
+                      <label :for="index" class="title_05">
+                        <span class="bul"></span> 버튼{{ index}} {{ item.hsptlName }}
                       </label>
                       <label for="hospital_open01" class="acco_arrow">
                         <i class="ico_arrowT"></i>
@@ -158,11 +156,7 @@
       </div>
       <div class="footer typeB">
         <div class="btnArea">
-          <a href="#" class="btn_border disabled"
-             type="button"
-             :disabled="radioValue.length < 1"
-             value="button"
-             @click="nextPage">진료 문의하기</a><!--disabled 클래스 추가시 클릭안되게 css로 막혀있어요-->
+          <button class="btn_border" :class="radioValue" value="button" @click="nextPage">진료 문의하기</button>
         </div>
       </div>
     </div>
@@ -175,8 +169,8 @@ import axios from 'axios'
 export default {
   data: function () {
     return {
-      hospitalList: ['1'],
-      radioValue: ''
+      hospitalList: ['1', '2', '3'],
+      radioValue: 'disabled'
     }
   },
   created () {
@@ -191,6 +185,9 @@ export default {
   methods: {
     nextPage: function () {
       alert('abc')
+    },
+    programContext: function () {
+      alert('qwe')
     }
   }
 }

@@ -10,14 +10,9 @@
         더 자세한 진료를 받을 수 있어요.
       </p>
       <ul class="healthField_list mt6">
-        <li v-for="item in mdprogram"
-            class="field_item">
-          <input type="checkbox"
-                 name="health_type"
-                 id="h_type01"
-                 v-model="mdCheckRowCnt"
-                 :value="item.carePrgmId">
-          <label for="h_type01">
+        <li class="field_item" v-for="(item,index) in mdprogram" :key="index">
+          <input type="checkbox" id="index" v-model="mdCheckRowCnt" :value="item.carePrgmId">
+          <label for="index">
             <i class="ico_mind"></i>{{ item.carePrgrmName }}
           </label>
         </li>
@@ -31,7 +26,8 @@
     </div>
     <div class="footer typeB">
       <div class="btnArea">
-        <a href="" class="btn_border" @click="validationChk">다음</a>
+<!--        <a href="" class="btn_border" @click="validationChk">다음</a>-->
+        <button class="btn_border" @click="validationChk">다음</button>
       </div>
     </div>
   </div>
@@ -51,13 +47,12 @@ export default {
   },
   methods: {
     validationChk: function () {
-      console.log('a')
-      // this.$router.push('/main/medicalConsulting')
-      if (this.mdCheckRowCnt == null) {
-        this.showModal = !this.showModal
-      } else {
-        this.$router.push('/main/medicalConsulting')
-      }
+      this.$router.push('/main/medicalConsulting')
+      // if (this.mdCheckRowCnt.length > 0) {
+      //   this.$router.push('/main/medicalConsulting')
+      // } else {
+      //   this.showModal = !this.showModal
+      // }
     }
   },
   created () {
