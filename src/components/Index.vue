@@ -18,10 +18,10 @@
         </h2>
         <div class="sns_btn">
           <a href="" class="btn_border_snsLog sm"><i class="ico_snsApple"></i>애플로 시작하기</a>
-          <a href="http://test.neodreams.co.kr:8080/oauth2/authorization/google" class="btn_border_snsLog sm"><i class="ico_snsGoogle"></i>구글로 시작하기</a>
-          <a href="http://test.neodreams.co.kr:8080/oauth2/authorization/kakao" class="btn_border_snsLog sm"><i class="ico_snsKakao"></i>카카오로 시작하기</a>
-          <a href="http://test.neodreams.co.kr:8080/oauth2/authorization/facebook" class="btn_border_snsLog sm"><i class="ico_snsfacebook"></i>페이스북으로 시작하기</a>
-          <a href="http://test.neodreams.co.kr:8080/oauth2/authorization/naver" class="btn_border_snsLog sm"><i class="ico_snsNaver"></i>네이버로 시작하기</a>
+          <a href="http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/google" class="btn_border_snsLog sm"><i class="ico_snsGoogle"></i>구글로 시작하기</a>
+          <a href="http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/kakao" class="btn_border_snsLog sm"><i class="ico_snsKakao"></i>카카오로 시작하기</a>
+          <a href="http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/facebook" class="btn_border_snsLog sm"><i class="ico_snsfacebook"></i>페이스북으로 시작하기</a>
+          <a href="http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/naver" class="btn_border_snsLog sm"><i class="ico_snsNaver"></i>네이버로 시작하기</a>
           <router-link to="/mainhome" class="btn_border_snsLog sm">메인으로</router-link>
 
           <router-link to="/main/medicalprogram">Medical</router-link>
