@@ -1,6 +1,5 @@
 import Medicalprogram from '@/page/medicalprogram/MedicalProgramPage'
-import MedicalCouncle from '@/page/medicalprogram/MedicalCounclePage'
-import Footer from '@/components/layout/Footer.vue'
+import MedicalConsulting from '@/page/medicalprogram/MedicalConsultingPage'
 import Header from '@/components/layout/Header'
 
 export default [
@@ -9,17 +8,15 @@ export default [
     name: 'Medicalprogram',
     components: {
       header: Header,
-      default: Medicalprogram,
-      footer: Footer
+      default: Medicalprogram
     }
   },
   {
-    path: '/main/medicalCouncle',
-    name: 'medicalCouncle',
+    path: '/main/medicalConsulting',
+    name: 'MedicalConsulting',
     components: {
       header: Header,
-      default: MedicalCouncle,
-      footer: Footer
+      default: MedicalConsulting
     }
   }
 ]

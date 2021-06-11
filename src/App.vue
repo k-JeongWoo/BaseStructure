@@ -1,12 +1,10 @@
 <template>
   <div id="app" class="wrap">
     <router-view name="header"></router-view>
-    <div class="innerWrap">
+    <div>
       <router-view name="leftnemu"></router-view>
     </div>
-    <div class="container">
-      <router-view name="default"></router-view>
-    </div>
+    <router-view name="default"></router-view>
     <router-view name="footer"></router-view>
   </div>
 </template>
@@ -18,10 +16,10 @@ export default {
 </script>
 
 <style>
-.contents-style {
-  position: absolute;
-  top: 10%;
-  width: 100%;
-  height: 80%;
-}
+@import './assets/resources/css/common.css';
+@import './assets/resources/css/contents.css';
+@import './assets/resources/css/index.css';
+@import './assets/resources/css/popup.css';
+@import './assets/resources/css/reset.css';
+@import './assets/resources/css/swiper-bundle.min.css';
 </style>
