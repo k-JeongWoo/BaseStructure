@@ -20,11 +20,11 @@ pre{font-family:'Spoqa Han Sans', 'Sans-serif';white-space:pre-wrap;}
 
 /* ========== LOGIN ========== */
 /*sns login*/
-.container.login01{background: #fff;}
+.container.login01{background: #fff; padding-bottom: 116px;}
 .container .snsLogin_box{padding:32px 40px 0;}
 .container .snsLogin_box:after{content: 'brand name'; display: block; width: 122px; height:20px; margin:0 auto; background: #6666CC;}
-.container .snsLogin_box .title_purple{margin-bottom:88px}
-.container .snsLogin_box .title_purple::before{content: ''; display: block; margin:0 auto 24px; width:40px; height:40px; background:url(../../resources/images/common/logo_ico.png)no-repeat center; background-size: cover;}
+.container .snsLogin_box .title_purple{margin-bottom:88px; word-break: keep-all;}
+.container .snsLogin_box .title_purple::before{content: ''; display: block; margin:0 auto 24px; width:40px; height:40px; background:url(../images/common/logo_ico.png)no-repeat center; background-size: cover;}
 .container .snsLogin_box .sns_btn{margin-bottom: 124px;}
 .container .snsLogin_box .btn_border_snsLog{display: block; width:100%; margin-bottom: 12px;}
 .container .snsLogin_box [class^="ico_"] {display: inline-block;margin-right: 12px;vertical-align: middle;}
@@ -33,13 +33,56 @@ pre{font-family:'Spoqa Han Sans', 'Sans-serif';white-space:pre-wrap;}
     .contents .snsLogin_box{padding: 32px 10.666% 0;}
 }
 /*agreement*/
-.container.agreement01{background: #fff;}
-.container .agreement_box{padding:32px 40px 0;}
+.container.agreement01{background: #fff; padding-bottom: 116px;}
+.container .agreement_box{padding:32px 18px 0;}
 .container .agreement_box .title_purple{margin-bottom:42px}
-.container .agreement_box .title_purple::before{content: ''; display: block; margin:0 auto 24px; width:40px; height:40px; background:url(/resources/images/common/logo_ico.png)no-repeat center; background-size: cover;}
+.container .agreement_box .title_purple::before{content: ''; display: block; margin:0 auto 24px; width:40px; height:40px; background:url(../images/common/logo_ico.png)no-repeat center; background-size: cover;}
 .container .inputCheck,
 .container .inputCheck .txt_r{color:#6666CC}
 .container .cntAgree .chckAll{margin-bottom: 23px; text-align: center; font-size: 16px; font-weight: 700; line-height: 23px;}
 .container .cntAgree .chckAll input[type="checkbox"] + label .bul{top:2px}
 .container .agree_list{padding:27px 0; border-top: 1px solid #D7DBEC;}
 .container .agree_list .inputCheck{margin-bottom: 20px; padding-right:50px;}
+
+/* ========== PROGRAM ========== */
+/*선택진료프로그램*/
+.program_list{display: -webkit-flex;display: flex;-webkit-justify-content: flex-start;justify-content: flex-start;flex-wrap: wrap; margin-top: 8px;}
+.program_list .program_item{display:block; padding: 4px 8px; margin-right: 4px; margin-top: 8px; -webkit-border-radius: 16px; border-radius: 16px;font-weight: 500; font-size: 12px; line-height: 17px;color: #31313D;}
+
+/*program_list*/
+.container.prog_list{padding-bottom: 0;}
+.container.prog_list .contents{padding-bottom: 40px;}
+.prog_list .box_wrap{position:relative; padding-top:50px; margin-top: 0;}
+.container.prog_list .contents .swiper-pagination{width:100%; top:24px;}
+/*program_01*/
+.container.program_01{background:#fff; padding-bottom: 116px;}
+.container.program_01 .contents{padding: 35px 32px 20px;}
+.healthField_list .field_item{margin-bottom: 8px;}
+.healthField_list .field_item:last-child{margin-bottom: 0px;}
+.healthField_list .field_item input{display: none;}
+.healthField_list .field_item label{display: block; padding:12.5px 20px; background: #EDEBFB; -webkit-border-radius: 8px; border-radius: 8px;font-weight:700;font-size: 16px; line-height: 23px; color: #6666CC;}
+.healthField_list .field_item label i{width:20px; height:20px; margin-right: 12.5px; vertical-align: middle; background: #6666CC;}
+.healthField_list .field_item input:checked + label{background: #6666CC; color:#fff;}
+.healthField_list .field_item input:checked + label i{background: #fff;}
+/*program_02*/
+.container.program_02{padding-bottom: 116px;}
+.container.program_02 .contents{padding-bottom:32px;}
+.container.program_02 .metabolism_list .swiper-pagination{position:absolute; left: 0; bottom:-0px;}
+.container.program_02 .metabolism_box{padding-bottom:24px;}
+.container.program_02 .metabolism_cont p{display: inline-block; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; white-space: normal; height: 60px; text-align: left; word-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;}
+.hospital_list{margin:0 -24px;}
+.hospital_list .hospital_item{border-top: 1px solid #E6E9F4; }
+.hospital_list .opener{display: none;}
+.hospital_list .opener:checked + .hospital_item .hospital_detail{display: block;}
+.hospital_list .opener:checked + .hospital_item .acco_arrow{transform: rotate(180deg);}
+.hospital_list .hospital_tit{position:relative; padding:16px 24px}
+.hospital_list .hospital_tit .title_05{display:inline-block; height:auto; padding-right: 28px;}
+.hospital_list .hospital_tit .acco_arrow{position: absolute; right:0; top:0; display: block; width:52px; height:52px; padding:16px; background: #fff; text-align: center;}
+.hospital_list .inputRadio.typeA input[type="radio"] + label .bul{top: 2px;}
+.hospital_list .hospital_detail{padding:8px 24px 24px; display: none;}
+.hospital_list .hospital_detail .medical_subject >*{margin-bottom: 8px;}
+.hospital_list .hospital_detail .hospital_info ul li{display: -webkit-flex;display: flex; margin-top: 8px; }
+.hospital_list .hospital_detail .hospital_info ul li .tit{width: 53px;}
+.hospital_list .hospital_detail .hospital_info section{margin-top: 24px;}
+/*program_03*/
+.container.program_03{padding-bottom: 116px;}

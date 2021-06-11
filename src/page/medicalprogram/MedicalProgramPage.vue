@@ -1,21 +1,81 @@
 <template lang="html">
-  <div>
-    <div>관심있는 진료 프로그램을 선택하면 더 자세한 진료를 받을 수 있어요.</div>
-    <medicalform style="margin-top: 100px"></medicalform>
+  <div class="container program_01">
+    <div class="contents">
+      <h2 class="title_01 colorA">
+        요즘 관심있는 <br>
+        건강 분야는 무엇인가요?
+      </h2>
+      <p class="contTxt_05 colorA mt4">
+        관심있는 진료 프로그램을 선택하면<br>
+        더 자세한 진료를 받을 수 있어요.
+      </p>
+      <ul class="healthField_list mt6">
+        <li v-for="item in mdprogram"
+            class="field_item">
+          <input type="checkbox"
+                 name="health_type"
+                 id="h_type01"
+                 v-model="mdCheckRowCnt"
+                 :value="item.carePrgmId">
+          <label for="h_type01">
+            <i class="ico_mind"></i>{{ item.carePrgrmName }}
+          </label>
+        </li>
+      </ul>
+      <Modal v-if="showModal" @close="showModal = false">
+        <h3 slot="header">
+          <i class="ico_close" v-if="showModal" @click="showModal = false"></i>
+        </h3>
+        <h3 slot="body">진료프로그램을 선택해주세요.</h3>
+      </Modal>
+    </div>
+    <div class="footer typeB">
+      <div class="btnArea">
+        <a href="" class="btn_border" @click="validationChk">다음</a>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import MedicalProgram from '@/components/medicalprogram/MedicalProgramForm'
+import axios from 'axios'
+import Modal from '@/components/modal/modalView'
 
 export default {
+  data: function () {
+    return {
+      mdprogram: [],
+      mdCheckRowCnt: [],
+      showModal: false
+    }
+  },
+  methods: {
+    validationChk: function () {
+      console.log('a')
+      // this.$router.push('/main/medicalConsulting')
+      if (this.mdCheckRowCnt == null) {
+        this.showModal = !this.showModal
+      } else {
+        this.$router.push('/main/medicalConsulting')
+      }
+    }
+  },
+  created () {
+    var datalist = this
+    axios.get('/api/v1/api/carePrgm/carePrgList')
+      .then(function (response) {
+        datalist.mdprogram = response.data.data
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  },
   components: {
-    'medicalform': MedicalProgram
+    Modal: Modal
   }
 }
 </script>
 
 <style>
-@import '../../assets/resources/css/common.css';
-@import '../../assets/resources/css/index.css';
+
 </style>
