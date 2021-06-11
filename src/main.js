@@ -7,19 +7,19 @@ import VueCookie from 'vue-cookie'
 import axios from 'axios'
 
 router.beforeEach((to, from, next) => {
-  const var1 = '1'
-  const var2 = 'a'
-  if (var1 === var2) {
-    axios.get('/api')
+  if (to.path === '/') {
+    next()
+  } else {
+    axios.get('/api/v1/api/user/userInfo')
       .then(function (response) {
-        console.log(response)
+        // console.log(response)
+        next()
       })
       .catch(function (error) {
         console.log(error)
+        next('/')
       })
   }
-
-  next()
 })
 
 Vue.use(VueCookie)

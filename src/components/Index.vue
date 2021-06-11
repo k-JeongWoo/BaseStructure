@@ -26,6 +26,8 @@
 
           <router-link to="/main/medicalprogram">Medical</router-link>
 
+          <router-link to="/agreement" class="btn_border_snsLog sm">route를 통한 가입동의로</router-link>
+
           <!--
             class만 맞춰주시면 a태그도 button도 p도 원하시는대로 쓰셔도 됩니다
           <button type="button" class="btn_border_snsLog sm"><i class="ico_apple"></i>애플로 시작하기</button>

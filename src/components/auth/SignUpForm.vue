@@ -71,7 +71,6 @@
     <footer class="footer typeB">
       <div class="btnArea">
         <a href="javascript:void(0);" v-on:click="regUsrInfo()" class="btn_fill ">가입 완료</a>
-        <a href="javascript:void(0);" v-on:click="regUsrInfo2()" class="btn_fill ">가입완료후</a>
       </div>
     </footer>
     <!-- //footer -->
@@ -85,15 +84,15 @@ export default {
   data () {
     return {
       usr_name: this.$route.params.usrname,
-      usr_sname: this.$route.params.usrsname,
+      usr_sname: '',
       usr_birth: this.$route.params.usrbirth,
       usr_gender: this.$route.params.usrgender === 'M' ? '남' : '여',
       usr_telnum: this.$route.params.usrtelnum,
-      usr_email: this.$route.params.usremail,
+      usr_email: '',
       usr_address: '',
       usr_raddress: '',
-      usr_provider: this.$route.params.usrprovider,
-      usr_url: this.$route.params.usrurl
+      usr_provider: '',
+      usr_url: ''
     }
   },
   methods: {
@@ -113,16 +112,28 @@ export default {
         {withCredentials: true}
       ).then(function (response) {
         console.log(response)
-      })
-    },
-    regUsrInfo2 () {
-      this.$router.push({
-        name: 'Mainhome'
+        if (response.data.status === 200) {
+          alert('가입이 완료되었습니다.')
+          this.$router.push({
+            name: 'Mainhome'
+          })
+        } else {
+          alert('가입을 실패하였습니다.')
+        }
       })
     }
   },
   created () {
-    console.log(this.$route.params)
+    let dataObj = this
+    axios.get(`/api/v1/api/auth/tokenUserInfo`, {},
+      {withCredentials: true}
+    ).then(function (response) {
+      console.log(response)
+      dataObj.usr_sname = response.data.data.name
+      dataObj.usr_email = response.data.data.email
+      dataObj.usr_provider = response.data.data.provider
+      dataObj.usr_url = response.data.data.picture
+    })
   }
 }
 </script>

@@ -100,7 +100,10 @@ export default {
         },
         {withCredentials: true}
       ).then(function (response) {
-        console.log(response)
+        // console.log(response)
+        if (response.data.status === 200) {
+          alert('수정이 완료되었습니다.')
+        }
       })
     },
     regUsrInfo2 () {
@@ -115,7 +118,6 @@ export default {
       {},
       {withCredentials: true}
     ).then(function (response) {
-      console.log(response)
       obj.memberName = response.data.data.memberName
       obj.memberBirth = response.data.data.memberBirth
       obj.memberGender = response.data.data.memberGender === 'M' ? '남' : '여'

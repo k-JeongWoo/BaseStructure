@@ -70,8 +70,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   data () {
     return {
@@ -80,7 +78,6 @@ export default {
       chckAgree03: false,
       chckAgree04: false,
       chckAll: false,
-      usr_name: '',
       checkval: ''
     }
   },
@@ -104,20 +101,6 @@ export default {
       }
       this.chckAll = checked
     }
-  },
-  created () {
-    axios.get(`/api/v1/api/auth/tokenUserInfo`,
-      {},
-      {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json; charset = utf-8',
-          'Access-Control-Allow-Credentials': 'true'
-        }},
-      {withCredentials: true})
-      .then(function (response) {
-        console.log(response)
-      })
   }
 }
 </script>

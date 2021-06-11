@@ -12,14 +12,12 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   data () {
     return {
       usr_name: '테스터',
       usr_sname: '',
-      usr_birth: 900101,
+      usr_birth: 19900101,
       usr_gender: 'M',
       usr_telnum: '01012345678',
       usr_email: '',
@@ -43,18 +41,6 @@ export default {
         }
       })
     }
-  },
-  created () {
-    let dataObj = this
-    axios.get(`/api/v1/api/auth/tokenUserInfo`, {},
-      {withCredentials: true}
-    ).then(function (response) {
-      console.log(response)
-      dataObj.usr_sname = response.data.data.name
-      dataObj.usr_email = response.data.data.email
-      dataObj.usr_provider = response.data.data.provider
-      dataObj.usr_url = response.data.data.picture
-    })
   }
 }
 </script>
