@@ -1,29 +1,12 @@
 <template>
   <!--  container  -->
   <div class="container main">
-    <!-- header -->
-    <header class="header">
-      <div class="headerBox">
-        <h1>
-          <span class="tit">Title</span>
-        </h1>
-        <button type="button" class="btn_left">
-          <i class="ico_bugger"></i>
-        </button>
-        <a href="#" class="btn_right">
-          <div class="notic_ico">
-            <i class="ico_bell"></i>
-            <p class="num"><span>+99</span></p>
-          </div>
-        </a>
-      </div>
-    </header>
-    <!-- //header -->
     <!--contents-->
     <div class="contents">
       <div class="box_wrap">
         <section class="box_shadow01">
-          <h2 class="title_02">안녕하세요, <span class="colorA">{{ usr_name }}</span> 님!</h2>
+          <h2 class="title_02">안녕하세요, <router-link to="/user/userdetail"><span class="colorA">{{ usr_name }}</span></router-link> 님!</h2>
+
           <!-- <h2 class="title_02">반갑습니다! </h2> -->
           <div class="mt4">
             <!--
@@ -337,36 +320,6 @@
       <!---->
     </div>
     <!--//contents-->
-    <!-- footer -->
-    <div class="footer">
-      <ul>
-        <li class="on">
-          <a href="#">
-            <i class="ico_home"></i>
-            <span>홈</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="ico_data"></i>
-            <span>검진데이터</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="ico_doc"></i>
-            <span>나의 주치의</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="ico_my"></i>
-            <span>마이페이지</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <!-- //footer -->
   </div>
   <!--  //container  -->
 
