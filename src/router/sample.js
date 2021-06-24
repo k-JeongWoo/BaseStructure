@@ -28,17 +28,17 @@ export default [
       footer: Footer
     },
     beforeEnter: (to, from, next) => {
-      console.log(from)
       if (from.name === 'SignUpForm' || from.path === '/') {
         let axiosTest = true
         if (axiosTest) {
           // console.log(' 비동기통신 _ 유저정보 조회  ')
           axios.get('/api/v1/api/user/userInfo')
             .then(function (response) {
-              // console.log(response)
+              console.log(response)
               if (response.data.resultCode === 'error') {
-                sessionStorage.clear()
-                next('/')
+                // sessionStorage.clear()
+                sessionStorage.setItem('usr_name', '게스트')
+                next()
               } else {
                 console.log('Add Session Storage ! - User Name = ' + response.data.data.name)
                 sessionStorage.setItem('usr_name', response.data.data.name)
@@ -50,8 +50,12 @@ export default [
             })
             .catch(function (error) {
               console.log(error)
-              next('/')
+              // next('/')
+              // 서비스 블랭크 페이지로
             })
+        } else {
+          sessionStorage.setItem('usr_name', '게스트')
+          next()
         }
       } else {
         next()

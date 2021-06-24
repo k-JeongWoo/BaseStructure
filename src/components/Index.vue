@@ -18,15 +18,16 @@
         </h2>
         <div class="sns_btn">
           <a href="" class="btn_border_snsLog sm"><i class="ico_snsApple"></i>애플로 시작하기</a>
-          <a href="http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/google" class="btn_border_snsLog sm"><i class="ico_snsGoogle"></i>구글로 시작하기</a>
-          <a href="http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/kakao" class="btn_border_snsLog sm"><i class="ico_snsKakao"></i>카카오로 시작하기</a>
-          <a href="http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/facebook" class="btn_border_snsLog sm"><i class="ico_snsfacebook"></i>페이스북으로 시작하기</a>
-          <a href="http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/naver" class="btn_border_snsLog sm"><i class="ico_snsNaver"></i>네이버로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/google' + redirecturi" class="btn_border_snsLog sm"><i class="ico_snsGoogle"></i>구글로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/kakao' + redirecturi" class="btn_border_snsLog sm"><i class="ico_snsKakao"></i>카카오로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/facebook' + redirecturi" class="btn_border_snsLog sm"><i class="ico_snsfacebook"></i>페이스북으로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/naver' + redirecturi" class="btn_border_snsLog sm"><i class="ico_snsNaver"></i>네이버로 시작하기</a>
+
+<!--
           <router-link to="/mainhome" class="btn_border_snsLog sm">메인으로</router-link>
-
           <router-link to="/main/medicalprogram">Medical</router-link>
-
           <router-link to="/agreement" class="btn_border_snsLog sm">route를 통한 가입동의로</router-link>
+-->
 
           <!--
             class만 맞춰주시면 a태그도 button도 p도 원하시는대로 쓰셔도 됩니다
@@ -48,7 +49,8 @@ export default {
   data () {
     return {
       usr_name: '',
-      usr_telnum: ''
+      usr_telnum: '',
+      redirecturi: this.$route.query.redirecturi === undefined ? '' : ('?redirect_Uri=' + this.$route.query.redirecturi)
     }
   }
 }

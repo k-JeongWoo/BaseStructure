@@ -94,8 +94,7 @@
           <section class="box_shadow01 pb8">
             <h2 class="title_05 mb6">진료가능 병원</h2>
             <ul>
-              <li class="hospital_list"
-                  v-for="(item,index) in hospitalList" v-bind:key="index">
+              <li class="hospital_list" v-for="(item,index) in hospitalList" v-bind:key="index">
                 <div class="hospital_item">
                   <div class="hospital_tit">
                     <p class="inputRadio typeA">
@@ -175,6 +174,7 @@ export default {
   },
   created () {
     var dataList = this
+    console.log(dataList.hospitalList)
     axios.get('')
       .then(function (response) {
         dataList.hospitalList = response.data.data

@@ -4,6 +4,7 @@ import sample from '@/router/sample'
 import MedicalProgram from '@/router/medical'
 import Auth from '@/router/auth'
 import User from '@/router/user'
+import Screening from '@/router/screening'
 
 Vue.use(Router)
 
@@ -11,7 +12,8 @@ const routes = [
   ...sample,
   ...MedicalProgram,
   ...Auth,
-  ...User
+  ...User,
+  ...Screening
 ]
 
 export default new Router({
