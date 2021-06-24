@@ -19,7 +19,7 @@
 .main .medication_info .medication_detail .detail_cont{display: none;}
 .main .medication_info .medication_detail .detail_cont.active{display:block;}
 .main .medication_info .medication_detail .medication_notice{position:relative; margin-bottom: 18px; padding-left: 30px; display: -webkit-flex;display: flex;-webkit-justify-content: space-between;justify-content: space-between;}
-.main .medication_info .medication_detail .medication_notice::before{content: ''; display: block; width:18px; height:21px; position: absolute; left: 0; top:5px; background: url(../images/common/header_footer.png)no-repeat -79.3px -19.3px; background-size: 200px;}
+.main .medication_info .medication_detail .medication_notice::before{content: ''; display: block; width:18px; height:21px; position: absolute; left: 0; top:5px; background: url(/resources/images/common/header_footer.png)no-repeat -79.3px -19.3px; background-size: 200px;}
 .main .medication_info .medication_detail .medication_notice .title_05{line-height: 30px; word-break: keep-all;}
 
 .main .contents .mainMy_info{margin-top: 24px; font-size: 14px; line-height: 20px; color: #808080;}
@@ -27,7 +27,7 @@
 
 .donut_wrap{display: -webkit-flex;display: flex;margin-top: 24px; -webkit-justify-content: flex-start;justify-content: flex-start;}
 .donut_wrap .donut_graph{position: relative; flex: none; display: block; width: 83px; height: 83px; -webkit-border-radius: 42px; border-radius: 42px;background: #F5F6FA;}
-.donut_wrap .donut_graph::after{content:''; display:block; width:50px; height:50px; -webkit-border-radius: 50%; border-radius: 50%; position:absolute; left:50%; top:50%; transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); -moz-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); background:url(../images/common/ico_step.png)no-repeat center #fff; background-size: 16.1px;}
+.donut_wrap .donut_graph::after{content:''; display:block; width:50px; height:50px; -webkit-border-radius: 50%; border-radius: 50%; position:absolute; left:50%; top:50%; transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); -moz-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); background:url(/resources/images/common/ico_step.png)no-repeat center #fff; background-size: 16.1px;}
 .donut_wrap .donut_graph .donut_chart{transform: rotate(180deg);}
 .donut_wrap .step_txt{padding-left: 21px;}
 .donut_wrap .step_txt .step{font-size: 14px; color: #808080; line-height: 20px;}
