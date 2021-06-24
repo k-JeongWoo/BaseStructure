@@ -7,7 +7,7 @@
         <section class="box_shadow01">
           <button @click="$i18n.locale='ko'">한국어</button>
           <button @click="$i18n.locale='en'">English</button>
-          <h2 class="title_02">{{ $t('default.hello') }}안녕하세요,{{ $headtype }} <router-link :to="{path: '/user/userdetail', query: {name: usr_name, arr_data: arr_data}}"><span class="colorA">{{ usr_name }}</span></router-link> 님!</h2>
+          <h2 class="title_02">{{ $t('default.hello') }}안녕하세요, <router-link :to="{path: '/user/userdetail', query: {name: usr_name, arr_data: arr_data}}"><span class="colorA">{{ usr_name }}</span></router-link> 님!</h2>
 
           <!-- <h2 class="title_02">반갑습니다! </h2> -->
           <div class="mt4">

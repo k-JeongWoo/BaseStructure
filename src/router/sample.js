@@ -27,9 +27,6 @@ export default [
       default: Mainhome,
       footer: Footer
     },
-    props: {
-      headType: 'T'
-    },
     beforeEnter: (to, from, next) => {
       if (from.name === 'SignUpForm' || from.path === '/') {
         let axiosTest = false
