@@ -24,7 +24,8 @@
           <a href="http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/naver" class="btn_border_snsLog sm"><i class="ico_snsNaver"></i>네이버로 시작하기</a>
           <router-link to="/mainhome" class="btn_border_snsLog sm">메인으로</router-link>
 
-          <router-link to="/main/medicalprogram">Medical</router-link>
+          <router-link to="/main/medicalprogram" class="btn_border_snsLog sm"><i class="">Medical</i></router-link>
+<!--          <router-link to="/fntTestPage" class="btn_border_snsLog sm"><i class="">기능테스트</i></router-link>-->
 
           <!--
             class만 맞춰주시면 a태그도 button도 p도 원하시는대로 쓰셔도 됩니다

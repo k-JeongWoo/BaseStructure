@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import VueCookie from 'vue-cookie'
 import axios from 'axios'
+import VMdDateRangePicker from 'v-md-date-range-picker'
 
 router.beforeEach((to, from, next) => {
   const var1 = '1'
@@ -23,6 +24,8 @@ router.beforeEach((to, from, next) => {
 })
 
 Vue.use(VueCookie)
+
+Vue.use(VMdDateRangePicker)
 
 Vue.config.productionTip = false
 
