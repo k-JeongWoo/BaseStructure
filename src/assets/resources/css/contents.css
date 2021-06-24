@@ -6,10 +6,6 @@
 .wrap .cntIndenti{margin-top:-48px;} /* header 없는 페이지들 */
 pre{font-family:'Spoqa Han Sans', 'Sans-serif';white-space:pre-wrap;}
 
-.wrap [class^="cnt"] .infoUpdate{height:40px;padding:0 24px;font-size:1.08333rem;color:#6f6f6f;text-align:right;line-height:40px;border-bottom:1px solid #d7d7d7;}
-.wrap [class^="cnt"] .infoUpdate .ico,
-.wrap [class^="cnt"] .icoInfo{display:inline-block;width:23px;height:23px;margin:-2px 0 0 7px;font-size:0;text-indent:-9999px;vertical-align:middle;-webkit-border-radius:100%;border-radius:100%;border:1px solid #888;background:url(/resources/ko/images/common/obj_group.png) no-repeat -82px -1px;background-size:200px;}
-.wrap [class^="cnt"] .infoUpdate span{display:inline-block;margin-left:4px;}
 
 .wrap .wrapData{padding:19px 0;border-bottom:1px solid #e9e9e9}
 .wrap .wrapData .txtData{display:-webkit-box;}
