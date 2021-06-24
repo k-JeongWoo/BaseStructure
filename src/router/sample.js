@@ -27,9 +27,12 @@ export default [
       default: Mainhome,
       footer: Footer
     },
+    props: {
+      headType: 'T'
+    },
     beforeEnter: (to, from, next) => {
       if (from.name === 'SignUpForm' || from.path === '/') {
-        let axiosTest = true
+        let axiosTest = false
         if (axiosTest) {
           // console.log(' 비동기통신 _ 유저정보 조회  ')
           axios.get('/api/v1/api/user/userInfo')
