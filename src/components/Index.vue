@@ -1,5 +1,5 @@
 <template>	<!--  container  -->
-  <div class="container login01">
+  <div class="container login01 noBg">
     <!-- header -->
     <header class="header noBg">
       <div class="headerBox">
@@ -17,15 +17,17 @@
           <span>(브랜드네임미정_test)</span>로 시작해보세요.
         </h2>
         <div class="sns_btn">
-          <a href="" class="btn_border_snsLog sm"><i class="ico_snsApple"></i>애플로 시작하기</a>
-          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/google' + redirecturi" class="btn_border_snsLog sm"><i class="ico_snsGoogle"></i>구글로 시작하기</a>
-          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/kakao' + redirecturi" class="btn_border_snsLog sm"><i class="ico_snsKakao"></i>카카오로 시작하기</a>
-          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/facebook' + redirecturi" class="btn_border_snsLog sm"><i class="ico_snsfacebook"></i>페이스북으로 시작하기</a>
-          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/naver' + redirecturi" class="btn_border_snsLog sm"><i class="ico_snsNaver"></i>네이버로 시작하기</a>
+          <a href="" class="btn_border_snsLog sm"><i class="icoSns_apple"></i>애플로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/google' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_google"></i>구글로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/kakao' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_kakao"></i>카카오로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/facebook' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_facebook"></i>페이스북으로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/naver' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_naver"></i>네이버로 시작하기</a>
 
+<!--          <router-link to="/main/medicalprogram" class="btn_border_snsLog sm"><i class="">Medical</i></router-link>-->
+<!--          <router-link to="/fntTestPage" class="btn_border_snsLog sm"><i class="">기능테스트</i></router-link>-->
 <!--
           <router-link to="/mainhome" class="btn_border_snsLog sm">메인으로</router-link>
-          <router-link to="/main/medicalprogram">Medical</router-link>
+          <router-link to="/main/medicalprogram" class="btn_border_snsLog sm"><i class="">Medical</i></router-link>
           <router-link to="/agreement" class="btn_border_snsLog sm">route를 통한 가입동의로</router-link>
 -->
 
@@ -50,14 +52,8 @@ export default {
     return {
       usr_name: '',
       usr_telnum: '',
-      redirecturi: this.$route.query.redirecturi === undefined ? '' : ('?redirect_Uri=' + this.$route.query.redirecturi)
+      redirecturi: ''
     }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-@import '../assets/resources/css/common.css';
-@import '../assets/resources/css/contents.css';
-</style>

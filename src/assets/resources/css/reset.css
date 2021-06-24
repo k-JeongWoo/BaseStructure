@@ -67,7 +67,7 @@ img,fieldset,iframe{border:none;}
 input,textarea,select{font-family:'NotoSansKR','Sans-serif';color:#000;-webkit-appearance:none;appearance:none;outline:none}
 input[disabled]{background:none;}
 ::-webkit-input-placeholder,
-/*::-webkit-textarea-placeholder{color:#c4c4c4;}*/
+::-webkit-textarea-placeholder{color:#c4c4c4;}
 label{vertical-align:middle;}
 a,
 button{text-decoration:none;outline:0;-webkit-tap-highlight-color:transparent;}

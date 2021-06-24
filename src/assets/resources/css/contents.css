@@ -6,10 +6,6 @@
 .wrap .cntIndenti{margin-top:-48px;} /* header 없는 페이지들 */
 pre{font-family:'Spoqa Han Sans', 'Sans-serif';white-space:pre-wrap;}
 
-.wrap [class^="cnt"] .infoUpdate{height:40px;padding:0 24px;font-size:1.08333rem;color:#6f6f6f;text-align:right;line-height:40px;border-bottom:1px solid #d7d7d7;}
-.wrap [class^="cnt"] .infoUpdate .ico,
-.wrap [class^="cnt"] .icoInfo{display:inline-block;width:23px;height:23px;margin:-2px 0 0 7px;font-size:0;text-indent:-9999px;vertical-align:middle;-webkit-border-radius:100%;border-radius:100%;border:1px solid #888;background:url(/resources/ko/images/common/obj_group.png) no-repeat -82px -1px;background-size:200px;}
-.wrap [class^="cnt"] .infoUpdate span{display:inline-block;margin-left:4px;}
 
 .wrap .wrapData{padding:19px 0;border-bottom:1px solid #e9e9e9}
 .wrap .wrapData .txtData{display:-webkit-box;}
@@ -20,29 +16,34 @@ pre{font-family:'Spoqa Han Sans', 'Sans-serif';white-space:pre-wrap;}
 
 /* ========== LOGIN ========== */
 /*sns login*/
-.container.login01{background: #fff; padding-bottom: 116px;}
-.container .snsLogin_box{padding:32px 40px 0;}
-.container .snsLogin_box:after{content: 'brand name'; display: block; width: 122px; height:20px; margin:0 auto; background: #6666CC;}
+.container .snsLogin_box{padding:32px 24px 0;}
 .container .snsLogin_box .title_purple{margin-bottom:88px; word-break: keep-all;}
 .container .snsLogin_box .title_purple::before{content: ''; display: block; margin:0 auto 24px; width:40px; height:40px; background:url(../images/common/logo_ico.png)no-repeat center; background-size: cover;}
-.container .snsLogin_box .sns_btn{margin-bottom: 124px;}
+.container .snsLogin_box .sns_btn{margin-bottom: 132px;}
 .container .snsLogin_box .btn_border_snsLog{display: block; width:100%; margin-bottom: 12px;}
-.container .snsLogin_box [class^="ico_"] {display: inline-block;margin-right: 12px;vertical-align: middle;}
-@media screen and (max-width:374px) {
-    /*sns login*/
-    .contents .snsLogin_box{padding: 32px 10.666% 0;}
-}
+.container .snsLogin_box [class^="icoSns"] {display: inline-block;margin-right:8px;vertical-align: middle;}
+.powered{position:absolute; left: 0; bottom:66px; width:100%; font-size: 12px;line-height: 17px;color: #000; text-align: center;}
+.powered img{display: inline-block; width: 92px; margin-left: 7px; vertical-align: middle;}
+/*splash_screen*/
+.splash_screen .title{display:block; width: 180px; position:absolute; left: 50%; top: 45%; transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); -moz-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%);}
+
 /*agreement*/
-.container.agreement01{background: #fff; padding-bottom: 116px;}
+.container.agreement01{padding-bottom: 116px;}
 .container .agreement_box{padding:32px 18px 0;}
 .container .agreement_box .title_purple{margin-bottom:42px}
 .container .agreement_box .title_purple::before{content: ''; display: block; margin:0 auto 24px; width:40px; height:40px; background:url(../images/common/logo_ico.png)no-repeat center; background-size: cover;}
 .container .inputCheck,
 .container .inputCheck .txt_r{color:#6666CC}
 .container .cntAgree .chckAll{margin-bottom: 23px; text-align: center; font-size: 16px; font-weight: 700; line-height: 23px;}
-.container .cntAgree .chckAll input[type="checkbox"] + label .bul{top:2px}
 .container .agree_list{padding:27px 0; border-top: 1px solid #D7DBEC;}
 .container .agree_list .inputCheck{margin-bottom: 20px; padding-right:50px;}
+
+/*sns연동시 정보입력 화면*/
+.container[class*="info_input_0"] .contents{padding-top: 36px;}
+.infoInput_list .input_tit{min-width: 77px;}
+.infoInput_list .input,
+.infoInput_list .radioBox{height:39px; padding:8px 12px;}
+.infoInput_list .address [class*="btn_"]{flex-shrink:0; width: 94px; margin-left: 8px;}
 
 /* ========== PROGRAM ========== */
 /*선택진료프로그램*/
@@ -61,9 +62,17 @@ pre{font-family:'Spoqa Han Sans', 'Sans-serif';white-space:pre-wrap;}
 .healthField_list .field_item:last-child{margin-bottom: 0px;}
 .healthField_list .field_item input{display: none;}
 .healthField_list .field_item label{display: block; padding:12.5px 20px; background: #EDEBFB; -webkit-border-radius: 8px; border-radius: 8px;font-weight:700;font-size: 16px; line-height: 23px; color: #6666CC;}
-.healthField_list .field_item label i{width:20px; height:20px; margin-right: 12.5px; vertical-align: middle; background: #6666CC;}
+.healthField_list .field_item label i{margin-right: 12.5px;}
 .healthField_list .field_item input:checked + label{background: #6666CC; color:#fff;}
-.healthField_list .field_item input:checked + label i{background: #fff;}
+.healthField_list .field_item input:checked + label .icoProgram_01.sm{background-position:-0px -48px;}
+.healthField_list .field_item input:checked + label .icoProgram_02.sm{background-position:-24px -48px;}
+.healthField_list .field_item input:checked + label .icoProgram_03.sm{background-position:-48px -48px;}
+.healthField_list .field_item input:checked + label .icoProgram_04.sm{background-position:-72px -48px;}
+.healthField_list .field_item input:checked + label .icoProgram_05.sm{background-position:-96px -48px;}
+.healthField_list .field_item input:checked + label .icoProgram_06.sm{background-position:-0px -72px;}
+.healthField_list .field_item input:checked + label .icoProgram_07.sm{background-position:-24px -72px;}
+.healthField_list .field_item input:checked + label .icoProgram_08.sm{background-position:-48px -72px;}
+
 /*program_02*/
 .container.program_02{padding-bottom: 116px;}
 .container.program_02 .contents{padding-bottom:32px;}
@@ -87,27 +96,54 @@ pre{font-family:'Spoqa Han Sans', 'Sans-serif';white-space:pre-wrap;}
 /*program_03*/
 .container.program_03{padding-bottom: 116px;}
 
-/*modal*/
-.modal-mask {position: fixed;z-index: 9998;top: 0;left: 0;width: 100%;height: 100%;background-color: rgba(0, 0, 0, 0.5);display: table;transition: opacity 0.3s ease;}
-.modal-wrapper {display: table-cell;vertical-align: middle;}
-.modal-container {width: 270px;margin: 0px auto;padding: 20px 16px;background-color: #fff; -webkit-border-radius: 14px;border-radius: 14px;box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);transition: all 0.3s ease;}
-.modal-header{margin: 0 0 2px;}
-.modal-header h3 {margin-top: 0;font-size: 16px;font-weight: 700;line-height: 23px;color: #31313D;text-align: center;}
-.modal-body>*{font-size: 14px;line-height: 20px;color: #31313D; font-weight: 400; text-align: center;}
-.modal-footer{display: -webkit-box;margin: 20px -16px -20px; border-top: 1px solid #D7DBEC; z-index: 9991;}
-.modal-footer button{display: block;-webkit-box-flex: 1;width: 100%;height: 44px;-webkit-border-radius: 0;border-radius: 0;padding: 0;margin: 0;border: 0;font-size: 16px;font-weight: 400;color: #7E84A3;line-height: 44px;text-align: center;box-shadow: none;}
-.modal-footer button+button{border-left: 1px solid #D7DBEC;}
-.modal-footer .modal-default-button{font-weight: 700;color: #6765E9;}
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-.modal-enter {opacity: 0;}
-.modal-leave-active {opacity: 0;}
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {-webkit-transform: scale(1.1);transform: scale(1.1);}
-.modal-textColor {color: #6765E9;}
+/*curation_01*/
+.btn_cuation button{padding:0 8px 16px; }
+.btn_cuation button+button{margin-left:8px; }
+/*curation_02*/
+.container.curation_02{padding-bottom: 116px;}
+.container.curation_02 .contents{padding-bottom: 18px;}
+/*curation_04*/
+.container.curation_04{padding-bottom: 116px;}
+.container.curation_04 .contents{padding-bottom: 18px;}
+/*curation_05*/
+.container.curation_05{padding-bottom: 116px;}
+.container.curation_05 .contents{padding-bottom: 18px;}
+
+/*hospital_02*/
+.hospital_02{}
+.hospital_program{display: -webkit-flex; display: flex;flex-wrap: wrap;}
+.hospital_program li{width: 25%; text-align: center;}
+.hospital_program .icoBox{margin:0 auto; width: 62px; height: 62px; padding: 13.5px; -webkit-border-radius: 8px; border-radius: 8px;}
+.hospital_program .icoBox i{width:35px; height: 35px; background: #fff;}
+.hospital_program li:nth-child(-n+4) .icoBox{background: #6666CC;}
+.hospital_program li:nth-child(n+5) .icoBox{background: #60CFE3;}
+.hospital_program p{margin-top: 8px; font-weight: 700;font-size: 12px;line-height: 17px;color: #31313D;}
+
+.health_state [class^="state"]{padding-right: 38px; position:relative; color: #C1C7DE;}
+.health_state .state00{color:#219653;}
+.health_state .state01{color:#F2994A;}
+.health_state .state01::after{content: ''; position:absolute; right:0; top:0; display: block; width: 22px; height: 22px; background:#F2994A}
+.health_state .state02{color:#F63E3E;}
+.health_state .state02::after{content: ''; position:absolute; right:0; top:0; display: block; width: 22px; height: 22px; background:#F63E3E}
+.health_state [class^="ico_hState"]{width:24px; height:24px; background: #C1C7DE;vertical-align: middle;}
+
+/*진료,검사,처치 리스트*/
+.treatment_box .treatment_tit{margin-bottom: 7px; position: relative;}
+.treatment_box .treatment_cnt >*{margin-top: 4px;}
+.treatment_box .treatment_state{position: absolute; right: 0; top: 0; width: 42px; height: 28px; -webkit-border-radius: 4px;border-radius: 4px;padding: 4px 8px;font-weight: normal;font-size: 14px;line-height: 20px; color: #FFFFFF;}
+.treatment_box .treatment00{background: #AF89FF;}
+.treatment_box .treatment01{background: #3E88F6;}
+.treatment_box .treatment02{background: #43B6CB;}
+
+/*주치의 코멘트 리스트*/
+.doctorComm_state00 .doctorComm_tit .btn_right{background: #F63E3E;}
+.doctorComm_state01 .doctorComm_tit .btn_right{background: #F2C94C;}
+.doctorComm_list .item .tit_wrap [class*="ico_hState"]{width:37px;height:37px; background: #000; vertical-align: middle;}
+.doctorComm_state00 .item .tit_wrap [class*="ico_hState"]{background: #F63E3E;}
+.doctorComm_state01 .item .tit_wrap [class*="ico_hState"]{background: #F2C94C;}
+.doctorComm_state02 .item .tit_wrap [class*="ico_hState"]{background: #219653;}
+.doctorComm_tit{position: relative;padding-bottom: 24px; padding-right: 25px;}
+.doctorComm_tit .btn_right{display: block;width: 44px;height: 38px;position: absolute;right: 0;top: -8px;font-size: 0;text-align: right;}
+.doctorComm_list{margin:0 -24px -24px;}
+.doctorComm_list .item{padding:24px 26px; border-top: 1px solid #E6E9F4;}
+.doctorComm_cont .ico_commen{margin-right: 10px;}
