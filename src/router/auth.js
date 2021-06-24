@@ -4,7 +4,7 @@ import SignUpForm from '@/components/auth/SignUpForm'
 
 export default [
   {
-    path: '/auth/agreement',
+    path: '/agreement',
     name: 'Agreement',
     component: Agreement,
     props: true

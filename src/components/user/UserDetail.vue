@@ -6,6 +6,9 @@
       <div class="agreement_box">
         <h2 class="title_purple tac">
           회원 정보
+          <br /><br />
+          {{$route.query.name}}
+
         </h2>
         <div class="cntAgree">
           <div class="agree_list">
@@ -46,15 +49,20 @@
             </p>
             <br/>
             <p class="inputCheck typeA">
-              <label for="chckAgree04">
                 <span class="bul"></span>주소(선택) --- 임시 추후 다음 주소 api 사용예정
-              </label>
             </p>
             <p class="inputCheck typeA">
-              <label for="chckAgree04">
                 <span class="bul"></span>주소 :
                 <input type="text" v-model="memberAddress" placeholder="주소"/>
                 <input type="text" v-model="memberRaddress" placeholder="상세주소"/>
+                <div ref="embed"></div>
+                <button @click="showApi">주소API 호출</button>
+            </p>
+            <p class="inputCheck typeA">
+              <input type="checkbox" name="chckAgree" id="chckAgree" v-model="marketAgree">
+              <label for="chckAgree">
+                <span class="bul"></span>마케팅정보 수신 동의 (선택)
+              </label>
               </label>
             </p>
           </div>
@@ -88,7 +96,8 @@ export default {
       memberName: '',
       memberRaddress: '',
       socialImage: '',
-      socialMail: ''
+      socialMail: '',
+      marketAgree: false
     }
   },
   methods: {
@@ -96,17 +105,42 @@ export default {
       axios.post(`/api/v1/api/user/userUpdate`,
         {
           memberAddress: this.memberAddress,
-          memberRaddress: this.memberRaddress
+          memberRaddress: this.memberRaddress,
+          memberAgree: this.marketAgree === true ? 'Y' : 'N'
         },
         {withCredentials: true}
       ).then(function (response) {
         console.log(response)
+        if (response.data.status === 200) {
+          alert('수정이 완료되었습니다.')
+        }
       })
     },
-    regUsrInfo2 () {
-      this.$router.push({
-        name: 'Mainhome'
-      })
+    showApi () {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          let fullRoadAddr = data.roadAddress // 도로명 주소 변수
+          let extraRoadAddr = '' // 도로명 조합형 주소 변수
+
+          if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+            extraRoadAddr += data.bname
+          }
+
+          if (data.buildingName !== '' && data.apartment === 'Y') {
+            extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName)
+          }
+
+          if (extraRoadAddr !== '') {
+            extraRoadAddr = ' (' + extraRoadAddr + ')'
+          }
+
+          if (fullRoadAddr !== '') {
+            fullRoadAddr += extraRoadAddr
+          }
+
+          this.memberAddress = fullRoadAddr
+        }
+      }).embed(this.$refs.embed)
     }
   },
   created () {
@@ -115,7 +149,7 @@ export default {
       {},
       {withCredentials: true}
     ).then(function (response) {
-      console.log(response)
+      // console.log(response)
       obj.memberName = response.data.data.memberName
       obj.memberBirth = response.data.data.memberBirth
       obj.memberGender = response.data.data.memberGender === 'M' ? '남' : '여'
@@ -124,6 +158,12 @@ export default {
       obj.socialImage = response.data.data.socialImage
       obj.memberAddress = response.data.data.memberAddress
       obj.memberRaddress = response.data.data.memberRaddress
+      let mAchk = response.data.data.marketAgree
+      if (mAchk === 'Y') {
+        obj.marketAgree = true
+      } else {
+        obj.marketAgree = false
+      }
     })
   }
 }
