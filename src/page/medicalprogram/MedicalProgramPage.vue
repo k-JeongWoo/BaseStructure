@@ -10,24 +10,39 @@
         더 자세한 진료를 받을 수 있어요.
       </p>
       <ul class="healthField_list mt6">
-        <li class="field_item" v-for="(item,index) in mdprogram" :key="index">
-          <input type="checkbox" id="index" v-model="mdCheckRowCnt" :value="item.carePrgmId">
-          <label for="index">
-            <i class="ico_mind"></i>{{ item.carePrgrmName }}
+        <li class="field_item" v-for="(item,index) in mdprogram" :key="index"
+          v-if="mdprogram.length > 0">
+          <input type="checkbox"
+                 :id="index"
+                 :name="index"
+                 v-model="mdCheckRowCnt"
+                 :value="item.careProgramId">
+          <label :for="index">
+            <i class="ico_mind"></i>{{ item.careProgramName }} // {{ item }}
           </label>
         </li>
+        <li v-else>
+          등록된 진료 프로그램이 없습니다.
+        </li>
       </ul>
-      <Modal v-if="showModal" @close="showModal = false">
+      <!--    modal-->
+      <Modal v-if="showModal"
+             @close="showModal = false">
         <h3 slot="header">
-          <i class="ico_close" v-if="showModal" @click="showModal = false"></i>
+          {{ modalTitle }}
         </h3>
-        <h3 slot="body">진료프로그램을 선택해주세요.</h3>
+        <h3 slot="body" v-html="modalContents"></h3>
+        <button slot="moveBtn1"
+                @click="showModal = false"
+                class="modal-default-button">확인
+        </button>
       </Modal>
     </div>
     <div class="footer typeB">
       <div class="btnArea">
-<!--        <a href="" class="btn_border" @click="validationChk">다음</a>-->
-        <button class="btn_border" @click="validationChk">다음</button>
+        <button class="btn_border"
+                @click="validationChk">다음
+        </button>
       </div>
     </div>
   </div>
@@ -35,28 +50,30 @@
 
 <script>
 import axios from 'axios'
-import Modal from '@/components/modal/modalView'
+import Modal from '@/components/modal/ConfirmModal'
 
 export default {
   data: function () {
     return {
-      mdprogram: [],
+      mdprogram: ['마음', '신경인지', '근골격', '대사', '면역', '피부&체형'],
       mdCheckRowCnt: [],
-      showModal: false
+      showModal: false,
+      modalTitle: '',
+      modalContents: '진료프로그램을 선택해주세요.'
     }
   },
   methods: {
     validationChk: function () {
-      this.$router.push('/main/medicalConsulting')
+      this.$router.push({name: 'MedicalConsulting', query: { careProgramIds: this.mdCheckRowCnt }})
       // if (this.mdCheckRowCnt.length > 0) {
-      //   this.$router.push('/main/medicalConsulting')
+      //   this.$router.push({name: 'MedicalConsulting', params: { careProgramIds: this.mdCheckRowCnt }})
       // } else {
       //   this.showModal = !this.showModal
       // }
     }
   },
   created () {
-    var datalist = this
+    const datalist = this
     axios.get('/api/v1/api/carePrgm/carePrgList')
       .then(function (response) {
         datalist.mdprogram = response.data.data

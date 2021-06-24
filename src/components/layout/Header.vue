@@ -12,13 +12,13 @@
         <i class="ico_close"></i>
       </a>
       <!-- //header -->
-
-      <!-- use the modal component, pass in the prop -->
+    </div>
+    <div>
       <Modal v-if="showModal" @close="showModal = false">
-        <h3 slot="header">경고!</h3>
-        <h3 slot="body">종료하시겠습니까?!</h3>
-        <button slot="moveBtn1" @click="confrimBtn">확인</button>
-        <button slot="moveBtn2" @click="cancleBtn">취소</button>
+        <h3 slot="header">선택 진료 프로그램 저장</h3>
+        <h3 slot="body">선택한 진료 프로그램이 저장됩니다.</h3>
+        <button slot="moveBtn1" @click="confrimBtn" class="modal-default-button">확인</button>
+        <button slot="moveBtn2" @click="showModal = false">취소</button>
       </Modal>
     </div>
   </header>
@@ -41,9 +41,6 @@ export default {
     confrimBtn: function () {
       console.log('btn')
     },
-    cancleBtn: function () {
-      console.log('cancle')
-    },
     historyBack: function () {
       this.$router.go(-1)
     }
@@ -51,5 +48,5 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 </style>
