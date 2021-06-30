@@ -11,11 +11,12 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "amcharts3": "^3.21.15",
     "@livelybone/vue-datepicker": "^4.0.3",
+    "amcharts3": "^3.21.15",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
-    "swiper": "^5.3.7",
+    "swiper": "^6.7.1",
+    "url-search-params-polyfill": "^8.1.1",
     "v-md-date-range-picker": "^2.6.0",
     "vue": "^2.5.2",
     "vue-awesome-swiper": "^4.1.1",

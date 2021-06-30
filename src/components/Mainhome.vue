@@ -320,6 +320,15 @@
         </div>
       </div>
       <!---->
+      <!--    modal-->
+      <Modal v-if="showModal" @close="showModal = false">
+        <h3 slot="header">
+          {{ modalTitle }}
+        </h3>
+        <h3 slot="body" v-html="modalContents"></h3>
+        <button slot="moveBtn2" class="modal-default-button">확인</button>
+        <button slot="moveBtn1" @click="showModal = false">취소</button>
+      </Modal>
     </div>
     <!--//contents-->
   </div>
@@ -328,16 +337,25 @@
 </template>
 
 <script>
+import Modal from '@/components/modal/MoveModal.vue'
+
 export default {
   data () {
     return {
       usr_name: '',
       usr_telnum: '',
-      arr_data: [1, 2, 3]
+      arr_data: [1, 2, 3],
+      modalTitle: '건강 앱 접근 허용',
+      modalContents: '앱에서 이 기기의 건강앱에 접근하려고 합니다.',
+      showModal: false
     }
   },
   created () {
     this.usr_name = sessionStorage.getItem('usr_name')
+    this.showModal = !this.showModal
+  },
+  components: {
+    Modal: Modal
   }
 }
 </script>
@@ -347,3 +365,4 @@ export default {
 @import '../assets/resources/css/common.css';
 @import '../assets/resources/css/index.css';
 </style>
+

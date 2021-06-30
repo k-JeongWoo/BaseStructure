@@ -20,7 +20,7 @@ export default [
     component: NotFound
   },
   {
-    path: '/mainhome',
+    path: '/me',
     name: 'Mainhome',
     components: {
       header: Header,
@@ -29,7 +29,7 @@ export default [
     },
     beforeEnter: (to, from, next) => {
       if (from.name === 'SignUpForm' || from.path === '/') {
-        let axiosTest = true
+        let axiosTest = false
         if (axiosTest) {
           // console.log(' 비동기통신 _ 유저정보 조회  ')
           axios.get('/api/v1/api/user/userInfo')

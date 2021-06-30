@@ -6,7 +6,7 @@
       <div class="box_wrap">
         <section class="box_shadow01">
           <h2 class="title_05">인적사항</h2>
-          <h2 class="title_02 mt6"><span class="colorA">김씨젠</span> 님</h2>
+          <h2 class="title_02 mt6"><span class="colorA">김씨젠</span></h2>
           <p class="title_09 mt3">
             <span>45</span>세 (<span>남</span>) <span>010-1234-1234</span>
           </p>
@@ -15,12 +15,13 @@
               <h2 class="title_05">선택 진료 프로그램 </h2>
               <button class="btn_right" @click="programListInfo"><i class="ico_more"></i>더보기</button>
             </div>
-            <p class="program_list" >
+            <p class="program_list">
               <button type="button" class="program_item"
-                      v-for="(item,index) in programList"
+                      v-for="(item,index) in selectProgram"
                       :key="index"
-                      :class="'bgColor0'+(index+1)"
-                      :value="index+1">마음 {{ index }}</button>
+                      :class="'bgColor0'+item.careProgramId"
+                      :value="item.careProgramId">{{ item.careProgramName }}
+              </button>
             </p>
           </div>
         </section>
@@ -31,16 +32,22 @@
         <section class="box_shadow01 pb8">
           <h2 class="title_05 mb6">선택 병원</h2>
           <ul class="hospital_list">
-            <li>
-              <input type="checkbox" id="hospital_open01" class="opener">
+            <li v-for="item in hospitalInfo"
+                :key="item.hospitalId">
+              <input type="checkbox" :id="'hospital_open0'+item.hospitalId" class="opener">
               <div class="hospital_item">
                 <div class="hospital_tit">
                   <p class="inputRadio typeA">
-                    <input type="radio" name="hospi" id="radio01" checked="checked">
-                    <label for="radio01" class="title_05">
-                      <span class="bul"></span> 씨젠클리닉
+                    <input type="radio"
+                           name="hospi"
+                           :id="'hospi'+item.hospitalId"
+                           :v-model="selectHospital"
+                           checked="checked"
+                           :value="item.hospitalId">
+                    <label :for="'hospi'+item.hospitalId" class="title_05">
+                      <span class="bul"></span> {{ item.pdYadmNm }} //
                     </label>
-                    <label for="hospital_open01" class="acco_arrow">
+                    <label :for="'hospital_open0'+item.hospitalId" class="acco_arrow">
                       <i class="ico_arrowT"></i>
                     </label>
                   </p>
@@ -59,15 +66,13 @@
                         <li class="title_09">
                           <p class="tit">평일</p>
                           <p>
-                            <span>09:00 ~ 18:00</span>
-                            <span>(점심: 13:00 ~ 14:00)</span>
+                            <span>{{ item.hospitalWeekdayHours }}</span>
                           </p>
                         </li>
                         <li class="title_09">
                           <p class="tit colorD">토요일</p>
                           <p>
-                            <span>09:00 ~ 14:00</span>
-                            <span>(점심시간 없음)</span>
+                            <span>{{ item.hospitalWeekendHours }}</span>
                           </p>
                         </li>
                         <li class="title_09">
@@ -77,7 +82,7 @@
                     </section>
                     <section>
                       <h3 class="title_05 mb3">위치정보</h3>
-                      <p class="title_09">서울특별시 강남구 도산대로 442</p>
+                      <p class="title_09">{{ item.pdAddr }}</p>
                     </section>
                   </div>
                 </div>
@@ -136,16 +141,20 @@
 <script>
 import Modal from '@/components/modal/ConfirmModal'
 import axios from 'axios'
+import 'url-search-params-polyfill'
 
 export default {
   data: function () {
     return {
       userInfo: [],
-      programList: [],
+      hospitalInfo: [0, 2],
+      selectProgram: JSON.parse(this.$route.query.selectProgram),
+      careProgramIds: [],
+      selectHospital: this.$route.query.selectHospital,
       emplyEmail: '',
       mdclInqrsDesc: '',
       showModal: false,
-      modalTitle: '문의글 등록 완료',
+      modalTitle: '',
       modalContents: ''
     }
   },
@@ -154,25 +163,45 @@ export default {
       this.$router.push('/main/MedicalInquireContents')
     },
     validationChk: function () {
-      // this.showModal = !this.showModal
-      if (!this.emplyEmail) {
-        this.modalContents = '씨젠 임직원 e-mail주소를 입력해주세요.'
-        this.showModal = !this.showModal
-      } else if (!this.mdclInqrsDesc) {
-        this.modalContents = '문의내용을 입력해주세요.'
-        this.showModal = !this.showModal
-        console.log('b')
-      } else {
+      let dataObj = this
+      this.selectProgram.forEach(function (item) {
+        dataObj.careProgramIds.push(item.careProgramId)
+      })
+      if (this.emplyEmail !== '' && this.mdclInqrsDesc !== '') {
+        const params = {
+          'careProgramIds': this.careProgramIds,
+          'hospitalId': this.selectHospital,
+          'medicalInquiryDesc': this.mdclInqrsDesc,
+          'medicalInquirySeegeneMail': this.emplyEmail.concat('@seegene.com')
+        }
+        axios.post('/api/v1/api/medicalInquery/medicalInqueryWrite', params)
+          .then(function (response) {
+            console.log(response)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+        this.modalTitle = '문의글 등록 완료'
         this.modalContents = '나의 문의내역은 <p class="modal-textColor">마이페이지>온라인상담>나의문의</p> 내역 관리 에서 확인 가능합니다.'
-        this.showModal = !this.showModal
+      } else {
+        if (!this.emplyEmail) {
+          this.modalContents = '씨젠 임직원 e-mail주소를 입력해주세요.'
+        } else if (!this.mdclInqrsDesc) {
+          this.modalContents = '문의내용을 입력해주세요.'
+        }
       }
+      this.showModal = !this.showModal
     }
   },
   created () {
-    const datalist = this
-    axios.get('').then(function (response) {
-      datalist.userInfo = response.data
-      datalist.programList = response.data
+    let objdata = this
+    axios.get('/api/v1/api/hospital/hospitalList', {
+      params: {
+        hospitalId: this.selectHospital
+      }
+    }).then(function (response) {
+      // 선택 병원정보 조회
+      objdata.hospitalInfo = response.data.data.data
     }).catch(function (error) {
       console.log(error)
     })
