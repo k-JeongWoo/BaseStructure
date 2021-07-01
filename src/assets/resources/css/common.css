@@ -295,7 +295,7 @@ select{width: 100%; height: 100%;font-weight: 500;font-size: 14px; color:#31313D
 .loding_motion{position:relative; width:59px; height: 59px; margin:0 auto; -webkit-border-radius: 50%; border-radius: 50%; background: #6765E9; opacity: 0.2; overflow: hidden;}
 .ico_commen{width:20px; height:20px; background: #000; vertical-align: middle;}
 
-[class^="icoProgram"]{display: inline-block;width:48px; height:48px; background:url(../images/common/ico_program.png)no-repeat; background-size:240px;vertical-align: middle;}
+[class^="icoProgram"]{display: inline-block;width:48px; height:48px; background:url(/*../images/common/ico_program.png*/)no-repeat; background-size:240px;vertical-align: middle;}
 [class^="icoProgram"].sm{width:24px; height:24px; background-size:120px; vertical-align: middle;}
 .icoProgram_01{background-position:-0px -0px;}
 .icoProgram_02{background-position:-48px -0px;}
@@ -348,7 +348,7 @@ select{width: 100%; height: 100%;font-weight: 500;font-size: 14px; color:#31313D
 .header .headerBox h1{padding:0 56px;}
 .header .headerBox h1.textL{text-align: left;}
 .header .headerBox h1 .tit{display:block; line-height: 56px; font-size:14px; font-weight: 700; color: #31313d;}
-.header .headerBox h1 .logo{display:block; margin:0 auto; width:106px; height:56px; background:url(../images/common/logo_viocross.png)no-repeat center; background-size: contain; font-size: 0;}
+.header .headerBox h1 .logo{display:block; margin:0 auto; width:106px; height:56px; background:url(/*../images/common/logo_viocross.png*/)no-repeat center; background-size: contain; font-size: 0;}
 .header .btn_left{position: absolute; left:0; top:0;}
 .header .btn_right{position: absolute; right:0; top:0;}
 .header [class^="ico_"]{vertical-align: middle;}

@@ -38,6 +38,9 @@ export default {
           usremail: this.usr_email,
           usrprovider: this.usr_provider,
           usrurl: this.usr_url
+        },
+        query: {
+          redirect_Uri: this.$route.query.redirect_Uri
         }
       })
     }

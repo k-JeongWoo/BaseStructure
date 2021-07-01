@@ -106,7 +106,10 @@ export default {
 
       if (defCnt === 3) {
         this.$router.push({
-          name: 'NiceBlank'
+          name: 'NiceBlank',
+          query: {
+            redirect_Uri: this.$route.query.redirect_Uri
+          }
         })
       } else {
         alert('필수항목을 선택해 주세요.')

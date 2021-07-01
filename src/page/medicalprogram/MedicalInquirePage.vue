@@ -135,13 +135,12 @@
 
 <script>
 import Modal from '@/components/modal/ConfirmModal'
-import axios from 'axios'
 
 export default {
   data: function () {
     return {
       userInfo: [],
-      programList: [],
+      programList: this.$route.query.programList,
       emplyEmail: '',
       mdclInqrsDesc: '',
       showModal: false,
@@ -167,15 +166,6 @@ export default {
         this.showModal = !this.showModal
       }
     }
-  },
-  created () {
-    const datalist = this
-    axios.get('').then(function (response) {
-      datalist.userInfo = response.data
-      datalist.programList = response.data
-    }).catch(function (error) {
-      console.log(error)
-    })
   },
   components: {
     Modal: Modal

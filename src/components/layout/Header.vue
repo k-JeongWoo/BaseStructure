@@ -4,7 +4,7 @@
     <div class="headerBox">
       <h1>
         <span class="tit" v-show="currentUrl.indexOf('/main/') === 0">진료 프로그램 선택</span>
-        <span class="tit" v-show="currentUrl.indexOf('/login/') === 0">정보 입력</span>
+        <span class="tit" v-show="currentUrl.indexOf('/auth/') === 0">정보 입력</span>
       </h1>
       <button type="button" class="btn_left" @click="historyBack">
         <i class="ico_back"></i>
@@ -16,9 +16,9 @@
     </div>
     <div>
       <Modal v-if="showModal" @close="showModal = false">
-        <h3 slot="header">선택 진료 프로그램 저장</h3>
-        <h3 slot="body">선택한 진료 프로그램이 저장됩니다.</h3>
-        <button slot="moveBtn1" @click="confrimBtn" class="modal-default-button">확인</button>
+        <h3 slot="header">경고</h3>
+        <h3 slot="body">입력된 내용이 삭제되며<br />회원가입 첫 화면으로 이동합니다.</h3>
+        <button slot="moveBtn1" @click="showModal = false" class="modal-default-button">확인</button>
         <button slot="moveBtn2" @click="showModal = false">취소</button>
       </Modal>
     </div>

@@ -1,3 +1,4 @@
+import Header from '@/components/layout/Header'
 import Agreement from '@/components/auth/Agreement'
 import NiceBlank from '@/components/auth/NiceBlank'
 import SignUpForm from '@/components/auth/SignUpForm'
@@ -18,6 +19,9 @@ export default [
   {
     path: '/auth/signUpForm',
     name: 'SignUpForm',
-    component: SignUpForm
+    components: {
+      header: Header,
+      default: SignUpForm
+    }
   }
 ]

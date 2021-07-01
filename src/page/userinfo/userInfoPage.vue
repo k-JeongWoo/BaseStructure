@@ -7,26 +7,26 @@
         <li class="inputBox centerFlex mb3">
           <p class="input_tit">이름<span class="required">*</span></p>
           <p class="input disabled"><!--수정불가 :: disabled style과 터치가 안되도록 css속성넣음. -->
-            <input type="text" name="" value="홍길동" disabled>
+            <input type="text" v-model="usr_name" name="" value="홍길동" disabled>
           </p>
         </li>
         <li class="inputBox centerFlex mb3">
           <p class="input_tit">생년월일<span class="required">*</span></p>
           <p class="input disabled"><!--수정불가 :: disabled-->
-            <input type="text" name="" value="921111" disabled>
+            <input type="text" v-model="usr_birth" name="" value="19921111" disabled>
           </p>
         </li>
         <li class="inputBox centerFlex mb3">
           <p class="input_tit">성별<span class="required">*</span></p>
           <p class="radioBox">
 							<span class="inputRadio typeA disabled"><!--수정불가 :: disabled-->
-								<input type="radio" name="gender" id="gender00" checked="" disabled>
+								<input type="radio" name="gender" id="gender00" v-model="usr_gender" value="M" checked="" disabled>
 								<label for="gender00">
 									<span class="bul"></span>남
 								</label>
 							</span>
             <span class="inputRadio typeA disabled ml4"><!--수정불가 :: disabled-->
-								<input type="radio" name="gender" id="gender01" disabled>
+								<input type="radio" name="gender" id="gender01" v-model="usr_gender" value="F" disabled>
 								<label for="gender01">
 									<span class="bul"></span>여
 								</label>
@@ -36,13 +36,13 @@
         <li class="inputBox centerFlex mb3">
           <p class="input_tit">휴대폰<span class="required">*</span></p>
           <p class="input disabled"><!--수정불가 :: disabled-->
-            <input type="text" name="" value="010-1234-5678" disabled>
+            <input type="text" v-model="usr_telnum" name="" value="010-1234-5678" disabled>
           </p>
         </li>
         <li class="inputBox centerFlex mb7">
           <p class="input_tit">E-mail<span class="required">*</span></p>
           <p class="input disabled"><!--수정불가 :: disabled-->
-            <input type="text" name="" value="aaaaaaaa@seegene.com" disabled>
+            <input type="text" v-model="usr_email" name="" value="aaaaaaaa@seegene.com" disabled>
           </p>
         </li>
       </ul>
@@ -52,18 +52,19 @@
         </li>
         <li class="inputBox centerFlex mb3 address">
           <p class="input disabled"><!--수정불가 :: disabled-->
-            <input type="text" name="" placeholder="우편번호" disabled>
+            <input type="text" v-model="usr_zipcode" name="" placeholder="우편번호" disabled>
           </p>
-          <button type="button" class="btn_border sm ">검 색</button>
+          <button type="button" @click="showApi" class="btn_border sm ">검 색</button>
+          <div ref="embed"></div>
         </li>
         <li class="inputBox centerFlex mb3">
           <p class="input">
-            <input type="text" name="" placeholder="상세주소">
+            <input type="text" v-model="usr_address" name="" placeholder="상세주소">
           </p>
         </li>
         <li class="inputBox centerFlex mb3">
           <p class="input">
-            <input type="text" name="" placeholder="상세주소">
+            <input type="text" v-model="usr_address_detail" name="" placeholder="상세주소">
           </p>
         </li>
       </ul>
@@ -73,7 +74,7 @@
     <div class="footer typeB">
       <div class="btnArea">
         <button class="btn_fill"
-                @click="validationChk">가입완료
+                @click="regUsrInfo">가입완료
         </button>
       </div>
     </div>

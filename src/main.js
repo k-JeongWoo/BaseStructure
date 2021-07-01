@@ -49,8 +49,8 @@ router.beforeEach((to, from, next) => {
         .then(function (response) {
           console.log(response)
           if (to.path === '/' && response.data.resultCode !== 'error') {
-            next('Mainhome')
-          } else if (to.path === '/user/userdetail' && response.data.resultCode === 'error') {
+            next('/mainhome')
+          } else if ((to.path === '/user/userdetail' || to.name === 'MedicalInquire') && response.data.resultCode === 'error') {
             alert('로그인 후 이용 가능합니다.')
             next({
               path: '/',
@@ -71,7 +71,7 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     // dev
-    if (to.path === '/user/userdetail') {
+    if (to.path === '/user/userdetail' || to.name === 'MedicalInquire') {
       console.log(to)
       alert('로그인 후 이용 가능합니다.')
       next({

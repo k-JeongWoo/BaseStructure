@@ -18,10 +18,10 @@
         </h2>
         <div class="sns_btn">
           <a href="" class="btn_border_snsLog sm"><i class="icoSns_apple"></i>애플로 시작하기</a>
-          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/google' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_google"></i>구글로 시작하기</a>
-          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/kakao' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_kakao"></i>카카오로 시작하기</a>
-          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/facebook' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_facebook"></i>페이스북으로 시작하기</a>
-          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/naver' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_naver"></i>네이버로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/google?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_google"></i>구글로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/kakao?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_kakao"></i>카카오로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/facebook?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_facebook"></i>페이스북으로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/naver?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_naver"></i>네이버로 시작하기</a>
 
 <!--          <router-link to="/main/medicalprogram" class="btn_border_snsLog sm"><i class="">Medical</i></router-link>-->
 <!--          <router-link to="/fntTestPage" class="btn_border_snsLog sm"><i class="">기능테스트</i></router-link>-->
@@ -52,7 +52,7 @@ export default {
     return {
       usr_name: '',
       usr_telnum: '',
-      redirecturi: ''
+      redirecturi: this.$route.query.redirecturi === undefined ? '%2F' : this.$route.query.redirecturi
     }
   }
 }

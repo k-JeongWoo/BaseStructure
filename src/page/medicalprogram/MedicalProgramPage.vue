@@ -16,7 +16,7 @@
                  :id="index"
                  :name="index"
                  v-model="mdCheckRowCnt"
-                 :value="item.careProgramId">
+                 :value="index">
           <label :for="index">
             <i class="ico_mind"></i>{{ item.careProgramName }} // {{ item }}
           </label>

@@ -1,68 +1,84 @@
 <template>
   <!--  container  -->
-  <div class="container agreement01">
-    <!-- header -->
-    <header class="header noBg">
-      <div class="headerBox">
-        <a href="#" class="btn_right">
-          <i class="ico_close"></i>
-        </a>
-      </div>
-    </header>
-    <!-- //header -->
+  <div class="container noBg info_input_01">
     <!--contents-->
     <div class="contents">
-      <div class="agreement_box">
-        <h2 class="title_purple tac">
-          회원 정보 입력
-        </h2>
-        <div class="cntAgree">
-          <div class="agree_list">
-            <p class="typeA">
-                <span class="bul"></span>이름 :
-                <input type="text" v-model="usr_name"/>
-            </p>
-            <p class="typeA">
-                <span class="bul"></span>생년월일 :
-                <input type="text" v-model="usr_birth"/>
-            </p>
-            <p class="inputRadio typeA">
-                <span class="bul"></span>성별 :
-                <input type="radio" id="usr_gender_m" name="usr_gender" v-model="usr_gender" value="M"/> <label for="usr_gender_m"><span class="bul"></span>남자</label>
-                <input type="radio" id="usr_gender_f" name="usr_gender" v-model="usr_gender" value="F"/> <label for="usr_gender_f"><span class="bul"></span>여자</label>
-                <!--                <input type="text" v-model="usr_gender"/>-->
-            </p>
-            <p class="typeA">
-                <span class="bul"></span>연락처 :
-                <input type="text" v-model="usr_telnum"/>
-            </p>
-            <p class="typeA">
-                <span class="bul"></span>E-mail :
-                <input type="text" v-model="usr_email" readonly/>
-            </p>
-            <br/>
-            <p class="typeA">
-                <span class="bul"></span>주소(선택) --- 임시 추후 다음 주소 api 사용예정
-            </p>
-            <p class="typeA">
-                <span class="bul"></span>주소 :
-                <input type="text" v-model="usr_address" placeholder="주소"/>
-                <input type="text" v-model="usr_raddress" placeholder="상세주소"/>
-                <div ref="embed"></div>
-                <button @click="showApi">주소API 호출</button>
-            </p>
-          </div>
+      <ul class="infoInput_list mb7">
+        <li class="inputBox centerFlex mb3">
+          <p class="input_tit">이름<span class="required">*</span></p>
+          <p class="input "><!--수정불가 :: disabled style과 터치가 안되도록 css속성넣음. -->
+            <input type="text" v-model="usr_name" name="" value="홍길동" >
+          </p>
+        </li>
+        <li class="inputBox centerFlex mb3">
+          <p class="input_tit">생년월일<span class="required">*</span></p>
+          <p class="input "><!--수정불가 :: disabled-->
+            <input type="text" v-model="usr_birth" name="" value="19921111" >
+          </p>
+        </li>
+        <li class="inputBox centerFlex mb3">
+          <p class="input_tit">성별<span class="required">*</span></p>
+          <p class="radioBox">
+							<span class="inputRadio typeA "><!--수정불가 :: disabled-->
+								<input type="radio" name="gender" id="gender00" v-model="usr_gender" value="M" >
+								<label for="gender00">
+									<span class="bul"></span>남
+								</label>
+							</span>
+            <span class="inputRadio typeA  ml4"><!--수정불가 :: disabled-->
+								<input type="radio" name="gender" id="gender01" v-model="usr_gender" value="F" >
+								<label for="gender01">
+									<span class="bul"></span>여
+								</label>
+							</span>
+          </p>
+        </li>
+        <li class="inputBox centerFlex mb3">
+          <p class="input_tit">휴대폰<span class="required">*</span></p>
+          <p class="input "><!--수정불가 :: disabled-->
+            <input type="text" v-model="usr_telnum" name="" value="010-1234-5678" >
+          </p>
+        </li>
+        <li class="inputBox centerFlex mb7">
+          <p class="input_tit">E-mail<span class="required">*</span></p>
+          <p class="input disabled"><!--수정불가 :: disabled-->
+            <input type="text" v-model="usr_email" name="" value="aaaaaaaa@seegene.com" disabled>
+          </p>
+        </li>
+      </ul>
+      <ul class="infoInput_list">
+        <li class="inputBox mb3">
+          <p class="input_tit">주소 (선택)</p>
+        </li>
 
-        </div>
-      </div>
+        <li class="inputBox centerFlex mb3 address">
+          <p class="input "><!--수정불가 :: disabled-->
+            <input type="text" v-model="usr_zipcode" name="" placeholder="우편번호" disabled>
+          </p>
+          <button type="button" @click="showApi" class="btn_border sm ">검 색</button>
+        </li>
+        <li class="inputBox centerFlex mb3">
+          <p class="input">
+            <input type="text" v-model="usr_address" name="" placeholder="상세주소">
+          </p>
+        </li>
+        <li class="inputBox centerFlex mb3">
+          <p class="input">
+            <input type="text" v-model="usr_address_detail" name="" placeholder="상세주소">
+          </p>
+        </li>
+        <div ref="embed"></div>
+      </ul>
     </div>
     <!--//contents-->
     <!-- footer -->
-    <footer class="footer typeB">
+    <div class="footer typeB">
       <div class="btnArea">
-        <a href="javascript:void(0);" v-on:click="regUsrInfo()" class="btn_fill ">가입 완료</a>
+        <button class="btn_fill"
+                @click="regUsrInfo">가입완료
+        </button>
       </div>
-    </footer>
+    </div>
     <!-- //footer -->
   </div>
 </template>
@@ -84,7 +100,8 @@ export default {
       usr_address: '',
       usr_address_detail: '',
       usr_provider: '',
-      usr_url: ''
+      usr_url: '',
+      redirect_Uri: this.$route.query.redirect_Uri === undefined ? '/' : decodeURI(this.$route.query.redirect_Uri)
     }
   },
   methods: {
@@ -99,7 +116,8 @@ export default {
       axios.post(`/api/v1/api/auth/signup`,
         {
           'memberAddress': this.usr_address,
-          'memberRaddress': this.usr_raddress,
+          'memberAddressDetail': this.usr_address_detail,
+          'memberZipcode': this.usr_zipcode,
           'memberBirth': this.usr_birth,
           // 'memberGender': this.usr_gender === '남' ? 'M' : 'F',
           'memberGender': this.usr_gender,
@@ -109,14 +127,14 @@ export default {
           'socialMail': this.usr_email,
           'socialName': this.usr_sname,
           'socialProvider': this.usr_provider,
-          'memberAgree': sessionStorage.getItem('marketAgree')
+          'memberMarketingAgree': sessionStorage.getItem('marketAgree')
         },
         {withCredentials: true}
       ).then(function (response) {
         if (response.data.status === 200) {
           sessionStorage.removeItem('marketAgree')
           obj.$router.push({
-            name: 'Mainhome'
+            path: obj.redirect_Uri
           })
         } else {
           alert(response.data.message)
@@ -145,6 +163,7 @@ export default {
             fullRoadAddr += extraRoadAddr
           }
 
+          this.usr_zipcode = data.zonecode // 5자리 새우편번호 사용
           this.usr_address = fullRoadAddr
         }
       }).embed(this.$refs.embed)
