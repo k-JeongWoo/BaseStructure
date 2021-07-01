@@ -6,7 +6,7 @@ import Header from '@/components/layout/Header'
 
 export default [
   {
-    path: '/main/medicalprogram',
+    path: '/medical/first/medicalprogram',
     name: 'Medicalprogram',
     components: {
       header: Header,
@@ -15,7 +15,7 @@ export default [
     props: true
   },
   {
-    path: '/main/medicalConsulting',
+    path: '/medical/medicalConsulting',
     name: 'MedicalConsulting',
     components: {
       header: Header,
@@ -24,7 +24,7 @@ export default [
     props: true
   },
   {
-    path: '/main/medicalInquire',
+    path: '/medical/medicalInquire',
     name: 'MedicalInquire',
     components: {
       header: Header,
@@ -32,7 +32,7 @@ export default [
     }
   },
   {
-    path: '/main/medicalInquireContents',
+    path: '/medical/medicalInquireContents',
     name: 'MedicalInquireContents',
     components: {
       header: Header,

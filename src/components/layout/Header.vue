@@ -3,22 +3,31 @@
   <header class="header">
     <div class="headerBox">
       <h1>
-        <span class="tit" v-show="currentUrl.indexOf('/main/') === 0">진료 프로그램 선택</span>
-        <span class="tit" v-show="currentUrl.indexOf('/auth/') === 0">정보 입력</span>
+        <span class="tit" v-show="currentUrl.indexOf('/medicalprogram') > -1">진료 프로그램 선택</span>
+        <span class="tit" v-show="currentUrl.indexOf('/medicalConsulting') > -1 ||
+                                  currentUrl.indexOf('/medicalInquire') > -1">진료문의</span>
+        <span class="tit" v-show="currentUrl.indexOf('/auth/') > -1">정보 입력</span>
+        <span class="logo" v-show="currentUrl.indexOf('/screeningInfo') > -1">viocross </span>
       </h1>
-      <button type="button" class="btn_left" @click="historyBack">
-        <i class="ico_back"></i>
+      <button type="button" class="btn_left" >
+        <i class="ico_bugger" v-if="currentUrl.indexOf('/main/') > -1">메뉴</i>
+        <i class="" v-else-if="currentUrl.indexOf('/first/') > -1"></i>
+        <i class="ico_back" v-else @click="historyBack"></i>
       </button>
-      <a href="#" class="btn_right" id="show-modal" @click="showModal = true">
-        <i class="ico_close"></i>
+      <a href="#" class="btn_right" id="show-modal" @click="urlCheck">
+        <i class="ico_close" v-if="currentUrl.indexOf('/medical/') > -1 "></i>
+        <div class="notic_ico" v-if="currentUrl.indexOf('screeningInfo') > -1">
+          <i class="ico_bell">알림</i>
+          <p class="num"><span>+99</span></p>
+        </div>
       </a>
       <!-- //header -->
     </div>
     <div>
       <Modal v-if="showModal" @close="showModal = false">
-        <h3 slot="header">경고</h3>
-        <h3 slot="body">입력된 내용이 삭제되며<br />회원가입 첫 화면으로 이동합니다.</h3>
-        <button slot="moveBtn1" @click="showModal = false" class="modal-default-button">확인</button>
+        <h3 slot="header">{{ headModalTitle }}</h3>
+        <h3 slot="body">{{ headModalContent }}</h3>
+        <button slot="moveBtn1" @click="confrimBtn" class="modal-default-button">확인</button>
         <button slot="moveBtn2" @click="showModal = false">취소</button>
       </Modal>
     </div>
@@ -33,7 +42,10 @@ export default {
     return {
       showModal: false,
       showBtn: true,
-      currentUrl: this.$route.path
+      currentUrl: this.$route.path,
+      headModalTitle: '',
+      headModalContent: ''
+
     }
   },
   components: {
@@ -45,6 +57,13 @@ export default {
     },
     historyBack: function () {
       this.$router.go(-1)
+    },
+    urlCheck: function () {
+      if (this.currentUrl.indexOf('medical')) {
+        this.headModalTitle = '선택 진료 프로그램 저장'
+        this.headModalContent = '선택한 진료 프로그램이 저장됩니다.'
+      }
+      this.showModal = !this.showModal
     }
   }
 }

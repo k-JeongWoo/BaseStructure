@@ -10,15 +10,17 @@
         더 자세한 진료를 받을 수 있어요.
       </p>
       <ul class="healthField_list mt6">
-        <li class="field_item" v-for="(item,index) in mdprogram" :key="index"
-          v-if="mdprogram.length > 0">
+        <li class="field_item"
+            v-for="(item, index) in mdprogram"
+            :key="item.careProgramId"
+            v-if="mdprogram.length > 0">
           <input type="checkbox"
                  :id="index"
                  :name="index"
                  v-model="mdCheckRowCnt"
                  :value="index">
           <label :for="index">
-            <i class="ico_mind"></i>{{ item.careProgramName }} // {{ item }}
+            <i class="ico_mind"></i>{{ item.careProgramName }}
           </label>
         </li>
         <li v-else>
@@ -55,7 +57,7 @@ import Modal from '@/components/modal/ConfirmModal'
 export default {
   data: function () {
     return {
-      mdprogram: ['마음', '신경인지', '근골격', '대사', '면역', '피부&체형'],
+      mdprogram: [],
       mdCheckRowCnt: [],
       showModal: false,
       modalTitle: '',
@@ -64,17 +66,17 @@ export default {
   },
   methods: {
     validationChk: function () {
-      this.$router.push({name: 'MedicalConsulting', query: { careProgramIds: this.mdCheckRowCnt }})
-      // if (this.mdCheckRowCnt.length > 0) {
-      //   this.$router.push({name: 'MedicalConsulting', params: { careProgramIds: this.mdCheckRowCnt }})
-      // } else {
-      //   this.showModal = !this.showModal
-      // }
+      // this.$router.push({name: 'MedicalConsulting', query: { careProgramIds: this.mdCheckRowCnt }})
+      if (this.mdCheckRowCnt.length > 0) {
+        this.$router.push({name: 'MedicalConsulting', query: { selectProgram: this.mdCheckRowCnt }})
+      } else {
+        this.showModal = !this.showModal
+      }
     }
   },
   created () {
     const datalist = this
-    axios.get('/api/v1/api/carePrgm/carePrgList')
+    axios.get('/api/v1/api/carePrgm/careProgramList')
       .then(function (response) {
         datalist.mdprogram = response.data.data
       })
