@@ -3,20 +3,20 @@
   <header class="header">
     <div class="headerBox">
       <h1>
-        <span class="tit" v-show="currentUrl.indexOf('/medicalprogram') > -1">진료 프로그램 선택</span>
-        <span class="tit" v-show="currentUrl.indexOf('/medicalConsulting') > -1 ||
-                                  currentUrl.indexOf('/medicalInquire') > -1">진료문의</span>
-        <span class="tit" v-show="currentUrl.indexOf('/auth/') > -1">정보 입력</span>
-        <span class="logo" v-show="currentUrl.indexOf('/screeningInfo') > -1">viocross </span>
+        <span class="tit" v-show="$route.path.indexOf('/medicalprogram') > -1">진료 프로그램 선택</span>
+        <span class="tit" v-show="$route.path.indexOf('/medicalConsulting') > -1 ||
+                                  $route.path.indexOf('/medicalInquire') > -1">진료문의</span>
+        <span class="tit" v-show="$route.path.indexOf('/auth/') > -1">정보 입력</span>
+        <span class="logo" v-show="$route.path.indexOf('/screeningInfo') > -1">viocross </span>
       </h1>
       <button type="button" class="btn_left" >
-        <i class="ico_bugger" v-if="currentUrl.indexOf('/main/') > -1">메뉴</i>
-        <i class="" v-else-if="currentUrl.indexOf('/first/') > -1"></i>
+        <i class="ico_bugger" v-if="$route.path.indexOf('/main/') > -1">메뉴</i>
+        <i class="" v-else-if="$route.path.indexOf('/first/') > -1"></i>
         <i class="ico_back" v-else @click="historyBack"></i>
       </button>
       <a href="#" class="btn_right" id="show-modal" @click="urlCheck">
-        <i class="ico_close" v-if="currentUrl.indexOf('/medical/') > -1 "></i>
-        <div class="notic_ico" v-if="currentUrl.indexOf('screeningInfo') > -1">
+        <i class="ico_close" v-if="$route.path.indexOf('/medical/') > -1 "></i>
+        <div class="notic_ico" v-if="$route.path.indexOf('screeningInfo') > -1">
           <i class="ico_bell">알림</i>
           <p class="num"><span>+99</span></p>
         </div>
@@ -42,10 +42,9 @@ export default {
     return {
       showModal: false,
       showBtn: true,
-      currentUrl: this.$route.path,
       headModalTitle: '',
-      headModalContent: ''
-
+      headModalContent: '',
+      prevRoute: null
     }
   },
   components: {
@@ -65,6 +64,11 @@ export default {
       }
       this.showModal = !this.showModal
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.prevRoute = from
+    })
   }
 }
 </script>

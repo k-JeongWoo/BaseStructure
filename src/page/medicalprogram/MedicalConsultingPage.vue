@@ -41,7 +41,8 @@
                       <input type="radio" class="opener"
                              name="hospi"
                              :id="index"
-                             :value="index" v-model="radioValue">
+                             v-model="radioValue"
+                             :value="item.hospitalId">
                       <label :for="index" class="title_05">
                         <span class="bul"></span>{{ item.pdYadmNm }} // {{ item.hospitalId }}
                       </label>
@@ -87,7 +88,7 @@
                 </div>
               </li>
               <li v-else>
-                검색된 병원이 없습니다.
+                <span>검색된 병원이 없습니다.</span>
               </li>
             </ul>
           </section>
@@ -115,7 +116,7 @@ export default {
           el: '.swiper-pagination'
         }
       },
-      hospitalList: [1, 2],
+      hospitalList: [],
       programList: [],
       selectProgram: [],
       radioValue: 'disabled',
@@ -138,6 +139,7 @@ export default {
     })
       .then(function (response) {
         // 진료가능병원 List
+        console.log(response)
         objdata.hospitalList = response.data.data.data
         // 선택한 프로그램
         objdata.selectProgram = response.data.data.careInfo
@@ -148,7 +150,7 @@ export default {
   },
   methods: {
     findPage: function () {
-      this.$router.push({name: 'MedicalInquire',
+      this.$router.replace({name: 'MedicalInquire',
         query: {
           selectProgram: JSON.stringify(this.selectProgram),
           selectHospital: this.radioValue
