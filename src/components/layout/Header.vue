@@ -14,7 +14,7 @@
         <i class="" v-else-if="$route.path.indexOf('/first/') > -1"></i>
         <i class="ico_back" v-else @click="historyBack"></i>
       </button>
-      <a href="#" class="btn_right" id="show-modal" @click="urlCheck">
+      <a href="#" class="btn_right" id="show-modal" @click="selectCloseBtn">
         <i class="ico_close" v-if="$route.path.indexOf('/medical/') > -1 "></i>
         <div class="notic_ico" v-if="$route.path.indexOf('screeningInfo') > -1">
           <i class="ico_bell">알림</i>
@@ -27,8 +27,8 @@
       <Modal v-if="showModal" @close="showModal = false">
         <h3 slot="header">{{ headModalTitle }}</h3>
         <h3 slot="body">{{ headModalContent }}</h3>
-        <button slot="moveBtn1" @click="confrimBtn" class="modal-default-button">확인</button>
-        <button slot="moveBtn2" @click="showModal = false">취소</button>
+        <button slot="moveBtn1" @click="confirmBtn" class="modal-default-button">확인</button>
+        <button slot="moveBtn2" @click="modalClean()">취소</button>
       </Modal>
     </div>
   </header>
@@ -36,8 +36,10 @@
 
 <script>
 import Modal from '@/components/modal/MoveModal'
+import {fetchProgramRegist} from '../../api'
 
 export default {
+  props: ['propsdata'],
   data: function () {
     return {
       showModal: false,
@@ -51,17 +53,26 @@ export default {
     Modal: Modal
   },
   methods: {
-    confrimBtn: function () {
-      console.log('btn')
+    confirmBtn: function () {
+      if (this.$route.path.indexOf('medical')) {
+        // 관심프로그램 등록
+        fetchProgramRegist(this.$props.propsdata).then(res => console.log(res)).catch(error => console.log(error))
+        this.showModal = !this.showModal
+      }
     },
     historyBack: function () {
       this.$router.go(-1)
     },
-    urlCheck: function () {
-      if (this.currentUrl.indexOf('medical')) {
+    selectCloseBtn: function () {
+      if (this.$route.path.indexOf('medical')) {
         this.headModalTitle = '선택 진료 프로그램 저장'
         this.headModalContent = '선택한 진료 프로그램이 저장됩니다.'
       }
+      this.showModal = !this.showModal
+    },
+    modalClean () {
+      this.headModalTitle = ''
+      this.headModalContent = ''
       this.showModal = !this.showModal
     }
   },
@@ -72,6 +83,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>

@@ -140,21 +140,21 @@
         {{ modalTitle }}
       </h3>
       <h3 slot="body" v-html="modalContents"></h3>
-      <button slot="moveBtn1" @click="showModal = false" class="modal-default-button">확인</button>
+      <button slot="moveBtn1" @click="modalClean" class="modal-default-button">확인</button>
     </Modal>
   </div>
 </template>
 
 <script>
 import Modal from '@/components/modal/ConfirmModal'
-import axios from 'axios'
+import {fetchHospitalList, fetchInquireRegist} from '../../api'
 import 'url-search-params-polyfill'
 
 export default {
   data: function () {
     return {
       userInfo: [],
-      hospitalInfo: [0, 2],
+      hospitalInfo: [],
       selectProgram: JSON.parse(this.$route.query.selectProgram),
       careProgramIds: [],
       selectHospital: this.$route.query.selectHospital,
@@ -171,26 +171,14 @@ export default {
       this.$router.push('/main/MedicalInquireContents')
     },
     validationChk: function () {
-      let dataObj = this
-      this.selectProgram.forEach(function (item) {
-        dataObj.careProgramIds.push(item.careProgramId)
+      this.selectProgram.forEach(item => {
+        this.careProgramIds.push(item.careProgramId)
       })
       if (this.emplyEmail !== '' && this.mdclInqrsDesc !== '' && this.mdclInqrsTitle !== '') {
-        const params = {
-          'careProgramIds': this.careProgramIds,
-          'hospitalId': this.selectHospital,
-          'medicalInquiryDesc': this.mdclInqrsDesc,
-          'medicalInquiryTitle': this.mdclInqrsTitle,
-          'medicalInquirySeegeneMail': this.emplyEmail.concat('@seegene.com')
-        }
-        console.log(params)
-        axios.post('/api/v1/api/medicalInquery/medicalInqueryWrite', params)
-          .then(function (response) {
-            console.log(response)
-          })
-          .catch(error => {
-            console.log(error)
-          })
+        // 문의글 등록
+        fetchInquireRegist(this)
+          .then(res => { console.log(res) })
+          .catch(error => { console.log(error) })
         this.modalTitle = '문의글 등록 완료'
         this.modalContents = '나의 문의내역은 <p class="modal-textColor">마이페이지>온라인상담>나의문의</p> 내역 관리 에서 확인 가능합니다.'
       } else {
@@ -203,20 +191,18 @@ export default {
         }
       }
       this.showModal = !this.showModal
+    },
+    modalClean () {
+      this.modalTitle = ''
+      this.modalContents = ''
+      this.showModal = !this.showModal
     }
   },
   created () {
-    let objdata = this
-    axios.get('/api/v1/api/hospital/hospitalList', {
-      params: {
-        hospitalId: this.selectHospital
-      }
-    }).then(function (response) {
-      // 선택 병원정보 조회
-      objdata.hospitalInfo = response.data.data.data
-    }).catch(function (error) {
-      console.log(error)
-    })
+    // 선택 병원정보 조회
+    fetchHospitalList(this.selectHospital)
+      .then(response => { this.hospitalInfo = response.data.data.data })
+      .catch(function (error) { console.log(error) })
   },
   components: {
     Modal: Modal

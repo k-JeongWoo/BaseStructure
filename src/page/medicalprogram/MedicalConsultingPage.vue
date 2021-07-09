@@ -106,7 +106,7 @@
 
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import axios from 'axios'
+import { fetchProgramlList, fetchHospitalList } from '../../api'
 
 export default {
   data: function () {
@@ -125,28 +125,16 @@ export default {
     }
   },
   created () {
-    let objdata = this
-    axios.get('/api/v1/api/carePrgm/careProgramList').then(res => {
+    fetchProgramlList().then(res => {
       // 관심 프로그램List
-      objdata.programList = res.data.data
-    }).catch(err => {
-      console.log(err)
-    })
-    axios.get('/api/v1/api/hospital/hospitalList', {
-      params: {
-        careProgramIds: this.$route.query.selectProgram.toString()
-      }
-    })
-      .then(function (response) {
-        // 진료가능병원 List
-        console.log(response)
-        objdata.hospitalList = response.data.data.data
-        // 선택한 프로그램
-        objdata.selectProgram = response.data.data.careInfo
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+      this.programList = res.data.data
+    }).catch(err => { console.log(err) })
+    fetchHospitalList(this.$route.query.selectProgram.toString()).then(res => {
+      // 진료가능병원 List
+      this.hospitalList = res.data.data.data
+      // 선택한 프로그램
+      this.selectProgram = res.data.data.careInfo
+    }).catch(error => { console.log(error) })
   },
   methods: {
     findPage: function () {

@@ -11,9 +11,9 @@
       </p>
       <ul class="healthField_list mt6">
         <li class="field_item"
-            v-for="(item, index) in mdprogram"
+            v-for="(item, index) in medicalProgram"
             :key="item.careProgramId"
-            v-if="mdprogram.length > 0">
+            v-if="medicalProgram.length > 0">
           <input type="checkbox"
                  :id="index"
                  :name="index"
@@ -23,7 +23,7 @@
             <i class="ico_mind"></i>{{ item.careProgramName }}
           </label>
         </li>
-        <li v-else>
+        <li class="field_item" v-else>
           등록된 진료 프로그램이 없습니다.
         </li>
       </ul>
@@ -51,13 +51,14 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Modal from '@/components/modal/ConfirmModal'
+import {fetchProgramlList, fetchUserProgramList} from '../../api'
 
 export default {
   data: function () {
     return {
-      mdprogram: [],
+      medicalProgram: [],
+      userMedicalProgram: [],
       mdCheckRowCnt: [],
       showModal: false,
       modalTitle: '',
@@ -68,6 +69,7 @@ export default {
     validationChk: function () {
       // this.$router.push({name: 'MedicalConsulting', query: { careProgramIds: this.mdCheckRowCnt }})
       if (this.mdCheckRowCnt.length > 0) {
+        this.$emit('eventdata', this.mdCheckRowCnt)
         this.$router.push({name: 'MedicalConsulting', query: { selectProgram: this.mdCheckRowCnt }})
       } else {
         this.showModal = !this.showModal
@@ -75,21 +77,22 @@ export default {
     }
   },
   created () {
-    const datalist = this
-    axios.get('/api/v1/api/carePrgm/careProgramList')
-      .then(function (response) {
-        datalist.mdprogram = response.data.data
+    // 관심 프로그램 목록
+    fetchProgramlList()
+      .then(response => { this.medicalProgram = response.data.data })
+      .catch(error => { console.log(error) })
+    // 사용자 관심프로그램
+    fetchUserProgramList()
+      .then(response => {
+        response.data.data.forEach(item => {
+          this.mdCheckRowCnt.push(item.attentionProgramId)
+        })
+        console.log(this.mdCheckRowCnt)
       })
-      .catch(function (error) {
-        console.log(error)
-      })
+      .catch(error => { console.log(error) })
   },
   components: {
     Modal: Modal
   }
 }
 </script>
-
-<style>
-
-</style>
