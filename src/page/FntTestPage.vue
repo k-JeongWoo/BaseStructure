@@ -6,7 +6,6 @@
                 :disabledDates="disabledDates"
                 :highlighted="highlighted"
      >
-      asdasdasdasdasd
     </Datepicker>
   </div>
 </template>
