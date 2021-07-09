@@ -29,7 +29,7 @@ export default [
     },
     beforeEnter: (to, from, next) => {
       if (from.name === 'SignUpForm' || from.path === '/') {
-        let axiosTest = false
+        let axiosTest = true
         if (axiosTest) {
           // console.log(' 비동기통신 _ 유저정보 조회  ')
           axios.get('/api/v1/api/user/userInfo')

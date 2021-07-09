@@ -31,7 +31,7 @@ Vue.use(VueMaterial)
 router.beforeEach((to, from, next) => {
   // 사용자별 언어 설정 분기할 부분
   // i18n.locale = 'en'
-  let testFlag = true
+  let testFlag = false
   if (!testFlag) {
     if (to.path === '/agreement' || to.path === '/auth/niceBlank' || to.path === '/auth/signUpForm') {
       axios.get(`/api/v1/api/auth/tokenUserInfo`, {},
@@ -88,8 +88,6 @@ router.beforeEach((to, from, next) => {
 })
 
 Vue.use(VueCookie)
-
-Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
