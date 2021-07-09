@@ -45,7 +45,7 @@
                            checked="checked"
                            :value="item.hospitalId">
                     <label :for="'hospi'+item.hospitalId" class="title_05">
-                      <span class="bul"></span> {{ item.pdYadmNm }} //
+                      <span class="bul"></span> {{ item.pdYadmNm }}
                     </label>
                     <label :for="'hospital_open0'+item.hospitalId" class="acco_arrow">
                       <i class="ico_arrowT"></i>
@@ -109,6 +109,13 @@
       <div class="box_wrap">
         <section class="box_shadow01">
           <div class="tit_wrap">
+            <h2 class="title_05">제목</h2>
+            <p class="txt_right title_11 ">(250 byte 이내)</p>
+          </div>
+          <div class="inputBox mt3" style="margin-bottom: 15px">
+            <p class="input"><input type="text" placeholder="제목 입력" v-model="mdclInqrsTitle"></p>
+          </div>
+          <div class="tit_wrap">
             <h2 class="title_05">문의내용 </h2>
             <p class="txt_right title_11 ">(1,000 byte 이내)</p>
           </div>
@@ -133,22 +140,27 @@
         {{ modalTitle }}
       </h3>
       <h3 slot="body" v-html="modalContents"></h3>
-      <button slot="moveBtn1" @click="showModal = false" class="modal-default-button">확인</button>
+      <button slot="moveBtn1" @click="modalClean" class="modal-default-button">확인</button>
     </Modal>
   </div>
 </template>
 
 <script>
 import Modal from '@/components/modal/ConfirmModal'
-import axios from 'axios'
+import {fetchHospitalList, fetchInquireRegist} from '../../api'
+import 'url-search-params-polyfill'
 
 export default {
   data: function () {
     return {
       userInfo: [],
-      programList: [],
+      hospitalInfo: [],
+      selectProgram: JSON.parse(this.$route.query.selectProgram),
+      careProgramIds: [],
+      selectHospital: this.$route.query.selectHospital,
       emplyEmail: '',
       mdclInqrsDesc: '',
+      mdclInqrsTitle: '',
       showModal: false,
       modalTitle: '',
       modalContents: ''
@@ -159,24 +171,14 @@ export default {
       this.$router.push('/main/MedicalInquireContents')
     },
     validationChk: function () {
-      let dataObj = this
-      this.selectProgram.forEach(function (item) {
-        dataObj.careProgramIds.push(item.careProgramId)
+      this.selectProgram.forEach(item => {
+        this.careProgramIds.push(item.careProgramId)
       })
-      if (this.emplyEmail !== '' && this.mdclInqrsDesc !== '') {
-        const params = {
-          'careProgramIds': this.careProgramIds,
-          'hospitalId': this.selectHospital,
-          'medicalInquiryDesc': this.mdclInqrsDesc,
-          'medicalInquirySeegeneMail': this.emplyEmail.concat('@seegene.com')
-        }
-        axios.post('/api/v1/api/medicalInquery/medicalInqueryWrite', params)
-          .then(function (response) {
-            console.log(response)
-          })
-          .catch(error => {
-            console.log(error)
-          })
+      if (this.emplyEmail !== '' && this.mdclInqrsDesc !== '' && this.mdclInqrsTitle !== '') {
+        // 문의글 등록
+        fetchInquireRegist(this)
+          .then(res => { console.log(res) })
+          .catch(error => { console.log(error) })
         this.modalTitle = '문의글 등록 완료'
         this.modalContents = '나의 문의내역은 <p class="modal-textColor">마이페이지>온라인상담>나의문의</p> 내역 관리 에서 확인 가능합니다.'
       } else {
@@ -184,19 +186,23 @@ export default {
           this.modalContents = '씨젠 임직원 e-mail주소를 입력해주세요.'
         } else if (!this.mdclInqrsDesc) {
           this.modalContents = '문의내용을 입력해주세요.'
+        } else if (!this.mdclInqrsTitle) {
+          this.modalContents = '제목을 입력해주세요.'
         }
       }
+      this.showModal = !this.showModal
+    },
+    modalClean () {
+      this.modalTitle = ''
+      this.modalContents = ''
       this.showModal = !this.showModal
     }
   },
   created () {
-    const datalist = this
-    axios.get('').then(function (response) {
-      datalist.userInfo = response.data
-      datalist.programList = response.data
-    }).catch(function (error) {
-      console.log(error)
-    })
+    // 선택 병원정보 조회
+    fetchHospitalList(this.selectHospital)
+      .then(response => { this.hospitalInfo = response.data.data.data })
+      .catch(function (error) { console.log(error) })
   },
   components: {
     Modal: Modal

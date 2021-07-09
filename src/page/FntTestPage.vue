@@ -3,8 +3,7 @@
     <h1>datepicker</h1>
     <Datepicker :language="language"
                 :format="DatePickerFormat"
-                :disabledDates="disabledDates"
-                :highlighted="highlighted"
+                :disabledDates="disabledDates">
      >
     </Datepicker>
   </div>

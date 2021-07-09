@@ -55,5 +55,28 @@ module.exports = {
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
     cssSourceMap: false
+  },
+  stg: {
+    env: require('./prod.env'),
+    port: 8090,
+    autoOpenBrowser: true,
+    assetsSubDirectory: 'static',
+    assetsPublicPath: '/',
+    proxyTable: {
+      '/api': {
+        target: 'http://192.168.100.255:8080',
+        //target: 'http://sgn-stg.neodreams.co.kr:8080',
+        //target: 'http://localhost:8080',
+        pathRewrite: { '^/api': '' },
+        changeOrigin: true,
+        source: false
+      }
+    },
+    // CSS Sourcemaps off by default because relative paths are "buggy"
+    // with this option, according to the CSS-Loader README
+    // (https://github.com/webpack/css-loader#sourcemaps)
+    // In our experience, they generally work as expected,
+    // just be aware of this issue when enabling this option.
+    cssSourceMap: false
   }
 }

@@ -1,17 +1,26 @@
 <template>
   <div id="app" class="wrap">
-    <router-view name="header"></router-view>
+    <router-view name="header" v-bind:propsdata="receiveData"></router-view>
     <div>
       <router-view name="leftnemu"></router-view>
     </div>
-    <router-view name="default"></router-view>
+    <router-view name="default" v-on:eventdata="transData"></router-view>
     <router-view name="footer"></router-view>
   </div>
 </template>
 
 <script>
 export default {
-
+  methods: {
+    transData: function (value) {
+      this.receiveData = value
+    }
+  },
+  data () {
+    return {
+      receiveData: []
+    }
+  }
 }
 </script>
 

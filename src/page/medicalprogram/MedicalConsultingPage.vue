@@ -41,7 +41,8 @@
                       <input type="radio" class="opener"
                              name="hospi"
                              :id="index"
-                             :value="index" v-model="radioValue">
+                             v-model="radioValue"
+                             :value="item.hospitalId">
                       <label :for="index" class="title_05">
                         <span class="bul"></span>{{ item.pdYadmNm }} // {{ item.hospitalId }}
                       </label>
@@ -87,7 +88,7 @@
                 </div>
               </li>
               <li v-else>
-                검색된 병원이 없습니다.
+                <span>검색된 병원이 없습니다.</span>
               </li>
             </ul>
           </section>
@@ -105,7 +106,7 @@
 
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import axios from 'axios'
+import { fetchProgramlList, fetchHospitalList } from '../../api'
 
 export default {
   data: function () {
@@ -115,7 +116,7 @@ export default {
           el: '.swiper-pagination'
         }
       },
-      hospitalList: [1, 2],
+      hospitalList: [],
       programList: [],
       selectProgram: [],
       radioValue: 'disabled',
@@ -124,31 +125,20 @@ export default {
     }
   },
   created () {
-    let objdata = this
-    axios.get('/api/v1/api/carePrgm/careProgramList').then(res => {
+    fetchProgramlList().then(res => {
       // 관심 프로그램List
-      objdata.programList = res.data.data
-    }).catch(err => {
-      console.log(err)
-    })
-    axios.get('/api/v1/api/hospital/hospitalList', {
-      params: {
-        careProgramIds: this.$route.query.selectProgram.toString()
-      }
-    })
-      .then(function (response) {
-        // 진료가능병원 List
-        objdata.hospitalList = response.data.data.data
-        // 선택한 프로그램
-        objdata.selectProgram = response.data.data.careInfo
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+      this.programList = res.data.data
+    }).catch(err => { console.log(err) })
+    fetchHospitalList(this.$route.query.selectProgram.toString()).then(res => {
+      // 진료가능병원 List
+      this.hospitalList = res.data.data.data
+      // 선택한 프로그램
+      this.selectProgram = res.data.data.careInfo
+    }).catch(error => { console.log(error) })
   },
   methods: {
     findPage: function () {
-      this.$router.push({name: 'MedicalInquire',
+      this.$router.replace({name: 'MedicalInquire',
         query: {
           selectProgram: JSON.stringify(this.selectProgram),
           selectHospital: this.radioValue

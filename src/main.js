@@ -13,11 +13,13 @@ import en from './locales/en.json'
 import ko from './locales/ko.json'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
+import Vuetify from 'vuetify'
 
 Vue.use(VueI18n)
 Vue.use(AmCharts)
 Vue.use(AmSerial)
 Vue.use(AmPie)
+Vue.use(Vuetify)
 
 // 다국어 처리
 const i18n = new VueI18n({
@@ -97,3 +99,5 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+
+export default Vuetify
