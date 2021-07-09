@@ -20,7 +20,7 @@ export default [
     component: NotFound
   },
   {
-    path: '/me',
+    path: '/mainhome',
     name: 'Mainhome',
     components: {
       header: Header,
