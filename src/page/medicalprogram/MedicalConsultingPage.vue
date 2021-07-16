@@ -28,9 +28,8 @@
         <div class="box_wrap">
           <section class="box_shadow01 pb8">
             <h2 class="title_05 mb6">진료가능 병원</h2>
-            <ul>
+            <ul v-if="hospitalList.length > 0">
               <li class="hospital_list"
-                  v-if="hospitalList.length > 0"
                   v-for="(item,index) in hospitalList"
                   :key="index"
                   >
@@ -44,7 +43,7 @@
                              v-model="radioValue"
                              :value="item.hospitalId">
                       <label :for="index" class="title_05">
-                        <span class="bul"></span>{{ item.pdYadmNm }} // {{ item.hospitalId }}
+                        <span class="bul"></span>{{ item.pdYadmNm }}
                       </label>
                       <label :for="'open_'+index" class="acco_arrow">
                         <i class="ico_arrowT"></i>
@@ -87,8 +86,16 @@
                   </div>
                 </div>
               </li>
-              <li v-else>
-                <span>검색된 병원이 없습니다.</span>
+            </ul>
+            <ul v-else>
+              <li class="hospital_list">
+                <div class="hospital_item">
+                  <div class="hospital_tit">
+                    <p class="inputRadio typeA">
+                      <span>검색된 병원이 없습니다.</span>
+                    </p>
+                  </div>
+                </div>
               </li>
             </ul>
           </section>
@@ -118,29 +125,32 @@ export default {
       },
       hospitalList: [],
       programList: [],
-      selectProgram: [],
+      selectProgram: this.$route.query.selectProgram,
       radioValue: 'disabled',
       selectHospital: '',
       careProgramIds: ''
     }
   },
   created () {
-    fetchProgramlList().then(res => {
-      // 관심 프로그램List
-      this.programList = res.data.data
-    }).catch(err => { console.log(err) })
-    fetchHospitalList(this.$route.query.selectProgram.toString()).then(res => {
-      // 진료가능병원 List
+    let params = {
+      careProgramIds: this.selectProgram
+    }
+    fetchHospitalList(params).then(res => {
+      // 관심 프로그램에 의한 진료가능병원 목록
       this.hospitalList = res.data.data.data
       // 선택한 프로그램
       this.selectProgram = res.data.data.careInfo
     }).catch(error => { console.log(error) })
+    // 관심 프로그램List
+    fetchProgramlList().then(res => {
+      this.programList = res.data.data
+    }).catch(err => { console.log(err) })
   },
   methods: {
     findPage: function () {
       this.$router.replace({name: 'MedicalInquire',
         query: {
-          selectProgram: JSON.stringify(this.selectProgram),
+          selectProgram: this.selectProgram,
           selectHospital: this.radioValue
         }
       })

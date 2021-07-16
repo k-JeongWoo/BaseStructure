@@ -8,6 +8,7 @@
                                   $route.path.indexOf('/medicalInquire') > -1">진료문의</span>
         <span class="tit" v-show="$route.path.indexOf('/auth/') > -1">정보 입력</span>
         <span class="logo" v-show="$route.path.indexOf('/screeningInfo') > -1">viocross </span>
+        <span class="tit" v-show="$route.path.indexOf('/medicine') > -1">진료 및 투약이력 </span>
       </h1>
       <button type="button" class="btn_left" >
         <i class="ico_bugger" v-if="$route.path.indexOf('/main/') > -1">메뉴</i>

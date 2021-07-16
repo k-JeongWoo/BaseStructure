@@ -4,7 +4,7 @@
     <div>
       <router-view name="leftnemu"></router-view>
     </div>
-    <router-view name="default" v-on:eventdata="transData"></router-view>
+    <router-view name="default" v-on:eventdata="transData" v-bind:propsdata="receiveData"></router-view>
     <router-view name="footer"></router-view>
   </div>
 </template>

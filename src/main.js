@@ -14,12 +14,15 @@ import ko from './locales/ko.json'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(VueI18n)
 Vue.use(AmCharts)
 Vue.use(AmSerial)
 Vue.use(AmPie)
 Vue.use(Vuetify)
+Vue.use(VueMaterial)
+Vue.use(VueCookie)
 
 // 다국어 처리
 const i18n = new VueI18n({
@@ -28,12 +31,10 @@ const i18n = new VueI18n({
   messages: { en, ko }
 })
 
-Vue.use(VueMaterial)
-
 router.beforeEach((to, from, next) => {
   // 사용자별 언어 설정 분기할 부분
   // i18n.locale = 'en'
-  let testFlag = false
+  let testFlag = true
   if (!testFlag) {
     if (to.path === '/agreement' || to.path === '/auth/niceBlank' || to.path === '/auth/signUpForm') {
       axios.get(`/api/v1/api/auth/tokenUserInfo`, {},
@@ -89,8 +90,6 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-Vue.use(VueCookie)
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -99,5 +98,3 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
-
-export default Vuetify

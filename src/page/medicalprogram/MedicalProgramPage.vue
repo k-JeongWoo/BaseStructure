@@ -11,15 +11,15 @@
       </p>
       <ul class="healthField_list mt6">
         <li class="field_item"
-            v-for="(item, index) in medicalProgram"
+            v-for="item in medicalProgram"
             :key="item.careProgramId"
             v-if="medicalProgram.length > 0">
           <input type="checkbox"
-                 :id="index"
-                 :name="index"
+                 :id="item.careProgramId"
+                 :name="item.careProgramId"
                  v-model="mdCheckRowCnt"
-                 :value="index">
-          <label :for="index">
+                 :value="item.careProgramId">
+          <label :for="item.careProgramId">
             <i class="ico_mind"></i>{{ item.careProgramName }}
           </label>
         </li>
@@ -55,10 +55,10 @@ import Modal from '@/components/modal/ConfirmModal'
 import {fetchProgramlList, fetchUserProgramList} from '../../api'
 
 export default {
+  props: ['propsdata'],
   data: function () {
     return {
       medicalProgram: [],
-      userMedicalProgram: [],
       mdCheckRowCnt: [],
       showModal: false,
       modalTitle: '',
@@ -84,10 +84,14 @@ export default {
     // 사용자 관심프로그램
     fetchUserProgramList()
       .then(response => {
-        response.data.data.forEach(item => {
-          this.mdCheckRowCnt.push(item.attentionProgramId)
-        })
-        console.log(this.mdCheckRowCnt)
+        // 저장되기 전 사용자 선택 관심프로그램 유지처리
+        if (this.$props.propsdata.length > 0) {
+          this.mdCheckRowCnt = this.$props.propsdata
+        } else {
+          response.data.data.forEach(item => {
+            this.mdCheckRowCnt.push(item.careProgramId)
+          })
+        }
       })
       .catch(error => { console.log(error) })
   },
