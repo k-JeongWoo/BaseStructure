@@ -23,8 +23,8 @@
           <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/facebook?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_facebook"></i>페이스북으로 시작하기</a>
           <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/naver?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_naver"></i>네이버로 시작하기</a>
 
-          <router-link to="/medical/first/medicalprogram" class="btn_border_snsLog sm"><i class="">Medical</i></router-link>
-          <router-link to="/fntTestPage" class="btn_border_snsLog sm"><i class="">기능테스트</i></router-link>
+<!--          <router-link to="/medical/first/medicalprogram" class="btn_border_snsLog sm"><i class="">Medical</i></router-link>
+          <router-link to="/fntTestPage" class="btn_border_snsLog sm"><i class="">기능테스트</i></router-link>-->
 <!--
           <router-link to="/mainhome" class="btn_border_snsLog sm">메인으로</router-link>
           <router-link to="/main/medicalprogram" class="btn_border_snsLog sm"><i class="">Medical</i></router-link>

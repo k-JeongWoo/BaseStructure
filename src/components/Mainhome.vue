@@ -40,7 +40,7 @@
         <section class="box_shadow01">
           <h2 class="title_05">나의 건강 신호등</h2>
           <div class="btnArea mt6">
-            <button type="button" class="btn_border">건강검진 결과 불러오기</button>
+            <button type="button" class="btn_border"><router-link to="">건강검진 결과 불러오기</router-link></button>
           </div>
           <div class="swiper-container metabolism_list mt6">
             <div class="swiper-wrapper">

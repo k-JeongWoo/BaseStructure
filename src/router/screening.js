@@ -1,10 +1,33 @@
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import ChartSample from '@/components/screening/chartsample'
+import ScreeningResult from '@/page/screening/ScreeningResult'
+import ScreeningDetail from '@/page/screening/ScreeningDetail'
 import ScreeningInfo from '@/page/screening/ScreeningInfo'
 import ScreeningWrite from '@/page/screening/ScreeningWrite'
 import ScreeningSecurityNumber from '@/page/screening/ScreeningSecurityNumber'
 
 export default [
+  {
+    path: '/screening/screeningResult',
+    name: 'ScreeningResult',
+    components: {
+      header: Header,
+      default: ScreeningResult,
+      footer: Footer
+    },
+    props: true
+  },
+  {
+    path: '/screening/screeningDetail',
+    name: 'ScreeningDetail',
+    components: {
+      header: Header,
+      default: ScreeningDetail,
+      footer: Footer
+    },
+    props: true
+  },
   {
     path: '/screening/screeningInfo',
     name: 'ScreeningInfo',
@@ -30,6 +53,15 @@ export default [
     components: {
       header: Header,
       default: ScreeningSecurityNumber
+    },
+    mode: 'history'
+  },
+  {
+    path: '/screening/chartSample',
+    name: 'chartSample',
+    components: {
+      header: Header,
+      default: ChartSample
     },
     mode: 'history'
   }

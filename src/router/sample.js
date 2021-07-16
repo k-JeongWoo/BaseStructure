@@ -29,8 +29,7 @@ export default [
     },
     beforeEnter: (to, from, next) => {
       if (from.name === 'SignUpForm' || from.path === '/') {
-        let axiosTest = true
-        if (axiosTest) {
+        if (process.env.NODE_ENV === 'development') {
           // console.log(' 비동기통신 _ 유저정보 조회  ')
           axios.get('/api/v1/api/user/userInfo')
             .then(function (response) {
@@ -54,7 +53,7 @@ export default [
               // 서비스 블랭크 페이지로
             })
         } else {
-          sessionStorage.setItem('usr_name', '게스트')
+          // sessionStorage.setItem('usr_name', '게스트')
           next()
         }
       } else {
