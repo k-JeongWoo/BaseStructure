@@ -12,7 +12,10 @@
       </h1>
       <button type="button" class="btn_left" >
         <i class="ico_bugger" v-if="$route.path.indexOf('/main/') > -1">메뉴</i>
-        <i class="" v-else-if="$route.path.indexOf('/first/') > -1"></i>
+        <i class=""
+           v-else-if="$route.path.indexOf('/first/') > -1
+           || $route.path.indexOf('/mainhome') > -1">
+        </i>
         <i class="ico_back" v-else @click="historyBack"></i>
       </button>
       <a href="#" class="btn_right" id="show-modal" @click="selectCloseBtn">
@@ -57,8 +60,11 @@ export default {
     confirmBtn: function () {
       if (this.$route.path.indexOf('medical')) {
         // 관심프로그램 등록
-        fetchProgramRegist(this.$props.propsdata).then(res => console.log(res)).catch(error => console.log(error))
-        this.showModal = !this.showModal
+        fetchProgramRegist(this.$props.propsdata)
+          .then(res => {
+            this.$router.push('/mainhome')
+            this.showModal = !this.showModal
+          }).catch(error => console.log(error))
       }
     },
     historyBack: function () {

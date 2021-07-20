@@ -20,7 +20,7 @@
         -->
             <div class="tit_wrap">
               <h2 class="title_05">선택 진료 프로그램 </h2>
-              <a href="" class="btn_right"><i class="ico_more"></i>더보기</a>
+              <a href="/medical/first/medicalprogram" class="btn_right"><i class="ico_more"></i></a>
             </div>
             <p class="program_list">
               <button type="button" class="program_item bgColor01">마음</button>
@@ -369,10 +369,4 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-@import '../assets/resources/css/common.css';
-@import '../assets/resources/css/index.css';
-</style>
 
