@@ -33,7 +33,6 @@ export default [
           // console.log(' 비동기통신 _ 유저정보 조회  ')
           axios.get('/api/v1/api/user/userInfo')
             .then(function (response) {
-              console.log(response)
               if (response.data.resultCode === 'error') {
                 // sessionStorage.clear()
                 sessionStorage.setItem('usr_name', '게스트')

@@ -40,7 +40,7 @@
         <section class="box_shadow01">
           <h2 class="title_05">나의 건강 신호등</h2>
           <div class="btnArea mt6">
-            <button type="button" class="btn_border"><router-link to="">건강검진 결과 불러오기</router-link></button>
+            <router-link to="/screening/screeningInfo"><button type="button" class="btn_border">건강검진 결과 불러오기</button></router-link>
           </div>
           <div class="swiper-container metabolism_list mt6">
             <div class="swiper-wrapper">
@@ -195,8 +195,18 @@
       <div class="box_wrap">
         <div class="box_shadow01">
           <div class="tit_wrap">
-            <h2 class="title_05">나의 건강 정보</h2>
-            <a href="" class="btn_right"><i class="ico_more"></i>더보기</a>
+            <router-link to="/screening/screeningResult"><h2 class="title_05">나의 건강 정보</h2></router-link>
+            <a href="" class="btn_right"><router-link to="/screening/screeningResult"><i class="ico_more"></i></router-link>더보기</a>
+          </div>
+        </div>
+      </div>
+      <!---->
+      <!---->
+      <div class="box_wrap">
+        <div class="box_shadow01">
+          <div class="tit_wrap">
+            <router-link to="/medicine/Medicine"><h2 class="title_05">진료 및 투약 정보</h2></router-link>
+            <a href="" class="btn_right"><router-link to="/medicine/Medicine"><i class="ico_more"></i></router-link>더보기</a>
           </div>
         </div>
       </div>

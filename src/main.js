@@ -34,7 +34,6 @@ const i18n = new VueI18n({
 router.beforeEach((to, from, next) => {
   // 사용자별 언어 설정 분기할 부분
   // i18n.locale = 'en'
-  console.log(process.env.NODE_ENV)
   if (process.env.NODE_ENV !== 'development') {
     if (to.path === '/agreement' || to.path === '/auth/niceBlank' || to.path === '/auth/signUpForm') {
       axios.get(`/api/v1/api/auth/tokenUserInfo`, {},
@@ -50,7 +49,6 @@ router.beforeEach((to, from, next) => {
     } else {
       axios.get('/api/v1/api/user/userInfo')
         .then(function (response) {
-          console.log(response)
           if (to.path === '/' && response.data.resultCode !== 'error') {
             console.log('Add Session Storage ! - User Name = ' + response.data.data.name)
             sessionStorage.setItem('usr_name', response.data.data.name)
