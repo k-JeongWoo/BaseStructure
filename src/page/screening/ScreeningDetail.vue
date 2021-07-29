@@ -1,10 +1,10 @@
 <template>
   <!--  container  -->
   <div class="container curation_01">
-    {{searchYear}} // {{searchDiseaseType}}
-    <div>
+<!--    {{searchYear}}{{searchDiseaseType}}-->
+<!--    <div>
       {{checkupDetailList}}
-    </div>
+    </div>-->
     <div class="box_wrap" v-if="searchDiseaseType === 'OBE'">
       <section class="box_shadow01">
         <h2 class="title_02">비만검사</h2>

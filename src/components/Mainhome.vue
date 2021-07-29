@@ -1,204 +1,114 @@
 <template>
-  <div>
-    <!--  container  -->
-    <div class="container main">
-      <!-- header -->
-      <header class="header">
-        <div class="headerBox">
-          <h1>
-            <span class="logo">viocross</span>
-          </h1>
-          <button type="button" class="btn_left">
-            <i class="ico_bugger">메뉴</i>
-          </button>
-          <a href="#" class="btn_right">
-            <div class="notic_ico">
-              <i class="ico_bell">알림</i>
-              <p class="num"><span>+99</span></p>
-            </div>
-          </a>
-        </div>
-      </header>
-      <!-- //header -->
-      <!--contents-->
-      <div class="contents">
+  <!--  container  -->
+  <div class="container main">
+    <!--contents-->
+    <div class="contents">
+      <div class="box_wrap">
+        <section class="box_shadow01">
+          <button @click="$i18n.locale='ko'">한국어</button>
+          <button @click="$i18n.locale='en'">English</button>
+          <h2 class="title_02">{{ $t('default.hello') }}안녕하세요, <router-link :to="{path: '/user/userdetail', query: {name: usr_name, arr_data: arr_data}}"><span class="colorA">{{ usr_name }}</span></router-link> 님!</h2>
 
-        <!--  안쓰는건가?
-        <div class="box_wrap">
-          <section class="box_p32">
-            <p class="title_05 colorA">안내</p>
-            <h2 class="title_02">환영합니다!</h2>
-            <div class="">
-              <div class="pairing_gray">
-                <i class="icoCom_pairing">연동</i>
-              </div>
-              <p class="contTxt_05 tac">디바이스 건강 데이터를 연동해서<br>
-                viocross를 시작해보세요!</p>
-              <div class="btnArea mt4">
-                <button type="button" class="btn_fill">데이터 연동</button>
-              </div>
-            </div>
-          </section>
-        </div>
-        -->
-
-        <div class="box_wrap bgNone">
-          <section class="box_p32 bgColorB">
-            <p class="title_05 colorA">서비스 이용 안내</p>
-            <h2 class="title_02">환영합니다!</h2>
-            <p class="contTxt_06 mt4">로그인을 통해 건강 데이터를 연동해보세요.<br>
-              나의 활동을 모니터링하고 병원에서 의사에게
-              직접 라이프 코칭을 받아 보실 수 있습니다.</p>
-            <div class="wellcome_img">
-              <img src="../assets/resources/images/common/img_wellcome.png" alt="코칭이미지">
-            </div>
-            <div class="btnArea mt4">
-              <button type="button" class="btn_fill">로그인</button>
-            </div>
-          </section>
-          <!--//box_p32-->
-          <section class="box_p32 bgColorB">
-            <p class="title_05 colorA">데이터 연동 안내</p>
-            <h2 class="title_02">건강 데이터를 연동하세요!</h2>
-            <p class="contTxt_06 mt4">나의 활동을 모니터링하고 병원에서 의사에게
-              직접 라이프 코칭을 받아 보실 수 있습니다.</p>
-            <div class="pairingBox">
-              <p class="iconBox">
-                <i class="icon_iosHealth">연동</i>
-                <span>건강</span>
-                <!--삼성헬스
-								<i class="icon_samsungHealth">연동</i>
-								<span>삼성헬스</span>
-								-->
-              </p>
-              <p class="pairing_white">
-                <i class="icoCom_pairing">연동</i>
-              </p>
-              <p class="iconBox">
-                <i class="icon_viocross">연동</i>
-                <span>셀리메디</span>
-              </p>
-            </div>
-            <!-- <div class="pairingBox">
-              <p class="iconBox">
-                <i class="icon_samsungHealth">연동</i>
-                <span>건강</span>
-              </p>
-              <p class="pairing_white">
-                <i class="icoCom_pairing">연동</i>
-              </p>
-              <p class="iconBox">
-                <i class="icon_viocross">연동</i>
-                <span>셀리메디</span>
-              </p>
-            </div> -->
-            <div class="btnArea mt4">
-              <button type="button" class="btn_fill">데이터 연동</button>
-            </div>
-          </section>
-          <!--//box_p32-->
-          <div class="box_p16 bgColorB">
-            <div class="swiper-container reserSlide">
-              <ul class="swiper-wrapper reservation_list">
-                <li class="swiper-slide item">
-                  <div class="tit">
-                    <p>내일 가야 할 병원</p>
-                  </div>
-                  <div class="reservation_info">
-                    <div class="reser_dDay red">D-<span>1</span></div>
-                    <ul class="ico_listStyle01">
-                      <li class="list_item">
-                        <i class="icoCom_day_purple">예약일</i>
-                        <span>2021년 7월 6일 (화)</span>
-                      </li>
-                      <li class="list_item">
-                        <i class="icoCom_time_purple">예약시간</i>
-                        <span>오후 3:00</span>
-                      </li>
-                      <li class="list_item">
-                        <i class="icoCom_hos_purple">예약병원</i>
-                        <span>씨젠클리닉</span>
-                      </li>
-                      <li class="list_item">
-                        <i class="icoCom_memo_purple">예약메모</i>
-                        <span>종합건강검진</span>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <!--//item-->
-                <li class="swiper-slide item">
-                  <div class="tit">
-                    <p>내일 가야 할 병원</p>
-                  </div>
-                  <div class="reservation_info">
-                    <div class="reser_dDay">D-<span>2</span></div>
-                    <ul class="ico_listStyle01">
-                      <li class="list_item">
-                        <i class="icoCom_day_purple">예약일</i>
-                        <span>2021년 7월 6일 (화)</span>
-                      </li>
-                      <li class="list_item">
-                        <i class="icoCom_time_purple">예약시간</i>
-                        <span>오후 3:00</span>
-                      </li>
-                      <li class="list_item">
-                        <i class="icoCom_hos_purple">예약병원</i>
-                        <span>씨젠클리닉</span>
-                      </li>
-                      <li class="list_item">
-                        <i class="icoCom_memo_purple">예약메모</i>
-                        <span>종합건강검진</span>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <!--//item-->
-                <li class="swiper-slide item">
-                  <div class="tit">
-                    <p>내일 가야 할 병원</p>
-                  </div>
-                  <div class="reservation_info">
-                    <div class="reser_dDay">D-<span>2</span></div>
-                    <ul class="ico_listStyle01">
-                      <li class="list_item">
-                        <i class="icoCom_day_purple">예약일</i>
-                        <span>2021년 7월 6일 (화)</span>
-                      </li>
-                      <li class="list_item">
-                        <i class="icoCom_time_purple">예약시간</i>
-                        <span>오후 3:00</span>
-                      </li>
-                      <li class="list_item">
-                        <i class="icoCom_hos_purple">예약병원</i>
-                        <span>씨젠클리닉</span>
-                      </li>
-                      <li class="list_item">
-                        <i class="icoCom_memo_purple">예약메모</i>
-                        <span>종합건강검진</span>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <!--//item-->
-              </ul>
-            </div>
+          <!-- <h2 class="title_02">반갑습니다! </h2> -->
+          <div class="mt4">
+            <!--
+          <p class="contTxt_06">진료 프로그램을 선택하고<br>
+            주치의 선생님에게 더 자세한 진료를 받아보세요.</p>
+          <div class="btnArea mt4">
+            <button type="button" class="btn_fill">진료 프로그램 선택하기</button>
           </div>
-          <!--//box_p16-->
-        </div>
-        <!--//box_wrap-->
-        <!--//box_wrap-->
-        <div class="box_wrap">
-          <section class="box_p32">
-            <p class="title_05 colorA">활동 요약</p>
-            <h2 class="title_01">오늘의 걷기</h2>
-            <div class="todayWalking mt4">
-              <div class="walkBul tac">
-                <i class="icoCom_walking">걷기</i>
-                <p>
-                  <span class="colorA">좋은 걸음</span>으로<br>
-                  <span>걸어보세요!</span>
-                  <!-- <span>걸으셨군요!</span> -->
+        -->
+            <div class="tit_wrap">
+              <h2 class="title_05">선택 진료 프로그램 </h2>
+              <a href="" class="btn_right"><i class="ico_more"></i>더보기</a>
+            </div>
+            <p class="program_list">
+              <button type="button" class="program_item bgColor01">마음</button>
+              <button type="button" class="program_item bgColor02">신경인지</button>
+              <button type="button" class="program_item bgColor03">심혈관</button>
+              <button type="button" class="program_item bgColor04">근골격</button>
+              <button type="button" class="program_item bgColor05">대사</button>
+              <button type="button" class="program_item bgColor06">면역</button>
+              <button type="button" class="program_item bgColor07">피부 & 체형</button>
+            </p>
+
+          </div>
+        </section>
+      </div>
+      <!---->
+      <div class="box_wrap">
+        <section class="box_shadow01">
+          <h2 class="title_05">나의 건강 신호등</h2>
+          <div class="btnArea mt6">
+            <router-link to="/screening/screeningInfo"><button type="button" class="btn_border">건강검진 결과 불러오기</button></router-link>
+          </div>
+          <div class="swiper-container metabolism_list mt6">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide metabolism_box">
+                <div class="tit_wrap">
+                  <h2 class="title_02">
+                    <i class="ico_metabolism01"></i>대사
+                  </h2>
+                  <a href="" class="btn_right"><i class="ico_more"></i>더보기</a>
+                </div>
+                <div class="metabolism_cont">
+                  <p class="contTxt_06 mt4">각 항목에 관한 일반적인 가이드라인이 들어가는 자리입니다. 각 항목에 관한 일반적인 가이드라인이
+                    들어가는 자리입니다. 각 항목에 관한 일반적인 가이드라인이 들어가는 자리입니다.</p>
+                </div>
+                <p class="metabolism_state state01">
+                  <!-- 클래스없음 :: 데이터 없음 /  state01 :: 좋음 / state02 :: 양호 / state03 :: 위험 -->
+                  좋음
+                </p>
+              </div>
+              <!---->
+              <div class="swiper-slide metabolism_box">
+                <div class="tit_wrap">
+                  <h2 class="title_02">
+                    <i class="ico_metabolism01"></i>면역
+                  </h2>
+                  <a href="" class="btn_right"><i class="ico_more"></i>더보기</a>
+                </div>
+                <div class="metabolism_cont">
+                  <p class="contTxt_06 mt4">각 항목에 관한 일반적인 가이드라인이 들어가는 자리입니다. 각 항목에 관한 일반적인 가이드라인이
+                    들어가는 자리입니다. 각 항목에 관한 일반적인 가이드라인이 들어가는 자리입니다.</p>
+                </div>
+                <p class="metabolism_state state02">
+                  <!-- 클래스없음 :: 데이터 없음 /  state01 :: 좋음 / state02 :: 양호 / state03 :: 위험 -->
+                  양호
+                </p>
+              </div>
+              <!---->
+              <div class="swiper-slide metabolism_box">
+                <div class="tit_wrap">
+                  <h2 class="title_02">
+                    <i class="ico_metabolism01"></i>심혈관
+                  </h2>
+                  <a href="" class="btn_right"><i class="ico_more"></i>더보기</a>
+                </div>
+                <div class="metabolism_cont">
+                  <p class="contTxt_06 mt4">각 항목에 관한 일반적인 가이드라인이 들어가는 자리입니다. 각 항목에 관한 일반적인 가이드라인이
+                    들어가는 자리입니다. 각 항목에 관한 일반적인 가이드라인이 들어가는 자리입니다.</p>
+                </div>
+                <p class="metabolism_state state03">
+                  <!-- 클래스없음 :: 데이터 없음 /  state01 :: 좋음 / state02 :: 양호 / state03 :: 위험 -->
+                  위험
+                </p>
+              </div>
+              <!---->
+              <div class="swiper-slide metabolism_box">
+                <div class="tit_wrap">
+                  <h2 class="title_02">
+                    <i class="ico_metabolism01"></i>피부&체형
+                  </h2>
+                  <a href="" class="btn_right"><i class="ico_more"></i>더보기</a>
+                </div>
+                <div class="metabolism_cont">
+                  <p class="contTxt_06 mt4">각 항목에 관한 일반적인 가이드라인이 들어가는 자리입니다. 각 항목에 관한 일반적인 가이드라인이
+                    들어가는 자리입니다. 각 항목에 관한 일반적인 가이드라인이 들어가는 자리입니다.</p>
+                </div>
+                <p class="metabolism_state ">
+                  <!-- 클래스없음 :: 데이터 없음 /  state01 :: 좋음 / state02 :: 양호 / state03 :: 위험 -->
+                  데이터 없음
                 </p>
               </div>
               <p class="contTxt_05 tac">아직 좋은 걸음으로 걸어보지 않으셨네요!<br>
@@ -341,70 +251,42 @@
             </div>
           </section>
         </div>
-          -->
-
-        <!--//box_wrap-->
-        <div class="box_wrap">
-          <section class="box_p32 bgColorB">
-            <p class="title_05 colorA">복약 관리 안내</p>
-            <h2 class="title_02">약 먹는 시간을 알려드려요!</h2>
-            <p class="contTxt_06 mt4">약 먹는 시간을 자꾸 잊어버리시나요?<br>
-              복약 알람 기록기능을 사용해보세요.</p>
-          </section>
-          <!--//box_p32-->
-          <section class="box_p32">
-            <p class="title_05 colorA">내가 먹는 약</p>
-            <h2 class="title_01">복약 알람 및 기록</h2>
-            <div class="btnArea mt4 mb7">
-              <button type="button" class="btn_fill">+ 알림/약 추가</button>
-            </div>
-            <div class="btnArea mt4 mb7">
-              <a href="/medicine/medicationSetting" class="btn_fill">
-                알림/약 추가
-              </a>
-              <a href="/medicine/medicationHistory" class="btn_border">
-                히스토리
-              </a>
-            </div>
-            <div class="medication_box ">
-              <div class="medication_notice">
-                <p class="title_01">
-                  <i class="icoCom_time">시간</i>
-                  <span class="mr1">오후</span>
-                  <span>12:30</span>
-                </p>
-                <button type="button" class="btn_border icoBtn"><i class="icoCom_write">작성</i></button>
-              </div>
-              <div class="btnArea mt4">
-                <button type="button" class="btn_border">모두 복용</button>
-              </div>
-              <ul class="medication_list">
-                <li>
-                  <p class="medi_name">당뇨약당뇨약</P>
-                  <button type="button" class="btn_fill sm">복용</button>
-                </li>
-                <li>
-                  <p class="medi_name">당뇨약</P>
-                  <button type="button" class="btn_fill sm">복용</button>
-                </li>
-                <li>
-                  <p class="medi_name">당뇨약</P>
-                  <button type="button" class="btn_fill_color02 sm">복용완료</button>
-                </li>
-              </ul>
-            </div>
-            <!---->
-            <div class="medication_box ">
-              <div class="medication_notice" >
-                <p class="title_01">
-                  <i class="icoCom_time">시간</i>
-                  <span class="mr1">오후</span>
-                  <span>12:30</span>
-                </p>
-                <button type="button" class="btn_border icoBtn"><i class="icoCom_write">작성</i></button>
-              </div>
-              <div class="btnArea mt4">
-                <button type="button" class="btn_border">모두 복용</button>
+      </div>
+      <!---->
+      <div class="box_wrap">
+        <div class="box_shadow01">
+          <div class="tit_wrap">
+            <router-link to="/screening/screeningResult"><h2 class="title_05">나의 건강 정보</h2></router-link>
+            <a href="" class="btn_right"><router-link to="/screening/screeningResult"><i class="ico_more"></i></router-link>더보기</a>
+          </div>
+        </div>
+      </div>
+      <!---->
+      <!---->
+      <div class="box_wrap">
+        <div class="box_shadow01">
+          <div class="tit_wrap">
+            <router-link to="/medicine/Medicine"><h2 class="title_05">진료 및 투약 정보</h2></router-link>
+            <a href="" class="btn_right"><router-link to="/medicine/Medicine"><i class="ico_more"></i></router-link>더보기</a>
+          </div>
+        </div>
+      </div>
+      <!---->
+      <div class="box_wrap">
+        <div class="box_shadow01">
+          <div class="tit_wrap">
+            <h2 class="title_05">걸음수</h2>
+            <a href="" class="btn_right"><i class="ico_more"></i>더보기</a>
+            <p class="contTxt_06 colorC">
+              <span>20:00</span>
+            </p>
+          </div>
+          <div class="step_wrap">
+            <div class="donut_wrap no_data">
+              <!-- data 없는경우에 no_data-->
+              <!---->
+              <div class="donut_graph">
+                <canvas id="chart" style="width: 83px; height:83px;" class="donut_chart"></canvas>
               </div>
               <ul class="medication_list">
                 <li>
