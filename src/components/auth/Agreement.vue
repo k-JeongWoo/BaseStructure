@@ -1,26 +1,9 @@
 <template>	<!--  container  -->
-
-  <!--  container  -->
-  <div class="container agreement01">
-    <!-- 본인인증 서비스 팝업을 호출 form -->
-    <form name="form_chk" method="post">
-      <input type="hidden" name="m" v-model="m">						<!-- 필수 데이타로, 누락하시면 안됩니다. -->
-      <input type="hidden" name="EncodeData" v-model="sEncData">		<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
-    </form>
-    <!-- header -->
-    <header class="header noBg">
-      <div class="headerBox">
-        <a href="#" class="btn_right">
-          <i class="ico_close"></i>
-        </a>
-      </div>
-    </header>
-    <!-- //header -->
-    <!--contents-->
+  <div class="container noBg agreement01">
     <div class="contents">
       <div class="agreement_box">
-        <h2 class="title_purple tac">
-          서비스 이용약관 동의
+        <h2 class="title_02 tac">
+          회원가입 약관 동의
         </h2>
         <div class="cntAgree">
           <p class="inputCheck typeA chckAll">
@@ -33,44 +16,62 @@
             <p class="inputCheck typeA">
               <input type="checkbox" name="chckAgree" id="chckAgree01" v-model="chckAgree" value="1">
               <label for="chckAgree01">
-                <span class="bul"></span>통합서비스 이용약관 동의 (필수)
+                <span class="bul"></span>서비스 이용약관  <span class="colorD">(필수)</span>
               </label>
               <a href="" class="btn_text_size03 txt_r">전체보기</a>
             </p>
             <p class="inputCheck typeA">
               <input type="checkbox" name="chckAgree" id="chckAgree02" v-model="chckAgree" value="2">
               <label for="chckAgree02">
-                <span class="bul"></span>민감정보 수진 및 이용 동의 (필수)
+                <span class="bul"></span>개인정보 취급방침 <span class="colorD">(필수)</span>
               </label>
               <a href="" class="btn_text_size03 txt_r">전체보기</a>
             </p>
             <p class="inputCheck typeA">
               <input type="checkbox" name="chckAgree" id="chckAgree03" v-model="chckAgree" value="3">
               <label for="chckAgree03">
-                <span class="bul"></span>개인정보 수집 이용 동의  (필수)
-              </label>
-              <a href="" class="btn_text_size03 txt_r">전체보기</a>
-            </p>
-            <p class="inputCheck typeA">
-              <input type="checkbox" name="chckAgree" id="chckAgree04" v-model="chckAgree" value="4">
-              <label for="chckAgree04">
-                <span class="bul"></span>마케팅정보 수신 동의 (선택)
+                <span class="bul"></span>민감정보 취급방침 <span class="colorD">(필수)</span>
               </label>
               <a href="" class="btn_text_size03 txt_r">전체보기</a>
             </p>
           </div>
-
+          <div class="agree_list">
+            <p class="inputCheck typeA">
+              <input type="checkbox" name="chckAgree" id="chckAgree05">
+              <label for="chckAgree05">
+                <span class="bul"></span>마케팅 정보 수신 <span class="colorJ">(선택)</span>
+              </label>
+              <a href="" class="btn_text_size03 txt_r">전체보기</a>
+            </p>
+            <div class="check_row">
+              <p class="inputCheck typeA">
+                <input type="checkbox" name="chckAgree05" id="chckAgree05_01">
+                <label for="chckAgree05_01">
+                  <span class="bul"></span>앱 Push
+                </label>
+              </p>
+              <p class="inputCheck typeA">
+                <input type="checkbox" name="chckAgree05" id="chckAgree05_02">
+                <label for="chckAgree05_02">
+                  <span class="bul"></span>SMS
+                </label>
+              </p>
+              <p class="inputCheck typeA">
+                <input type="checkbox" name="chckAgree05" id="chckAgree05_03">
+                <label for="chckAgree05_03">
+                  <span class="bul"></span>이메일
+                </label>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
+      <!--//agreement_box-->
     </div>
-    <!--//contents-->
     <!-- footer -->
     <footer class="footer typeB">
-<!--      <div class="btnArea">
-        <a href="javascript:void(0);" v-on:click="nicePopUp()" class="btn_fill ">휴대폰인증</a>
-      </div> <br />-->
       <div class="btnArea">
-        <a href="javascript:void(0);" v-on:click="goSignProcess()" class="btn_fill ">완료</a>
+        <a href="javascript:void(0);" v-on:click="goSignProcess()" class="btn_fill ">확인</a>
       </div>
     </footer>
     <!-- //footer -->
@@ -98,7 +99,7 @@ export default {
     },
     goSignProcess: function () {
       // 마케팅 수신동의 처리
-      let marketChk = this.chckAgree.find(element => element === '4') === '4' ? 'Y' : 'N'
+      let marketChk = this.chckAgree.find(element => element === '3') === '3' ? 'Y' : 'N'
       sessionStorage.setItem('marketAgree', marketChk)
 
       let defArr = ['1', '2', '3']
@@ -119,7 +120,7 @@ export default {
   computed: {
     chckAll: {
       get: function () {
-        if (this.chckAgree.length === 4) {
+        if (this.chckAgree.length === 3) {
           return true
         } else {
           return false

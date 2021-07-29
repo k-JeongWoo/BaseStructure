@@ -4,8 +4,7 @@
       <div class="box_wrap">
         <div class="box_wrap">
           <section class="box_shadow01 pb8">
-            <h2 class="title_05 mb6">{{ medicineList.startDate }} ~ {{ medicineList.endDate }}</h2>
-            <h2 class="title_05 mb6"><input type="text" v-model="medicineList.startDate"> ~ <input type="text" v-model="medicineList.endDate"></h2>
+            <h2 class="title_05 mb6" v-if="medicineList.startDate != null ">{{ medicineList.startDate }} ~ {{ medicineList.endDate }}</h2>
             <ul v-if="pharmacyList.length > 0">
               <li class="hospital_list"
                   v-for="(item,index) in pharmacyList"
@@ -52,7 +51,7 @@
             <ul v-else>
               <li>
                 <span>
-                조회할 진료 및 투약이력이 없습니다.
+                검색된 병원이 없습니다.
                 </span>
               </li>
             </ul>

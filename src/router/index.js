@@ -7,6 +7,7 @@ import User from './user'
 import UserInfo from './loginUserInfo'
 import Screening from './screening'
 import Medicine from './medicine'
+import Hospital from './hospital'
 
 Vue.use(Router)
 
@@ -17,7 +18,8 @@ const routes = [
   ...User,
   ...Screening,
   ...UserInfo,
-  ...Medicine
+  ...Medicine,
+  ...Hospital
 ]
 
 export default new Router({
