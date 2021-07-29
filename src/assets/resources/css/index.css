@@ -1,59 +1,81 @@
 @charset "utf-8";
 /* ========== main_home ========== */
-/* 건강신호등 - 대사 */
-.main .contents .metabolism_list{position:relative; padding-bottom: 11px;}
-.main .contents .swiper-pagination{position:absolute; left: 0; bottom:1px; width:100%; height:11px; text-align: center;}
 
-.main .metabolism_box{padding-bottom:24px;}
-.main .metabolism_cont p{display: inline-block; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; white-space: normal; height: 60px; text-align: left; word-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;}
-.main .metabolism_state{position:relative; padding-left: 30px; margin-top: 16px; height: 23px;font-size: 16px; font-weight: 700; line-height: 23px; color:#D7DBEC;}
-.main .metabolism_state::before{content: ''; position:absolute; left:0; top:2px; display: inline-block; width:20px; height:20px; -webkit-border-radius:10px; border-radius: 10px; background:#D7DBEC;}
-.main .metabolism_state[class*="state0"]{color:#31313D;}
-.main .metabolism_state.state01::before{background:#4caf50; }
-.main .metabolism_state.state02::before{background:#ffc107; }
-.main .metabolism_state.state03::before{background:#F63E3E; }
-/* 오늘의 복약정보 */
-.main .medication_info .medication_time{display: -webkit-flex;display: flex;-webkit-justify-content: flex-start;justify-content: flex-start; margin-bottom:16px;}
-.main .medication_info .medication_time li{margin-right: 20px;font-size: 20px;font-weight: 700;line-height: 29px;color: #31313D;}
-.main .medication_info .medication_time li.active{color: #6765E9;}
-.main .medication_info .medication_detail .detail_cont{display: none;}
-.main .medication_info .medication_detail .detail_cont.active{display:block;}
-.main .medication_info .medication_detail .medication_notice{position:relative; margin-bottom: 18px; padding-left: 30px; display: -webkit-flex;display: flex;-webkit-justify-content: space-between;justify-content: space-between;}
-.main .medication_info .medication_detail .medication_notice::before{content: ''; display: block; width:18px; height:21px; position: absolute; left: 0; top:5px; background: url(/resources/images/common/header_footer.png)no-repeat -79.3px -19.3px; background-size: 200px;}
-.main .medication_info .medication_detail .medication_notice .title_05{line-height: 30px; word-break: keep-all;}
+/*디바이스 연동*/
+[class*="pairing_"]{width: 60px; height: 60px; line-height: 60px; margin: 10px auto 16px; -webkit-border-radius: 30px; border-radius: 30px;  text-align: center;}
+.pairing_gray{background: #F5F6FA;}
+.pairing_white{background: #fff;}
+.pairingBox{margin:30px auto; max-width:225px; display: -webkit-flex; display: flex;-webkit-align-items: center;align-items: center;-webkit-justify-content: space-between;justify-content: space-between;}
+.pairingBox .iconBox i{box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.05);}
+.pairingBox .iconBox span{display: block; margin-top: 4px; font-weight: 500;font-size: 12px;line-height: 17px;color: #31313D; text-align: center;}
 
-.main .contents .mainMy_info{margin-top: 24px; font-size: 14px; line-height: 20px; color: #808080;}
-.main .contents .mainMy_info .num{margin-right: 4px; color: #6765E9; font-size: 20px; font-weight: 700; line-height: 29px;}
+/*서비스 이용안내*/
+.wellcome_img{width:154px; margin:24px auto;}
 
-.donut_wrap{display: -webkit-flex;display: flex;margin-top: 24px; -webkit-justify-content: flex-start;justify-content: flex-start;}
-.donut_wrap .donut_graph{position: relative; flex: none; display: block; width: 83px; height: 83px; -webkit-border-radius: 42px; border-radius: 42px;background: #F5F6FA;}
-.donut_wrap .donut_graph::after{content:''; display:block; width:50px; height:50px; -webkit-border-radius: 50%; border-radius: 50%; position:absolute; left:50%; top:50%; transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); -moz-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); background:url(/resources/images/common/ico_step.png)no-repeat center #fff; background-size: 16.1px;}
-.donut_wrap .donut_graph .donut_chart{transform: rotate(180deg);}
-.donut_wrap .step_txt{padding-left: 21px;}
-.donut_wrap .step_txt .step{font-size: 14px; color: #808080; line-height: 20px;}
-.donut_wrap .step_txt .graph_num{margin-right: 4px; font-size: 20px; font-weight: 700; line-height: 29px; color: #6765E9;}
+/*오늘 걷기*/
+.todayWalking > p{word-break: keep-all;}
+.todayWalking .walkBul{padding:20px 0 24px;}
+.todayWalking .walkBul::before{content:''; display: block; margin:0 auto; width:116px; height:125px; background:url(../images/common/ico_goodWalk.jpg)no-repeat 0 0; background-size:234px;}
+.todayWalking .walkBul.good::before{background-position:-116.6px 0}
+.todayWalking .walkBul p{font-weight: 700; font-size: 20px; line-height: 29px;color: #31313D;}
+.todayWalking ul{display: -webkit-flex;display: flex;-webkit-justify-content:space-between;justify-content:space-between; padding:0 19px; margin-bottom:16px;}
+.todayWalking ul li{text-align: center;}
+.todayWalking ul li .num{font-weight: 700;font-size: 22px;line-height: 32px;color: #31313D;}
 
-.graph_vertical{margin-top: 25px; display: -webkit-flex; display: flex;-webkit-justify-content: space-around;justify-content: space-around;}
-.graph_vertical li{text-align: center;}
-.graph_vertical li p{font-size: 14px; color: #808080; line-height: 20px;}
-.graph_vertical li .graph_bar{position:relative; width:16px; height: 131px; margin:0 auto 4px;}
-.graph_vertical li .graph_bar::before{content: ''; display: block; position:absolute; left:0; bottom:0; width:100%; height: 16px; background: #F5F6FA;}
-.graph_vertical li .graph_bar .graph_percent{position:absolute; left:0; bottom:0; z-index: 10; width: 100%; height: 100%;}
-.graph_vertical li:nth-child(1) .graph_bar .graph_percent{background:#F17662;}
-.graph_vertical li:nth-child(2) .graph_bar .graph_percent{background:#43B6CB;}
-.graph_vertical li .graph_num{margin-bottom: 4px; font-size: 20px; font-weight: 700; line-height: 29px; color: #6765E9;}
-.no_data .num,
-.no_data .graph_num{color: #E6E9F4!important;}
 
-.graph_horizontal{margin-top: 24px;}
-.graph_horizontal li {margin-top: 16px;}
-.graph_horizontal li .graph_bar{position:relative; height:16px; width:100%;}
-.graph_horizontal li .graph_bar::before{content: ''; display: block; position:absolute; left:0; bottom:0; width:16px; height: 16px; background: #F5F6FA;}
-.graph_horizontal li .graph_bar .graph_percent{position:absolute; left:0; bottom:0; z-index: 10; width: 100%; height: 100%;}
-.graph_horizontal li:nth-child(1) .graph_bar .graph_percent{background:#9792FF;}
-.graph_horizontal li:nth-child(2) .graph_bar .graph_percent{background:#6666CC;}
-.graph_horizontal li .graph_tit{margin-bottom: 8px;}
-.graph_horizontal li .graph_tit >*{display: inline-block;}
-.graph_horizontal li .graph_tit .month{margin-right: 8px; font-size: 20px; font-weight: 700; line-height: 29px; color: #31313D;}
-.graph_horizontal li .step{font-size: 14px; color: #808080; line-height: 20px;}
-.graph_horizontal li .graph_num{margin-right: 4px; font-size: 20px; font-weight: 700; line-height: 29px; color: #6765E9;}
+/*복약알람*/
+.medication_box{padding:16px 16px 24px; background: #F5F6FA;-webkit-border-radius: 8px;border-radius: 8px;}
+.medication_box + .medication_box{margin-top: 16px;}
+.medication_info .medication_time{display: -webkit-flex;display: flex;-webkit-justify-content: flex-start;justify-content: flex-start;margin-bottom:16px;-webkit-border-radius: 8px;border-radius: 8px;background: #F5F6FA;}
+.medication_info .medication_time li{width:100%;font-size: 16px;font-weight: 700;line-height: 40px;color: #6765E9; text-align: center;border: 1px solid #F5F6FA; cursor: pointer;}
+.medication_info .medication_time li.active{background: #fff;border: 1px solid #6765E9;-webkit-border-radius: 8px;border-radius: 8px;}
+.medication_info .medication_detail .detail_cont{display: none;}
+.medication_info .medication_detail .detail_cont.active{display:block;}
+.medication_notice{position:relative; margin-bottom: 18px; display: -webkit-flex;display: flex;-webkit-justify-content: space-between;justify-content: space-between;}
+.medication_notice .title_02{display: -webkit-flex;display: flex;align-items: center;line-height: 30px; word-break: keep-all;}
+.medication_notice .title_02 i{margin-right: 2px;}
+.btnArea .icoBtn{width:55px;}
+.medication_list{margin-top: 16px; }
+.medication_list li{display: -webkit-flex;display: flex;-webkit-justify-content:space-between;justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #D7DBEC;}
+.medication_list li .medi_name{font-weight: 700; font-size: 16px;line-height: 23px;color: #31313D;}
+.medication_list li .sm{flex-shrink: 0;}
+.medication_list [class*="btn_"]{width:83px; font-size:14px;}
+
+/*좋은걸음*/
+.good_walkTxt{font-weight: 500; font-size: 14px; line-height: 20px;color: #31313D; text-align: center;}
+.good_walkTxt::before{content: ''; display: block; width: 40px; height: 40px; margin:0 auto 8px; background:url(../images/common/ico_face.png)no-repeat; background-size: 120px;}
+.good_walkTxt.type00{background-position: -0px -0px;}
+.good_walkTxt.type01{background-position: -40px -0px;}
+.good_walkTxt.type02{background-position: -80px -0px;}
+.bar_graph{width:100%; margin-right:-30px; }
+.bar_graph>div{width:100%; height: 155px;}
+.bar_graph .amcharts-axis-label.today tspan {fill: #6765E9;}/*오늘 요일 라벨 색상*/
+.bar_graph .time_txt{width:calc(100% - 50px); margin:0; margin-top: -4px; padding: 0;}
+.bar_graph .time_txt::after{content:''; visibility: hidden; display: block; clear: both;}
+.bar_graph .time_txt li{float: left; padding:4px; width:25%; box-sizing: border-box;list-style: none;border-left: 1px solid #E6E9F4;font-size: 10px;line-height: 14px;color: #9BA0BC;}
+.bar_graph .time_txt li:first-child{border: 0;}
+.bar_graph .legend{margin:0; font-size:10px; text-align: right; font-weight: 700; padding-right: 50px; color:#6765E9}
+.bar_graph .legend::before{content:''; display:inline-block; width:7px; height:7px; background: #6765E9; margin-right: 5px;}
+
+/*7일간의 평균 걸음*/
+.line_graph{ }
+.line_graph .graph{width:100%; height:180px; margin-top:-41px;}
+.today_box {position:relative;width:100%;height:30px;margin: 0 auto;}
+.today_box [class*="today_0"] {position: absolute;top: 0;padding: 2px 0; width:14.285%; text-align: center;}
+.today_box [class*="today_0"] span {display: inline-block;width: 31px;padding: 2px;border-radius: 4px;border: 1px solid #6765E9;box-sizing: border-box;font-weight: bold;font-size: 12px;line-height: 17px;color: #6765E9;text-align: center;}
+.today_00{left:0%;}
+.today_01{left:14.285%;}
+.today_02{left:28.57%;}
+.today_03{left:42.855%;}
+.today_04{left:57.14%;}
+.today_05{left:71.425%;}
+.today_06{left:85.71%;}
+.line_graph .amcharts-axis-label.today tspan {fill: #6765E9;}/*오늘 요일 라벨 색상*/
+
+/*주치의 제안 하루 걸음수*/
+.gauge_graph{position:relative; width:300px; height:220px; margin:0 auto}
+.gauge_graph #suggest_gaugeGraph{width:100%; height:100%; }
+.gauge_graph .step_info{display:block; position:absolute; left: 50%; top:75%; width:150px; height:150px; margin:0 auto; text-align: center;transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); -moz-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%);}
+.gauge_graph .step_info::before{content:''; display:block; width: 40px; height: 45px; margin:0 auto; background: url(../images/common/ico_step.png)no-repeat center; background-size: cover;}
+.gauge_graph .step_info .step_num{margin:0;font-weight: 700;font-size: 24px;line-height: 35px;color: #000000;}
+.gauge_graph .step_info .step_txt{margin:0;font-weight: 700;font-size: 14px;line-height: 20px;color: #7E84A3;}

@@ -12,9 +12,9 @@
     <!--contents-->
     <div class="contents">
       <div class="snsLogin_box tac">
-        <h2 class="title_purple">
+        <h2 class="logo_title">
           당신의 건강돌봄, <br>
-          <span>(브랜드네임미정_test)</span>로 시작해보세요.
+          <span>Cellimedi</span> 로 시작해보세요.
         </h2>
         <div class="sns_btn">
           <a href="" class="btn_border_snsLog sm"><i class="icoSns_apple"></i>애플로 시작하기</a>
@@ -41,6 +41,7 @@
           -->
         </div>
       </div>
+      <p class="powered">Powered by <img src="../assets/resources/images/common/logo_seegene.png" alt="seegene"></p>
     </div>
     <!--//contents-->
   </div>
