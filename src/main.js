@@ -41,7 +41,7 @@ router.beforeEach((to, from, next) => {
       ).then(function (response) {
         // console.log(response)
         if (response.data.resultCode === 'error') {
-          next('/')
+          next('/mainhome')
         } else {
           next()
         }
@@ -60,11 +60,7 @@ router.beforeEach((to, from, next) => {
             sessionStorage.setItem('usr_name', '게스트')
             alert('로그인 후 이용 가능합니다.')
             next({
-              path: '/',
-              query: {
-                redirecturi: encodeURIComponent(to.fullPath)
-              },
-              replace: true
+              path: '/login'
             })
           } else {
             next()
@@ -79,14 +75,9 @@ router.beforeEach((to, from, next) => {
   } else {
     // dev
     if (to.path === '/user/userdetail' || to.name === 'MedicalInquire') {
-      console.log(to)
       alert('로그인 후 이용 가능합니다.')
       next({
-        path: '/',
-        query: {
-          redirecturi: encodeURIComponent(to.fullPath)
-        },
-        replace: true
+        path: '/login'
       })
     } else {
       next()

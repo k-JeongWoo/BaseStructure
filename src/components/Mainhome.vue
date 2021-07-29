@@ -20,7 +20,7 @@
         -->
             <div class="tit_wrap">
               <h2 class="title_05">선택 진료 프로그램 </h2>
-              <a href="" class="btn_right"><i class="ico_more"></i>더보기</a>
+              <a href="/medical/first/medicalprogram" class="btn_right"><i class="ico_more"></i></a>
             </div>
             <p class="program_list">
               <button type="button" class="program_item bgColor01">마음</button>
@@ -34,6 +34,26 @@
 
           </div>
         </section>
+      </div>
+      <!---->
+      <!---->
+      <div class="box_wrap">
+        <div class="box_shadow01">
+          <div class="tit_wrap">
+            <router-link to="/screening/screeningResult"><h2 class="title_05">나의 건강 정보</h2></router-link>
+            <a href="" class="btn_right"><router-link to="/screening/screeningResult"><i class="ico_more"></i></router-link>더보기</a>
+          </div>
+        </div>
+      </div>
+      <!---->
+      <!---->
+      <div class="box_wrap">
+        <div class="box_shadow01">
+          <div class="tit_wrap">
+            <router-link to="/medicine/Medicine"><h2 class="title_05">진료 및 투약 정보</h2></router-link>
+            <a href="" class="btn_right"><router-link to="/medicine/Medicine"><i class="ico_more"></i></router-link>더보기</a>
+          </div>
+        </div>
       </div>
       <!---->
       <div class="box_wrap">
@@ -191,26 +211,6 @@
       </div> -->
         </div>
       </div>
-      <!---->
-      <div class="box_wrap">
-        <div class="box_shadow01">
-          <div class="tit_wrap">
-            <router-link to="/screening/screeningResult"><h2 class="title_05">나의 건강 정보</h2></router-link>
-            <a href="" class="btn_right"><router-link to="/screening/screeningResult"><i class="ico_more"></i></router-link>더보기</a>
-          </div>
-        </div>
-      </div>
-      <!---->
-      <!---->
-      <div class="box_wrap">
-        <div class="box_shadow01">
-          <div class="tit_wrap">
-            <router-link to="/medicine/Medicine"><h2 class="title_05">진료 및 투약 정보</h2></router-link>
-            <a href="" class="btn_right"><router-link to="/medicine/Medicine"><i class="ico_more"></i></router-link>더보기</a>
-          </div>
-        </div>
-      </div>
-      <!---->
       <div class="box_wrap">
         <div class="box_shadow01">
           <div class="tit_wrap">
@@ -362,7 +362,7 @@ export default {
   },
   created () {
     this.usr_name = sessionStorage.getItem('usr_name')
-    this.showModal = !this.showModal
+    // this.showModal = !this.showModal
   },
   components: {
     Modal: Modal

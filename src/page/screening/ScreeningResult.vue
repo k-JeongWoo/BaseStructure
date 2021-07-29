@@ -5,7 +5,7 @@
     <div class="contents">
         <div class="box_wrap">
           <section class="box_shadow01">
-            <h2 class="title_02"><span class="colorA">{{ usr_name }}</span> 님의 건강 나이</h2>
+            <h2 class="title_02"><span class="colorA">{{ usr_name }}</span> 님의 건강 정보</h2>
           </section>
         </div>
       <!---->
@@ -20,20 +20,27 @@
           </option>
         </select>
 
-        <select v-model="screenType">
-          <option value="N">일반</option>
-          <option value="C">암</option>
-        </select>
+        <div class="box_wrap">
+          <section class="box_shadow01">
+            <div class="medication_detailList">
+              <p class="select">
+                <select v-model="screenType">
+                  <option value="N">일반</option>
+                  <option value="C">암</option>
+                </select>
+              </p>
+            </div>
+          </section>
+        </div>
 <!--
         N("일반"),
         L("생애"),
         C("암(위 )"),
         O("구강");
         -->
-        <div>
+<!--        <div>
           {{selCheckupYear}}
-        </div>
-        <hr style="display: block; border: dashed">
+        </div>-->
         <div class="box_wrap">
           <section class="box_shadow01">
             <button style="float: right;" ><router-link :to="{ path: '/screening/screeningDetail', query: { searchYear: checkupDetailRenderList !== null ? checkupDetailRenderList.BMI.responseData.checkupYear : '',searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.BMI.responseData.checkupTargetDisease : ''}}">go Detail</router-link></button>
