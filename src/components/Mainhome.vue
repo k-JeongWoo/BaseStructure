@@ -617,7 +617,7 @@
             <h3>건강 앱 접근 허용</h3>
           </div>
           <div class="modal-body">
-            <p>앱에서 이 기기의 건강앱에<br> 접근하려고 합니다.</p>
+            <p>앱에서 이 기기의 건강앱에<br> 접근하려고 합니다1.</p>
           </div>
           <div class="modal-footer">
             <button type="button">취소</button>
