@@ -33,15 +33,63 @@
         </v-col>
       </v-row>
     </div>
+    <div class="box_p16 bgColorB">
+      <div class="swiper-container reserSlide">
+        <swiper class="swiper-wrapper reservation_list" :options="swiperOption" ref="swiper1">
+          <li class="swiper-slide item"
+              v-for="(item,index) in userVisitList"
+              :key="index"
+              ref="listCnt">
+            <div class="tit">
+              <p>내일 가야 할 병원</p>
+            </div>
+            <div class="reservation_info">
+              <div class="reser_dDay red">D-<span>{{ item.ddays }}</span></div>
+              <ul class="ico_listStyle01">
+                <li class="list_item">
+                  <i class="icoCom_day_purple">예약일</i>
+                  <span>{{ item.visitDate }}</span>
+                </li>
+                <li class="list_item">
+                  <i class="icoCom_time_purple">예약시간</i>
+                  <span>{{ item.visitTime }}</span>
+                </li>
+                <li class="list_item">
+                  <i class="icoCom_hos_purple">예약병원</i>
+                  <span>{{ item.hospitalName }}</span>
+                </li>
+                <li class="list_item">
+                  <i class="icoCom_memo_purple">예약메모</i>
+                  <span>{{ item.magementPlanType }}</span>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <!--//item-->
+        </swiper>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+
 export default {
   data () {
     return {
-      days: []
+      swiperOption: {
+        slidesPerView: 1,
+        spaceBetween: 16,
+        loop: false
+      },
+      days: [],
+      userVisitList: [{'ddays': 'a', 'visitDate': '20210803', 'visitTime': '03:00', 'hospitalName': '씨젠', 'magementPlanType': 'magementPlanType'}]
     }
+  },
+  components: {
+    Swiper,
+    SwiperSlide
   },
   computed: {
     dates () {
@@ -51,7 +99,6 @@ export default {
       return this.dates.map(date => ({
         highlight: true,
         dates: date
-
       }))
     }
   },
@@ -67,6 +114,15 @@ export default {
         })
       }
     }
+  },
+  created () {
+    this.$set(this.swiperOption.slidesPerView, 5)
+  },
+  mounted () {
+    let vm = this
+    vm.$refs.swiper1.options.slidesPerView = 5
+    console.log(vm)
+    console.log(vm.$refs.swiper1.options)
   }
 }
 </script>

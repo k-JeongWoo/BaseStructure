@@ -11,16 +11,20 @@
         <span class="tit" v-show="$route.path.indexOf('/medicine') > -1">진료 및 투약이력 </span>
       </h1>
       <button type="button" class="btn_left" >
-        <i class="ico_bugger" v-if="$route.path.indexOf('/main/') > -1">메뉴</i>
+        <i class="ico_bugger"
+           @click="openGNB"
+           v-if="$route.path.indexOf('/main/') > -1 ||
+           $route.name.indexOf('Mainhome') > -1">메뉴</i>
         <i class=""
-           v-else-if="$route.path.indexOf('/first/') > -1
-           || $route.path.indexOf('/mainhome') > -1">
+           v-else-if="$route.path.indexOf('/first/') > -1">
         </i>
         <i class="ico_back" v-else @click="historyBack"></i>
       </button>
       <a href="#" class="btn_right" id="show-modal" @click="selectCloseBtn">
         <i class="ico_close" v-if="$route.path.indexOf('/medical/') > -1 "></i>
-        <div class="notic_ico" v-if="$route.path.indexOf('screeningInfo') > -1">
+        <div class="notic_ico"
+             v-if="$route.path.indexOf('screeningInfo') > -1 ||
+             $route.name.indexOf('Mainhome') > -1">
           <i class="ico_bell">알림</i>
           <p class="num"><span>+99</span></p>
         </div>
@@ -81,6 +85,9 @@ export default {
       this.headModalTitle = ''
       this.headModalContent = ''
       this.showModal = !this.showModal
+    },
+    openGNB () {
+      this.$emit('eventdata', 'on')
     }
   },
   beforeRouteEnter (to, from, next) {

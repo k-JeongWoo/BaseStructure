@@ -10,18 +10,17 @@
 .pairingBox .iconBox span{display: block; margin-top: 4px; font-weight: 500;font-size: 12px;line-height: 17px;color: #31313D; text-align: center;}
 
 /*서비스 이용안내*/
-.wellcome_img{width:154px; margin:24px auto;}
+.wellcome_img{width:266px; margin:21px auto 16px;}
 
 /*오늘 걷기*/
 .todayWalking > p{word-break: keep-all;}
 .todayWalking .walkBul{padding:20px 0 24px;}
-.todayWalking .walkBul::before{content:''; display: block; margin:0 auto; width:116px; height:125px; background:url(../images/common/ico_goodWalk.jpg)no-repeat 0 0; background-size:234px;}
-.todayWalking .walkBul.good::before{background-position:-116.6px 0}
+.todayWalking .walkBul::before{content:''; display: block; margin:0 auto; width:84px; height:127px; background:url(../images/contents/ico_goodWalk.jpg)no-repeat -16px 0; background-size:235px;}
+.todayWalking .walkBul.good::before{width:129px; background-position:-116px 0}
 .todayWalking .walkBul p{font-weight: 700; font-size: 20px; line-height: 29px;color: #31313D;}
 .todayWalking ul{display: -webkit-flex;display: flex;-webkit-justify-content:space-between;justify-content:space-between; padding:0 19px; margin-bottom:16px;}
 .todayWalking ul li{text-align: center;}
 .todayWalking ul li .num{font-weight: 700;font-size: 22px;line-height: 32px;color: #31313D;}
-
 
 /*복약알람*/
 .medication_box{padding:16px 16px 24px; background: #F5F6FA;-webkit-border-radius: 8px;border-radius: 8px;}
@@ -38,15 +37,17 @@
 .medication_list{margin-top: 16px; }
 .medication_list li{display: -webkit-flex;display: flex;-webkit-justify-content:space-between;justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #D7DBEC;}
 .medication_list li .medi_name{font-weight: 700; font-size: 16px;line-height: 23px;color: #31313D;}
-.medication_list li .sm{flex-shrink: 0;}
+.medication_list li .sm{flex-shrink: 0; font-weight: 700;}
 .medication_list [class*="btn_"]{width:83px; font-size:14px;}
 
 /*좋은걸음*/
-.good_walkTxt{font-weight: 500; font-size: 14px; line-height: 20px;color: #31313D; text-align: center;}
-.good_walkTxt::before{content: ''; display: block; width: 40px; height: 40px; margin:0 auto 8px; background:url(../images/common/ico_face.png)no-repeat; background-size: 120px;}
+.good_walkTxt{margin-bottom:24px; font-weight: 500; font-size: 14px; line-height: 20px;color: #31313D; text-align: center;}
+.good_walkTxt::before{content: ''; display: block; width: 40px; height: 40px; margin:0 auto 16px; background:url(../images/common/ico_face.png)no-repeat; background-size: 120px;}
 .good_walkTxt.type00{background-position: -0px -0px;}
 .good_walkTxt.type01{background-position: -40px -0px;}
 .good_walkTxt.type02{background-position: -80px -0px;}
+.data_infoTxt{font-size: 14px;line-height: 20px;color: #808080;}
+.data_infoTxt .num{margin:0 2px;font-weight: 700;font-size: 22px;line-height: 32px;color: #31313D;}
 .bar_graph{width:100%; margin-right:-30px; }
 .bar_graph>div{width:100%; height: 155px;}
 .bar_graph .amcharts-axis-label.today tspan {fill: #6765E9;}/*오늘 요일 라벨 색상*/
@@ -58,7 +59,6 @@
 .bar_graph .legend::before{content:''; display:inline-block; width:7px; height:7px; background: #6765E9; margin-right: 5px;}
 
 /*7일간의 평균 걸음*/
-.line_graph{ }
 .line_graph .graph{width:100%; height:180px; margin-top:-41px;}
 .today_box {position:relative;width:100%;height:30px;margin: 0 auto;}
 .today_box [class*="today_0"] {position: absolute;top: 0;padding: 2px 0; width:14.285%; text-align: center;}
