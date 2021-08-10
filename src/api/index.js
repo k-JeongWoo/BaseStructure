@@ -51,6 +51,10 @@ function fetchUserVisitPlan () {
   return axios.get(`${config.baseUrl}hospital/myMagementPlanList`)
 }
 
+// 금일 복약 목록
+function MedicationTodayList () {
+  return axios.get(`${config.baseUrl}medicine/takeMedicineTodayList`)
+}
 export {
   fetchHospitalList,
   fetchProgramlList,
@@ -58,5 +62,6 @@ export {
   fetchInquireRegist,
   fetchUserProgramList,
   fetchMedicineList,
-  fetchUserVisitPlan
+  fetchUserVisitPlan,
+  MedicationTodayList
 }

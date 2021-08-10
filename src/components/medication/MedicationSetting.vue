@@ -8,12 +8,12 @@
           <h1>
             <span class="tit">약 추가/알람설정</span>
           </h1>
-          <button type="button" class="txt_btn btn_left">
+          <button type="button" class="txt_btn btn_left" @click="movePagefnt('success')">
             완료
           </button>
-          <a href="#" class="btn_right">
+          <button class="btn_right" @click="movePagefnt('close')">
             <i class="ico_close">닫기</i>
-          </a>
+          </button>
         </div>
       </header>
       <!-- //header -->
@@ -190,6 +190,15 @@
 
 <script>
 export default {
+  methods: {
+    movePagefnt (value) {
+      if (value === 'close') {
+        this.$router.replace({name: 'Mainhome'})
+      } else if (value === 'success') {
+        console.log('this is page move url ')
+      }
+    }
+  }
 }
 </script>
 

@@ -9,10 +9,10 @@
         </a>
       </li>
       <li>
-        <a href="#">
+        <button @click="movePagefnt">
           <i class="ico_doc"></i>
           <span>주치의</span>
-        </a>
+        </button>
       </li>
     </ul>
   </div>
@@ -20,8 +20,20 @@
 </template>
 
 <script>
+export default {
+  data () {
+    return {
+      listaa: 'a'
+    }
+  },
+  methods: {
+    movePagefnt: function () {
+      if (this.listaa === 'a') {
+        this.$router.push('/hospital/hospitalRegist')
+      } else {
+        console.log('b')
+      }
+    }
+  }
+}
 </script>
-
-<style>
-
-</style>
