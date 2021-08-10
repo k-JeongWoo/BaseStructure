@@ -25,5 +25,8 @@ const routes = [
 export default new Router({
   routes: routes,
   mode: 'history',
+  scrollBehavior () {
+    return { x: 0, y: 0 }
+  },
   base: process.env.BASE_URL
 })

@@ -13,14 +13,11 @@ import en from './locales/en.json'
 import ko from './locales/ko.json'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
-import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(VueI18n)
 Vue.use(AmCharts)
 Vue.use(AmSerial)
 Vue.use(AmPie)
-Vue.use(Vuetify)
 Vue.use(VueMaterial)
 Vue.use(VueCookie)
 

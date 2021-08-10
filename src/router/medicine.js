@@ -1,4 +1,4 @@
-// import Medicine from '@/page/medicine/MedicinePage'
+import Medicine from '@/page/medicine/MedicinePage'
 import Header from '@/components/layout/Header'
 import MedicationHistory from '@/components/medication/MedicationHistory'
 import MedicationSetting from '@/components/medication/MedicationSetting'
@@ -18,6 +18,14 @@ export default [
     components: {
       header: Header,
       default: MedicationSetting
+    }
+  },
+  {
+    path: '/medicine/medicine',
+    name: 'MedicationSetting',
+    components: {
+      header: Header,
+      default: Medicine
     }
   }
 ]

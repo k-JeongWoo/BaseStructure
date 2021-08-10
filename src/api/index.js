@@ -42,14 +42,8 @@ function fetchInquireRegist (arrayValue) {
 }
 
 // 진료 및 투약 이력
-function fetchMedicineList (stringValue) {
-  return axios.get(`${config.baseUrl}medicine/myMedicineList`,
-    {
-      prams: {
-        endDate: '20200709',
-        startDate: '20200409'
-      }
-    })
+function fetchMedicineList (objectValue) {
+  return axios.get(`${config.baseUrl}medicine/myMedicineList`, {params: objectValue})
 }
 
 export {
