@@ -7,7 +7,7 @@
         <span class="executives">(임직원)</span>
       </p>
       <div class="btnArea mt6">
-        <a href="neohealth://import_healthexam" class="btn_border">국민건강보험 정보 조회</a>
+        <a href="javascript:void(0);" @click="getMyCheckupList" class="btn_border">국민건강보험 정보 조회</a>
       </div>
       <ul class="asid_navigation mt8">
         <li>
@@ -31,12 +31,25 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   props: ['propsdata'],
   methods: {
     closeLeft () {
       console.log('11')
       this.$emit('eventdata', '')
+    },
+    getMyCheckupList: function () {
+      var res = axios.get(`/api/v1/api/checkup/myCheckupList`)
+      res.then(response => {
+        console.log(response)
+        if (response.resultCode !== 9999) {
+          this.$router.push('/screening/screeningDataLoad')
+        } else {
+          this.$router.push('/screening/screeningResult')
+        }
+      }).catch(function (error) { console.log(error) })
     }
   }
 }

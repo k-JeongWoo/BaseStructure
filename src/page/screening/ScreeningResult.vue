@@ -337,6 +337,7 @@ export default {
 
     var res = axios.get(`/api/v1/api/checkup/myCheckupList`, { params: params })
     res.then(response => {
+      console.log(response)
       this.checkupList = response.data.data
       this.selCheckupYear.year = response.data.data[0].pdCheckupYear
       this.selCheckupYear.diagnosis = response.data.data[0].pdCheckupDiagnosis

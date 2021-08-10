@@ -6,6 +6,7 @@ import ScreeningCancer from '@/page/screening/ScreeningCancer'
 import ScreeningMedicineList from '@/page/screening/ScreeningMedicineList'
 import ScreeningInfo from '@/page/screening/ScreeningInfo'
 import ScreeningWrite from '@/page/screening/ScreeningWrite'
+import ScreeningDataLoad from '@/page/screening/ScreeningDataLoad'
 import ScreeningSecurityNumber from '@/page/screening/ScreeningSecurityNumber'
 import ScreeningDocumentPdf from '@/page/screening/ScreeningDocumentPdf'
 import ChartSample from '@/components/screening/chartsample'
@@ -91,5 +92,14 @@ export default [
     name: 'ScreeningDocumentPdf',
     component: ScreeningDocumentPdf,
     props: true
+  },
+  {
+    path: '/screening/screeningDataLoad',
+    name: 'ScreeningDataLoad',
+    components: {
+      header: Header,
+      default: ScreeningDataLoad
+    },
+    mode: 'history'
   }
 ]
