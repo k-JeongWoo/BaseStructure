@@ -1,11 +1,9 @@
 <template>
   <div id="app" class="wrap">
-    <div class="container noBg myInfo">
-      <router-view name="header" v-bind:propsdata="receiveData"></router-view>
-      <router-view name="leftnemu"></router-view>
-      <router-view name="default" v-on:eventdata="transData" v-bind:propsdata="receiveData"></router-view>
-      <router-view name="footer"></router-view>
-    </div>
+    <router-view name="header" v-on:eventdata="transData" v-bind:propsdata="receiveData"></router-view>
+    <router-view name="leftMenu" v-on:eventdata="transData" v-bind:propsdata="receiveData"></router-view>
+    <router-view name="default" v-on:eventdata="transData" v-bind:propsdata="receiveData"></router-view>
+    <router-view name="footer"></router-view>
   </div>
 </template>
 

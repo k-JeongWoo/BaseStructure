@@ -46,11 +46,17 @@ function fetchMedicineList (objectValue) {
   return axios.get(`${config.baseUrl}medicine/myMedicineList`, {params: objectValue})
 }
 
+// 예상 내원일 조회
+function fetchUserVisitPlan () {
+  return axios.get(`${config.baseUrl}hospital/myMagementPlanList`)
+}
+
 export {
   fetchHospitalList,
   fetchProgramlList,
   fetchProgramRegist,
   fetchInquireRegist,
   fetchUserProgramList,
-  fetchMedicineList
+  fetchMedicineList,
+  fetchUserVisitPlan
 }

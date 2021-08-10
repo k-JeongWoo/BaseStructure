@@ -3,6 +3,7 @@ import Mainhome from '@/components/Mainhome'
 import Footer from '@/components/layout/Footer.vue'
 import Header from '@/components/layout/Header'
 import NotFound from '@/components/common/NotFound'
+import LeftMenu from '../components/layout/LeftMenu'
 import axios from 'axios'
 
 export default [
@@ -24,6 +25,7 @@ export default [
     name: 'Mainhome',
     components: {
       header: Header,
+      leftMenu: LeftMenu,
       default: Mainhome,
       footer: Footer
     },
@@ -36,6 +38,7 @@ export default [
               if (response.data.resultCode === 'error') {
                 // sessionStorage.clear()
                 sessionStorage.setItem('usr_name', '게스트')
+                sessionStorage.setItem('result_code', response.data.resultCode)
                 next()
               } else {
                 console.log('Add Session Storage ! - User Name = ' + response.data.data.name)
@@ -43,6 +46,7 @@ export default [
                 sessionStorage.setItem('usr_mail', response.data.data.mail)
                 sessionStorage.setItem('usr_tel', response.data.data.tel)
                 sessionStorage.setItem('usr_age', response.data.data.age)
+                sessionStorage.setItem('result_code', response.data.resultCode)
                 next()
               }
             })
@@ -52,6 +56,7 @@ export default [
               // 서비스 블랭크 페이지로
             })
         } else {
+          sessionStorage.setItem('result_code', 'error')
           sessionStorage.setItem('usr_name', '게스트')
           next()
         }
@@ -65,6 +70,7 @@ export default [
     name: 'Mainhome2',
     components: {
       header: Header,
+      leftMenu: LeftMenu,
       default: Mainhome,
       footer: Footer
     },
