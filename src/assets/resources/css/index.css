@@ -79,3 +79,10 @@
 .gauge_graph .step_info::before{content:''; display:block; width: 40px; height: 45px; margin:0 auto; background: url(../images/common/ico_step.png)no-repeat center; background-size: cover;}
 .gauge_graph .step_info .step_num{margin:0;font-weight: 700;font-size: 24px;line-height: 35px;color: #000000;}
 .gauge_graph .step_info .step_txt{margin:0;font-weight: 700;font-size: 14px;line-height: 20px;color: #7E84A3;}
+
+/*주치의 메인*/
+.visit_history_wrap .visit_history_detail{background: #FFF; -webkit-border-radius: 8px; border-radius: 8px; padding:16px;}
+.visit_history_wrap .visit_history_detail .title_03{margin-bottom: 11px;}
+.visit_history_wrap .type01{border-left:8px solid #CAB1FF;}
+.visit_history_wrap .type02{border-left:8px solid #60CFE3;}
+.visit_history_wrap .type03{border-left:8px solid #F48E7E;}

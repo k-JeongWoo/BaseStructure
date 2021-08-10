@@ -3,7 +3,7 @@
     <div class="contAside">
       <button v-on:click="closeLeft" class="btn_border">닫기</button>
       <p class="user_name">
-        <span class="name">홍길동</span> 님
+        <span class="name">{{ usr_name }}</span> 님
         <span class="executives">(임직원)</span>
       </p>
       <div class="btnArea mt6">
@@ -11,20 +11,20 @@
       </div>
       <ul class="asid_navigation mt8">
         <li>
-          <a href="myInfo.html"><i class="ico_myinfo"></i>내 정보 관리</a>
+          <router-link to="/user/userdetail" ><i class="ico_myinfo"></i>내 정보 관리</router-link>
         </li>
         <li>
-          <a href="hospital_01.html"><i class="ico_hospitalList"></i>병원 목록 조회</a>
+          <router-link to="/hospital/hospitalList"><i class="ico_hospitalList"></i>병원 목록 조회</router-link>
         </li>
         <li>
-          <a href="about.html"><i class="ico_thisapp"></i>이 앱에 대하여</a>
+          <router-link to="/about/appInformation"><i class="ico_thisapp"></i>이 앱에 대하여</router-link>
         </li>
         <li>
-          <a href="terms01.html"><i class="ico_terms"></i>약관보기</a>
+          <router-link to="/about/AppPrivacyAgree"><i class="ico_terms"></i>약관보기</router-link>
         </li>
       </ul>
       <div class="asid_footer">
-        <a href="login01.html" class="btn_logOut"><i class="ico_logOut"></i>로그아웃</a>
+        <a href="" class="btn_logOut"><i class="ico_logOut"></i>로그아웃</a>
       </div>
     </div>
   </div>
@@ -32,6 +32,11 @@
 
 <script>
 export default {
+  data () {
+    return {
+      usr_name: sessionStorage.getItem('usr_name')
+    }
+  },
   props: ['propsdata'],
   methods: {
     closeLeft () {

@@ -328,35 +328,32 @@
                 히스토리
               </a>
             </div>
-            <div class="medication_box "
-                 v-if="alarmList.length > 0"
-                 v-for="(item,index) in alarmList"
-                 :key="index">
-              <div class="medication_notice">
-                <p class="title_01">
-                  <i class="icoCom_time">시간</i>
-                  <span class="mr1">오후</span>
-                  <span>12:30</span>
-                </p>
-                <button type="button" class="btn_border icoBtn"><i class="icoCom_write">작성</i></button>
+            <template v-for="(item,index) in alarmList">
+              <div class="medication_box "
+                   v-if="!(index > 0) || viewList">
+                <div class="medication_notice">
+                  <p class="title_01">
+                    <i class="icoCom_time"></i>
+                    <span class="mr1">{{ item.takeMedicineTime  }} 오후 // {{ new Date() | moment('calendar') }} //</span>
+                    <span></span>
+                  </p>
+                  <button type="button" class="btn_border icoBtn"><i class="icoCom_write">작성</i></button>
+                </div>
+                <div class="btnArea mt4">
+                  <button type="button" class="btn_border">모두 복용</button>
+                </div>
+                <ul class="medication_list">
+                  <li v-for="subitem in item.takeMedicineHistoryDetails">
+                    <p class="medi_name">{{ subitem.takeMedicineDetailsName }}</P>
+                    <button type="button" class="btn_fill sm">{{ subitem.intakeTakeMedicine === 'N' ? '복용' : '복용완료'}}</button>
+                  </li>
+                </ul>
               </div>
-              <div class="btnArea mt4">
-                <button type="button" class="btn_border">모두 복용</button>
-              </div>
-              <ul class="medication_list">
-                <li>
-                  <p class="medi_name">당뇨약당뇨약</P>
-                  <button type="button" class="btn_fill sm">복용</button>
-                </li>
-                <li>
-                  <p class="medi_name">당뇨약</P>
-                  <button type="button" class="btn_fill sm">복용</button>
-                </li>
-                <li>
-                  <p class="medi_name">당뇨약</P>
-                  <button type="button" class="btn_fill_color02 sm">복용완료</button>
-                </li>
-              </ul>
+            </template>
+            <div class="btnMore" v-if="alarmList.length > 1">
+              <button type="button" :class=" viewList ? 'close' : ''" @click="listAll"><!-- 아래방향은 클래스 없음. 위로방향은 close 클래스 추가-->
+                <i class="icoArrow_purpleMore">더보기</i>
+              </button>
             </div>
           </section>
         </div>
@@ -397,7 +394,7 @@
 <script>
 import Modal from '@/components/modal/MoveModal.vue'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import {fetchUserVisitPlan} from '../api'
+import {fetchUserVisitPlan, MedicationTodayList} from '../api'
 
 export default {
   name: 'swiper-example-loop',
@@ -424,7 +421,9 @@ export default {
       result_code: '',
       Linked_data: 'error',
       userVisitList: [],
-      alarmList: []
+      medicationList: [],
+      alarmList: [],
+      viewList: false
     }
   },
   created () {
@@ -432,13 +431,20 @@ export default {
     this.result_code = sessionStorage.getItem('result_code')
     this.showModal = !this.showModal
     this.init()
+    MedicationTodayList()
+      .then(res => {
+        this.alarmList = res.data.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
   },
   methods: {
     movePagefnt: function () {
       if (this.result_code === 'error') {
         this.$router.replace({name: 'Lognin'})
       } else {
-        this.$router.replace({name: 'Lognin'})
+        this.$router.replace({name: 'MedicationSetting'})
       }
     },
     init () {
@@ -453,6 +459,9 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    listAll: function () {
+      this.viewList = !this.viewList
     }
   }
 }

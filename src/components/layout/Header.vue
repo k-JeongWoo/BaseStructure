@@ -7,8 +7,9 @@
         <span class="tit" v-show="$route.path.indexOf('/medicalConsulting') > -1 ||
                                   $route.path.indexOf('/medicalInquire') > -1">진료문의</span>
         <span class="tit" v-show="$route.path.indexOf('/auth/') > -1">정보 입력</span>
+        <span class="tit" v-show="$route.path.indexOf('/hospitalRegist') > -1">병원 등록하기</span>
         <span class="logo" v-show="$route.path.indexOf('/screeningInfo') > -1">viocross </span>
-        <span class="tit" v-show="$route.path.indexOf('/medicine') > -1">진료 및 투약이력 </span>
+        <span class="tit" v-show="$route.path.indexOf('/medicine') > -1 ">진료 및 투약이력 </span>
       </h1>
       <button type="button" class="btn_left" >
         <i class="ico_bugger"
@@ -16,12 +17,15 @@
            v-if="$route.path.indexOf('/main/') > -1 ||
            $route.name.indexOf('Mainhome') > -1">메뉴</i>
         <i class=""
-           v-else-if="$route.path.indexOf('/first/') > -1">
+           v-else-if="$route.path.indexOf('/first/') > -1 ||
+           $route.path.indexOf('/hospitalRegist') > -1">
         </i>
         <i class="ico_back" v-else @click="historyBack"></i>
       </button>
       <a href="#" class="btn_right" id="show-modal" @click="selectCloseBtn">
-        <i class="ico_close" v-if="$route.path.indexOf('/medical/') > -1 "></i>
+        <i class="ico_close"
+           v-if="$route.path.indexOf('/medical/') > -1 ||
+           $route.path.indexOf('/hospitalRegist') > -1 "></i>
         <div class="notic_ico"
              v-if="$route.path.indexOf('screeningInfo') > -1 ||
              $route.name.indexOf('Mainhome') > -1">
@@ -75,9 +79,12 @@ export default {
       this.$router.go(-1)
     },
     selectCloseBtn: function () {
-      if (this.$route.path.indexOf('medical')) {
+      if (this.$route.path.indexOf('medical') > -1) {
         this.headModalTitle = '선택 진료 프로그램 저장'
         this.headModalContent = '선택한 진료 프로그램이 저장됩니다.'
+      } else if (this.$route.path.indexOf('hospitalRegist') > -1) {
+        this.headModalTitle = '주의'
+        this.headModalContent = '등록을 취소 하시겠습니까?'
       }
       this.showModal = !this.showModal
     },

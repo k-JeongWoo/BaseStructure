@@ -12,6 +12,7 @@ import VueI18n from 'vue-i18n'
 import en from './locales/en.json'
 import ko from './locales/ko.json'
 import VueMaterial from 'vue-material'
+import vueMoment from 'vue-moment'
 import 'vue-material/dist/vue-material.min.css'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
@@ -23,6 +24,7 @@ Vue.use(AmPie)
 Vue.use(Vuetify)
 Vue.use(VueMaterial)
 Vue.use(VueCookie)
+Vue.use(vueMoment)
 
 // 다국어 처리
 const i18n = new VueI18n({
@@ -56,7 +58,7 @@ router.beforeEach((to, from, next) => {
             sessionStorage.setItem('usr_tel', response.data.data.tel)
             sessionStorage.setItem('usr_age', response.data.data.age)
             next('/mainhome')
-          } else if ((to.path === '/user/userdetail' || to.name === 'MedicalInquire') && response.data.resultCode === 'error') {
+          } else if (response.data.resultCode === 'error') {
             sessionStorage.setItem('usr_name', '게스트')
             alert('로그인 후 이용 가능합니다.')
             next({
@@ -74,14 +76,7 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     // dev
-    if (to.path === '/user/userdetail' || to.name === 'MedicalInquire') {
-      alert('로그인 후 이용 가능합니다.')
-      next({
-        path: '/login'
-      })
-    } else {
-      next()
-    }
+    next()
   }
 })
 
