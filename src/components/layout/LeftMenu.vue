@@ -49,7 +49,7 @@ export default {
       var res = axios.get(`/api/v1/api/checkup/myCheckupList`)
       res.then(response => {
         console.log(response)
-        if (response.resultCode !== 9999) {
+        if (response.resultCode === 9999) {
           this.$router.push('/screening/screeningDataLoad')
         } else {
           this.$router.push('/screening/screeningResult')

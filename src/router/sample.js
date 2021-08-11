@@ -29,6 +29,13 @@ export default [
       default: Mainhome,
       footer: Footer
     },
+    meta: {
+      titleTxt: 'viocross', // TEXT
+      titleGbn: 'IM', // TX(TEXT), IM(IMAGE)
+      LGNBGbn: 'HA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION)
+      RGNBGbn: 'AR', // TYPE AR(ALARM), CL(CLOSE)
+      conClass: 'main' // ex) 'noBg inquery_info_01'
+    },
     beforeEnter: (to, from, next) => {
       if (from.name === 'SignUpForm' || from.path === '/') {
         if (process.env.NODE_ENV === 'development') {

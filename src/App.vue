@@ -1,9 +1,11 @@
 <template>
   <div id="app" class="wrap">
-    <router-view name="header" v-on:eventdata="transData" v-bind:propsdata="receiveData"></router-view>
-    <router-view name="leftMenu" v-on:eventdata="transData" v-bind:propsdata="receiveData"></router-view>
-    <router-view name="default" v-on:eventdata="transData" v-bind:propsdata="receiveData"></router-view>
-    <router-view name="footer"></router-view>
+    <div id="container" class="container" :class="$route.meta.conClass">
+      <router-view name="header" v-on:eventdata="transData" v-bind:propsdata="receiveData"></router-view>
+      <router-view name="leftMenu" v-on:eventdata="transData" v-bind:propsdata="receiveData"></router-view>
+      <router-view name="default" v-on:eventdata="transData" v-bind:propsdata="receiveData"></router-view>
+      <router-view name="footer"></router-view>
+    </div>
   </div>
 </template>
 

@@ -3,32 +3,25 @@
   <header class="header">
     <div class="headerBox">
       <h1>
-        <span class="tit" v-show="$route.path.indexOf('/medicalprogram') > -1">진료 프로그램 선택</span>
-        <span class="tit" v-show="$route.path.indexOf('/medicalConsulting') > -1 ||
-                                  $route.path.indexOf('/medicalInquire') > -1">진료문의</span>
-        <span class="tit" v-show="$route.path.indexOf('/auth/') > -1">정보 입력</span>
-        <span class="tit" v-show="$route.path.indexOf('/hospitalRegist') > -1">병원 등록하기</span>
-        <span class="logo" v-show="$route.path.indexOf('/screeningInfo') > -1">viocross </span>
-        <span class="tit" v-show="$route.path.indexOf('/medicine') > -1 ">진료 및 투약이력 </span>
+        <span class="logo" v-if="$route.meta.titleGbn === 'IM'"> </span>
+        <span class="tit" v-else>{{ $route.meta.titleTxt }} </span>
       </h1>
       <button type="button" class="btn_left" >
         <i class="ico_bugger"
            @click="openGNB"
-           v-if="$route.path.indexOf('/main/') > -1 ||
-           $route.name.indexOf('Mainhome') > -1">메뉴</i>
-        <i class=""
-           v-else-if="$route.path.indexOf('/first/') > -1 ||
-           $route.path.indexOf('/hospitalRegist') > -1">
+           v-if="$route.meta.LGNBGbn === 'HA'">
+          메뉴
         </i>
-        <i class="ico_back" v-else @click="historyBack"></i>
+
+        <i class="ico_back" v-else-if="$route.meta.LGNBGbn === 'BA'" @click="historyBack"></i>
+
+        <i class="" v-else></i>
       </button>
       <a href="#" class="btn_right" id="show-modal" @click="selectCloseBtn">
         <i class="ico_close"
-           v-if="$route.path.indexOf('/medical/') > -1 ||
-           $route.path.indexOf('/hospitalRegist') > -1 "></i>
+           v-if="$route.meta.RGNBGbn === 'CL'"></i>
         <div class="notic_ico"
-             v-if="$route.path.indexOf('screeningInfo') > -1 ||
-             $route.name.indexOf('Mainhome') > -1">
+             v-if="$route.meta.RGNBGbn === 'AR'">
           <i class="ico_bell">알림</i>
           <p class="num"><span>+99</span></p>
         </div>

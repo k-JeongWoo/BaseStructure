@@ -19,6 +19,13 @@ export default [
       header: Header,
       default: ScreeningResult
     },
+    meta: {
+      titleTxt: '국민건강보험 정보 관리', // TEXT
+      titleGbn: 'TX', // TX(TEXT), IM(IMAGE)
+      LGNBGbn: 'BA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION)
+      RGNBGbn: '', // TYPE AR(ALARM), CL(CLOSE)
+      conClass: 'noBg healthIn_info01' // 'noBg inquery_info_01'
+    },
     props: true
   },
   {
@@ -99,6 +106,13 @@ export default [
     components: {
       header: Header,
       default: ScreeningDataLoad
+    },
+    meta: {
+      titleTxt: '국민건강보험 정보 불러오기', // TEXT
+      titleGbn: 'TX', // TX(TEXT), IM(IMAGE)
+      LGNBGbn: 'BA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION)
+      RGNBGbn: '', // TYPE AR(ALARM), CL(CLOSE)
+      conClass: 'noBg healthIn_info_no01' // 'noBg inquery_info_01'
     },
     mode: 'history'
   }
