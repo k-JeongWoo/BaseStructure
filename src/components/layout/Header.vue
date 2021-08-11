@@ -28,6 +28,33 @@
       </a>
       <!-- //header -->
     </div>
+
+    <!--nav_wrap-->
+    <div class="nav_wrap ">
+      <div class="slide_nav">
+        <ul class="nav_list">
+          <li class="on">
+            <a href="#">씨젠클리닉</a>
+          </li>
+          <li>
+            <a href="#">잠실클리닉</a>
+          </li>
+          <li>
+            <a href="#">방이의원</a>
+          </li>
+          <li>
+            <a href="#">송파클리닉</a>
+          </li>
+          <li>
+            <a href="#">인천클리닉</a>
+          </li>
+          <li>
+            <a href="#">대구클리닉</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--//nav_wrap-->
     <div>
       <Modal v-if="showModal" @close="showModal = false">
         <h3 slot="header">{{ headModalTitle }}</h3>

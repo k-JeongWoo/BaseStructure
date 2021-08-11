@@ -31,7 +31,7 @@ export default {
       if (this.listaa === 'a') {
         this.$router.push('/hospital/hospitalRegist')
       } else {
-        console.log('b')
+        this.$router.push('/hospital/hospitalRegist')
       }
     }
   }

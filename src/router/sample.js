@@ -3,7 +3,8 @@ import Mainhome from '@/components/Mainhome'
 import Footer from '@/components/layout/Footer.vue'
 import Header from '@/components/layout/Header'
 import NotFound from '@/components/common/NotFound'
-import LeftMenu from '../components/layout/LeftMenu'
+import LeftMenu from '@/components/layout/LeftMenu'
+import DoctorMain from '@/components/DoctorMain'
 import axios from 'axios'
 
 export default [
@@ -15,6 +16,17 @@ export default [
       sessionStorage.clear()
       next()
     }
+  },
+  {
+    path: '/doctorMain',
+    name: 'DoctorMain',
+    components: {
+      header: Header,
+      leftMenu: LeftMenu,
+      default: DoctorMain,
+      footer: Footer
+    },
+    props: true
   },
   {
     path: '*',
