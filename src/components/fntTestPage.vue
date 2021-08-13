@@ -114,15 +114,6 @@ export default {
         })
       }
     }
-  },
-  created () {
-    this.$set(this.swiperOption.slidesPerView, 5)
-  },
-  mounted () {
-    let vm = this
-    vm.$refs.swiper1.options.slidesPerView = 5
-    console.log(vm)
-    console.log(vm.$refs.swiper1.options)
   }
 }
 </script>

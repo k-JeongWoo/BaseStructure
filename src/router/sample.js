@@ -5,6 +5,7 @@ import Header from '@/components/layout/Header'
 import NotFound from '@/components/common/NotFound'
 import LeftMenu from '@/components/layout/LeftMenu'
 import DoctorMain from '@/components/DoctorMain'
+import {headerBtnType} from '../store/index'
 import axios from 'axios'
 
 export default [
@@ -26,6 +27,7 @@ export default [
       default: DoctorMain,
       footer: Footer
     },
+    meta: headerBtnType.page_doctorMain,
     props: true
   },
   {
@@ -41,13 +43,7 @@ export default [
       default: Mainhome,
       footer: Footer
     },
-    meta: {
-      titleTxt: 'viocross', // TEXT
-      titleGbn: 'IM', // TX(TEXT), IM(IMAGE)
-      LGNBGbn: 'HA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION)
-      RGNBGbn: 'AR', // TYPE AR(ALARM), CL(CLOSE)
-      conClass: 'main' // ex) 'noBg inquery_info_01'
-    },
+    meta: headerBtnType.page_main,
     beforeEnter: (to, from, next) => {
       if (from.name === 'SignUpForm' || from.path === '/') {
         if (process.env.NODE_ENV === 'development') {
@@ -93,15 +89,17 @@ export default [
       default: Mainhome,
       footer: Footer
     },
+    meta: headerBtnType.page_main,
     beforeEnter: (to, from, next) => {
       if (from.name === 'SignUpForm' || from.path === '/') {
-        if (process.env.NODE_ENV !== 'development') {
+        if (process.env.NODE_ENV === 'development') {
           // console.log(' 비동기통신 _ 유저정보 조회  ')
           axios.get('/api/v1/api/user/userInfo')
             .then(function (response) {
               if (response.data.resultCode === 'error') {
                 // sessionStorage.clear()
                 sessionStorage.setItem('usr_name', '게스트')
+                sessionStorage.setItem('result_code', response.data.resultCode)
                 next()
               } else {
                 console.log('Add Session Storage ! - User Name = ' + response.data.data.name)
@@ -109,6 +107,7 @@ export default [
                 sessionStorage.setItem('usr_mail', response.data.data.mail)
                 sessionStorage.setItem('usr_tel', response.data.data.tel)
                 sessionStorage.setItem('usr_age', response.data.data.age)
+                sessionStorage.setItem('result_code', response.data.resultCode)
                 next()
               }
             })
@@ -118,12 +117,14 @@ export default [
               // 서비스 블랭크 페이지로
             })
         } else {
+          sessionStorage.setItem('result_code', 'error')
           sessionStorage.setItem('usr_name', '게스트')
           next()
         }
       } else {
         next()
       }
-    }
+    },
+    props: true
   }
 ]

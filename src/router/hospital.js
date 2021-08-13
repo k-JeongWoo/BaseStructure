@@ -4,6 +4,7 @@ import Header from '@/components/layout/Header'
 import HospitalVisit from '@/components/hospital/HospitalVisit'
 import HospitalList from '@/components/hospital/HospitalList'
 import HospitalRegist from '@/components/hospital/HospitalRegist'
+import {headerBtnType} from '../store/index'
 
 export default [
   {
@@ -14,6 +15,11 @@ export default [
       default: HospitalList
       // footer: Footer
     },
+    meta: headerBtnType.page_main,
+    beforeEnter (to, from, next) {
+      // headerBtnType.page_main.titleTxt = from.$router.params.dynamicTitle
+      next()
+    },
     props: true
   },
   {
@@ -23,6 +29,11 @@ export default [
       header: Header,
       default: HospitalDetail
       // footer: Footer
+    },
+    meta: headerBtnType.page_hospital_introduce,
+    beforeEnter (to, from, next) {
+      // headerBtnType.page_main.titleTxt = from.$router.params.dynamicTitle
+      next()
     },
     props: true
   },
@@ -43,6 +54,7 @@ export default [
       header: Header,
       default: HospitalRegist
     },
+    meta: headerBtnType.page_hospital_introduce,
     props: true
   }
 ]

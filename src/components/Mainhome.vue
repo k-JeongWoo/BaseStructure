@@ -1,7 +1,4 @@
 <template>
-  <div>
-    <!--  container  -->
-    <div class="container main">
       <!--contents-->
       <div class="contents">
         <div class="box_wrap bgNone">
@@ -334,7 +331,7 @@
                 <div class="medication_notice">
                   <p class="title_01">
                     <i class="icoCom_time"></i>
-                    <span class="mr1">{{ item.takeMedicineTime  }} 오후 // {{ new Date() | moment('calendar') }} //</span>
+                    <span class="mr1">{{ item.takeMedicineTime  }}</span>
                     <span></span>
                   </p>
                   <button type="button" class="btn_border icoBtn"><i class="icoCom_write">작성</i></button>
@@ -360,35 +357,6 @@
         <!--//box_wrap-->
       </div>
       <!--//contents-->
-    </div>
-    <!--  //container  -->
-
-    <!-- aside  -->
-    <div class="wrapAside">
-      <div class="contAside">
-
-      </div>
-    </div>
-    <!-- //aside  -->
-
-    <!-- ##### Popup -->
-    <div class="modal-mask" style="display: none;">
-      <div class="modal-wrapper">
-        <div class="modal-container">
-          <div class="modal-header">
-            <h3>건강 앱 접근 허용</h3>
-          </div>
-          <div class="modal-body">
-            <p>앱에서 이 기기의 건강앱에<br> 접근하려고 합니다1.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button">취소</button>
-            <button type="button" class="modal-default-button">확인</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -448,7 +416,10 @@ export default {
       }
     },
     init () {
-      fetchUserVisitPlan()
+      const objectValue = {
+        searchHospital: 1
+      }
+      fetchUserVisitPlan(objectValue)
         .then(res => {
           this.userVisitList = res.data.data
           if (res.data.data.length > 1) {

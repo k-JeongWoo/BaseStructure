@@ -12,9 +12,7 @@
            v-if="$route.meta.LGNBGbn === 'HA'">
           메뉴
         </i>
-
         <i class="ico_back" v-else-if="$route.meta.LGNBGbn === 'BA'" @click="historyBack"></i>
-
         <i class="" v-else></i>
       </button>
       <a href="#" class="btn_right" id="show-modal" @click="selectCloseBtn">
@@ -30,27 +28,14 @@
     </div>
 
     <!--nav_wrap-->
-    <div class="nav_wrap ">
+    <div class="nav_wrap" v-if="$route.name.indexOf('DoctorMain') > -1 && userHospitalList.length > 0">
       <div class="slide_nav">
         <ul class="nav_list">
-          <li class="on">
-            <a href="#">씨젠클리닉</a>
-          </li>
-          <li>
-            <a href="#">잠실클리닉</a>
-          </li>
-          <li>
-            <a href="#">방이의원</a>
-          </li>
-          <li>
-            <a href="#">송파클리닉</a>
-          </li>
-          <li>
-            <a href="#">인천클리닉</a>
-          </li>
-          <li>
-            <a href="#">대구클리닉</a>
-          </li>
+          <template v-for="item in userHospitalList">
+            <li class="on" >
+              <router-link :to="{ path: 'DoctorMain', query: { hospitalId: item.hospitalId !== null ? item.hospitalId : 1}}">{{ item.pdYadmNm }}</router-link>
+            </li>
+          </template>
         </ul>
       </div>
     </div>
@@ -68,7 +53,7 @@
 
 <script>
 import Modal from '@/components/modal/MoveModal'
-import {fetchProgramRegist} from '../../api'
+import {fetchProgramRegist, hospitalList} from '../../api'
 
 export default {
   props: ['propsdata'],
@@ -78,11 +63,18 @@ export default {
       showBtn: true,
       headModalTitle: '',
       headModalContent: '',
-      prevRoute: null
+      prevRoute: null,
+      userHospitalList: [],
+      userHealthyList: [],
+      hospitalId: ''
     }
   },
   components: {
     Modal: Modal
+  },
+  created () {
+    console.log('create')
+    this.init()
   },
   methods: {
     confirmBtn: function () {
@@ -115,6 +107,15 @@ export default {
     },
     openGNB () {
       this.$emit('eventdata', 'on')
+    },
+    async init () {
+      await hospitalList().then(res => {
+        this.userHospitalList = res.data.data
+        this.hospitalId = res.data.data[0].hospitalId
+        this.$emit('stringdata', this.hospitalId)
+      }).catch(error => {
+        console.log(error)
+      })
     }
   },
   beforeRouteEnter (to, from, next) {

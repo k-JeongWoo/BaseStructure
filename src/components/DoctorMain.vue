@@ -49,9 +49,9 @@
           <p class="title_05 colorA">기능별 건강</p>
           <h2 class="title_01">건강상태 요약</h2>
           <ul class="health_state list_styleA mt4">
-            <li class="list_item">
+            <li class="list_item" v-for="item in healthyList">
               <a href="" class="btn_health_state">
-                <i class="icoProgram_01 sm"></i><span>마음</span><!-- icoProgram_01 : 마음 / icoProgram_02 : 신경인지 / icoProgram_03 : 심혈관 / icoProgram_04 : 근골격 / icoProgram_05 : 대사 / icoProgram_06 : 면역 / icoProgram_07 : 피부&체형 /icoProgram_08 : 기타  -->
+                <i class="icoProgram_01 sm"></i><span>마음 {{ item }}</span><!-- icoProgram_01 : 마음 / icoProgram_02 : 신경인지 / icoProgram_03 : 심혈관 / icoProgram_04 : 근골격 / icoProgram_05 : 대사 / icoProgram_06 : 면역 / icoProgram_07 : 피부&체형 /icoProgram_08 : 기타  -->
               </a>
             </li>
             <li class="list_item">
@@ -355,9 +355,10 @@
           <ul class="medical_subject mt3">
             <li class="rabel_fill radius bgColor06 color0">외래진료</li>
             <li class="rabel_fill radius bgColor06 color0">종합 건강검진</li>
-            <li class="rabel_fill radius bgColor06 color0">가정의학과</li>
+            <li class="rabel_fill radius bgColor06 color0">가정의학과 {{ propsdata }}</li>
           </ul>
         </section>
+
       </div>
       <!--//box_wrap-->
 
@@ -367,7 +368,27 @@
 </template>
 
 <script>
+import {hospitalHealthyList} from '../api/index'
+
 export default {
+  props: ['propsdata'],
+  data () {
+    return {
+      targetId: this.propsdata,
+      healthyList: []
+    }
+  },
+  created () {
+    console.log('defaultCreate')
+    const objectValue = {
+      hospitalId: this.targetId
+    }
+    hospitalHealthyList(objectValue).then(res => {
+      this.healthyList = res.data.data
+    }).catch(error => {
+      console.log(error)
+    })
+  }
 }
 </script>
 

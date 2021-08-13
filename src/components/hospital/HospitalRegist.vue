@@ -1,6 +1,4 @@
 <template>
-    <!--  container  -->
-    <div class="container noBg hospital_enrollment">
       <!--contents-->
       <div class="contents">
         <div class="attendPhy_box">
@@ -152,18 +150,15 @@
           </li>
           <!-- //item -->
         </ul>
+        <!-- footer -->
+        <footer class="footer typeB">
+          <div class="btnArea">
+            <a href="" class="btn_fill disabled">등록하기</a><!-- disabled 클래스 추가시 비활성화 -->
+          </div>
+        </footer>
+        <!-- //footer -->
       </div>
       <!--//contents-->
-      <!-- footer -->
-      <footer class="footer typeB">
-        <div class="btnArea">
-          <a href="" class="btn_fill disabled">등록하기</a><!-- disabled 클래스 추가시 비활성화 -->
-        </div>
-      </footer>
-      <!-- //footer -->
-
-    </div>
-    <!--  //container  -->
 </template>
 
 <script>

@@ -17,7 +17,7 @@
           <router-link to="/hospital/hospitalList"><i class="ico_hospitalList"></i>병원 목록 조회</router-link>
         </li>
         <li>
-          <router-link to="/about/appInformation"><i class="ico_thisapp"></i>이 앱에 대하여</router-link>
+          <router-link :to="{ name: 'AppInformation', params: { dynamicTitle: 'cellimedi 정보' }}"><i class="ico_thisapp"></i>이 앱에 대하여</router-link>
         </li>
         <li>
           <router-link to="/about/AppPrivacyAgree"><i class="ico_terms"></i>약관보기</router-link>

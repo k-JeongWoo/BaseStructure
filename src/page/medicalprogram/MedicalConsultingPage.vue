@@ -113,7 +113,7 @@
 
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import { fetchProgramlList, fetchHospitalList } from '../../api'
+import { fetchProgramlList } from '../../api'
 
 export default {
   data: function () {
@@ -132,15 +132,6 @@ export default {
     }
   },
   created () {
-    let params = {
-      careProgramIds: this.selectProgram
-    }
-    fetchHospitalList(params).then(res => {
-      // 관심 프로그램에 의한 진료가능병원 목록
-      this.hospitalList = res.data.data.data
-      // 선택한 프로그램
-      this.selectProgram = res.data.data.careInfo
-    }).catch(error => { console.log(error) })
     // 관심 프로그램List
     fetchProgramlList().then(res => {
       this.programList = res.data.data

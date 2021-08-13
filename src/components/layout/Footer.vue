@@ -9,7 +9,7 @@
         </a>
       </li>
       <li>
-        <button @click="movePagefnt">
+        <button @click="movePageFnt">
           <i class="ico_doc"></i>
           <span>주치의</span>
         </button>
@@ -20,19 +20,21 @@
 </template>
 
 <script>
+import { hospitalListCnt } from '../../api/index'
+
 export default {
-  data () {
-    return {
-      listaa: 'a'
-    }
-  },
   methods: {
-    movePagefnt: function () {
-      if (this.listaa === 'a') {
-        this.$router.push('/hospital/hospitalRegist')
-      } else {
-        this.$router.push('/hospital/hospitalRegist')
-      }
+    movePageFnt: function () {
+      hospitalListCnt().then(res => {
+        alert('준비중입니다.')
+        // if (res.data.data === 0) {
+        //   this.$router.push('/doctorMain')
+        // } else {
+        //   this.$router.push('/hospital/hospitalRegist')
+        // }
+      }).catch(error => {
+        console.log(error)
+      })
     }
   }
 }

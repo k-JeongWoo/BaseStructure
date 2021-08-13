@@ -147,7 +147,7 @@
 
 <script>
 import Modal from '@/components/modal/ConfirmModal'
-import {fetchHospitalList, fetchInquireRegist} from '../../api'
+import {fetchInquireRegist} from '../../api'
 import 'url-search-params-polyfill'
 
 export default {
@@ -197,12 +197,6 @@ export default {
       this.modalContents = ''
       this.showModal = !this.showModal
     }
-  },
-  created () {
-    // 선택 병원정보 조회
-    fetchHospitalList(this.selectHospital)
-      .then(response => { this.hospitalInfo = response.data.data.data })
-      .catch(function (error) { console.log(error) })
   },
   components: {
     Modal: Modal

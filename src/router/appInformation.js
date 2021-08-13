@@ -3,6 +3,7 @@ import AppPrivacyAgree from '@/components/appInformation/AppPrivacyAgree'
 import AppPrivacyService from '@/components/appInformation/AppPrivacyService'
 import AppMarketing from '@/components/appInformation/AppMarketing'
 import Header from '@/components/layout/Header'
+import {headerBtnType} from '../store/index'
 
 export default [
   {
@@ -11,6 +12,12 @@ export default [
     components: {
       header: Header,
       default: AppInformation
+    },
+    props: true,
+    meta: headerBtnType.page_common_close,
+    beforeEnter (to, from, next) {
+      headerBtnType.page_common_close.titleTxt = to.params.dynamicTitle
+      next()
     }
   },
   {
