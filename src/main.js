@@ -38,7 +38,7 @@ router.beforeEach((to, from, next) => {
   console.log(process.env.NODE_ENV === 'development')
   // 사용자별 언어 설정 분기할 부분
   // i18n.locale = 'en'
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV !== 'development') {
     if (to.path === '/agreement' || to.path === '/auth/niceBlank' || to.path === '/auth/signUpForm') {
       axios.get(`/api/v1/api/auth/tokenUserInfo`, {},
         {withCredentials: true}
@@ -53,11 +53,8 @@ router.beforeEach((to, from, next) => {
     } else {
       axios.get('/api/v1/api/user/userInfo')
         .then(function (response) {
-          console.log(response.data.resultCode)
           sessionStorage.setItem('result_code', response.data.resultCode)
-          console.log(to.path)
           if (response.data.resultCode !== 'error') {
-            alert(1)
             // 로그인 한 상태
             console.log('Add Session Storage ! - User Name = ' + response.data.data.name)
             sessionStorage.setItem('usr_name', response.data.data.name)
@@ -66,8 +63,7 @@ router.beforeEach((to, from, next) => {
             sessionStorage.setItem('usr_age', response.data.data.age)
             sessionStorage.setItem('result_code', response.data.resultCode)
             next()
-          } else if (response.data.resultCode === 'error' && to.path === '/mainhome') {
-            alert(2)
+          } else if (response.data.resultCode === 'error') {
             // 로그인 안한상태
             sessionStorage.setItem('usr_name', '게스트')
             sessionStorage.setItem('result_code', response.data.resultCode)
@@ -75,14 +71,7 @@ router.beforeEach((to, from, next) => {
             // sessionStorage.setItem('usr_name', '게스트')
             // alert('로그인 후 이용 가능합니다.')
             // console.log(to.path)
-            if (to.path !== '/mainhome') {
-              alert(3)
-              sessionStorage.setItem('usr_name', '게스트')
-              sessionStorage.setItem('result_code', response.data.resultCode)
-              next()
-            }
           } else {
-            alert(4)
             sessionStorage.setItem('usr_name', '게스트')
             sessionStorage.setItem('result_code', response.data.resultCode)
             next()

@@ -90,6 +90,7 @@ export default {
           agreeChk: this.personAgree.toString()
         }
         personAgreeRegist(objectValue).then(res => {
+          console.log(res)
           if (res.data.resultCode === '0000') {
             this.popupControll()
           }

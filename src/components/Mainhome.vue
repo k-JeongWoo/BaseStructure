@@ -256,7 +256,7 @@
           -->
 
         <!--//box_wrap-->
-        <div class="box_wrap">
+        <div class="box_wrap" v-if="hospitalChk.length > 0 && hospitalChk">
           <section class="box_p32">
             <p class="title_05 colorA">주치의 생활코칭</p>
             <h2 class="title_01">주치의 제안 하루 걸음수</h2>
@@ -362,7 +362,7 @@
 <script>
 import Modal from '@/components/modal/MoveModal.vue'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import {fetchUserVisitPlan, MedicationTodayList, fetchUserMain} from '../api'
+import {fetchUserVisitPlan, fetchUserMain, myHospitalList} from '../api'
 import dayjs from 'dayjs'
 
 export default {
@@ -403,7 +403,8 @@ export default {
       todayCalorie: '',
       distancGraph: null,
       kcalGraph: null,
-      coachingDetail: []
+      coachingDetail: [],
+      hospitalChk: []
     }
   },
   filters: {
@@ -416,15 +417,16 @@ export default {
     this.result_code = sessionStorage.getItem('result_code')
     this.showModal = !this.showModal
     // this.init()
-    MedicationTodayList()
-      .then(res => {
-        if (res.data.data) {
-          this.alarmList = res.data.data
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    // MedicationTodayList()
+    //   .then(res => {
+    //     console.log(res)
+    //     if (res.data.data) {
+    //       this.alarmList = res.data.data
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.log(error)
+    //   })
     fetchUserMain().then(res => {
       if (res.data.resultCode === 'error') {
         goodStepChart(10)
@@ -446,6 +448,11 @@ export default {
         goodStepChart(10)
       }
       this.isLoading = true
+    }).catch(error => {
+      console.log(error)
+    })
+    myHospitalList().then(res => {
+      this.hospitalChk = res.data.data
     }).catch(error => {
       console.log(error)
     })

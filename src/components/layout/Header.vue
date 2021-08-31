@@ -15,7 +15,7 @@
         <i class="ico_back" v-else-if="$route.meta.LGNBGbn === 'BA'" @click="historyBack"></i>
         <i class="" v-else></i>
       </button>
-      <a class="btn_right" id="show-modal" @click="selectCloseBtn">
+      <a class="btn_right" id="show-modal" @click="modalClean">
         <i class="ico_close"
            v-if="$route.meta.RGNBGbn === 'CL'"></i>
         <div class="notic_ico"
