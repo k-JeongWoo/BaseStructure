@@ -364,8 +364,7 @@ function getChartList (obj) {
 
     // 대상년도의 데이터 추출
     var dataLenght = item.responseData.length
-    console.log(item.responseData[dataLenght - 1])
-    dataYearObj[item.checkupDetailItem] = item.responseData[dataLenght - 1]
+    dataYearObj[item.checkupDetailItemCode] = item.responseData[dataLenght - 1]
     obj.checkupYearDetail = dataYearObj
 
     const graphsMode1 = [
@@ -412,7 +411,7 @@ function getChartList (obj) {
       else if (item.checkupDetailItem === 'TUB') obj.tblTUB = tblHtml
     }
     // eslint-disable-next-line no-undef,no-unused-expressions
-    AmCharts.makeChart('chart_' + item.checkupDetailItem,
+    AmCharts.makeChart('chart_' + item.checkupDetailItemCode,
       {
         'type': 'serial',
         'theme': 'none',

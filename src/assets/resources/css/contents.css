@@ -38,10 +38,10 @@ pre{white-space:pre-wrap;}
 /*splash_screen*/
 .splash_screen .title{display:block; width: 182px; position:absolute; left: 50%; top: 45%; transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); -moz-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%);}
 @media screen and (max-width: 330px) {
-    .snsLogin_box{padding-left: 0; padding-right: 0; margin-top: 0;}
+  .snsLogin_box{padding-left: 0; padding-right: 0; margin-top: 0;}
 }
 @media screen and (max-height: 570px) {
-    .powered{bottom:35px;}
+  .powered{bottom:35px;}
 }
 
 /*walk_through*/
@@ -52,7 +52,7 @@ pre{white-space:pre-wrap;}
 .walk_through_pagination .swiper-pagination-bullet{width: 10px; height: 10px; margin-right: 6px; display: inline-block; border-radius: 100%; background:#DDE1F5; opacity: 1;}
 .walk_through_pagination .swiper-pagination-bullet-active{background:#AF89FF;}
 @media screen and (max-height: 570px) {
-    .walk_throughBox .walk_through_pagination{bottom:35px;}
+  .walk_throughBox .walk_through_pagination{bottom:35px;}
 }
 
 /*agreement*/
@@ -65,10 +65,10 @@ pre{white-space:pre-wrap;}
 .agree_list .check_row >*{display: inline-block; width:auto;}
 .agree_list .check_row .inputCheck{margin-bottom: 0px; padding-right:24px;}
 @media screen and (max-width: 330px) {
-    .agree_list .check_row .inputCheck{margin-bottom: 5px; padding-right: 14px;}
+  .agree_list .check_row .inputCheck{margin-bottom: 5px; padding-right: 14px;}
 }
 @media screen and (max-height: 570px) {
-    .agreement_box{margin-top:20px;}
+  .agreement_box{margin-top:20px;}
 }
 
 /*sns연동시 정보입력 화면*/

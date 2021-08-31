@@ -1,23 +1,6 @@
 <template>
   <!--  container  -->
   <div class="contents">
-    <ul class="tab_box typeA mb6">
-      <li>
-        <router-link :to="{ path: '/screening/screeningResult'}" class="btn_tab">
-          일반검진
-        </router-link>
-      </li>
-      <li>
-        <router-link :to="{ path: '/screening/screeningCancer'}" class="btn_tab on">
-          암검진
-        </router-link>
-      <li>
-        <router-link :to="{ path: '/screening/screeningMedicineList'}" class="btn_tab">
-          진료/처방
-        </router-link>
-      </li>
-    </ul>
-
     <div class="h-well_cont">
       <div class="start_year mb6">
         <div class="select typeA">

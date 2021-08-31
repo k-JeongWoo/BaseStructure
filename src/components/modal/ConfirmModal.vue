@@ -1,6 +1,6 @@
 <template lang="html">
   <transition name="modal">
-    <div class="modal-mask">
+    <div class="modal-mask" @click.self="popupControll">
       <div class="modal-wrapper">
         <div class="modal-container">
 
@@ -28,6 +28,12 @@
   </transition>
 </template>
 
-<style>
-
-</style>
+<script>
+export default {
+  methods: {
+    popupControll () {
+      this.$emit('popupdata', false)
+    }
+  }
+}
+</script>

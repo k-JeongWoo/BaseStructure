@@ -1,23 +1,6 @@
 <template>
   <!--  container  -->
   <div class="contents">
-    <ul class="tab_box typeA mb6">
-      <li>
-        <router-link :to="{ path: '/screening/screeningResult'}" class="btn_tab">
-          일반검진
-        </router-link>
-      </li>
-      <li>
-        <router-link :to="{ path: '/screening/screeningCancer'}" class="btn_tab">
-          암검진
-        </router-link>
-      <li>
-        <router-link :to="{ path: '/screening/screeningMedicineList'}" class="btn_tab on">
-          진료/처방
-        </router-link>
-      </li>
-    </ul>
-
     <div class="h-well_result">
       <div class="diagPres_checkup">
         <ul class="checkup_list">
@@ -78,12 +61,9 @@ export default {
     }
   },
   created () {
-    var params = {
-      startDate: '20200805',
-      endDate: '20210805'
-    }
-    fetchMedicineList(params)
+    fetchMedicineList()
       .then(res => {
+        console.log(res)
         this.medicineList = res.data.data.request
         this.pharmacyList = res.data.data.response
       }).catch(error => {

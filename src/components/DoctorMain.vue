@@ -6,22 +6,23 @@
         <div class="box_p32">
           <div class="tit_wrap mb4">
             <p class="title_05 colorA">최근 내원 이력</p>
-            <h2 class="title_01">진료/검사/치료 이력</h2>
-            <a href="" class="btn_right">
+            <h2 class="title_01">진료/검사/치료 이력 </h2>
+            <button class="btn_right" @click="pageUrl('clinic', propsdata)">
               <i class="icoArrow_blackMore">더보기</i>
-            </a>
+            </button>
           </div>
           <div class="visit_history_wrap box_shadow01">
-            <div class="visit_history_detail type01"><!-- type01:진료(보라색) / type02:검사(하늘색) / type03:치료(주황색) -->
-              <h2 class="title_03">진료</h2>
+            <!-- type01:진료(보라색) / type02:검사(하늘색) / type03:치료(주황색) -->
+            <div class="visit_history_detail" :class="clinicList.clinicType === '진료' ? 'type01' : clinicList.clinicType === '검사' ? 'type02' : 'type03'">
+              <h2 class="title_03">{{ clinicList.clinicType }}</h2>
               <div class="suggestion_doctor">
                 <div class="doctor_info">
                   <div class="doctor_img">
                     <img src="../assets/resources/images/_temp/temp01.png" alt="의사얼굴">
                   </div>
                   <ul>
-                    <li class="sugges_date">2021년 6월 12일</li>
-                    <li class="sugges_doc">김종석 원장님</li>
+                    <li class="sugges_date">{{ clinicList.regDate }}</li>
+                    <li class="sugges_doc">{{ clinicList.emplyName }}</li>
                   </ul>
                 </div>
               </div>
@@ -29,11 +30,11 @@
               <div class="doctor_comment">
                 <h3 class="title_07">진료기록</h3>
                 <div class="cont">
-                  <p>씨젠클리닉 김종석입니다. 체형관리를 위해서는 조금 더 많이 걸으셔야 합니다. 최소 하루 10,000보를 걷기를 권해드립니다. 화이팅입니다! </p>
+                  <p>{{ clinicList.clinicRecord }}</p>
                 </div>
                 <h3 class="title_07">주의사항</h3>
                 <div class="cont">
-                  <p>씨젠클리닉 김종석입니다. 체형관리를 위해서는 조금 더 많이 걸으셔야 합니다. 최소 하루 10,000보를 걷기를 권해드립니다. 화이팅입니다! </p>
+                  <p>{{ clinicList.clinicCaution }}</p>
                 </div>
               </div>
               <!--//doctor_comment-->
@@ -49,46 +50,14 @@
           <p class="title_05 colorA">기능별 건강</p>
           <h2 class="title_01">건강상태 요약</h2>
           <ul class="health_state list_styleA mt4">
-            <li class="list_item" v-for="item in healthyList">
-              <a href="" class="btn_health_state">
-                <i class="icoProgram_01 sm"></i><span>마음 {{ item }}</span><!-- icoProgram_01 : 마음 / icoProgram_02 : 신경인지 / icoProgram_03 : 심혈관 / icoProgram_04 : 근골격 / icoProgram_05 : 대사 / icoProgram_06 : 면역 / icoProgram_07 : 피부&체형 /icoProgram_08 : 기타  -->
-              </a>
-            </li>
-            <li class="list_item">
-              <a href="" class="btn_health_state">
-                <i class="icoProgram_02 sm"></i><span>신경인지</span>
-              </a>
-            </li>
-            <li class="list_item">
-              <a href="" class="btn_health_state">
-                <i class="icoProgram_03 sm"></i><span>심혈관</span>
-              </a>
-            </li>
-            <li class="list_item">
-              <a href="" class="btn_health_state">
-                <i class="icoProgram_04 sm"></i><span>근골격</span>
-              </a>
-            </li>
-            <li class="list_item">
-              <a href="" class="btn_health_state">
-                <i class="icoProgram_05 sm"></i><span>대사</span>
-              </a>
-            </li>
-            <li class="list_item">
-              <a href="" class="btn_health_state">
-                <i class="icoProgram_06 sm"></i><span>면역</span>
-              </a>
-            </li>
-            <li class="list_item">
-              <a href="" class="btn_health_state">
-                <i class="icoProgram_07 sm"></i><span>피부 &amp; 체형</span>
-              </a>
-            </li>
-            <li class="list_item">
-              <a href="" class="btn_health_state">
-                <i class="icoProgram_08 sm"></i><span>기타</span>
-              </a>
-            </li>
+            <template v-for="item in healthyList">
+              <li class="list_item">
+                <a class="btn_health_state" @click="healthSatusFnt(item.careProgramId, propsdata, item.careProgramName)">
+                  <!-- icoProgram_01 : 마음 / icoProgram_02 : 신경인지 / icoProgram_03 : 심혈관 / icoProgram_04 : 근골격 / icoProgram_05 : 대사 / icoProgram_06 : 면역 / icoProgram_07 : 피부&체형 /icoProgram_08 : 기타  -->
+                  <i :class="'icoProgram_0'+item.careProgramId"></i><span>{{ item.careProgramName }}</span>
+                </a>
+              </li>
+            </template>
           </ul>
           <!--//health_state-->
         </section>
@@ -100,9 +69,9 @@
           <div class="tit_wrap mb4">
             <p class="title_05 colorA">다음 예상 내원일</p>
             <h2 class="title_01">상세내역</h2>
-            <a href="next_visitDate.html" class="btn_right">
+            <button class="btn_right" @click="pageUrl('plan', propsdata)">
               <i class="icoArrow_blackMore">더보기</i>
-            </a>
+            </button>
           </div>
           <p class="infomation_box mb4">
             <i class="icoCom_i">i</i>
@@ -113,61 +82,21 @@
             <a href="tel:82+03212345678" class="btn_fill">전화 예약하기</a>
           </div>
           <ul class="reservation_list">
-            <li class="item">
+            <li class="item" v-for="item in magementPlanList">
               <div class="reservation_info">
-                <div class="reser_dDay ">D-<span>2</span></div><!--class="blue" 추가시 디데이 배경색상변경-->
+                <div class="reser_dDay blue">D-<span>{{ item.ddays === 0 ? 'Day' : item.ddays }}</span></div><!--class="blue" 추가시 디데이 배경색상변경-->
                 <ul class="ico_listStyle01">
-                  <li class="list_item">
+                  <li class="list_item" >
                     <i class="icoCom_day_purple">예약일</i>
-                    <span>2021년 7월 6일 (화)</span>
+                    <span>{{ item.visitDate }} ({{ item.visitWeek }})</span>
                   </li>
                   <li class="list_item">
                     <i class="icoCom_time_purple">예약시간</i>
-                    <span>오후 3:00</span>
+                    <span>{{ item.visitTime }}</span>
                   </li>
                   <li class="list_item">
-                    <i class="icoCom_memo_purple">예약메모</i>
-                    <span>종합건강검진</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <!--//item-->
-            <li class="item">
-              <div class="reservation_info">
-                <div class="reser_dDay blue">D-<span>22</span></div><!--class="blue" 추가시 디데이 배경색상변경-->
-                <ul class="ico_listStyle01">
-                  <li class="list_item">
-                    <i class="icoCom_day_purple">예약일</i>
-                    <span>2021년 7월 6일 (화)</span>
-                  </li>
-                  <li class="list_item">
-                    <i class="icoCom_time_purple">예약시간</i>
-                    <span>오후 3:00</span>
-                  </li>
-                  <li class="list_item">
-                    <i class="icoCom_memo_purple">예약메모</i>
-                    <span>종합건강검진</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <!--//item-->
-            <li class="item">
-              <div class="reservation_info">
-                <div class="reser_dDay blue">D-<span>999</span></div><!--class="blue" 추가시 디데이 배경색상변경-->
-                <ul class="ico_listStyle01">
-                  <li class="list_item">
-                    <i class="icoCom_day_purple">예약일</i>
-                    <span>2021년 7월 6일 (화)</span>
-                  </li>
-                  <li class="list_item">
-                    <i class="icoCom_time_purple">예약시간</i>
-                    <span>오후 3:00</span>
-                  </li>
-                  <li class="list_item">
-                    <i class="icoCom_memo_purple">예약메모</i>
-                    <span>종합건강검진</span>
+                    <i class="icoCom_memo_purple">진료</i>
+                    <span>{{ item.magementPlanType }}</span>
                   </li>
                 </ul>
               </div>
@@ -185,7 +114,7 @@
           <h2 class="title_01">Inbody</h2>
 
           <div class="inbody_box mt4">
-            <div class="dateTime_box box_shadow01">
+            <div class="dateTime_box box_shadow01" @click="pageUrl('inbody')">
               <button type="button" class="btn_left">
                 <i class="icoArrow_blackL">이전</i>
               </button>
@@ -301,38 +230,27 @@
           <div class="tit_wrap mb4">
             <p class="title_05 colorA">최근 문의사항</p>
             <h2 class="title_01">문의사항/답변</h2>
-            <a href="recent_question.html" class="btn_right">
+            <button class="btn_right" @click="pageUrl('inquire', propsdata)">
               <i class="icoArrow_blackMore">더보기</i>
-            </a>
+            </button>
           </div>
           <div class="btnArea">
-            <a href="question_pop.html" class="btn_fill">문의하기</a>
+            <button class="btn_fill" @click="openModal('inquireRegist', propsdata)">문의하기</button>
           </div>
           <div class="question_list">
-            <div class="question_item">
-              <div class="itme_tit">
-                <p class="title_07">2021년 7월 1일</p>
-                <p class="rabel_fill radius wait"><!-- wait 클래스 추가시 빨간색 // 없는경우 파란색 -->
-                  답변대기중
-                </p>
-              </div>
+            <div class="question_item" v-for="item in inqueryList">
+              <a @click="openModal('inquiremodal', item.inqueryId)">
+                <div class="itme_tit">
+                  <p class="title_07">{{ item.inqueryDate }}</p>
+                  <p class="rabel_fill radius" :class="item.inqueryAnswerCheck === 'N' ? 'wait' : ''"><!-- wait 클래스 추가시 빨간색 // 없는경우 파란색 -->
+                    {{ item.inqueryAnswerCheck === 'N' ? '답변대기중' : '답변완료' }}
+                  </p>
+                </div>
+              </a>
               <div class="item_cont">
-                <p class="title_10">궁금한 것이 있어요궁금한 것이 있어요.궁금한 것이 있어요.궁금한 것이 있어요.궁금한 것이 있어요.궁금한 것이 있어요.. 방문하고 싶은데 궁금한 것이 있어요. 방문하고 싶은데 궁금한 것이 있어요. 방문하고 싶은데 원장님</p>
+                <p class="title_10">{{ item.medicalInquiryDesc }}</p>
               </div>
             </div>
-            <!--//item-->
-            <div class="question_item">
-              <div class="itme_tit">
-                <p class="title_07">2021년 7월 1일</p>
-                <p class="rabel_fill radius">
-                  답변완료
-                </p>
-              </div>
-              <div class="item_cont">
-                <p class="title_10">궁금한 것이 있어요. 방문하고 싶은데 궁금한 것이 있어요. 방문하고 싶은데 궁금한 것이 있어요. 방문하고 싶은데 원장님...</p>
-              </div>
-            </div>
-            <!--//item-->
           </div>
           <!--//question_list-->
         </section>
@@ -344,9 +262,9 @@
           <div class="tit_wrap mb4">
             <p class="title_05 colorA">병원안내</p>
             <h2 class="title_01">씨젠클리닉</h2>
-            <a href="hospital_02.html" class="btn_right">
+            <button class="btn_right" @click="pageUrl('detail', propsdata)">
               <i class="icoArrow_blackMore">더보기</i>
-            </a>
+            </button>
           </div>
           <h2 class="title_02"><span class="mr2">수요일</span> <span>9:00 ~ 18:00</span></h2>
           <p class="title_09 mt3">
@@ -355,13 +273,21 @@
           <ul class="medical_subject mt3">
             <li class="rabel_fill radius bgColor06 color0">외래진료</li>
             <li class="rabel_fill radius bgColor06 color0">종합 건강검진</li>
-            <li class="rabel_fill radius bgColor06 color0">가정의학과 {{ propsdata }}</li>
+            <li class="rabel_fill radius bgColor06 color0">가정의학과</li>
           </ul>
         </section>
 
       </div>
       <!--//box_wrap-->
-
+      <div v-if="isOpenModal">
+        <component :is="modalGbn" v-bind:selectmodal="modalObj" v-on:popupdata="modalData">
+          <div class="modal-header" slot="header">
+            <h3>{{ modalTitle }}</h3>
+          </div>
+          <p slot="body" v-html="modalContent"></p>
+          <button slot="moveBtn1" @click="modalData" class="btn modal-default-button">확인</button>
+        </component>
+      </div>
     </div>
   </div>
   <!--//contents-->
@@ -369,25 +295,98 @@
 
 <script>
 import {hospitalHealthyList} from '../api/index'
+import agreePopup from '../components/appInformation/AppPersonAgree'
+import inquirePopup from '../components/hospital/InquireDetailPopup'
+import inquireRegistPopup from '../components/hospital/InquireRegist'
+import confirmModal from '../components/modal/ConfirmModal'
 
 export default {
   props: ['propsdata'],
   data () {
     return {
-      targetId: this.propsdata,
-      healthyList: []
+      healthyList: [],
+      magementPlanList: [],
+      inqueryList: [],
+      clinicList: [],
+      agreeChk: '',
+      showModal: false,
+      modalGbn: '',
+      isOpenModal: false,
+      modalObj: 0,
+      modalTitle: '',
+      modalContent: ''
     }
   },
-  created () {
-    console.log('defaultCreate')
+  async created () {
     const objectValue = {
-      hospitalId: this.targetId
+      // hospitalId: this.$route.params.hospitalId
+      hospitalId: 1
     }
-    hospitalHealthyList(objectValue).then(res => {
-      this.healthyList = res.data.data
+    await hospitalHealthyList(objectValue).then(res => {
+      if (res.data.resultCode !== 'error') {
+        this.healthyList = res.data.data.careProgramResponses
+        this.magementPlanList = res.data.data.magementPlanResponses
+        this.inqueryList = res.data.data.medicalInqueryResponses
+        this.clinicList = res.data.data.clinicResponse
+        this.agreeChk = res.data.data.healthAgreeChk
+        if (res.data.data.healthAgreeChk === 'N') {
+          this.openModal('agreemodal')
+        }
+      }
     }).catch(error => {
       console.log(error)
     })
+  },
+  methods: {
+    pageUrl: function (value, searchVal) {
+      if (value === 'clinic') {
+        this.$router.push({name: 'RecentlyVisit', params: { dynamicTitle: '최근 내원 이력', conClass: 'visit_history01', searchVal: searchVal }})
+      } else if (value === 'health') {
+        alert('준비중 입니다.')
+      } else if (value === 'plan') {
+        this.$router.push({name: 'HospitalExpectedPlan', params: { dynamicTitle: '예상 내원일 상세정보', conClass: 'noBg hospital_visitDate' }})
+      } else if (value === 'inbody') {
+        alert('준비중 입니다.')
+      } else if (value === 'inquire') {
+        this.$router.push({name: 'InquireList', params: { dynamicTitle: '최근 문의사항', conClass: 'noBg recent_question', searchVal: searchVal }})
+      } else if (value === 'detail') {
+        this.$router.push({name: 'HospitalDetail', params: { hospitalId: searchVal, dynamicTitle: this.magementPlanList.hospitalName }})
+      } else if (value === 'inquireDetail') {
+        this.$router.push({name: 'InquireList', params: { dynamicTitle: '문의내용 상세보기', conClass: 'noBg question_detail', searchVal: searchVal }})
+      }
+    },
+    setModalCompo (pCompo, intVal) {
+      if (pCompo === 'agreemodal') {
+        this.modalGbn = agreePopup
+        this.modalObj = this.propsdata
+      } else if (pCompo === 'inquiremodal') {
+        this.modalGbn = inquirePopup
+        this.modalObj = intVal
+      } else if (pCompo === 'inquireRegist') {
+        this.modalGbn = inquireRegistPopup
+        this.modalObj = intVal
+      } else if (pCompo === 'agree') {
+        this.modalGbn = confirmModal
+      }
+    },
+    openModal (pCompo, intVal) {
+      this.setModalCompo(pCompo, intVal)
+      this.isOpenModal = !this.isOpenModal
+    },
+    modalData: function (value) {
+      this.isOpenModal = value
+      this.showModal = value
+      this.modalGbn = ''
+    },
+    healthSatusFnt (programkey, hospitalkey, programName) {
+      if (this.agreeChk === 'N') {
+        this.modalTitle = '주의'
+        this.modalContent = '제3자 정보제공동의 후 서비스 이용이 가능합니다.'
+        this.openModal('agree', '')
+      } else {
+        this.$router.push({name: 'HealthStatus', params: { dynamicTitle: programName, conClass: 'health_status', careProgramId: programkey, hospitalId: hospitalkey }})
+      }
+    }
   }
 }
 </script>

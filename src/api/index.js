@@ -6,6 +6,10 @@ const config = {
 }
 
 /* API - 리스트 목록 조회 */
+// 사용자 메인화면
+function fetchUserMain () {
+  return axios.get(`${config.baseUrl}user/userHealthMain`)
+}
 // 관심프로그램 목록 조회
 function fetchProgramlList () {
   return axios.get(`${config.baseUrl}carePrgm/careProgramList`)
@@ -24,21 +28,9 @@ function fetchProgramRegist (stringValue) {
   return axios.post(`${config.baseUrl}attentionProgram/attentionProgramWrite`, sendData)
 }
 
-// 진료문의 등록
-function fetchInquireRegist (arrayValue) {
-  const sendData = {
-    'careProgramIds': arrayValue.careProgramIds,
-    'hospitalId': arrayValue.selectHospital,
-    'medicalInquiryDesc': arrayValue.mdclInqrsDesc,
-    'medicalInquiryTitle': arrayValue.mdclInqrsTitle,
-    'medicalInquirySeegeneMail': arrayValue.emplyEmail.concat('@seegene.com')
-  }
-  return axios.post(`${config.baseUrl}medicalInquery/medicalInqueryWrite`, sendData)
-}
-
 // 진료 및 투약 이력
 function fetchMedicineList (objectValue) {
-  return axios.get(`${config.baseUrl}medicine/myMedicineList`, {params: objectValue})
+  return axios.post(`${config.baseUrl}medicine/myMedicineList`, {params: objectValue})
 }
 
 // 예상 내원일 조회
@@ -52,7 +44,7 @@ function MedicationTodayList () {
 }
 
 // 등록된 병원 ListCnt 판별 -> 주치의 페이지 분기 처리
-function hospitalListCnt () {
+function myHospitalList () {
   return axios.get(`${config.baseUrl}hospital/myHospital`)
 }
 
@@ -65,15 +57,74 @@ function hospitalList () {
 function hospitalHealthyList (objectValue) {
   return axios.get(`${config.baseUrl}hospital/hospitalMain?`, {params: objectValue})
 }
+
+// 씨젠 부속병원인지 여부 체크
+function hospitalCheck (objectValue) {
+  return axios.get(`${config.baseUrl}hospital/seegeneHospital`, {params: objectValue})
+}
+// 사용자 주치의 병원 등록
+function hospitalRegist (objectValue) {
+  console.log('1111111111111')
+  console.log(objectValue)
+  return axios.post(`${config.baseUrl}hospital/patientWrite`, {params: objectValue})
+}
+// 병원 상세정보 조회
+function hospitalDetail (objectValue) {
+  return axios.get(`${config.baseUrl}hospital/hospitalDetail`, {params: objectValue})
+}
+// 제 3자정보 제공 동의
+function personAgreeRegist (objectValue) {
+  return axios.post(`${config.baseUrl}hospital/patientAgreeUpdate`, objectValue)
+}
+
+// 최근내원이력 상세보기
+function recentlyVisitList (objectValue) {
+  return axios.get(`${config.baseUrl}clinic/clinicList`, {params: objectValue})
+}
+
+// 최근 문의사항 리스트
+function fetchInquireList (objectValue) {
+  return axios.get(`${config.baseUrl}/medicalInquery/myMedicalInqueryList`, {params: objectValue})
+}
+
+// 최근 문의사항 상세보기 Popup
+function fetchInquireDetail (objectValue) {
+  return axios.get(`${config.baseUrl}medicalInquery/myMedicalInqueryDetail`, {params: objectValue})
+}
+// 문의사항 삭제
+function fetchInquireRemove (objectValue) {
+  return axios.post(`${config.baseUrl}medicalInquery/medicalInqueryDelete`, objectValue)
+}
+
+// 문의하기 등록
+function fetchInquireRegist (objectValue) {
+  return axios.post(`${config.baseUrl}medicalInquery/medicalInqueryWrite`, objectValue)
+}
+
+// 기능별 건강상태 조회
+function fetchHealthDetail (objectValue) {
+  return axios.get(`${config.baseUrl}checkupDetail/functionCheckupList`, {params: objectValue})
+}
+
 export {
+  fetchUserMain,
   fetchProgramlList,
   fetchProgramRegist,
-  fetchInquireRegist,
   fetchUserProgramList,
   fetchMedicineList,
   fetchUserVisitPlan,
   MedicationTodayList,
-  hospitalListCnt,
+  myHospitalList,
   hospitalList,
-  hospitalHealthyList
+  hospitalHealthyList,
+  hospitalCheck,
+  hospitalRegist,
+  hospitalDetail,
+  personAgreeRegist,
+  recentlyVisitList,
+  fetchInquireList,
+  fetchInquireDetail,
+  fetchInquireRemove,
+  fetchInquireRegist,
+  fetchHealthDetail
 }

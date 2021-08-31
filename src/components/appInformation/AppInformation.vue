@@ -1,5 +1,4 @@
 <template>
-  <div class="container noBg about">
     <!--contents-->
     <div class="contents">
       <div class="about_txt">
@@ -13,8 +12,6 @@
       </div>
     </div>
     <!--//contents-->
-    <!-- footer  //footer -->
-  </div>
 </template>
 
 <script>

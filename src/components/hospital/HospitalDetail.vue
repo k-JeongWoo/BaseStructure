@@ -1,19 +1,17 @@
 <template>
-  <div class="container hospital_02">
   <!--contents-->
   <div class="contents">
     <div class="hospital_detail">
       <p class="title_05 colorA">병원안내</p>
-      <h2 class="title_01 mb4">씨젠클리닉</h2>
+      <h2 class="title_01 mb4">{{ hospitalDetail.pdYadmNm }}</h2>
       <div class="hospital_sampleImg">
         <img src="../../assets/resources/images/_temp/hospital_temp01.png" alt="씨젠클리닉 병원사진">
       </div>
-      <div class="btnArea">
-        <a href="#" class="btn_fill">주치의 병원으로 등록</a>
+      <div class="btnArea" v-if="prevRoute.name !== 'HospitalRegist'">
+        <button class="btn_fill" @click="pageUrl">주치의 병원으로 등록</button>
       </div>
       <h2 class="title_02 mt5"><span>수요일</span><span>9:00 ~ 18:00</span></h2>
       <p class="title_09 mt3">
-        서울 송파구 오금로 91 태원빌딩 12층
       </p>
       <ul class="medical_subject mt3">
         <li class="rabel_fill radius bgColor06 color0">외래진료</li>
@@ -22,7 +20,7 @@
       </ul>
       <div class="btnArea mt6 mb5">
         <a href="#" class="btn_border">전화하기</a>
-        <a href="#" class="btn_border">문의하기</a>
+        <button class="btn_border" @click="openModal('inquireRegist', hospitalDetail.hospitalId)">문의하기</button>
       </div>
       <div class="hospital_detailInfo">
         <section>
@@ -155,20 +153,69 @@
             </li>
           </ul>
         </section>
+        <!--//hospital_detail-->
+        <div v-if="isOpenModal">
+          <component :is="modalGbn" v-bind:selectmodal="modalObj" v-on:popupdata="modalData">
+
+          </component>
+        </div>
+        <!--//box_wrap-->
       </div>
-      <!--//hospital_detail-->
     </div>
     <div class="btnArea">
       <button type="button" class="btn_text_size03 underline colorC">개인정보 처리업무 위탁 정보 공개</button>
     </div>
   </div>
   <!--//contents-->
-  <!-- footer  //footer -->
-  </div>
 </template>
 
 <script>
+import {hospitalDetail} from '../../api'
+import inquireRegistPopup from './InquireRegist'
 export default {
+  props: ['popupdata'],
+  data () {
+    return {
+      hospitalId: this.$route.params,
+      hospitalDetail: [],
+      prevRoute: [],
+      modalGbn: '',
+      isOpenModal: false,
+      modalObj: this.$route.params
+    }
+  },
+  created () {
+    hospitalDetail(this.$route.params).then(res => {
+      this.hospitalDetail = res.data.data
+    }).catch(error => {
+      console.log(error)
+    })
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.prevRoute = from
+    })
+  },
+  methods: {
+    pageUrl () {
+      alert('준비중 입니다.')
+    },
+    setModalCompo (pCompo, intVal) {
+      if (pCompo === 'inquireRegist') {
+        this.modalGbn = inquireRegistPopup
+        this.modalObj = intVal
+      }
+    },
+    openModal (pCompo, intVal) {
+      this.setModalCompo(pCompo, intVal)
+      this.isOpenModal = !this.isOpenModal
+    },
+    modalData: function (value) {
+      this.isOpenModal = value
+      this.showModal = value
+      this.modalGbn = ''
+    }
+  }
 }
 </script>
 

@@ -1,13 +1,13 @@
 const headerBtnType = {
   'page_tutorial': {
-    titleTxt: '', // TEXT
+    titleTxt: 'home', // TEXT
     titleGbn: 'IM', // TX(TEXT), IM(IMAGE), NN (NONE)
     LGNBGbn: 'HA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION), NN (NONE)
     RGNBGbn: 'AR', // TYPE AR(ALARM), CL(CLOSE), JM(JUMP), NN (NONE)
     conClass: 'main' // ex) 'noBg inquery_info_01',
   },
   'page_main': {
-    titleTxt: 'viocross', // TEXT
+    titleTxt: 'home', // TEXT
     titleGbn: 'IM', // TX(TEXT), IM(IMAGE), NN (NONE)
     LGNBGbn: 'HA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION), NN (NONE)
     RGNBGbn: 'AR', // TYPE AR(ALARM), CL(CLOSE), JM(JUMP), NN (NONE)
@@ -39,7 +39,7 @@ const headerBtnType = {
     titleGbn: 'TX', // TX(TEXT), IM(IMAGE), NN (NONE)
     LGNBGbn: 'BA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION), NN (NONE)
     RGNBGbn: 'NN', // TYPE AR(ALARM), CL(CLOSE), JM(JUMP), NN (NONE)
-    conClass: 'main' // ex) 'noBg inquery_info_01',
+    conClass: 'hospital_02' // ex) 'noBg inquery_info_01',
   },
   'page_Login': {
     titleTxt: '', // TEXT
@@ -67,21 +67,7 @@ const headerBtnType = {
     titleGbn: 'TX', // TX(TEXT), IM(IMAGE), NN (NONE)
     LGNBGbn: 'BA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION), NN (NONE)
     RGNBGbn: 'NN', // TYPE AR(ALARM), CL(CLOSE), JM(JUMP), NN (NONE)
-    conClass: 'noBg healthIn_info01' // ex) 'noBg inquery_info_01',
-  },
-  'page_healthInfo_detail2': {
-    titleTxt: '국민건강보험 정보 관리', // TEXT
-    titleGbn: 'TX', // TX(TEXT), IM(IMAGE), NN (NONE)
-    LGNBGbn: 'BA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION), NN (NONE)
-    RGNBGbn: 'NN', // TYPE AR(ALARM), CL(CLOSE), JM(JUMP), NN (NONE)
-    conClass: 'noBg healthIn_info02' // ex) 'noBg inquery_info_01',
-  },
-  'page_healthInfo_detail3': {
-    titleTxt: '국민건강보험 정보 관리', // TEXT
-    titleGbn: 'TX', // TX(TEXT), IM(IMAGE), NN (NONE)
-    LGNBGbn: 'BA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION), NN (NONE)
-    RGNBGbn: 'NN', // TYPE AR(ALARM), CL(CLOSE), JM(JUMP), NN (NONE)
-    conClass: 'noBg healthIn_info03' // ex) 'noBg inquery_info_01',
+    conClass: 'main' // ex) 'noBg inquery_info_01',
   },
   'page_healthInfo_item': {
     titleTxt: '검사내용', // TEXT
@@ -95,7 +81,7 @@ const headerBtnType = {
     titleGbn: 'TX', // TX(TEXT), IM(IMAGE), NN (NONE)
     LGNBGbn: 'BA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION), NN (NONE)
     RGNBGbn: 'NN', // TYPE AR(ALARM), CL(CLOSE), JM(JUMP), NN (NONE)
-    conClass: 'main' // ex) 'noBg inquery_info_01',
+    conClass: 'noBg hospital_01' // ex) 'noBg inquery_info_01',
   },
   'page_hospital_regist': {
     titleTxt: '병원 등록하기', // TEXT
@@ -123,14 +109,14 @@ const headerBtnType = {
     titleGbn: 'TX', // TX(TEXT), IM(IMAGE), NN (NONE)
     LGNBGbn: 'BA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION), NN (NONE)
     RGNBGbn: 'NN', // TYPE AR(ALARM), CL(CLOSE), JM(JUMP), NN (NONE)
-    conClass: 'main' // ex) 'noBg inquery_info_01',
+    conClass: '' // ex) 'noBg inquery_info_01',
   },
   'page_common_close': {
     titleTxt: 'title', // TEXT
     titleGbn: 'TX', // TX(TEXT), IM(IMAGE), NN (NONE)
     LGNBGbn: 'NN', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION), NN (NONE)
     RGNBGbn: 'CL', // TYPE AR(ALARM), CL(CLOSE), JM(JUMP), NN (NONE)
-    conClass: 'main' // ex) 'noBg inquery_info_01',
+    conClass: '' // ex) 'noBg inquery_info_01',
   }
 }
 
