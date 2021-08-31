@@ -4,19 +4,19 @@
   <div class="contents">
     <ul class="infoInput_list mb7 mt4">
       <li class="inputBox centerFlex mb3">
-        <p class="input_tit">이름<span class="required">*</span></p>
+        <p class="input_tit">이름</p>
         <p class="input disabled"><!--수정불가 :: disabled style과 터치가 안되도록 css속성넣음. -->
           <input type="text"v-model="memberName" disabled>
         </p>
       </li>
       <li class="inputBox centerFlex mb3">
-        <p class="input_tit">생년월일<span class="required">*</span></p>
+        <p class="input_tit">생년월일</p>
         <p class="input disabled"><!--수정불가 :: disabled-->
           <input type="text" v-model="memberBirth" disabled>
         </p>
       </li>
       <li class="inputBox centerFlex mb3">
-        <p class="input_tit">성별<span class="required">*</span></p>
+        <p class="input_tit">성별</p>
         <p class="radioBox">
 							<span class="inputRadio typeA disabled"><!--수정불가 :: disabled-->
 								<input type="radio" v-model="memberGender" value="M" id="gender00" checked="" disabled>
@@ -33,7 +33,7 @@
         </p>
       </li>
       <li class="inputBox centerFlex mb3">
-        <p class="input_tit">휴대폰<span class="required">*</span></p>
+        <p class="input_tit">휴대폰</p>
         <div class="inputBox centerFlex mb3">
           <p class="input disabled"><!--수정불가 :: disabled-->
             <input type="text" v-model="memberHpno" disabled>
@@ -41,10 +41,10 @@
           <button type="button" class="btn_border sm ">수정</button>
         </div>
       </li>
-      <li class="inputBox centerFlex mb7">
-        <p class="input_tit">E-mail<span class="required">*</span></p>
+      <li class="inputBox centerFlex mb7 disabled">
+        <p class="input_tit">E-mail</p>
         <p class="input">
-          <input type="text" v-model="socialMail" >
+          <input type="text" v-model="socialMail" disabled>
         </p>
       </li>
     </ul>

@@ -38,7 +38,7 @@ function fetchInquireRegist (arrayValue) {
 
 // 진료 및 투약 이력
 function fetchMedicineList (objectValue) {
-  return axios.post(`${config.baseUrl}medicine/myMedicineList`, {params: objectValue})
+  return axios.get(`${config.baseUrl}medicine/myMedicineList`, {params: objectValue})
 }
 
 // 예상 내원일 조회

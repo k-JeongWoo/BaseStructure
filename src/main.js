@@ -57,10 +57,7 @@ router.beforeEach((to, from, next) => {
             next('/mainhome')
           } else if (response.data.resultCode === 'error') {
             sessionStorage.setItem('usr_name', '게스트')
-            alert('로그인 후 이용 가능합니다.')
-            next({
-              path: '/login'
-            })
+            next()
           } else {
             next()
           }

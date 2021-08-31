@@ -10,6 +10,7 @@ import ScreeningDataLoad from '@/page/screening/ScreeningDataLoad'
 import ScreeningSecurityNumber from '@/page/screening/ScreeningSecurityNumber'
 import ScreeningDocumentPdf from '@/page/screening/ScreeningDocumentPdf'
 import ChartSample from '@/components/screening/chartsample'
+import {headerBtnType} from '../store/index'
 
 export default [
   {
@@ -19,13 +20,7 @@ export default [
       header: Header,
       default: ScreeningResult
     },
-    meta: {
-      titleTxt: '국민건강보험 정보 관리', // TEXT
-      titleGbn: 'TX', // TX(TEXT), IM(IMAGE)
-      LGNBGbn: 'BA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION)
-      RGNBGbn: '', // TYPE AR(ALARM), CL(CLOSE)
-      conClass: 'noBg healthIn_info01' // 'noBg inquery_info_01'
-    },
+    meta: headerBtnType.page_healthInfo_detail,
     props: true
   },
   {
@@ -36,6 +31,7 @@ export default [
       default: ScreeningDetail,
       footer: Footer
     },
+    meta: headerBtnType.page_common_close,
     props: true
   },
   {
@@ -45,6 +41,7 @@ export default [
       header: Header,
       default: ScreeningCancer
     },
+    meta: headerBtnType.page_healthInfo_detail2,
     props: true
   },
   {
@@ -54,6 +51,7 @@ export default [
       header: Header,
       default: ScreeningMedicineList
     },
+    meta: headerBtnType.page_healthInfo_detail3,
     props: true
   },
   {
@@ -98,6 +96,7 @@ export default [
     path: '/screening/screeningDocumentPdf',
     name: 'ScreeningDocumentPdf',
     component: ScreeningDocumentPdf,
+    meta: headerBtnType.page_common_close,
     props: true
   },
   {
@@ -107,13 +106,7 @@ export default [
       header: Header,
       default: ScreeningDataLoad
     },
-    meta: {
-      titleTxt: '국민건강보험 정보 불러오기', // TEXT
-      titleGbn: 'TX', // TX(TEXT), IM(IMAGE)
-      LGNBGbn: 'BA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION)
-      RGNBGbn: '', // TYPE AR(ALARM), CL(CLOSE)
-      conClass: 'noBg healthIn_info_no01' // 'noBg inquery_info_01'
-    },
+    meta: headerBtnType.page_healthInfo,
     mode: 'history'
   }
 ]

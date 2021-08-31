@@ -13,6 +13,9 @@ export default [
     path: '/login',
     name: 'Lognin',
     component: Login,
+    meta: {
+      conClass: 'noBg login01' // ex) 'noBg inquery_info_01',
+    },
     beforeEnter: (to, from, next) => {
       sessionStorage.clear()
       next()
@@ -46,7 +49,7 @@ export default [
     meta: headerBtnType.page_main,
     beforeEnter: (to, from, next) => {
       if (from.name === 'SignUpForm' || from.path === '/') {
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV !== 'development') {
           // console.log(' 비동기통신 _ 유저정보 조회  ')
           axios.get('/api/v1/api/user/userInfo')
             .then(function (response) {
@@ -78,7 +81,8 @@ export default [
       } else {
         next()
       }
-    }
+    },
+    props: true
   },
   {
     path: '/mainhome',
@@ -90,9 +94,10 @@ export default [
       footer: Footer
     },
     meta: headerBtnType.page_main,
+
     beforeEnter: (to, from, next) => {
       if (from.name === 'SignUpForm' || from.path === '/') {
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV !== 'development') {
           // console.log(' 비동기통신 _ 유저정보 조회  ')
           axios.get('/api/v1/api/user/userInfo')
             .then(function (response) {
