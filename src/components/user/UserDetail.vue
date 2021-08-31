@@ -1,5 +1,4 @@
 <template>
-
   <!--contents-->
   <div class="contents">
     <ul class="infoInput_list mb7 mt4">

@@ -1,9 +1,12 @@
 import HospitalDetail from '@/components/hospital/HospitalDetail'
 import Header from '@/components/layout/Header'
 // import Footer from '@/components/layout/Footer.vue'
-import HospitalVisit from '@/components/hospital/HospitalVisit'
+import HospitalExpectedPlan from '@/components/hospital/HospitalExpectedPlan'
 import HospitalList from '@/components/hospital/HospitalList'
 import HospitalRegist from '@/components/hospital/HospitalRegist'
+import RecentlyVisit from '@/components/hospital/RecentlyVisit'
+import InquireList from '@/components/hospital/InquireList'
+import HealthStatus from '@/components/hospital/HealthStatus'
 import {headerBtnType} from '../store/index'
 
 export default [
@@ -15,9 +18,9 @@ export default [
       default: HospitalList
       // footer: Footer
     },
-    meta: headerBtnType.page_main,
+    meta: headerBtnType.page_hospital_List,
     beforeEnter (to, from, next) {
-      // headerBtnType.page_main.titleTxt = from.$router.params.dynamicTitle
+      headerBtnType.page_hospital_List.titleTxt = to.params.dynamicTitle
       next()
     },
     props: true
@@ -32,18 +35,24 @@ export default [
     },
     meta: headerBtnType.page_hospital_introduce,
     beforeEnter (to, from, next) {
-      // headerBtnType.page_main.titleTxt = from.$router.params.dynamicTitle
+      headerBtnType.page_hospital_introduce.titleTxt = to.params.dynamicTitle
       next()
     },
     props: true
   },
   {
-    path: '/hospital/hospitalVisit',
-    name: 'HospitalVisit',
+    path: '/hospital/hospitalExpectedPlan',
+    name: 'HospitalExpectedPlan',
     components: {
       header: Header,
-      default: HospitalVisit
+      default: HospitalExpectedPlan
       // footer: Footer
+    },
+    meta: headerBtnType.page_common_back,
+    beforeEnter (to, from, next) {
+      headerBtnType.page_common_back.titleTxt = to.params.dynamicTitle
+      headerBtnType.page_common_back.conClass = to.params.conClass
+      next()
     },
     props: true
   },
@@ -54,7 +63,52 @@ export default [
       header: Header,
       default: HospitalRegist
     },
-    meta: headerBtnType.page_hospital_introduce,
+    meta: headerBtnType.page_hospital_regist,
+    props: true
+  },
+  {
+    path: '/hospital/recentlyVisit',
+    name: 'RecentlyVisit',
+    components: {
+      header: Header,
+      default: RecentlyVisit
+    },
+    meta: headerBtnType.page_common_back,
+    beforeEnter (to, from, next) {
+      headerBtnType.page_common_back.titleTxt = to.params.dynamicTitle
+      headerBtnType.page_common_back.conClass = to.params.conClass
+      next()
+    },
+    props: true
+  },
+  {
+    path: '/hospital/inquireList',
+    name: 'InquireList',
+    components: {
+      header: Header,
+      default: InquireList
+    },
+    meta: headerBtnType.page_common_back,
+    beforeEnter (to, from, next) {
+      headerBtnType.page_common_back.titleTxt = to.params.dynamicTitle
+      headerBtnType.page_common_back.conClass = to.params.conClass
+      next()
+    },
+    props: true
+  },
+  {
+    path: '/hospital/healthStatus',
+    name: 'HealthStatus',
+    components: {
+      header: Header,
+      default: HealthStatus
+    },
+    meta: headerBtnType.page_common_back,
+    beforeEnter (to, from, next) {
+      headerBtnType.page_common_back.titleTxt = to.params.dynamicTitle
+      headerBtnType.page_common_back.conClass = to.params.conClass
+      next()
+    },
     props: true
   }
 ]

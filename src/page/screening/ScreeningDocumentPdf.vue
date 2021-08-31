@@ -34,7 +34,6 @@ export default {
     var params = {
       checkupDocId: 4
     }
-    console.log(11)
     var res = axios.get(`/api/v1/api/checkupDetail/checkupDocument`, { params: params })
     res.then(response => {
       console.log(response)

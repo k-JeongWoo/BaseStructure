@@ -1,7 +1,6 @@
 <template>
-  <div class="wrapAside" :class="propsdata"><!-- class="on" 추가시 열림 -->
+  <div class="wrapAside" :class="propsdata" v-on:click="closeLeft"><!-- class="on" 추가시 열림 -->
     <div class="contAside">
-      <button v-on:click="closeLeft" class="btn_border">닫기</button>
       <p class="user_name">
         <span class="name">{{ usr_name }}</span> 님
         <span class="executives">(임직원)</span>
@@ -11,20 +10,20 @@
       </div>
       <ul class="asid_navigation mt8">
         <li>
-          <router-link to="/user/userdetail" ><i class="ico_myinfo"></i>내 정보 관리</router-link>
+          <router-link :to="{ name: 'UserDetail', params: { dynamicTitle: '내 정보 정보', conClass: 'noBg myInfo' }}"><i class="ico_myinfo"></i>내 정보 관리</router-link>
         </li>
         <li>
-          <router-link to="/hospital/hospitalList"><i class="ico_hospitalList"></i>병원 목록 조회</router-link>
+          <router-link :to="{ name: 'HospitalList', params: { dynamicTitle: '병원 목록 조회' }}"><i class="ico_hospitalList"></i>병원 목록 조회</router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'AppInformation', params: { dynamicTitle: 'cellimedi 정보' }}"><i class="ico_thisapp"></i>이 앱에 대하여</router-link>
+          <router-link :to="{ name: 'AppInformation', params: { dynamicTitle: 'cellimedi 정보', conClass: 'noBg about' }}"><i class="ico_thisapp"></i>이 앱에 대하여</router-link>
         </li>
         <li>
-          <router-link to="/about/AppPrivacyAgree"><i class="ico_terms"></i>약관보기</router-link>
+          <router-link :to="{ name: 'AppPrivacyAgree', params: { dynamicTitle: '약관 및 개인정보 처리 방침', conClass: 'noBg terms01' }}"><i class="ico_terms"></i>약관보기</router-link>
         </li>
       </ul>
       <div class="asid_footer">
-        <a href="" class="btn_logOut"><i class="ico_logOut"></i>로그아웃</a>
+        <button class="btn_logOut" @click="pageUrl"><i class="ico_logOut"></i>로그아웃</button>
       </div>
     </div>
   </div>
@@ -42,19 +41,28 @@ export default {
   props: ['propsdata'],
   methods: {
     closeLeft () {
-      console.log('11')
       this.$emit('eventdata', '')
     },
     getMyCheckupList: function () {
       var res = axios.get(`/api/v1/api/checkup/myCheckupList`)
       res.then(response => {
-        console.log(response)
         if (response.resultCode === 9999) {
           this.$router.push('/screening/screeningDataLoad')
         } else {
           this.$router.push('/screening/screeningResult')
         }
       }).catch(function (error) { console.log(error) })
+    },
+    pageUrl () {
+      axios.post(`/api/v1/api/user/loginout`).then(res => {
+        if (res.data.resultCode === 'error' && this.$route.name.indexOf('Mainhome') > -1) {
+          this.$router.go()
+        } else {
+          this.$router.push('/mainhome')
+        }
+      }).catch(error => {
+        console.log(error)
+      })
     }
   }
 }

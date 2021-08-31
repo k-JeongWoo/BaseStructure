@@ -1,6 +1,4 @@
 <template>
-  <!--  container  -->
-  <div class="container curation_01">
     <!--contents-->
     <div class="contents">
         <div class="box_wrap">
@@ -98,12 +96,8 @@
         </section>
       </div>
       <!---->
-
-
     </div>
     <!--//contents-->
-  </div>
-  <!--  //container  -->
   <!-- aside  --><!-- //aside  -->
 </template>
 

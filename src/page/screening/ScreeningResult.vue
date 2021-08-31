@@ -1,23 +1,6 @@
 <template>
   <!--contents-->
   <div class="contents">
-    <ul class="tab_box typeA mb6">
-      <li>
-        <router-link :to="{ path: '/screening/screeningResult'}" class="btn_tab on">
-          일반검진
-        </router-link>
-      </li>
-      <li>
-        <router-link :to="{ path: '/screening/screeningCancer'}" class="btn_tab">
-          암검진
-        </router-link>
-      </li>
-      <li>
-        <router-link :to="{ path: '/screening/screeningMedicineList'}" class="btn_tab">
-          진료/처방
-        </router-link>
-      </li>
-    </ul>
     <div class="h-well_cont">
       <div class="start_year mb6">
         <div class="select typeA">
@@ -70,7 +53,10 @@
       <div class="general_checkup">
         <ul class="checkup_list">
           <li class="checkup_item">
-            <router-link :to="{ path: '/screening/screeningDetail', query: { searchYear: checkupDetailRenderList !== null ? checkupDetailRenderList.BMI.responseData.checkupYear : '',searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.BMI.responseData.checkupTargetDisease : ''}}">
+            <router-link :to="{ path: '/screening/screeningDetail',
+            query: { searchYear: checkupDetailRenderList !== null ? checkupDetailRenderList.BMI.responseData.checkupYear : '',
+            searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.BMI.responseData.checkupTargetDisease : '',
+            dynamicTitle: '비만 검사'}}">
               <div class="tit_wrap mb3">
                 <h2 class="title_07">비만 검사</h2>
               </div>
@@ -79,7 +65,7 @@
                 <dd class="title_10">
                   <span>{{checkupDetailRenderList !== null ? checkupDetailRenderList.BMI.responseData.checkupDetailResult : ''}}</span>
                   <span>kg/㎡</span>
-                  <span class="checkup_state state01">과체중</span>
+<!--                  <span class="checkup_state state01">과체중</span>-->
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -88,7 +74,7 @@
                 <dd class="title_10">
                   <span>{{checkupDetailRenderList !== null ? checkupDetailRenderList.HEI.responseData.checkupDetailResult : ''}}</span>
                   <span>cm</span>
-                  <span class="checkup_state state01">과체중</span>
+<!--                  <span class="checkup_state state01">과체중</span>-->
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -97,7 +83,7 @@
                 <dd class="title_10">
                   <span>{{checkupDetailRenderList !== null ? checkupDetailRenderList.WEI.responseData.checkupDetailResult : ''}}</span>
                   <span>kg</span>
-                  <span class="checkup_state state01">과체중</span>
+<!--                  <span class="checkup_state state01">과체중</span>-->
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -106,7 +92,7 @@
                 <dd class="title_10">
                   <span>{{checkupDetailRenderList !== null ? checkupDetailRenderList.WAI.responseData.checkupDetailResult : ''}}</span>
                   <span>cm</span>
-                  <span class="checkup_state state02">복부비만</span>
+<!--                  <span class="checkup_state state02">복부비만</span>-->
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -116,7 +102,8 @@
           <li class="checkup_item">
             <router-link :to="{ path: '/screening/screeningDetail',
                                   query: { searchYear: checkupDetailRenderList !== null ? checkupDetailRenderList.SIG.responseData.checkupYear : '',
-                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.SIG.responseData.checkupTargetDisease : ''}}">
+                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.SIG.responseData.checkupTargetDisease : '',
+                                           dynamicTitle: '시력 검사(좌/우)'}}">
               <h2 class="title_07 mb3">시력 검사(좌/우)</h2>
               <dl class="helthIn_detail">
                 <dt class="title_10 colorH">시력 (좌/우) </dt>
@@ -125,7 +112,7 @@
 <!--                  <span>1.0</span>
                   /
                   <span>1.2</span>-->
-                  <span class="checkup_state">교정</span>
+<!--                  <span class="checkup_state">교정</span>-->
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -135,16 +122,17 @@
           <li class="checkup_item">
             <router-link :to="{ path: '/screening/screeningDetail',
                                   query: { searchYear: checkupDetailRenderList !== null ? checkupDetailRenderList.HEA.responseData.checkupYear : '',
-                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.HEA.responseData.checkupTargetDisease : ''}}">
+                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.HEA.responseData.checkupTargetDisease : '',
+                                           dynamicTitle: '청력 검사(좌/우)'}}">
               <h2 class="title_07 mb3">청력 검사(좌/우)</h2>
               <dl class="helthIn_detail">
-                <dt class="title_10 colorH">청력 (좌/우) </dt>
+                <dt class="title_10 colorH">청력 (좌/우)</dt>
                 <dd class="title_10">
                   {{checkupDetailRenderList !== null ? checkupDetailRenderList.HEA.responseData.checkupDetailResult : ''}}
 <!--                  <span>정상</span>
                   /
                   <span>정상</span>-->
-                  <span class="checkup_state">정상</span>
+<!--                  <span class="checkup_state">정상</span>-->
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -154,7 +142,8 @@
           <li class="checkup_item">
             <router-link :to="{ path: '/screening/screeningDetail',
                                   query: { searchYear: checkupDetailRenderList !== null ? checkupDetailRenderList.TBP.responseData.checkupYear : '',
-                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.TBP.responseData.checkupTargetDisease : ''}}">
+                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.TBP.responseData.checkupTargetDisease : '',
+                                           dynamicTitle: '고혈압 검사'}}">
               <h2 class="title_07 mb3">고혈압 검사</h2>
               <dl class="helthIn_detail">
                 <dt class="title_10 colorH">혈압 (최고/최저) </dt>
@@ -164,7 +153,7 @@
                   /
                   <span>76</span>-->
                   <span>mmHg</span>
-                  <span class="checkup_state state01">유질환자</span>
+<!--                  <span class="checkup_state state01">유질환자</span>-->
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -174,14 +163,15 @@
           <li class="checkup_item">
             <router-link :to="{ path: '/screening/screeningDetail',
                                   query: { searchYear: checkupDetailRenderList !== null ? checkupDetailRenderList.HEM.responseData.checkupYear : '',
-                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.HEM.responseData.checkupTargetDisease : ''}}">
+                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.HEM.responseData.checkupTargetDisease : '',
+                                           dynamicTitle: '빈혈 검사'}}">
               <h2 class="title_07 mb3">빈혈 검사</h2>
               <dl class="helthIn_detail">
                 <dt class="title_10 colorH">혈색소 </dt>
                 <dd class="title_10">
                   <span>{{checkupDetailRenderList !== null ? checkupDetailRenderList.HEM.responseData.checkupDetailResult : ''}}</span>
                   <span>g/dl</span>
-                  <span class="checkup_state">정상</span>
+<!--                  <span class="checkup_state">정상</span>-->
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -191,14 +181,15 @@
           <li class="checkup_item">
             <router-link :to="{ path: '/screening/screeningDetail',
                                   query: { searchYear: checkupDetailRenderList !== null ? checkupDetailRenderList.FBS.responseData.checkupYear : '',
-                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.FBS.responseData.checkupTargetDisease : ''}}">
+                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.FBS.responseData.checkupTargetDisease : '',
+                                           dynamicTitle: '당뇨 검사' }}">
               <h2 class="title_07 mb3">당뇨 검사</h2>
               <dl class="helthIn_detail">
                 <dt class="title_10 colorH">공복혈당 </dt>
                 <dd class="title_10">
                   <span>{{checkupDetailRenderList !== null ? checkupDetailRenderList.FBS.responseData.checkupDetailResult : ''}}</span>
                   <span>mg/dl</span>
-                  <span class="checkup_state">정상</span>
+<!--                  <span class="checkup_state">정상</span>-->
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -208,14 +199,15 @@
           <li class="checkup_item">
             <router-link :to="{ path: '/screening/screeningDetail',
                                   query: { searchYear: checkupDetailRenderList !== null ? checkupDetailRenderList.SER.responseData.checkupYear : '',
-                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.SER.responseData.checkupTargetDisease : ''}}">
+                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.SER.responseData.checkupTargetDisease : '',
+                                           dynamicTitle: '만성신장질환 검사'}}">
               <h2 class="title_07 mb3">만성신장질환 검사</h2>
               <dl class="helthIn_detail">
                 <dt class="title_10 colorH">혈청크레아티닌 </dt>
                 <dd class="title_10">
                   <span>{{checkupDetailRenderList !== null ? checkupDetailRenderList.SER.responseData.checkupDetailResult : ''}}</span>
                   <span>mg/dl</span>
-                  <span class="checkup_state">정상</span>
+<!--                  <span class="checkup_state">정상</span>-->
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -224,7 +216,7 @@
                 <dd class="title_10">
                   <span>{{checkupDetailRenderList !== null ? checkupDetailRenderList.GFR.responseData.checkupDetailResult : ''}}</span>
                   <span>ml/min</span>
-                  <span class="checkup_state">정상</span>
+<!--                  <span class="checkup_state">정상</span>-->
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -234,14 +226,15 @@
           <li class="checkup_item">
             <router-link :to="{ path: '/screening/screeningDetail',
                                   query: { searchYear: checkupDetailRenderList !== null ? checkupDetailRenderList.AST.responseData.checkupYear : '',
-                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.AST.responseData.checkupTargetDisease : ''}}">
+                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.AST.responseData.checkupTargetDisease : '',
+                                           dynamicTitle: '간장질환 검사'}}">
               <h2 class="title_07 mb3">간장질환 검사</h2>
               <dl class="helthIn_detail">
                 <dt class="title_10 colorH">AST </dt>
                 <dd class="title_10">
                   <span>{{checkupDetailRenderList !== null ? checkupDetailRenderList.AST.responseData.checkupDetailResult : ''}}</span>
                   <span>U/L</span>
-                  <span class="checkup_state">정상</span>
+<!--                  <span class="checkup_state">정상</span>-->
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -250,7 +243,7 @@
                 <dd class="title_10">
                   <span>{{checkupDetailRenderList !== null ? checkupDetailRenderList.ALT.responseData.checkupDetailResult : ''}}</span>
                   <span>U/L</span>
-                  <span class="checkup_state">정상</span>
+<!--                  <span class="checkup_state">정상</span>-->
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -259,7 +252,7 @@
                 <dd class="title_10">
                   <span>{{checkupDetailRenderList !== null ? checkupDetailRenderList.GTP.responseData.checkupDetailResult : ''}}</span>
                   <span>U/L</span>
-                  <span class="checkup_state">정상</span>
+<!--                  <span class="checkup_state">정상</span>-->
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -269,7 +262,8 @@
           <li class="checkup_item">
             <router-link :to="{ path: '/screening/screeningDetail',
                                   query: { searchYear: checkupDetailRenderList !== null ? checkupDetailRenderList.PRO.responseData.checkupYear : '',
-                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.PRO.responseData.checkupTargetDisease : ''}}">
+                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.PRO.responseData.checkupTargetDisease : '',
+                                           dynamicTitle: '요검사'}}">
               <h2 class="title_07 mb3">요검사</h2>
               <dl class="helthIn_detail">
                 <dt class="title_10 colorH">요단백 </dt>
@@ -285,7 +279,8 @@
           <li class="checkup_item">
             <router-link :to="{ path: '/screening/screeningDetail',
                                   query: { searchYear: checkupDetailRenderList !== null ? checkupDetailRenderList.TUB.responseData.checkupYear : '',
-                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.TUB.responseData.checkupTargetDisease : ''}}">
+                                           searchDiseaseType: checkupDetailRenderList !== null ? checkupDetailRenderList.TUB.responseData.checkupTargetDisease : '',
+                                           dynamicTitle: '폐결핵/흉부질환 검사'}}">
               <h2 class="title_07 mb3">폐결핵/흉부질환 검사</h2>
               <dl class="helthIn_detail">
                 <dt class="title_10 colorH">폐결핵/흉부질환 검사 </dt>
@@ -300,7 +295,7 @@
           <!--//checkup_item-->
         </ul>
         <div class="btnArea ">
-          <button type="button" class="btn_border"><i class="icoCom_refresh mr3"></i>데이터 새로고침</button>
+          <a type="button" class="btn_border" href="neohealth://import_healthexam"><i class="icoCom_refresh mr3"></i>데이터 새로고침</a>
         </div>
       </div>
       <!--//general_checkup-->
@@ -337,7 +332,6 @@ export default {
 
     var res = axios.get(`/api/v1/api/checkup/myCheckupList`, { params: params })
     res.then(response => {
-      console.log(response)
       this.checkupList = response.data.data
       this.selCheckupYear.year = response.data.data[0].pdCheckupYear
       this.selCheckupYear.diagnosis = response.data.data[0].pdCheckupDiagnosis
@@ -363,11 +357,14 @@ export default {
         this.checkupDetailList = response.data.data
         var renderList = {}
         response.data.data.forEach(function (item) {
-          renderList[item.checkupDetailItem] = item
+          renderList[item.checkupDetailItemCode] = item
+          // renderList[item.responseData.checkupTargetDisease] = item
         })
         this.checkupDetailRenderList = renderList
         this.toggleYear = false
-      }).catch(function (error) { console.log(error) })
+      }).catch(error => {
+        console.log(error)
+      })
     },
     yearToggle: function () {
       if (this.toggleYear === false) {

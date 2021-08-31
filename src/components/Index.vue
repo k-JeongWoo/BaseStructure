@@ -1,15 +1,5 @@
-<template>	<!--  container  -->
-  <div class="container login01 noBg">
-    <!-- header -->
-    <header class="header noBg">
-      <div class="headerBox">
-        <a href="#" class="btn_right">
-          <i class="ico_close"></i>
-        </a>
-      </div>
-    </header>
-    <!-- //header -->
-    <!--contents-->
+<template>
+    <!--  container  -->
     <div class="contents">
       <div class="snsLogin_box tac">
         <h2 class="logo_title">
@@ -43,8 +33,6 @@
       </div>
       <p class="powered">Powered by <img src="../assets/resources/images/common/logo_seegene.png" alt="seegene"></p>
     </div>
-    <!--//contents-->
-  </div>
 </template>
 
 <script>

@@ -20,8 +20,8 @@
 
           <!-- 확인 -->
           <div class="modal-footer">
-            <slot name="moveBtn1" class="modal-default-button"><button>버튼1</button></slot>
-            <slot name="moveBtn2" class="modal-default-button"><button>버튼2</button></slot>
+            <slot name="moveBtn1" type="button" class="btn">button</slot>
+            <slot name="moveBtn2" class="btn modal-default-button">button</slot>
           </div>
         </div>
       </div>

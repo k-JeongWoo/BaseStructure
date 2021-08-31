@@ -83,8 +83,6 @@ export default {
       .then(res => {
         this.medicineList = res.data.data.request
         this.pharmacyList = res.data.data.response
-        console.log(res.data.data.request)
-        console.log(res.data.data.response)
       }).catch(error => {
         console.log(error)
       })

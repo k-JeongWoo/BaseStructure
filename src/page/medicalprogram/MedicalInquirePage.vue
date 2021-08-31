@@ -147,7 +147,6 @@
 
 <script>
 import Modal from '@/components/modal/ConfirmModal'
-import {fetchInquireRegist} from '../../api'
 import 'url-search-params-polyfill'
 
 export default {
@@ -176,9 +175,6 @@ export default {
       })
       if (this.emplyEmail !== '' && this.mdclInqrsDesc !== '' && this.mdclInqrsTitle !== '') {
         // 문의글 등록
-        fetchInquireRegist(this)
-          .then(res => { console.log(res) })
-          .catch(error => { console.log(error) })
         this.modalTitle = '문의글 등록 완료'
         this.modalContents = '나의 문의내역은 <p class="modal-textColor">마이페이지>온라인상담>나의문의</p> 내역 관리 에서 확인 가능합니다.'
       } else {

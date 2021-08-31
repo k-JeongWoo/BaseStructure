@@ -1,5 +1,4 @@
 <template>
-  <div class="container noBg terms01">
     <!--contents-->
     <div class="contents">
       <section class="mb7">
@@ -9,10 +8,10 @@
             <button @click="pageDetail('AppPrivacyService')">서비스 이용약관</button>
           </li>
           <li class="item">
-            <router-link to="">개인정보 취급방침</router-link>
+            <button @click="pageDetail('appPrivacyPerson')">개인정보 취급방침</button>
           </li>
           <li class="item">
-            <router-link to="">민감정보 취급방침</router-link>
+            <button @click="pageDetail('AppPrivacySensitive')">민감정보 취급방침</button>
           </li>
         </ul>
       </section>
@@ -27,9 +26,6 @@
 
     </div>
     <!--//contents-->
-    <!-- footer  //footer -->
-  </div>
-  <!--  //container  -->
 </template>
 
 <script>
