@@ -4,7 +4,7 @@
       <button v-on:click="closeLeft" class="btn_border">닫기</button>
       <p class="user_name">
         <span class="name">{{ usr_name }}</span> 님
-        <span class="executives">(임직원)</span>
+<!--        <span class="executives">(임직원)</span>-->
       </p>
       <div class="btnArea mt6">
         <a href="javascript:void(0);" @click="getMyCheckupList" class="btn_border">국민건강보험 정보 조회</a>
