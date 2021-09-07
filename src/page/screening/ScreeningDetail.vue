@@ -12,7 +12,7 @@
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.BMI.checkupDetailResult : ''}}</span>
           <span>kg/㎡</span>
-          <span class="checkup_state">정상</span>
+<!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -21,7 +21,7 @@
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.HEI.checkupDetailResult : ''}}</span>
           <span>cm</span>
-          <span class="checkup_state">정상</span>
+<!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -30,7 +30,7 @@
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.WEI.checkupDetailResult : ''}}</span>
           <span>kg</span>
-          <span class="checkup_state">정상</span>
+<!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -39,7 +39,7 @@
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.WAI.checkupDetailResult : ''}}</span>
           <span>cm</span>
-          <span class="checkup_state">정상</span>
+<!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -47,32 +47,32 @@
     <div class="healthIn_graph" v-if="searchDiseaseType === 'OBE'">
       <div class="graph_cont">
         <h3 class="contTxt_16">체질량 지수</h3>
-        <p class="contTxt_14">기준값: 남성 11~63 | 여성 8~35</p>
-        <p class="contTxt_14">최소 기준 값 100~150</p>
+        <p class="contTxt_14">기준값 : {{discList !== null ? discList.BMI.normalValueA : ''}}</p>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
         <!--그래프영역-->
         <div id="chart_BMI" style="width: 100%; height: 200px;"></div>
       </div>
       <p class="contTxt_06">신장이 효과적으로 혈액을 거르는지 판단하는 지표로 수치가 높으면 신장염, 신부전증을 의심해볼 수 있음.</p>
       <div class="graph_cont">
         <h3 class="contTxt_16">신장</h3>
-        <p class="contTxt_14">기준값: 남성 11~63 | 여성 8~35</p>
-        <p class="contTxt_14">최소 기준 값 100~150</p>
+        <p class="contTxt_14">기준값 : {{discList !== null ? discList.HEI.normalValueA : ''}}</p>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
         <!--그래프영역-->
         <div id="chart_HEI" style="width: 100%; height: 200px;"></div>
       </div>
       <p class="contTxt_06">신장이 효과적으로 혈액을 거르는지 판단하는 지표로 수치가 높으면 신장염, 신부전증을 의심해볼 수 있음.</p>
       <div class="graph_cont">
         <h3 class="contTxt_16">체중</h3>
-        <p class="contTxt_14">기준값: 남성 11~63 | 여성 8~35</p>
-        <p class="contTxt_14">최소 기준 값 100~150</p>
+        <p class="contTxt_14">기준값 : {{discList !== null ? discList.WEI.normalValueA : ''}}</p>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
         <!--그래프영역-->
         <div id="chart_WEI" style="width: 100%; height: 200px;"></div>
       </div>
       <p class="contTxt_06">신장이 효과적으로 혈액을 거르는지 판단하는 지표로 수치가 높으면 신장염, 신부전증을 의심해볼 수 있음.</p>
       <div class="graph_cont">
         <h3 class="contTxt_16">허리둘레</h3>
-        <p class="contTxt_14">기준값: 남성 11~63 | 여성 8~35</p>
-        <p class="contTxt_14">최소 기준 값 100~150</p>
+        <p class="contTxt_14">기준값 : {{discList !== null ? discList.WAI.normalValueA : ''}}</p>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
         <!--그래프영역-->
         <div id="chart_WAI" style="width: 100%; height: 200px;"></div>
       </div>
@@ -86,7 +86,7 @@
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.SIG.checkupDetailResult : ''}}</span>
           <span>ml/min</span>
-          <span class="checkup_state">정상</span>
+<!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -94,8 +94,8 @@
     <div class="healthIn_graph" v-if="searchDiseaseType === 'VIT'">
       <div class="graph_cont">
         <h3 class="contTxt_16">시력 (좌/우)</h3>
-        <p class="contTxt_14">기준값: 남성 11~63 | 여성 8~35</p>
-        <p class="contTxt_14">최소 기준 값 100~150</p>
+        <p class="contTxt_14">기준값 : {{discList !== null ? discList.SIG.normalValueA : ''}}</p>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
         <!--그래프영역-->
         <div id="chart_SIG" style="width: 100%; height: 200px;"></div>
       </div>
@@ -116,7 +116,7 @@
     <div class="healthIn_graph" v-if="searchDiseaseType === 'DEA'">
       <div class="graph_cont">
         <h2 class="title_02">청력 (좌/우)</h2>
-        <div><table v-html="tblHEA"></table></div>
+        <div class="normal_abnormal"><table v-html="tblHEA"></table></div>
       </div>
     </div>
     <div class="healthIn_detail" v-if="searchDiseaseType === 'HBP'">
@@ -134,8 +134,8 @@
     <div class="healthIn_graph" v-if="searchDiseaseType === 'HBP'">
       <div class="graph_cont">
         <h3 class="contTxt_16">혈압(최고/최저)</h3>
-        <p class="contTxt_14">기준값: 남성 11~63 | 여성 8~35</p>
-        <p class="contTxt_14">최소 기준 값 100~150</p>
+        <p class="contTxt_14">기준값 : {{discList !== null ? discList.TBP.normalValueA : ''}}</p>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
         <!--그래프영역-->
         <div id="chart_TBP" style="width: 100%; height: 200px;"></div>
       </div>
@@ -156,8 +156,8 @@
     <div class="healthIn_graph" v-if="searchDiseaseType === 'ANE'">
       <div class="graph_cont">
         <h3 class="contTxt_16">혈색소</h3>
-        <p class="contTxt_14">기준값: 남성 11~63 | 여성 8~35</p>
-        <p class="contTxt_14">최소 기준 값 100~150</p>
+        <p class="contTxt_14">기준값 : {{discList !== null ? discList.HEM.normalValueA : ''}}</p>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
         <!--그래프영역-->
         <div id="chart_HEM" style="width: 100%; height: 200px;"></div>
       </div>
@@ -178,8 +178,8 @@
     <div class="healthIn_graph" v-if="searchDiseaseType === 'DIA'">
       <div class="graph_cont">
         <h3 class="contTxt_16">공복혈당</h3>
-        <p class="contTxt_14">기준값: 남성 11~63 | 여성 8~35</p>
-        <p class="contTxt_14">최소 기준 값 100~150</p>
+        <p class="contTxt_14">기준값 : {{discList !== null ? discList.FBS.normalValueA : ''}}</p>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
         <!--그래프영역-->
         <div id="chart_FBS" style="width: 100%; height: 200px;"></div>
       </div>
@@ -192,7 +192,7 @@
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.SER.checkupDetailResult : ''}}</span>
           <span>ml/min</span>
-          <span class="checkup_state">정상</span>
+<!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -201,7 +201,7 @@
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.GFR.checkupDetailResult : ''}}</span>
           <span>mg/dl</span>
-          <span class="checkup_state">정상</span>
+<!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -209,16 +209,16 @@
     <div class="healthIn_graph" v-if="searchDiseaseType === 'CKD'">
       <div class="graph_cont">
         <h3 class="contTxt_16">신사구체여과율</h3>
-        <p class="contTxt_14">기준값: 남성 11~63 | 여성 8~35</p>
-        <p class="contTxt_14">최소 기준 값 100~150</p>
+        <p class="contTxt_14">기준값 : {{discList !== null ? discList.SER.normalValueA : ''}}</p>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
         <!--그래프영역-->
         <div id="chart_SER" style="width: 100%; height: 200px;"></div>
       </div>
       <p class="contTxt_06">신장이 효과적으로 혈액을 거르는지 판단하는 지표로 수치가 높으면 신장염, 신부전증을 의심해볼 수 있음.</p>
       <div class="graph_cont">
         <h3 class="contTxt_16">혈청크레아티닌</h3>
-        <p class="contTxt_14">기준값: 남성 11~63 | 여성 8~35</p>
-        <p class="contTxt_14">최소 기준 값 100~150</p>
+        <p class="contTxt_14">기준값 : {{discList !== null ? discList.GFR.normalValueA : ''}}</p>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
         <!--그래프영역-->
         <div id="chart_GFR" style="width: 100%; height: 200px;"></div>
       </div>
@@ -257,24 +257,24 @@
     <div class="healthIn_graph" v-if="searchDiseaseType === 'LIV'">
       <div class="graph_cont">
         <h3 class="contTxt_16">AST</h3>
-        <p class="contTxt_14">기준값: 남성 11~63 | 여성 8~35</p>
-        <p class="contTxt_14">최소 기준 값 100~150</p>
+        <p class="contTxt_14">기준값 : {{discList !== null ? discList.AST.normalValueA : ''}}</p>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
         <!--그래프영역-->
         <div id="chart_AST" style="width: 100%; height: 200px;"></div>
       </div>
       <p class="contTxt_06">신장이 효과적으로 혈액을 거르는지 판단하는 지표로 수치가 높으면 신장염, 신부전증을 의심해볼 수 있음.</p>
       <div class="graph_cont">
         <h3 class="contTxt_16">ALT</h3>
-        <p class="contTxt_14">기준값: 남성 11~63 | 여성 8~35</p>
-        <p class="contTxt_14">최소 기준 값 100~150</p>
+        <p class="contTxt_14">기준값 : {{discList !== null ? discList.AST.normalValueA : ''}}</p>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
         <!--그래프영역-->
         <div id="chart_ALT" style="width: 100%; height: 200px;"></div>
       </div>
       <p class="contTxt_06">신장이 효과적으로 혈액을 거르는지 판단하는 지표로 수치가 높으면 신장염, 신부전증을 의심해볼 수 있음.</p>
       <div class="graph_cont">
         <h3 class="contTxt_16">감마지티피 (ƴ-GTP)</h3>
-        <p class="contTxt_14">기준값: 남성 11~63 | 여성 8~35</p>
-        <p class="contTxt_14">최소 기준 값 100~150</p>
+        <p class="contTxt_14">기준값 : {{discList !== null ? discList.AST.normalValueA : ''}}</p>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
         <!--그래프영역-->
         <div id="chart_GTP" style="width: 100%; height: 200px;"></div>
       </div>
@@ -295,7 +295,7 @@
     <div class="healthIn_graph" v-if="searchDiseaseType === 'KDE'">
       <div class="graph_cont">
         <h2 class="title_02">요단백</h2>
-        <div><table v-html="tblPRO"></table></div>
+        <div class="normal_abnormal"><table v-html="tblPRO"></table></div>
       </div>
     </div>
     <div class="healthIn_detail" v-if="searchDiseaseType === 'TUB'">
@@ -313,7 +313,7 @@
     <div class="healthIn_graph" v-if="searchDiseaseType === 'TUB'">
       <div class="graph_cont">
         <h2 class="title_02">폐결핵 흉부질환</h2>
-        <div><table v-html="tblTUB"></table></div>
+        <div class="normal_abnormal"><table v-html="tblTUB"></table></div>
         <div v-html="suspectedDisease">디스크립션</div>
       </div>
     </div>
@@ -359,8 +359,12 @@ function getChartList (obj) {
   var dataYearObj = {}
   // var disease = obj.checkupDetailList.normalValueA + obj.checkupDetailList.normalValueB + obj.checkupDetailList.suspectedDisease
   dataList.forEach(function (item, idx) {
-    var diseaseTxt = item.normalValueA + item.normalValueB + item.suspectedDisease
-    discObj[item.checkupDetailItem] = diseaseTxt
+    var diseaseTxt = {
+      normalValueA: item.normalValueA,
+      normalValueB: item.normalValueB,
+      suspectedDisease: item.suspectedDisease
+    }
+    discObj[item.checkupDetailItemCode] = diseaseTxt
 
     // 대상년도의 데이터 추출
     var dataLenght = item.responseData.length
@@ -390,25 +394,31 @@ function getChartList (obj) {
       }
     ]
     var graphsMode = graphsMode1
-
-    if (item.checkupDetailItem === 'SIG' || item.checkupDetailItem === 'TBP') {
+    if (item.checkupDetailItemCode === 'SIG' || item.checkupDetailItemCode === 'TBP') {
       graphsMode = graphsMode2
       item.responseData.forEach(function (item2, idx) {
         var itemsplit = item2.checkupDetailResult.split('/')
         item2.checkupDetailResultSub1 = itemsplit[0]
         item2.checkupDetailResultSub2 = itemsplit[1]
       })
-    } else if (item.checkupDetailItem === 'HEA' || item.checkupDetailItem === 'PRO' || item.checkupDetailItem === 'TUB') {
+    } else if (item.checkupDetailItemCode === 'HEA' || item.checkupDetailItemCode === 'PRO' || item.checkupDetailItemCode === 'TUB') {
       var itemsYear = ''
       var itemsResult = ''
+      console.log(item)
       item.responseData.forEach(function (item2, idx) {
-        itemsYear += '<td>' + item2.checkupYear + '</td>'
-        itemsResult += '<td>' + item2.checkupDetailResult + '</td>'
+        itemsYear += '<td class="year">' + item2.checkupYear + '</td>'
+        let resStyle = ''
+        if (item2.checkupDetailResult === '정상' || item2.checkupDetailResult === '음성' || item2.checkupDetailResult === '정상/정상') {
+          resStyle = 'type00'
+        } else {
+          resStyle = 'type01'
+        }
+        itemsResult += '<td class="normal_info ' + resStyle + '"><span>' + item2.checkupDetailResult + '</span></td>'
       })
       var tblHtml = '<tr>' + itemsYear + '</tr>' + '<tr>' + itemsResult + '</tr>'
-      if (item.checkupDetailItem === 'HEA') obj.tblHEA = tblHtml
-      else if (item.checkupDetailItem === 'PRO') obj.tblPRO = tblHtml
-      else if (item.checkupDetailItem === 'TUB') obj.tblTUB = tblHtml
+      if (item.checkupDetailItemCode === 'HEA') obj.tblHEA = tblHtml
+      else if (item.checkupDetailItemCode === 'PRO') obj.tblPRO = tblHtml
+      else if (item.checkupDetailItemCode === 'TUB') obj.tblTUB = tblHtml
     }
     // eslint-disable-next-line no-undef,no-unused-expressions
     AmCharts.makeChart('chart_' + item.checkupDetailItemCode,
@@ -416,7 +426,9 @@ function getChartList (obj) {
         'type': 'serial',
         'theme': 'none',
         'categoryField': 'checkupYear',
-        'chartCursor': {},
+        'chartCursor': {
+          'zoomable': false
+        },
         'graphs': graphsMode,
         'dataProvider': item.responseData
       }

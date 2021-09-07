@@ -13,7 +13,7 @@
           </div>
           <div class="visit_history_wrap box_shadow01">
             <!-- type01:진료(보라색) / type02:검사(하늘색) / type03:치료(주황색) -->
-            <div class="visit_history_detail" :class="clinicList.clinicType === '진료' ? 'type01' : clinicList.clinicType === '검사' ? 'type02' : 'type03'">
+            <div class="visit_history_detail" :class="clinicList.clinicType === '진료' ? 'type01' : clinicList.clinicType === '검사' ? 'type02' : 'type03'" v-if="clinicList.regDate">
               <h2 class="title_03">{{ clinicList.clinicType }}</h2>
               <div class="suggestion_doctor">
                 <div class="doctor_info">
@@ -28,16 +28,19 @@
               </div>
               <!--//suggestion_doctor-->
               <div class="doctor_comment">
-                <h3 class="title_07">진료기록</h3>
-                <div class="cont">
+                <h3 class="title_07" v-if="clinicList.clinicRecord">진료기록</h3>
+                <div class="cont" v-if="clinicList.clinicRecord">
                   <p>{{ clinicList.clinicRecord }}</p>
                 </div>
-                <h3 class="title_07">주의사항</h3>
-                <div class="cont">
+                <h3 class="title_07" v-if="clinicList.clinicCaution">주의사항</h3>
+                <div class="cont" v-if="clinicList.clinicCaution">
                   <p>{{ clinicList.clinicCaution }}</p>
                 </div>
               </div>
               <!--//doctor_comment-->
+            </div>
+            <div class="visit_history_detail" v-else>
+              <H3>최근 내원 이력이 없습니다.</H3>
             </div>
           </div>
           <!--//visit_history_wrap-->
@@ -79,12 +82,13 @@
             <span class="cont">진료시 안내한 내원일로 결정된 예약일이 아니므로 별도 전화예약이 필요합니다. </span>
           </p>
           <div class="btnArea mb4">
-            <a href="tel:82+03212345678" class="btn_fill">전화 예약하기</a>
+            <iframe id="app_init_frame" style="display:none"></iframe>
+            <a href="tel:82+03212345678" target="app_init_frame" class="btn_fill">전화 예약하기</a>
           </div>
           <ul class="reservation_list">
             <li class="item" v-for="item in magementPlanList">
               <div class="reservation_info">
-                <div class="reser_dDay blue">D-<span>{{ item.ddays === 0 ? 'Day' : item.ddays }}</span></div><!--class="blue" 추가시 디데이 배경색상변경-->
+                <div class="reser_dDay blue">{{ item.ddays === 0 ? '' : 'D-' }}<span>{{ item.ddays === 0 ? 'Today' : item.ddays }}</span></div><!--class="blue" 추가시 디데이 배경색상변경-->
                 <ul class="ico_listStyle01">
                   <li class="list_item" >
                     <i class="icoCom_day_purple">예약일</i>
@@ -114,7 +118,7 @@
           <h2 class="title_01">Inbody</h2>
 
           <div class="inbody_box mt4">
-            <div class="dateTime_box box_shadow01" @click="pageUrl('inbody')">
+            <div class="dateTime_box box_shadow01">
               <button type="button" class="btn_left">
                 <i class="icoArrow_blackL">이전</i>
               </button>
@@ -131,11 +135,12 @@
               <li class="inbody_item box_shadow01">
                 <h3 class="title_07 mb1">체중</h3>
                 <div class="inbody_graphBox">
-                  <div class="inbody_graph">
+                  <div class="inbody_graph" style="background: transparent;">
+                    <img src="../assets/resources/images/_temp/inbody.png" style="display: block; width: 100%;" alt="인바디 이미지샘플">
                   </div>
                   <div class="inbody_info">
                     <p class="">
-                      <span class="title_02">155.0</span>
+                      <span class="title_02">60.0</span>
                       <span class="title_10 colorC">kg</span>
                     </p>
                     <p class="">
@@ -149,11 +154,12 @@
               <li class="inbody_item box_shadow01">
                 <h3 class="title_07 mb1">골격근량</h3>
                 <div class="inbody_graphBox">
-                  <div class="inbody_graph">
+                  <div class="inbody_graph" style="background: transparent;">
+                    <img src="../assets/resources/images/_temp/inbody.png" style="display: block; width: 100%;" alt="인바디 이미지샘플">
                   </div>
                   <div class="inbody_info">
                     <p class="">
-                      <span class="title_02">55.0</span>
+                      <span class="title_02">25.0</span>
                       <span class="title_10 colorC">kg</span>
                     </p>
                     <p class="">
@@ -167,11 +173,12 @@
               <li class="inbody_item box_shadow01">
                 <h3 class="title_07 mb1">체지방량</h3>
                 <div class="inbody_graphBox">
-                  <div class="inbody_graph">
+                  <div class="inbody_graph" style="background: transparent;">
+                    <img src="../assets/resources/images/_temp/inbody.png" style="display: block; width: 100%;" alt="인바디 이미지샘플">
                   </div>
                   <div class="inbody_info">
                     <p class="">
-                      <span class="title_02">55.0</span>
+                      <span class="title_02">35.0</span>
                       <span class="title_10 colorC">kg</span>
                     </p>
                     <p class="">
@@ -185,12 +192,13 @@
               <li class="inbody_item box_shadow01 bgColorB">
                 <h3 class="title_07 mb1">BMI</h3>
                 <div class="inbody_graphBox">
-                  <div class="inbody_graph">
+                  <div class="inbody_graph" style="background: transparent;">
+                    <img src="../assets/resources/images/_temp/inbody.png" style="display: block; width: 100%;" alt="인바디 이미지샘플">
                   </div>
                   <div class="inbody_info">
                     <p class="">
-                      <span class="title_02">55.0</span>
-                      <span class="title_10 colorC">kg</span>
+                      <span class="title_02">20.76</span>
+                      <!-- <span class="title_10 colorC">kg</span> -->
                     </p>
                     <p class="">
                       <span class="title_11 colorC">-</span>
@@ -203,12 +211,13 @@
               <li class="inbody_item box_shadow01 bgColorB">
                 <h3 class="title_07 mb1">체지방률</h3>
                 <div class="inbody_graphBox">
-                  <div class="inbody_graph">
+                  <div class="inbody_graph" style="background: transparent;">
+                    <img src="../assets/resources/images/_temp/inbody.png" style="display: block; width: 100%;" alt="인바디 이미지샘플">
                   </div>
                   <div class="inbody_info">
                     <p class="">
-                      <span class="title_02">55.0</span>
-                      <span class="title_10 colorC">kg</span>
+                      <span class="title_02">10.0</span>
+                      <span class="title_10 colorC">%</span>
                     </p>
                     <p class="">
                       <span class="title_11 colorC">-</span>
@@ -261,14 +270,14 @@
         <section class="box_p32">
           <div class="tit_wrap mb4">
             <p class="title_05 colorA">병원안내</p>
-            <h2 class="title_01">씨젠클리닉</h2>
+            <h2 class="title_01">{{ pdYadmNm }}</h2>
             <button class="btn_right" @click="pageUrl('detail', propsdata)">
               <i class="icoArrow_blackMore">더보기</i>
             </button>
           </div>
           <h2 class="title_02"><span class="mr2">수요일</span> <span>9:00 ~ 18:00</span></h2>
           <p class="title_09 mt3">
-            서울 송파구 오금로 91 태원빌딩 12층
+            서울시 송파구 오금로 15길 5, 송파빌딩 2, 3층
           </p>
           <ul class="medical_subject mt3">
             <li class="rabel_fill radius bgColor06 color0">외래진료</li>
@@ -309,26 +318,27 @@ export default {
       inqueryList: [],
       clinicList: [],
       agreeChk: '',
-      showModal: false,
       modalGbn: '',
       isOpenModal: false,
-      modalObj: 0,
+      modalObj: this.$route.query.hospitalId,
       modalTitle: '',
-      modalContent: ''
+      modalContent: '',
+      hospitalId: '',
+      pdYadmNm: ''
     }
   },
-  async created () {
+  async mounted () {
     const objectValue = {
-      // hospitalId: this.$route.params.hospitalId
-      hospitalId: 1
+      hospitalId: this.$route.query.hospitalId
     }
     await hospitalHealthyList(objectValue).then(res => {
-      if (res.data.resultCode !== 'error') {
+      if (res.data.resultCode === '0000') {
         this.healthyList = res.data.data.careProgramResponses
         this.magementPlanList = res.data.data.magementPlanResponses
         this.inqueryList = res.data.data.medicalInqueryResponses
         this.clinicList = res.data.data.clinicResponse
         this.agreeChk = res.data.data.healthAgreeChk
+        this.pdYadmNm = res.data.data.pdYadmNm
         if (res.data.data.healthAgreeChk === 'N') {
           this.openModal('agreemodal')
         }
@@ -340,19 +350,20 @@ export default {
   methods: {
     pageUrl: function (value, searchVal) {
       if (value === 'clinic') {
-        this.$router.push({name: 'RecentlyVisit', params: { dynamicTitle: '최근 내원 이력', conClass: 'visit_history01', searchVal: searchVal }})
+        this.$router.push({path: '/hospital/recentlyVisit', query: { dynamicTitle: '최근 내원 이력', conClass: 'visit_history01', searchVal: searchVal }})
       } else if (value === 'health') {
         alert('준비중 입니다.')
       } else if (value === 'plan') {
-        this.$router.push({name: 'HospitalExpectedPlan', params: { dynamicTitle: '예상 내원일 상세정보', conClass: 'noBg hospital_visitDate' }})
+        this.$router.push({path: '/hospital/hospitalExpectedPlan', query: { dynamicTitle: '예상 내원일 상세정보', conClass: 'noBg hospital_visitDate', searchVal: searchVal }})
       } else if (value === 'inbody') {
         alert('준비중 입니다.')
       } else if (value === 'inquire') {
-        this.$router.push({name: 'InquireList', params: { dynamicTitle: '최근 문의사항', conClass: 'noBg recent_question', searchVal: searchVal }})
+        this.$router.push({path: '/hospital/inquireList', query: { dynamicTitle: '최근 문의사항', conClass: 'noBg recent_question', searchVal: searchVal }})
       } else if (value === 'detail') {
-        this.$router.push({name: 'HospitalDetail', params: { hospitalId: searchVal, dynamicTitle: this.magementPlanList.hospitalName }})
+        this.$router.push({path: '/hospital/hospitalDetail', query: { dynamicTitle: '문의내용 상세보기', conClass: 'noBg question_detail', searchVal: searchVal }})
+        // this.$router.push({path: '/hospital/hospitalDetail', query: { searchVal: searchVal, dynamicTitle: this.pdYadmNm }})
       } else if (value === 'inquireDetail') {
-        this.$router.push({name: 'InquireList', params: { dynamicTitle: '문의내용 상세보기', conClass: 'noBg question_detail', searchVal: searchVal }})
+        this.$router.push({path: '/hospital/hospitalDetail', query: { dynamicTitle: '문의내용 상세보기', conClass: 'noBg question_detail', searchVal: searchVal }})
       }
     },
     setModalCompo (pCompo, intVal) {
@@ -375,7 +386,6 @@ export default {
     },
     modalData: function (value) {
       this.isOpenModal = value
-      this.showModal = value
       this.modalGbn = ''
     },
     healthSatusFnt (programkey, hospitalkey, programName) {
@@ -384,7 +394,7 @@ export default {
         this.modalContent = '제3자 정보제공동의 후 서비스 이용이 가능합니다.'
         this.openModal('agree', '')
       } else {
-        this.$router.push({name: 'HealthStatus', params: { dynamicTitle: programName, conClass: 'health_status', careProgramId: programkey, hospitalId: hospitalkey }})
+        this.$router.push({path: '/hospital/healthStatus', query: { dynamicTitle: programName, conClass: 'health_status', careProgramId: programkey, hospitalId: hospitalkey }})
       }
     }
   }

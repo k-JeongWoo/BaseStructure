@@ -12,7 +12,7 @@ export default [
     },
     meta: headerBtnType.page_common_back,
     beforeEnter (to, from, next) {
-      headerBtnType.page_common_back.titleTxt = to.params.dynamicTitle
+      headerBtnType.page_common_back.titleTxt = to.query.dynamicTitle
       // headerBtnType.page_common_back.conClass = to.params.conClass
       next()
     },

@@ -19,8 +19,8 @@ export default [
     props: true,
     meta: headerBtnType.page_common_back,
     beforeEnter (to, from, next) {
-      headerBtnType.page_common_back.titleTxt = to.params.dynamicTitle
-      headerBtnType.page_common_back.conClass = to.params.conClass
+      headerBtnType.page_common_back.titleTxt = to.query.dynamicTitle
+      headerBtnType.page_common_back.conClass = to.query.conClass
       next()
     }
   },
@@ -32,10 +32,10 @@ export default [
       default: AppPrivacyAgree
     },
     props: true,
-    meta: headerBtnType.page_common_close,
+    meta: headerBtnType.page_common_back,
     beforeEnter (to, from, next) {
-      headerBtnType.page_common_close.titleTxt = to.params.dynamicTitle
-      headerBtnType.page_common_close.conClass = to.params.conClass
+      headerBtnType.page_common_back.titleTxt = to.params.dynamicTitle
+      headerBtnType.page_common_back.conClass = to.params.conClass
       next()
     }
   },

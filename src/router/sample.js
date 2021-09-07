@@ -41,18 +41,7 @@ export default [
   },
   {
     path: '/',
-    name: 'Mainhome',
-    components: {
-      header: Header,
-      leftMenu: LeftMenu,
-      default: Mainhome,
-      footer: Footer
-    },
-    meta: headerBtnType.page_main
-  },
-  {
-    path: '/mainhome',
-    name: 'blankHome',
+    name: 'mainHome',
     components: {
       header: Header,
       leftMenu: LeftMenu,

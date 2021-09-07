@@ -1,7 +1,7 @@
 <template>
   <!--contents-->
   <div class="contents">
-    <div class="question_list">
+    <div class="question_list" v-if="inquireList.length">
       <template v-for="item in inquireList">
         <div class="question_item" >
           <a @click="openModal('inquiremodal', item.inqueryId)">
@@ -20,16 +20,25 @@
       </template>
       <!--//box_wrap-->
       <div v-if="isOpenModal">
-        <component :is="modalGbn" v-bind:selectmodal="modalObj" v-on:popupdata="modalData">
+        <component :is="modalGbn" v-bind:selectmodal="modalObj" v-bind:hospitalkey="propsdata" v-on:popupdata="modalData">
 
         </component>
       </div>
     </div>
     <!--더보기버튼-->
-    <div class="btnMoreArea">
-      <button type="button" @click="plusList">더보기<i class="icoArrow_purpleB"></i></button>
-    </div>
+<!--    <div class="btnMoreArea">-->
+<!--      <button type="button" @click="plusList">더보기<i class="icoArrow_purpleB"></i></button>-->
+<!--    </div>-->
     <!--//더보기버튼-->
+    <div style="text-align: center" v-else>
+      <template>
+        <div class="visit_history_wrap box_shadow01"><!-- type01:진료(보라색) / type02:검사(하늘색) / type03:치료(주황색) -->
+          <div class="visit_history_detail">
+            <h4>최근 문의한 내역이 없습니다.</h4>
+          </div>
+        </div>
+      </template>
+    </div>
   </div>
   <!--//contents-->
 </template>
@@ -39,6 +48,7 @@ import {fetchInquireList} from '../../api'
 import inquirePopup from '../../components/hospital/InquireDetailPopup'
 
 export default {
+  props: ['propsdata'],
   data () {
     return {
       inquireList: [],
@@ -49,11 +59,14 @@ export default {
   },
   created () {
     const objectValue = {
-      hospitalId: this.$route.params.searchVal,
+      hospitalId: this.$route.query.searchVal,
       pageNo: 1
     }
+    console.log(objectValue)
     fetchInquireList(objectValue).then(res => {
-      this.inquireList = res.data.data.content
+      if (res.data.resultCode === '0000') {
+        this.inquireList = res.data.data.content
+      }
     }).catch(error => {
       console.log(error)
     })

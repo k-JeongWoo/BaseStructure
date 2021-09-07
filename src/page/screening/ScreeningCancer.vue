@@ -3,17 +3,17 @@
   <div class="contents">
     <div class="h-well_cont">
       <div class="start_year mb6">
-        <div class="select typeA">
-          <div class="selectbox "><!-- on 클래스 추가시 .select_options display:block-->
+        <div class="select typeA" v-if="checkupDocList.length > 0">
+          <div class="selectbox " :class="{on : toggleYear}" v-on:click="yearToggle"><!-- on 클래스 추가시 .select_options display:block-->
             <button type="button" class="select_title">
-              2021년
+              {{ selCheckupYear.pdCheckupTitle }}
             </button>
             <ul class="select_options">
-              <li class="select_option on">2021년</li><!-- on 클래스 추가시 active효과 -->
-              <li class="select_option">2020년</li>
-              <li class="select_option">2019년</li>
-              <li class="select_option">2018년</li>
-              <li class="select_option">2017년</li>
+              <li class="select_option " :class="{on : (itemY.pdCheckupTitle === selCheckupYear.pdCheckupTitle)}"
+                  v-on:click="changeYearList(itemY)"
+                  v-for="(itemY, indexY) in checkupDocList">
+                {{itemY.pdCheckupTitle}}
+              </li>
             </ul>
           </div>
         </div>
@@ -25,55 +25,13 @@
       <!-- 데이터 있는 경우 cancer_checkup-->
       <div class="cancer_checkup">
         <ul class="checkup_list">
-          <li class="checkup_item">
-            <a href="#" v-on:click="popUpPDF">
-              <h2 class="title_05 mb1"><span>대장암</span> 검진 결과</h2>
-              <p class="contTxt_06 mb1">재단법인 한국의학연구소 강남의원</p>
-              <p class="contTxt_06 colorH">2021-05-24</p>
+          <li class="checkup_item" v-for="(item, index) in selCheckupYear.checkupDocList">
+            <a href="javascript:void(0);" v-on:click="popUpPDF(item.checkupMasterId)">
+              <h2 class="title_05 mb1"><span>{{item.pdCheckupType}}</span> 검진 결과</h2>
+              <p class="contTxt_06 mb1">{{item.pdCheckupPlace}}</p>
+              <p class="contTxt_06 colorH">{{item.pdCheckupDate}}</p>
             </a>
           </li>
-<!--
-          //checkup_item
-          <li class="checkup_item">
-            <a href="#">
-              <h2 class="title_05 mb1"><span>위암</span> 검진 결과</h2>
-              <p class="contTxt_06 mb1">재단법인 한국의학연구소 강남의원 </p>
-              <p class="contTxt_06 colorH">2021-05-24</p>
-            </a>
-          </li>
-          //checkup_item
-          <li class="checkup_item">
-            <a href="#">
-              <h2 class="title_05 mb1"><span>자궁경부암</span> 검진 결과</h2>
-              <p class="contTxt_06 mb1">재단법인 한국의학연구소 강남의원</p>
-              <p class="contTxt_06 colorH">2021-05-24</p>
-            </a>
-          </li>
-          //checkup_item
-          <li class="checkup_item">
-            <a href="#">
-              <h2 class="title_05 mb1"><span>대장암</span> 검진 결과</h2>
-              <p class="contTxt_06 mb1">재단법인 한국의학연구소 강남의원</p>
-              <p class="contTxt_06 colorH">2021-05-24</p>
-            </a>
-          </li>
-          //checkup_item
-          <li class="checkup_item">
-            <a href="#">
-              <h2 class="title_05 mb1"><span>위암</span> 검진 결과</h2>
-              <p class="contTxt_06 mb1">재단법인 한국의학연구소 강남의원 </p>
-              <p class="contTxt_06 colorH">2021-05-24</p>
-            </a>
-          </li>
-          //checkup_item
-          <li class="checkup_item">
-            <a href="#">
-              <h2 class="title_05 mb1"><span>자궁경부암</span> 검진 결과</h2>
-              <p class="contTxt_06 mb1">재단법인 한국의학연구소 강남의원</p>
-              <p class="contTxt_06 colorH">2021-05-24</p>
-            </a>
-          </li>
-          //checkup_item-->
         </ul>
       </div>
       <!--//데이터 있는 경우 cancer_checkup-->
@@ -92,14 +50,56 @@
 </template>
 
 <script>
+import axios from 'axios'
+import CryptoJS from 'crypto-js/crypto-js'
+
 export default {
   data () {
     return {
+      checkupDocList: [],
+      toggleYear: false,
+      selCheckupYear: {
+        pdCheckupTitle: '',
+        checkupDocList: null
+      }
     }
   },
+  created () {
+    this.getCheckupDocList()
+  },
   methods: {
-    popUpPDF: function () {
-      window.open('http://localhost:8080/screening/screeningDocumentPdf', '_blank')
+    popUpPDF: function (checkupMasterId) {
+      let obj = {
+        checkupMasterId: checkupMasterId
+      }
+      var aes128 = CryptoJS.AES.encrypt(obj.checkupMasterId.toString(), 'neoPriEncrypt!!!').toString()
+      let routeData = this.$router.resolve({name: 'ScreeningDocumentPdf', query: {checkupMasterId: aes128}})
+      window.open(routeData.href, '_blank')
+    },
+    getCheckupDocList: function () {
+      var params = {
+        'memberId': this.memberId
+      }
+      var res = axios.get(`/api/v1/api/checkup/checkupDocList`, {params: params})
+      res.then(response => {
+        if (response.data.data.length > 0) {
+          this.checkupDocList = response.data.data
+          this.changeYearList(this.checkupDocList[0])
+        }
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
+    yearToggle: function () {
+      if (this.toggleYear === false) {
+        this.toggleYear = true
+      } else {
+        this.toggleYear = false
+      }
+    },
+    changeYearList: function (item) {
+      this.selCheckupYear.pdCheckupTitle = item.pdCheckupTitle
+      this.selCheckupYear.checkupDocList = item.checkupMasterDocTypeResponses
     }
   }
 }

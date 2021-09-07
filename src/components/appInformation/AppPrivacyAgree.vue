@@ -11,7 +11,7 @@
             <button @click="pageDetail('appPrivacyPerson')">개인정보 취급방침</button>
           </li>
           <li class="item">
-            <button @click="pageDetail('AppPrivacySensitive')">민감정보 취급방침</button>
+            <button @click="pageDetail('AppPrivacySensitive')">개인정보 제 3자 제공 동의</button>
           </li>
         </ul>
       </section>

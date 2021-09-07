@@ -26,16 +26,16 @@
                 <div v-for= "detail in item.medicineDetailList">
                   <p class="title_07">{{ detail.medicineName }}</p>
                   <p class="contTxt_06">효능: {{ detail.medicineEffect }}</p>
-                  <p class="contTxt_06">투약일수: {{ detail.medicineTreatCnt }}</p>
+                  <p class="contTxt_06">투약일수: {{ detail.medicineUseCnt }}</p>
                 </div>
               </div>
             </div>
           </li>
         </ul>
 
-        <div class="btnArea mt4">
-          <button type="button" class="btn_text_size02 colorA pb8">더보기<i class="icoArrow_purpleB ml1"></i></button>
-        </div>
+<!--        <div class="btnArea mt4">-->
+<!--          <button type="button" class="btn_text_size02 colorA pb8">더보기<i class="icoArrow_purpleB ml1"></i></button>-->
+<!--        </div>-->
 
       </div>
     </div>
@@ -63,7 +63,6 @@ export default {
   created () {
     fetchMedicineList()
       .then(res => {
-        console.log(res)
         this.medicineList = res.data.data.request
         this.pharmacyList = res.data.data.response
       }).catch(error => {

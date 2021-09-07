@@ -13,7 +13,7 @@
         <li class="field_item"
             v-for="item in medicalProgram"
             :key="item.careProgramId"
-            v-if="medicalProgram.length > 0">
+            v-if="medicalProgram">
           <input type="checkbox"
                  :id="item.careProgramId"
                  :name="item.careProgramId"

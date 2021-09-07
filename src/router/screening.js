@@ -104,7 +104,9 @@ export default [
   {
     path: '/screening/screeningDocumentPdf',
     name: 'ScreeningDocumentPdf',
-    component: ScreeningDocumentPdf,
+    components: {
+      pdf: ScreeningDocumentPdf
+    },
     props: true
   },
   {

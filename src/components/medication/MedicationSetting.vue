@@ -193,7 +193,7 @@ export default {
   methods: {
     movePagefnt (value) {
       if (value === 'close') {
-        this.$router.replace({name: 'Mainhome'})
+        this.$router.replace({name: 'mainhome'})
       } else if (value === 'success') {
         console.log('this is page move url ')
       }

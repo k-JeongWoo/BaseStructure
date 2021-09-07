@@ -126,7 +126,6 @@ export default {
   },
   methods: {
     updUsrInfo: function () {
-      console.log(this.memberZipcode)
       axios.post(`/api/v1/api/user/userUpdate`,
         {
           memberAddress: this.memberAddress,
@@ -136,7 +135,6 @@ export default {
         },
         {withCredentials: true}
       ).then(function (response) {
-        console.log(response)
         if (response.data.status === 200) {
           alert('수정이 완료되었습니다.')
         }
