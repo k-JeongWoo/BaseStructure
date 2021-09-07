@@ -64,9 +64,7 @@ function hospitalCheck (objectValue) {
 }
 // 사용자 주치의 병원 등록
 function hospitalRegist (objectValue) {
-  console.log('1111111111111')
-  console.log(objectValue)
-  return axios.post(`${config.baseUrl}hospital/patientWrite`, {params: objectValue})
+  return axios.post(`${config.baseUrl}hospital/patientWrite`, objectValue)
 }
 // 병원 상세정보 조회
 function hospitalDetail (objectValue) {

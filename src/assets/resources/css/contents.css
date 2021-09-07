@@ -3,6 +3,7 @@
 /* ========== COMMON ========== */
 pre{white-space:pre-wrap;}
 
+a:not(.md-button):hover {text-decoration: none !important;}
 /*infomation_box*/
 .infomation_box{display: -webkit-flex;display: flex;align-items: flex-start;padding:11px 8px; background: #F5F6FA;-webkit-border-radius: 8px; border-radius: 8px; }
 .infomation_box>span{font-weight: 700; font-size: 12px;line-height: 17px;}
@@ -27,7 +28,7 @@ pre{white-space:pre-wrap;}
 /*sns login*/
 .snsLogin_box{width:295px; height:406px; position: relative; margin:0 auto; margin-top:calc((100vh - 566px)/2);}
 .snsLogin_box .logo_title{color: #7E84A3;font-weight: 500;font-size:18px;line-height:26px; word-break: keep-all;}
-.snsLogin_box .logo_title::before{content: ''; display: block; margin:0 auto 43px; width:182px; height:36px; background:url(../images/common/logo_cellimedi.png)no-repeat center; background-size: cover;}
+.snsLogin_box .logo_title::before{content: ''; display: block; margin:0 auto 43px; width:182px; height:36px; background:url(/resources/images/common/logo_cellimedi.png)no-repeat center; background-size: cover;}
 .snsLogin_box .sns_btn{position:absolute; bottom:0; left:0; right: 0;height: 196px;display: -webkit-flex;display: flex;flex-direction: column;-webkit-justify-content:center;justify-content: center}
 .snsLogin_box .btn_border_snsLog{display: -webkit-flex;display: flex;-webkit-justify-content:center;justify-content: center;align-items: center; width:100%; margin-top: 12px;}
 .snsLogin_box .btn_border_snsLog:first-child{margin-top:0;}
@@ -38,10 +39,10 @@ pre{white-space:pre-wrap;}
 /*splash_screen*/
 .splash_screen .title{display:block; width: 182px; position:absolute; left: 50%; top: 45%; transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); -moz-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%);}
 @media screen and (max-width: 330px) {
-  .snsLogin_box{padding-left: 0; padding-right: 0; margin-top: 0;}
+    .snsLogin_box{padding-left: 0; padding-right: 0; margin-top: 0;}
 }
 @media screen and (max-height: 570px) {
-  .powered{bottom:35px;}
+    .powered{bottom:35px;}
 }
 
 /*walk_through*/
@@ -52,7 +53,7 @@ pre{white-space:pre-wrap;}
 .walk_through_pagination .swiper-pagination-bullet{width: 10px; height: 10px; margin-right: 6px; display: inline-block; border-radius: 100%; background:#DDE1F5; opacity: 1;}
 .walk_through_pagination .swiper-pagination-bullet-active{background:#AF89FF;}
 @media screen and (max-height: 570px) {
-  .walk_throughBox .walk_through_pagination{bottom:35px;}
+    .walk_throughBox .walk_through_pagination{bottom:35px;}
 }
 
 /*agreement*/
@@ -65,10 +66,10 @@ pre{white-space:pre-wrap;}
 .agree_list .check_row >*{display: inline-block; width:auto;}
 .agree_list .check_row .inputCheck{margin-bottom: 0px; padding-right:24px;}
 @media screen and (max-width: 330px) {
-  .agree_list .check_row .inputCheck{margin-bottom: 5px; padding-right: 14px;}
+    .agree_list .check_row .inputCheck{margin-bottom: 5px; padding-right: 14px;}
 }
 @media screen and (max-height: 570px) {
-  .agreement_box{margin-top:20px;}
+    .agreement_box{margin-top:20px;}
 }
 
 /*sns연동시 정보입력 화면*/
@@ -200,7 +201,6 @@ pre{white-space:pre-wrap;}
 .visitDate_detail .textarea_cont>*{font-weight: 400;font-size: 14px; line-height: 20px;color: #000000;}
 
 /*내정보관리-임직원 인증*/
-.myInfo .contents{padding-bottom:0!important;}
 .executives_certifi{margin:56px 0 32px; height: 135px;}
 .executives_certifi .input{margin-right:17px; }
 .executives_certifi .input_txt{line-height: 39px; font-weight: 400;font-size: 14px;color: #31313D;}
@@ -247,9 +247,21 @@ pre{white-space:pre-wrap;}
 .healthIn_detail .title_07{margin-bottom: 12px;}
 .healthIn_graph .graph_cont{margin-top: 40px; padding: 16px 15px; background: #FFF; border: 1px solid #D7DBEC; -webkit-border-radius: 8px; border-radius: 8px;}
 .healthIn_graph .graph_cont:first-child{margin-top: 0;}
-.healthIn_graph .graph_cont .graph_box{margin-top: 16px; height: 140px; background:#AF89FF}
+.healthIn_graph .graph_cont .graph_box{margin-top: 16px; height: 140px;}
 .healthIn_graph .graph_cont + .contTxt_06{padding:12px 0 8px}
 .healthIn_graph .graph_cont +.graph_cont{margin-top: 16px;}
+
+.healthIn_graph .normal_abnormal{text-align: center; padding:5px 0;}
+.healthIn_graph .normal_abnormal table{width: 100%; height:72px;}
+.healthIn_graph .normal_abnormal table td{height:32px; padding:2px; }
+.healthIn_graph .normal_abnormal .normal_info span{display: block; margin:0 auto; width:100%; height:32px; padding:4px; line-height: 24px; -webkit-border-radius: 4px; border-radius:4px; font-weight: 400; font-size: 14px;}
+.healthIn_graph .normal_abnormal .normal_info.type00 span{background:#F5F6FA;color:#31313D; }
+.healthIn_graph .normal_abnormal .normal_info.type01 span{background:#F63E3E;color:#fff; }
+.healthIn_graph .normal_abnormal .year{line-height: 28px; color: #7E84A3;}
+.healthIn_graph .nodata{position:relative; width:100%; height: 80px; margin:5px 0; padding:16px; text-align: center; display: table; background: #F5F6FA;}
+.healthIn_graph .nodata p{display: table-cell; vertical-align: middle; font-size:14px; line-height: 24px; font-weight:400; color: #9BA0BC;}
+.healthIn_graph .nodata p span{display: block; font-size:12px; line-height: 24px; font-weight:400; color: #9BA0BC;}
+.healthIn_graph .nodata p::before{content: ''; display: inline-block; width: 18px; height:18px;margin:0 3px; vertical-align: middle; background:url(../images/common/ico_common.png)no-repeat -113.3px -0px; background-size:200px; }
 
 /*마이데이터-암검진*/
 .cancer_checkup .checkup_list{padding-bottom: 32px;}
@@ -266,7 +278,7 @@ pre{white-space:pre-wrap;}
 .diagPres_checkup{padding-bottom: 16px;}
 .diagPres_checkup .checkup_item{position: relative; padding:16px; margin-bottom: 8px; border: 1px solid #D7DBEC; -webkit-border-radius: 8px; border-radius: 8px;}
 .diagPres_checkup .checkup_item:last-child{margin-bottom: 0;}
-.diagPres_checkup .checkup_item .diagPres_tit:after{content: ''; display: block; width:24px; height:24px; position:absolute; top:16px; right:16px; background:url(../images/common/ico_arrow.png)no-repeat -0px -96px; background-size:96px; }
+.diagPres_checkup .checkup_item .diagPres_tit:after{content: ''; display: block; width:24px; height:24px; position:absolute; top:16px; right:16px; background:url(../images/common/ico_arrow.png)no-repeat -24px -96px; background-size:96px; }
 .diagPres_checkup .checkup_item .diagPres_tit .title_05{padding-left: 61px; position: relative;}
 .diagPres_checkup .checkup_item .diagPres_type{width: 53px; height: 25px; padding: 4px; -webkit-border-radius: 4px; border-radius: 4px;  position:absolute;left:0px; right: auto; font-weight: 700; font-size: 12px;line-height: 17px; text-align: center;color: #FFFFFF;}
 .diagPres_checkup .checkup_item.type01 .diagPres_type{background:#43B6CB;}
@@ -278,7 +290,7 @@ pre{white-space:pre-wrap;}
 .diagPres_checkup .checkup_item .textarea{height: 120px;}
 .diagPres_checkup .checkup_item .btnArea{text-align: right;}
 .diagPres_checkup .checkup_item.on .diagPres_cont{display: block;}
-.diagPres_checkup .checkup_item.on .diagPres_tit:after{background-position: -24px -96px;}
+.diagPres_checkup .checkup_item.on .diagPres_tit:after{background-position: -0px -96px;}
 
 /*개인정보 제 3자 제공동의*/
 .consent_pop .consent_agree > *{text-align: center;}
@@ -288,6 +300,23 @@ pre{white-space:pre-wrap;}
 .consent_agree .agreeBox .inputCheck label span{margin-left: 4px;}
 .consent_agree .agree_txtBox{width: 100%; height: 432px;margin-bottom: 24px; padding: 16px;padding-right: 8px;  background: #F5F6FA;-webkit-border-radius: 8px;border-radius: 8px;}
 .consent_agree .agree_txtBox>*{width:100%; height:100%; }
+.consent_terms>section{margin-bottom:20px;}
+.consent_terms>section [class*="title_"],
+.consent_terms>section [class*="contTxt_"]{margin-bottom: 5px;}
+.consent_terms .indent_list{padding:5px 10px;}
+.consent_terms .indent_list li{margin-bottom:5px; font-size: 0.95em; line-height: 1.1em;}
+.consent_terms .indent_list.decimal,
+.consent_terms .indent_list.disc{padding-left:25px;}
+.consent_terms .indent_list.decimal li{list-style: decimal;}
+.consent_terms .indent_list.disc li{list-style: disc;}
+.consent_terms>[class*="contTxt_"]{margin-bottom:20px;}
+.consent_terms table{width:100%; margin-bottom: 15px; table-layout:fixed;border-bottom:1px solid #9b9b9b}
+.consent_terms table th{padding:5px;font-size: 13px; font-weight: 400; color:#fff;line-height:1.1;border-left:1px solid #fff;background:#9b9b9b; word-break: keep-all;}
+.consent_terms table td{padding:5px;font-size: 13px; font-weight: 400; color:#6e6e6e;line-height:1.2; vertical-align: top; border-top:1px solid #c9c9c9;border-left:1px solid #c9c9c9; word-break:break-all;}
+.consent_terms table tbody tr:first-child td{border-top:0;}
+.consent_terms table th:first-child,
+.consent_terms table td:first-child{border-left:0;}
+.consent_terms table td p{margin-bottom: 5px;}
 
 /*about*/
 .about .about_txt,

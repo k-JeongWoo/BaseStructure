@@ -77,11 +77,11 @@ export default {
     })
   },
   methods: {
-    async hospitalCheck (value) {
+    hospitalCheck (value) {
       if (!this.asyncComplete) {
         this.callback()
         let objectValue = {
-          hospitalId: 1
+          hospitalId: this.checkVal
         }
         hospitalCheck(objectValue).then(res => {
           if (res.data.data.seegeneHospital !== 'Y') {
@@ -109,7 +109,8 @@ export default {
     },
     pageUrl (key, value) {
       if (key !== '') {
-        this.$router.push({name: 'HospitalDetail', params: { hospitalId: key, dynamicTitle: value }})
+        this.$router.push({path: '/hospital/hospitalDetail', query: { dynamicTitle: '문의내용 상세보기', conClass: 'noBg question_detail', searchVal: key }})
+        // this.$router.push({path: '/hospital/hospitalDetail', query: { hospitalId: key, dynamicTitle: value }})
       } else {
         alert('준비중 입니다.')
         this.modalClean()
@@ -124,8 +125,9 @@ export default {
         hospitalIds: this.checkVal
       }
       await hospitalRegist(objectValue).then(res => {
-        this.$router.push({name: 'DoctorMain', params: this.checkVal[0]})
-        console.log(res.data)
+        if (res.data.resultCode === '0000') {
+          this.$router.push({path: '/doctorMain', query: {hospitalId: this.checkVal[0]}})
+        }
       }).catch(error => {
         console.log(error)
       })

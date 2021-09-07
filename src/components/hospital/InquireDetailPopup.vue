@@ -59,7 +59,8 @@ import modal from '../modal/MoveModal'
 
 export default {
   props: {
-    selectmodal: Number
+    selectmodal: Number,
+    hospitalkey: Number
   },
   data () {
     return {
@@ -81,6 +82,7 @@ export default {
         if (res.data.resultCode === '0000') {
           this.showModal = !this.showModal
           this.$router.go()
+          // this.$router.push({name: 'InquireList', params: { dynamicTitle: '최근 문의사항', conClass: 'noBg recent_question', searchVal: this.hospitalkey }})
         }
       }).catch(error => {
         console.log(error)
@@ -96,7 +98,6 @@ export default {
     }
     fetchInquireDetail(objectValue).then(res => {
       this.InquireDetail = res.data.data
-      console.log(res.data.data)
     }).catch(error => {
       console.log(error)
     })

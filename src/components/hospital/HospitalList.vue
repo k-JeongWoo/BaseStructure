@@ -13,13 +13,12 @@
         <li class="item" v-for="item in hospitalList">
           <a @click="pageUrl(item.hospitalId, item.pdYadmNm)">
             <div class="hospital_thumb">
-              <img src="src/assets/resources/images/_temp/hospital_temp02.png" alt="병원썸네일">
+              <img src="../../assets/resources/images/_temp/hospital_temp02.png" alt="병원썸네일">
             </div>
             <div>
               <h3 class="title_05">{{ item.pdYadmNm }}</h3>
               <p class="title_10 mb1">{{ item.pdAddr }}</p>
-              <!-- <p class="rabel_fill radius on">주치의 병원</p> -->
-              <p class="rabel_fill radius" :class="item.registChk === 'Y' ? 'on' : ''">{{ item.registChk === 'Y' ? '주치의 병원' : '미등록' }}</p>
+              <p class="rabel_fill radius" :class="item.thirdAgreeChk === 'Y' ? 'on' : ''">{{ item.thirdAgreeChk === 'Y' ? '주치의 병원' : '미등록' }}</p>
             </div>
           </a>
         </li>
@@ -47,7 +46,7 @@ export default {
   },
   methods: {
     pageUrl (searchValue, hpName) {
-      this.$router.push({name: 'HospitalDetail', params: { hospitalId: searchValue, dynamicTitle: hpName }})
+      this.$router.replace({path: '/hospital/hospitalDetail', query: { searchVal: searchValue, dynamicTitle: hpName }})
     }
   }
 }

@@ -4,7 +4,7 @@
       <div class="box_wrap bgNone">
         <div class="box_p32 bgColorB">
           <div class="func_status">
-            <h2 class="title_02">
+            <h2 class="title_02" v-if="docutorInfo.careProgramId">
               <i :class="'icoProgram_0'+docutorInfo.careProgramId+' mr1'"></i><!-- icoProgram_01 : 마음 / icoProgram_02 : 신경인지 / icoProgram_03 : 심혈관 / icoProgram_04 : 근골격 / icoProgram_05 : 대사 / icoProgram_06 : 면역 / icoProgram_07 : 피부&체형 /icoProgram_08 : 기타  -->
               <span>{{ docutorInfo.careProgramName }}</span>
             </h2>
@@ -31,17 +31,20 @@
         <section class="box_p32">
           <p class="title_05 colorA">국민건강보험 데이터 </p>
           <h2 class="title_01">건강검진결과</h2>
-          <div class="healthIn_graph mt4">
+          <div class="healthIn_graph mt4" v-show="healthResult">
             <div class="graph_cont" v-for="(item,index) in healthResult">
-              <h3 class="contTxt_16">신사구체여과율// {{ item.checkupDetailItem }}</h3>
-              <p class="contTxt_14">기준값: 남성 11~63 | 여성 8~35 // {{ item.normalValueA }}</p>
-              <p class="contTxt_14">최소 기준 값 100~150</p>
-              <div class=" mt4">
+              <h3 class="contTxt_16">{{ item.checkupDetailItem }}</h3>
+              <p class="contTxt_14">기준값 : {{ item.normalValueA }}</p>
+<!--              <p class="contTxt_14">최소 기준 값 100~150</p>-->
+              <div class=" mt4" v-if="item.checkupDetailItemCode !== 'HEA' && item.checkupDetailItemCode !== 'PRO' && item.checkupDetailItemCode !== 'TUB'">
                 <div class="line_graph mt3">
-                  <div :id="'everWalk_bargraph'+index" class="graph"></div>
+                    <div :id="'everWalk_bargraph'+item.checkupDetailItemCode" class="graph" ></div>
                   <!--//그래프-->
                 </div>
               </div>
+              <div class="normal_abnormal" v-else-if="item.checkupDetailItemCode === 'HEA'"><table v-html="tblHEA"></table></div>
+              <div class="normal_abnormal" v-else-if="item.checkupDetailItemCode === 'PRO'"><table v-html="tblPRO"></table></div>
+              <div class="normal_abnormal" v-else><table v-html="tblTUB"></table></div>
             </div>
           </div>
         </section>
@@ -49,8 +52,9 @@
       <!--//box_wrap-->
       <div class="box_wrap">
         <section class="box_p32">
-          <p class="title_05 colorA">병원 데이터</p>
-          <h2 class="title_01">건강검진결과</h2>
+          <p class="title_05 colorA">본원 검사 결과</p>
+          <h2 class="title_01">Inbody</h2>
+
           <div class="inbody_box mt4">
             <div class="dateTime_box box_shadow01">
               <button type="button" class="btn_left">
@@ -69,11 +73,12 @@
               <li class="inbody_item box_shadow01">
                 <h3 class="title_07 mb1">체중</h3>
                 <div class="inbody_graphBox">
-                  <div class="inbody_graph">
+                  <div class="inbody_graph" style="background: transparent;">
+                    <img src="../../assets/resources/images/_temp/inbody.png" style="display: block; width: 100%;" alt="인바디 이미지샘플">
                   </div>
                   <div class="inbody_info">
                     <p class="">
-                      <span class="title_02">155.0</span>
+                      <span class="title_02">60.0</span>
                       <span class="title_10 colorC">kg</span>
                     </p>
                     <p class="">
@@ -87,11 +92,12 @@
               <li class="inbody_item box_shadow01">
                 <h3 class="title_07 mb1">골격근량</h3>
                 <div class="inbody_graphBox">
-                  <div class="inbody_graph">
+                  <div class="inbody_graph" style="background: transparent;">
+                    <img src="../../assets/resources/images/_temp/inbody.png" style="display: block; width: 100%;" alt="인바디 이미지샘플">
                   </div>
                   <div class="inbody_info">
                     <p class="">
-                      <span class="title_02">55.0</span>
+                      <span class="title_02">25.0</span>
                       <span class="title_10 colorC">kg</span>
                     </p>
                     <p class="">
@@ -105,11 +111,12 @@
               <li class="inbody_item box_shadow01">
                 <h3 class="title_07 mb1">체지방량</h3>
                 <div class="inbody_graphBox">
-                  <div class="inbody_graph">
+                  <div class="inbody_graph" style="background: transparent;">
+                    <img src="../../assets/resources/images/_temp/inbody.png" style="display: block; width: 100%;" alt="인바디 이미지샘플">
                   </div>
                   <div class="inbody_info">
                     <p class="">
-                      <span class="title_02">55.0</span>
+                      <span class="title_02">35.0</span>
                       <span class="title_10 colorC">kg</span>
                     </p>
                     <p class="">
@@ -123,12 +130,13 @@
               <li class="inbody_item box_shadow01 bgColorB">
                 <h3 class="title_07 mb1">BMI</h3>
                 <div class="inbody_graphBox">
-                  <div class="inbody_graph">
+                  <div class="inbody_graph" style="background: transparent;">
+                    <img src="../../assets/resources/images/_temp/inbody.png" style="display: block; width: 100%;" alt="인바디 이미지샘플">
                   </div>
                   <div class="inbody_info">
                     <p class="">
-                      <span class="title_02">55.0</span>
-                      <span class="title_10 colorC">kg</span>
+                      <span class="title_02">20.76</span>
+                      <!-- <span class="title_10 colorC">kg</span> -->
                     </p>
                     <p class="">
                       <span class="title_11 colorC">-</span>
@@ -141,12 +149,13 @@
               <li class="inbody_item box_shadow01 bgColorB">
                 <h3 class="title_07 mb1">체지방률</h3>
                 <div class="inbody_graphBox">
-                  <div class="inbody_graph">
+                  <div class="inbody_graph" style="background: transparent;">
+                    <img src="../../assets/resources/images/_temp/inbody.png" style="display: block; width: 100%;" alt="인바디 이미지샘플">
                   </div>
                   <div class="inbody_info">
                     <p class="">
-                      <span class="title_02">55.0</span>
-                      <span class="title_10 colorC">kg</span>
+                      <span class="title_02">10.0</span>
+                      <span class="title_10 colorC">%</span>
                     </p>
                     <p class="">
                       <span class="title_11 colorC">-</span>
@@ -157,10 +166,9 @@
               </li>
               <!--//inbody_item-->
             </ul>
-
           </div>
+          <!--//inbody_box-->
         </section>
-
       </div>
       <!--//box_wrap-->
     </div>
@@ -175,38 +183,120 @@ export default {
     return {
       docutorInfo: Object,
       healthResult: Object,
-      healthgraph: Object
+      healthgraph: Object,
+      tblHEA: '',
+      tblPRO: '',
+      tblTUB: ''
     }
   },
-  created () {
+  async created () {
     const objectValue = {
-      careProgramId: this.$route.params.careProgramId,
-      hospitalId: this.$route.params.hospitalId
+      careProgramId: this.$route.query.careProgramId,
+      hospitalId: this.$route.query.hospitalId
     }
-    fetchHealthDetail(objectValue).then(res => {
-      this.docutorInfo = res.data.data
-      this.healthResult = res.data.data.responseData
-      this.healthgraph = res.data.data.responseData
+    await fetchHealthDetail(objectValue).then(res => {
+      if (res.data.resultCode === '0000') {
+        this.docutorInfo = res.data.data
+        this.healthResult = res.data.data.responseData
+        this.healthgraph = res.data.data.responseData
+        // getChartList(this.healthgraph)
+      }
     }).catch(error => {
       console.log(error)
-    }).finally(() =>
-      getChartList(this.healthgraph)
-    )
+    })
+    if (this.healthgraph) {
+      getChartList(this)
+    }
   }
 }
 
 function getChartList (obj) {
-  var dataLine = obj
+  var dataLine = obj.healthgraph
   dataLine.forEach(function (item, index) {
     var healthArrary = []
-    item.responseData.forEach(function (healthGrap) {
-      healthArrary.push({
-        date: healthGrap.checkupYear,
-        value: healthGrap.checkupDetailResult
+    const dobleGrapMode = [
+      {
+        'id': 'g1',
+        'type': 'line',
+        'balloon': {
+          'drop': true, // 풍선모양
+          'color': '#ffffff',
+          'fillColor': '#6765E9',
+          'fillAlpha': 1,
+          'borderAlpha': 0
+        },
+        'bullet': 'round',
+        'bulletBorderAlpha': 0,
+        'useLineColorForBulletBorder': true,
+        'lineColor': '#60CFE3',
+        'valueField': 'detailResultGbn1',
+        'balloonText': '<span style=font-size:12px;>[[value]]</span>',
+        'lineThickness': 2,
+        'bulletColor': '#60CFE3',
+        'bulletSize': 5,
+        'bulletSizeField': 'bulletSize'
+      },
+      {
+        'id': 'g2',
+        'type': 'line',
+        'balloon': {
+          'drop': true, // 풍선모양
+          'color': '#ffffff',
+          'fillColor': '#6765E9',
+          'fillAlpha': 1,
+          'borderAlpha': 0
+        },
+        'bullet': 'round',
+        'bulletBorderAlpha': 0,
+        'useLineColorForBulletBorder': true,
+        'lineColor': '#60CFE3',
+        'valueField': 'detailResultGbn2',
+        'balloonText': '<span style=font-size:12px;>[[value]]</span>',
+        'lineThickness': 2,
+        'bulletColor': '#60CFE3',
+        'bulletSize': 5,
+        'bulletSizeField': 'bulletSize'
+      }
+    ]
+    if (item.checkupDetailItemCode === 'SIG' || item.checkupDetailItemCode === 'TBP') {
+      item.responseData.forEach(function (dataobj) {
+        var codeGbn = dataobj.checkupDetailResult.split('/')
+        dataobj.detailResultGbn1 = codeGbn[0]
+        dataobj.detailResultGbn2 = codeGbn[1]
+        healthArrary.push(dataobj)
       })
-    })
+    } else if (item.checkupDetailItemCode === 'HEA' || item.checkupDetailItemCode === 'PRO' || item.checkupDetailItemCode === 'TUB') {
+      // tblTUB
+      var itemsYear = ''
+      var itemsResult = ''
+      item.responseData.forEach(function (dataobj) {
+        itemsYear += '<td class="year">' + dataobj.checkupYear + '</td>'
+        let resStyle = ''
+        if (dataobj.checkupDetailResult === '정상' || dataobj.checkupDetailResult === '음성' || dataobj.checkupDetailResult === '정상/정상') {
+          resStyle = 'type00'
+        } else {
+          resStyle = 'type01'
+        }
+        itemsResult += '<td class="normal_info ' + resStyle + '"><span>' + dataobj.checkupDetailResult + '</span></td>'
+        // healthArrary.push({
+        //   checkupYear: dataobj.checkupYear,
+        //   detailResultGbn1: dataobj.checkupDetailResult
+      })
+      var tblHtml = '<tr>' + itemsYear + '</tr>' + '<tr>' + itemsResult + '</tr>'
+      if (item.checkupDetailItemCode === 'HEA') obj.tblHEA = tblHtml
+      else if (item.checkupDetailItemCode === 'PRO') obj.tblPRO = tblHtml
+      else if (item.checkupDetailItemCode === 'TUB') obj.tblTUB = tblHtml
+    } else {
+      item.responseData.forEach(function (dataobj) {
+        healthArrary.push({
+          checkupYear: dataobj.checkupYear,
+          detailResultGbn1: dataobj.checkupDetailResult
+        })
+      })
+    }
+
     // eslint-disable-next-line no-undef,no-unused-expressions
-    var chartLine = AmCharts.makeChart('everWalk_bargraph' + index,
+    var chartLine = AmCharts.makeChart('everWalk_bargraph' + item.checkupDetailItemCode,
       {
         'type': 'serial',
         'autoMarginOffset': 0,
@@ -225,32 +315,13 @@ function getChartList (obj) {
           'borderThickness': 0,
           'shadowAlpha': 0
         },
-        'graphs': [{
-          'id': 'g1',
-          'type': 'smoothedLine',
-          'balloon': {
-            'drop': true, // 풍선모양
-            'color': '#ffffff',
-            'fillColor': '#6765E9',
-            'fillAlpha': 1,
-            'borderAlpha': 0
-          },
-          'bullet': 'round',
-          'bulletBorderAlpha': 0,
-          'useLineColorForBulletBorder': true,
-          'lineColor': '#60CFE3',
-          'valueField': 'value',
-          'balloonText': '<span style=font-size:12px;>[[value]]</span>',
-          'lineThickness': 2,
-          'bulletColor': '#60CFE3',
-          'bulletSize': 5,
-          'bulletSizeField': 'bulletSize'
-        }],
+        'graphs': dobleGrapMode,
         'chartCursor': {
           'cursorColor': '#6765E9', // 커서 세로색상
-          'categoryBalloonEnabled': 0
+          'categoryBalloonEnabled': 0,
+          'zoomable': false
         },
-        'categoryField': 'date',
+        'categoryField': 'checkupYear',
         'categoryAxis': {
           'axisAlpha': 0,
           'gridAlpha': 1,

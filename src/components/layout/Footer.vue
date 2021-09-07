@@ -33,22 +33,23 @@ export default {
     pageUrl (urlValue) {
       if (urlValue === 'home') {
         this.classGbn = urlValue
-        this.$router.push('/mainHome').catch(() => {})
+        this.$router.push({name: 'mainHome'}).catch(() => {})
       } else {
         this.classGbn = urlValue
         myHospitalList().then(res => {
           if (res.data.resultCode !== 'error') {
             this.myHospitalListLength = res.data.data
             if (res.data.data.length > 0) {
-              this.$router.push({name: 'DoctorMain', params: { hospitalId: this.myHospitalListLength[0].hospitalId }})
-                .catch(error => {
-                  console.log(error)
-                })
+              this.$emit('eventdata', res.data.data[0].hospitalId)
+              this.$router.push({path: '/doctorMain', query: { hospitalId: res.data.data[0].hospitalId }})
+              //   .catch(error => {
+              //     console.log(error)
+              //   })
             } else {
               this.$router.push('/hospital/hospitalRegist')
             }
           } else {
-            alert('로그인 후 가능합니다.')
+            alert('로그인 후 이용 가능합니다.')
           }
         }).catch(error => {
           console.log(error)

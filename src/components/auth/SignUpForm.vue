@@ -174,7 +174,6 @@ export default {
     axios.get(`/api/v1/api/auth/tokenUserInfo`, {},
       {withCredentials: true}
     ).then(function (response) {
-      console.log(response)
       dataObj.usr_sname = response.data.data.name
       dataObj.usr_email = response.data.data.email
       dataObj.usr_provider = response.data.data.provider

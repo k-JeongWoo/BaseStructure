@@ -6,7 +6,7 @@
         <div class="select typeA">
           <div class="selectbox" :class="{on : toggleYear}" v-on:click="yearToggle"><!-- on 클래스 추가시 .select_options display:block-->
             <button type="button" class="select_title">
-              {{ selCheckupYear.year }}년 - {{ selCheckupYear.diagnosis }}
+              {{ selCheckupYear.year }}년{{ selCheckupYear.diagnosis !== '' ? ' - ' + selCheckupYear.diagnosis : ''}}
             </button>
             <ul class="select_options">
 <!--              <li class="select_option on">2021년</li>&lt;!&ndash; on 클래스 추가시 active효과 &ndash;&gt;
@@ -17,7 +17,7 @@
               <li class="select_option" :class="{on : (item.pdCheckupDatetime === selCheckupYear.checkupdatetime)}"
                   v-on:click="changeYearList(item.pdCheckupYear, item.pdCheckupDatetime, item.pdCheckupDiagnosis, item.pdCheckupPlace)"
                   v-for="item in checkupList">
-                {{item.pdCheckupYear}}년 - {{item.pdCheckupDiagnosis}}
+                {{item.pdCheckupYear}}년{{ item.pdCheckupDiagnosis !== '' ? ' - ' + item.pdCheckupDiagnosis : ''}}
               </li>
             </ul>
           </div>
@@ -29,7 +29,7 @@
       <ul class="list_noLine mb7">
         <li class="color0 mb4">
           <h4 class="title_09 mb1">검진일자 </h4>
-          <p class="contTxt_06">{{ selCheckupYear.checkupdatetime }}</p>
+          <p class="contTxt_06">{{ dateFomatter(selCheckupYear.checkupdatetime) }}</p>
         </li>
         <li class="color0 mb4">
           <h4 class="title_09 mb1">검진기관</h4>
@@ -37,7 +37,7 @@
         </li>
         <li class="color0 mb4">
           <h4 class="title_09 mb1">소견</h4>
-          <p class="contTxt_06">데이터 필요 </p>
+          <p class="contTxt_06"></p>
 <!--          <p class="contTxt_06">과체중입니다. 체중조절이 필요합니다. 과체중입니다. 체중조절이 필요합니다. </p>-->
         </li>
         <li class="color0 ">
@@ -269,7 +269,6 @@
                 <dt class="title_10 colorH">요단백 </dt>
                 <dd class="title_10">
                   <span>{{checkupDetailRenderList !== null ? checkupDetailRenderList.PRO.responseData.checkupDetailResult : ''}}</span>
-                  <span class="checkup_state">정상</span>
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -286,7 +285,6 @@
                 <dt class="title_10 colorH">폐결핵/흉부질환 검사 </dt>
                 <dd class="title_10">
                   <span>{{checkupDetailRenderList !== null ? checkupDetailRenderList.TUB.responseData.checkupDetailResult : ''}}</span>
-                  <span class="checkup_state">정상</span>
                   <!--state01 주의(노랑) /state02 위험(빨강)-->
                 </dd>
               </dl>
@@ -295,8 +293,7 @@
           <!--//checkup_item-->
         </ul>
         <div class="btnArea ">
-          <iframe id="app_init_frame" style="display:none"></iframe>
-          <a href="neohealth://import_healthexam" target="app_init_frame" class="btn_border"><i class="icoCom_refresh mr3"></i>데이터 새로고침</a>
+          <a type="button" class="btn_border" href="neohealth://import_healthexam"><i class="icoCom_refresh mr3"></i>데이터 새로고침</a>
         </div>
       </div>
       <!--//general_checkup-->
@@ -308,6 +305,7 @@
 
 <script>
 import axios from 'axios'
+import dayjs from 'dayjs'
 
 export default {
   data () {
@@ -373,6 +371,13 @@ export default {
       } else {
         this.toggleYear = false
       }
+    },
+    dateFomatter: function (str) {
+      let retStr = dayjs(String(str)).format('YYYY-MM-DD')
+      if (retStr === 'Invalid Date') {
+        retStr = ''
+      }
+      return retStr
     }
   },
   created () {

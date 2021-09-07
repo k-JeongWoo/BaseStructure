@@ -3,12 +3,14 @@
   <div class="contents">
     <div class="hospital_detail">
       <p class="title_05 colorA">병원안내</p>
-      <h2 class="title_01 mb4">{{ hospitalDetail.pdYadmNm }}</h2>
+<!--      <h2 class="title_01 mb4">{{ hospitalDetail.pdYadmNm === '' ? '씨젠 클리닉' : '' }}</h2>-->
+      <h2 class="title_01 mb4">씨젠 클리닉 (부속의원)</h2>
       <div class="hospital_sampleImg">
         <img src="../../assets/resources/images/_temp/hospital_temp01.png" alt="씨젠클리닉 병원사진">
       </div>
       <div class="btnArea" v-if="prevRoute.name !== 'HospitalRegist'">
-        <button class="btn_fill" @click="pageUrl">주치의 병원으로 등록</button>
+        <button :class="hospitalDetail.thirdAgreeChk === 'N' ? 'btn_fill' : 'btn_fill_color04'"
+                @click="pageUrl(hospitalDetail.thirdAgreeChk, hospitalDetail.hospitalId)">주치의 병원으로 등록</button>
       </div>
       <h2 class="title_02 mt5"><span>수요일</span><span>9:00 ~ 18:00</span></h2>
       <p class="title_09 mt3">
@@ -19,7 +21,8 @@
         <li class="rabel_fill radius bgColor06 color0">가정의학과</li>
       </ul>
       <div class="btnArea mt6 mb5">
-        <a href="#" class="btn_border">전화하기</a>
+        <iframe id="app_init_frame" style="display:none"></iframe>
+        <a href="tel:82+03212345678" target="app_init_frame" class="btn_border">전화하기</a>
         <button class="btn_border" @click="openModal('inquireRegist', hospitalDetail.hospitalId)">문의하기</button>
       </div>
       <div class="hospital_detailInfo">
@@ -119,22 +122,22 @@
             위치정보
             <button type="button" class="rabel_fill_color02 radius">복사하기</button>
           </h3>
-          <p class="title_10 mt4">서울 송파구 오금로 91 태원빌딩 12층</p>
+          <p class="title_10 mt4">서울시 송파구 오금로 15길 5, 송파빌딩 2, 3층</p>
         </section>
         <section class="mt7">
           <h3 class="title_05">의사정보</h3>
           <ul class="list_styleC mt4">
             <li class="list_item title_06"><i class="icoCom_doctor mr3"></i><span>김종석</span> 원장님</li>
-            <li class="list_item title_06"><i class="icoCom_doctor mr3"></i><span>김화타</span> 원장님</li>
+            <li class="list_item title_06"><i class="icoCom_doctor mr3"></i><span>나윤채</span> 부원장님</li>
           </ul>
         </section>
         <section class="mt7">
           <h3 class="title_05">진료과목</h3>
-          <p class="title_10 mt4">가정의학과</p>
+          <p class="title_10 mt4">통합기능의학, 만성피로, 스트레스, 항노화프로그램, 대사질환, 면역</p>
         </section>
         <section class="mt7">
           <h3 class="title_05">진료항목</h3>
-          <p class="title_10 mt4">호흡기 질환, 폐질환, 내분비, 영양 및 대사, 감염성 질환, 알레르기 </p>
+          <p class="title_10 mt4">치료, 검사, 예방접종 </p>
         </section>
         <section class="mt7">
           <h3 class="title_05">의료장비</h3>
@@ -156,7 +159,12 @@
         <!--//hospital_detail-->
         <div v-if="isOpenModal">
           <component :is="modalGbn" v-bind:selectmodal="modalObj" v-on:popupdata="modalData">
-
+            <div class="modal-header" slot="header">
+              <h3>{{ modalTitle }}</h3>
+            </div>
+            <p slot="body" v-html="modalContent"></p>
+            <button slot="moveBtn1" @click="userHospitalRegist(hospitalDetail.thirdAgreeChk)" class="btn modal-default-button">확인</button>
+            <button slot="moveBtn2" @click="modalData" class="btn modal-default-button">취소</button>
           </component>
         </div>
         <!--//box_wrap-->
@@ -170,23 +178,32 @@
 </template>
 
 <script>
-import {hospitalDetail} from '../../api'
+import {hospitalDetail, personAgreeRegist, hospitalRegist} from '../../api'
 import inquireRegistPopup from './InquireRegist'
+import moveModal from '../modal/MoveModal'
+
 export default {
   props: ['popupdata'],
   data () {
     return {
-      hospitalId: this.$route.params,
+      hospitalId: this.$route.query.searchVal,
       hospitalDetail: [],
       prevRoute: [],
       modalGbn: '',
       isOpenModal: false,
-      modalObj: this.$route.params
+      modalObj: this.$route.query,
+      modalTitle: '',
+      modalContent: ''
     }
   },
-  created () {
-    hospitalDetail(this.$route.params).then(res => {
-      this.hospitalDetail = res.data.data
+  mounted () {
+    const objectValue = {
+      hospitalId: this.$route.query.searchVal
+    }
+    hospitalDetail(objectValue).then(res => {
+      if (res.data.resultCode === '0000') {
+        this.hospitalDetail = res.data.data
+      }
     }).catch(error => {
       console.log(error)
     })
@@ -197,12 +214,27 @@ export default {
     })
   },
   methods: {
-    pageUrl () {
-      alert('준비중 입니다.')
+    pageUrl (valueGbn, hospitalkey) {
+      if (valueGbn === 'N') {
+        this.modalTitle = '확인'
+        this.modalContent = '주치의 병원으로 등록 하시겠습니까?'
+        this.openModal('hospitalRegist', hospitalkey)
+      } else {
+        this.modalTitle = '주의'
+        this.modalContent = '주치의 병원을 취소 하시겠습니까?'
+        this.openModal('hospitalCancle', hospitalkey)
+      }
     },
     setModalCompo (pCompo, intVal) {
       if (pCompo === 'inquireRegist') {
         this.modalGbn = inquireRegistPopup
+        this.modalObj = intVal
+      } else if (pCompo === 'hospitalRegist') {
+        this.modalGbn = moveModal
+        this.modalObj = intVal
+      } else if (pCompo === 'hospitalCancle') {
+        console.log(pCompo)
+        this.modalGbn = moveModal
         this.modalObj = intVal
       }
     },
@@ -212,8 +244,36 @@ export default {
     },
     modalData: function (value) {
       this.isOpenModal = value
-      this.showModal = value
       this.modalGbn = ''
+    },
+    userHospitalRegist (value) {
+      console.log(value)
+      if (value === 'N') {
+        const objectValue = {
+          hospitalIds: [this.hospitalId]
+        }
+        hospitalRegist(objectValue).then(res => {
+          if (res.data.resultCode === '0000') {
+            this.$router.go()
+          }
+        }).catch(error => {
+          console.log(error)
+        })
+      } else {
+        console.log(1)
+        const objectValue = {
+          hospitalId: this.hospitalId,
+          agreeChk: 'N'
+        }
+        console.log(objectValue)
+        personAgreeRegist(objectValue).then(res => {
+          if (res.data.resultCode === '0000') {
+            this.$router.push({path: '/hospital/hospitalList', query: { dynamicTitle: '병원 목록 조회' }})
+          }
+        }).catch(error => {
+          console.log(error)
+        })
+      }
     }
   }
 }
