@@ -65,9 +65,6 @@ export default {
       medicalInquirySize: 0
     }
   },
-  created () {
-    console.log(1)
-  },
   methods: {
     popupControll () {
       this.$emit('popupdata', false)
@@ -87,7 +84,6 @@ export default {
             medicalInquiryDesc: this.medicalInquiryDesc
           }
           fetchInquireRegist(objectValue).then(res => {
-            console.log(res.data.data)
             if (res.data.resultCode === '0000') {
               this.modalGbn = confirmModal
               this.modalTitle = '알림'

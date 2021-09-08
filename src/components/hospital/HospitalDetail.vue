@@ -233,7 +233,6 @@ export default {
         this.modalGbn = moveModal
         this.modalObj = intVal
       } else if (pCompo === 'hospitalCancle') {
-        console.log(pCompo)
         this.modalGbn = moveModal
         this.modalObj = intVal
       }
@@ -247,7 +246,6 @@ export default {
       this.modalGbn = ''
     },
     userHospitalRegist (value) {
-      console.log(value)
       if (value === 'N') {
         const objectValue = {
           hospitalIds: [this.hospitalId]
@@ -260,12 +258,10 @@ export default {
           console.log(error)
         })
       } else {
-        console.log(1)
         const objectValue = {
           hospitalId: this.hospitalId,
           agreeChk: 'N'
         }
-        console.log(objectValue)
         personAgreeRegist(objectValue).then(res => {
           if (res.data.resultCode === '0000') {
             this.$router.push({path: '/hospital/hospitalList', query: { dynamicTitle: '병원 목록 조회' }})

@@ -38,7 +38,6 @@ export default {
   },
   created () {
     hospitalList().then(res => {
-      console.log(res.data.data)
       this.hospitalList = res.data.data
     }).catch(error => {
       console.log(error)

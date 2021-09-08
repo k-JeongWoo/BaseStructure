@@ -60,7 +60,7 @@
       </div>
     </div>
 
-    <div class="nav_wrap" v-if="$route.name.indexOf('HealthStatus') > -1">
+    <div class="nav_wrap" v-if="$route.name === 'HealthStatus'">
       <div class="slide_nav">
         <ul class="nav_list">
           <template v-for="item in healthyList">
@@ -155,25 +155,29 @@ export default {
       this.$emit('eventdata', 'on')
     },
     async init () {
-      await myHospitalList().then(res => {
-        if (res.data.resultCode === '0000') {
-          this.userHospitalList = res.data.data
-          this.hospitalId = res.data.data[0].hospitalId
-          this.$emit('eventdata', this.hospitalId)
-        }
-      }).catch(error => {
-        console.log(error)
-      })
-      const objectValue = {
-        hospitalId: this.hospitalId
+      if (this.$route.name === 'DoctorMain') {
+        await myHospitalList().then(res => {
+          if (res.data.resultCode === '0000') {
+            this.userHospitalList = res.data.data
+            this.hospitalId = res.data.data[0].hospitalId
+            this.$emit('eventdata', this.hospitalId)
+          }
+        }).catch(error => {
+          console.log(error)
+        })
       }
-      await hospitalHealthyList(objectValue).then(res => {
-        if (res.data.resultCode === '0000') {
-          this.healthyList = res.data.data.careProgramResponses
+      if (this.$route.name === 'HealthStatus') {
+        const objectValue = {
+          hospitalId: this.$route.query.hospitalId
         }
-      }).catch(error => {
-        console.log(error)
-      })
+        await hospitalHealthyList(objectValue).then(res => {
+          if (res.data.resultCode === '0000') {
+            this.healthyList = res.data.data.careProgramResponses
+          }
+        }).catch(error => {
+          console.log(error)
+        })
+      }
     },
     hospitalPageMove (moveID) {
       this.$router.push({name: 'DoctorMain', params: { hospitalId: moveID }})

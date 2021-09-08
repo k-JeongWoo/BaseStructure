@@ -62,7 +62,6 @@ export default {
       hospitalId: this.$route.query.searchVal,
       pageNo: 1
     }
-    console.log(objectValue)
     fetchInquireList(objectValue).then(res => {
       if (res.data.resultCode === '0000') {
         this.inquireList = res.data.data.content

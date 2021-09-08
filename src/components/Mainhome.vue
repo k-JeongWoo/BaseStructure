@@ -430,7 +430,7 @@
 import Modal from '@/components/modal/MoveModal.vue'
 import HospitalDetailModal from '@/components/hospital/HospitalDetailSmallPopup'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import {fetchUserVisitPlan, fetchUserMain, myHospitalList} from '../api'
+import {fetchUserVisitPlan, fetchUserMain} from '../api'
 import dayjs from 'dayjs'
 
 export default {
@@ -472,7 +472,6 @@ export default {
       distancGraph: null,
       kcalGraph: null,
       coachingDetail: [],
-      hospitalChk: [],
       goodStepCnt: '',
       isOpenModal: false
     }
@@ -512,13 +511,6 @@ export default {
         goodStepChart(res.data.data.todayStepInfo)
       }
       this.isLoading = true
-    }).catch(error => {
-      console.log(error)
-    })
-    myHospitalList().then(res => {
-      if (res.data.resultCode === '0000') {
-        this.hospitalChk = res.data.data
-      }
     }).catch(error => {
       console.log(error)
     })

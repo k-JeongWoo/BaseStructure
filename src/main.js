@@ -7,24 +7,16 @@ import AmSerial from 'amcharts3/amcharts/serial'
 import AMGauge from 'amcharts3/amcharts/gauge'
 import AmPie from 'amcharts3/amcharts/pie'
 import router from './router'
-import VueCookie from 'vue-cookie'
 import axios from 'axios'
 import VueI18n from 'vue-i18n'
 import en from './locales/en.json'
 import ko from './locales/ko.json'
-import VueMaterial from 'vue-material'
-import vueMoment from 'vue-moment'
-import 'vue-material/dist/vue-material.min.css'
 
 Vue.use(VueI18n)
 Vue.use(AmCharts)
 Vue.use(AmSerial)
 Vue.use(AmPie)
 Vue.use(AMGauge)
-Vue.use(vueMoment)
-Vue.use(VueMaterial)
-Vue.use(VueCookie)
-Vue.use(vueMoment)
 
 // 다국어 처리
 const i18n = new VueI18n({
