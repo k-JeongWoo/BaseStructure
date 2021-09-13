@@ -278,7 +278,7 @@
               <div class="suggestion_doctor">
                 <div class="doctor_info">
                   <div class="doctor_img">
-                    <img src="../assets/resources/images/_temp/temp01.png" alt="의사얼굴">
+                    <img src="http://sgn-stg.neodreams.co.kr/images/sample.jpg" alt="의사얼굴">
                   </div>
                   <ul>
                     <li class="sugges_date">{{ coachingDetail.regDate }}</li>

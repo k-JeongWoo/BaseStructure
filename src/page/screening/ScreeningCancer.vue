@@ -51,7 +51,7 @@
 
 <script>
 import axios from 'axios'
-import CryptoJS from 'crypto-js/crypto-js'
+import CryptoJS from 'crypto-js/aes.js'
 
 export default {
   data () {
@@ -72,7 +72,7 @@ export default {
       let obj = {
         checkupMasterId: checkupMasterId
       }
-      var aes128 = CryptoJS.AES.encrypt(obj.checkupMasterId.toString(), 'neoPriEncrypt!!!').toString()
+      var aes128 = CryptoJS.encrypt(obj.checkupMasterId.toString(), 'neoPriEncrypt!!!').toString()
       let routeData = this.$router.resolve({name: 'ScreeningDocumentPdf', query: {checkupMasterId: aes128}})
       window.open(routeData.href, '_blank')
     },

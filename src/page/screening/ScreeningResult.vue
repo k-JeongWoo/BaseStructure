@@ -293,7 +293,8 @@
           <!--//checkup_item-->
         </ul>
         <div class="btnArea ">
-          <a type="button" class="btn_border" href="neohealth://import_healthexam"><i class="icoCom_refresh mr3"></i>데이터 새로고침</a>
+          <iframe id="app_init_frame" style="display:none"></iframe>
+          <a type="button" class="btn_border" href="cellimedi://import_healthexam" target="app_init_frame"><i class="icoCom_refresh mr3"></i>데이터 새로고침</a>
         </div>
       </div>
       <!--//general_checkup-->

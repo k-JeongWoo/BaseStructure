@@ -51,7 +51,8 @@ module.exports = {
     // (https://github.com/webpack/css-loader#sourcemaps)
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
-    cssSourceMap: false
+    cssSourceMap: false,
+    bundleAnalyzerReport: process.env.npm_config_report
   },
   stg: {
     env: require('./prod.env'),

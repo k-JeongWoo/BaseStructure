@@ -45,17 +45,11 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import {fetchMedicineList} from '../../api'
 
 export default {
   data: function () {
     return {
-      swiperOption: {
-        pagination: {
-          el: '.swiper-pagination'
-        }
-      },
       medicineList: [],
       pharmacyList: []
     }
@@ -73,10 +67,6 @@ export default {
     toggleView: function (idx) {
       this.$refs['checkupItem' + idx][0].classList.toggle('on')
     }
-  },
-  components: {
-    Swiper,
-    SwiperSlide
   }
 }
 </script>

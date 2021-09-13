@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import AmCharts from 'amcharts3'
+import AmCharts from 'amcharts3/amcharts/amcharts'
 import AmSerial from 'amcharts3/amcharts/serial'
 import AMGauge from 'amcharts3/amcharts/gauge'
 import AmPie from 'amcharts3/amcharts/pie'

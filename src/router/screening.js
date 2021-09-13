@@ -20,13 +20,7 @@ export default [
       header: Header,
       default: ScreeningResult
     },
-    meta: {
-      titleTxt: '국민건강보험 정보 관리', // TEXT
-      titleGbn: 'TX', // TX(TEXT), IM(IMAGE)
-      LGNBGbn: 'BA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION)
-      RGNBGbn: '', // TYPE AR(ALARM), CL(CLOSE)
-      conClass: 'noBg healthIn_info01' // 'noBg inquery_info_01'
-    },
+    meta: headerBtnType.page_healthInfo_detail,
     props: true
   },
   {

@@ -6,7 +6,7 @@
 
 <script>
 import axios from 'axios'
-import VuePdfApp from 'vue-pdf-app'
+import VuePdfApp from 'vue-pdf-app/dist/vue-pdf-app.umd.min'
 
 export default {
   data () {
