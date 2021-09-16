@@ -53,10 +53,23 @@
             <li class="list_item reserv_timeBox">
               <p class="tit">시간 설정</p>
               <div>
-                <select v-model="takeMedicineTime" name="timer" style="background: white;">
-                  <option disabled value="">선택</option>
-                  <option v-for="item in timePickerSetArr" :value="item" >{{ item }}</option>
-                </select>
+<!--                <select v-model="takeMedicineTime" name="timer" style="background: white;">-->
+<!--                  <option disabled value="">선택</option>-->
+<!--                  <option v-for="item in timePickerSetArr" :value="item" >{{ item }}</option>-->
+<!--                </select>-->
+                <div class="select typeA">
+                  <div class="selectbox " :class="{on : toggleTimePicker}" v-on:click="toggleTimePicker = !toggleTimePicker"><!-- on 클래스 추가시 .select_options display:block-->
+                    <button type="button" class="select_title placeholder"><!--옵션 선택 전 흐린회색 placeholder속성이 필요할경우 클래스 placeholder 끼워주시면 회색 텍스트-->
+                      <span>{{ takeMedicineTime }}</span>
+                    </button>
+                    <ul class="select_options">
+                      <li class="select_option" v-for="item in timePickerSetArr" :value="item" @click="selectTimeFnt(item)">
+                        {{ item }}
+                      </li>
+                      <!--                        <li class="select_option">09:00</li> &lt;!&ndash; on 클래스 추가시 active&ndash;&gt;-->
+                    </ul>
+                  </div>
+                </div>
               </div>
             </li>
           </ul>
@@ -113,8 +126,8 @@ export default {
   data () {
     return {
       takeMedicineAlarm: 'Y',
-      mechineTimerGbn: 'A',
-      takeMedicineTime: '',
+      mechineTimerGbn: Object.keys(this.$props.selectmodal).length === 0 ? 'A' : this.$props.selectmodal.mechineTimerGbn,
+      takeMedicineTime: Object.keys(this.$props.selectmodal).length === 0 ? '선택' : this.$props.selectmodal.takeMedicineAmPm,
       medicineDetailsList: [],
       isOpenModal: false,
       modalGbn: '',
@@ -127,13 +140,17 @@ export default {
       medicineAddList: [],
       modicineRemoveList: [],
       takeMedicineId: this.$props.selectmodal.takeMedicineId,
-      allRemoveDetail: []
+      allRemoveDetail: [],
+      toggleTimePicker: false
     }
   },
   methods: {
+    selectTimeFnt (timer) {
+      this.takeMedicineTime = timer
+    },
     registMedichine (value) {
       let updateGbn = 'regist'
-      if (this.takeMedicineTime === '') {
+      if (this.takeMedicineTime === '선택') {
         this.openModal('timeSelect')
       } else if (this.medicineDetailsList.length === 0) {
         this.openModal('medichinSelect')
@@ -156,7 +173,6 @@ export default {
             }
           }).catch(error => { console.log(error) })
         } else {
-          console.log(1)
           updateGbn = 'update'
           if (value === 'alarmRemove') {
             updateGbn = 'delete'
@@ -173,7 +189,6 @@ export default {
             takeMedicineTime: this.takeMedicineTime,
             timeAmPm: this.mechineTimerGbn
           }
-          console.log(objectValue)
           MedicationAlarmModify(objectValue).then(res => {
             if (res.data.resultCode === '0000') {
               this.openModal(updateGbn)
@@ -187,10 +202,12 @@ export default {
     setTimePicker (timegbn) {
       this.timePickerSetArr.splice(0)
       if (timegbn === 'A') {
-        this.takeMedicineTime = ''
+        this.takeMedicineTime = '선택'
+        this.toggleTimePicker = false
         this.amResetForm()
       } else {
-        this.takeMedicineTime = ''
+        this.takeMedicineTime = '선택'
+        this.toggleTimePicker = false
         this.pmResetForm()
       }
     },
@@ -292,6 +309,7 @@ export default {
   },
   mounted () {
     if (Object.keys(this.$props.selectmodal).length !== 0) {
+      console.log(this.$props.selectmodal)
       this.medicineDetailsList = []
       this.medichinDetail = this.$props.selectmodal
       this.takeMedicineTime = this.$props.selectmodal.takeMedicineAmPm
