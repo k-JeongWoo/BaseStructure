@@ -1,7 +1,7 @@
 <template>
       <!--contents-->
       <div class="contents">
-        <div class="box_wrap bgNone" v-if="">
+        <div class="box_wrap bgNone">
           <section class="box_p32 bgColorB" v-if="result_code === 'error'">
             <p class="title_05 colorA">서비스 이용 안내</p>
             <h2 class="title_02">환영합니다!</h2>
@@ -200,7 +200,7 @@
             <h3 class="title_02">지난 7일간의 평균 걸음</h3>
             <div class=" mt4">
               <p class="data_infoTxt ">
-                평균<span class="num">{{ todayStepCnt | commaFnt }}</span>걸음/일
+                평균<span class="num">{{ aveStepCnt | commaFnt }}</span>걸음/일
               </p>
               <p class="data_infoTxt" v-if="result_code !== 'error'">({{ weeklyDates }})</p>
               <div class="line_graph mt3">
@@ -217,43 +217,7 @@
           </section>
         </div>
         <!--//box_wrap-->
-        <!--
-          요거도 사용 안 하나?
-        <div class="box_wrap">
-          <section class="box_p32">
-            <p class="title_05 colorA">내가 먹는 약</p>
-            <h2 class="title_01">복약 알람 및 기록</h2>
-            <div class="medication_info mt6">
-              <ul class="medication_time">
-                <li>아침</li>
-                <li class="active">점심</li>
-                <li>저녁</li>
-              </ul>
-              <div class="medication_detail">
-                <div class="detail_cont active">
-                  <div class="medication_notice">
-                    <p class="title_01">
-                      <i class="icoCom_time">시간</i>
-                      <span class="mr1">오후</span>
-                      <span>12:30</span>
-                    </p>
-                    <button type="button" class="btn_border icoBtn"><i class="icoCom_set">설정</i></button>
-                  </div>
 
-                  <div class="btnArea mt4">
-                    <button type="button" class="btn_border icoBtn disabled"><i class="icoCom_timeRe">설정</i></button>
-                    <button type="button" class="btn_fill">약 추가 및 삭제</button>
-                  </div>
-                </div>
-                <div class="detail_cont">내용2<br>내용2</div>
-                <div class="detail_cont">내용3<br>내용3</div>
-              </div>
-            </div>
-          </section>
-        </div>
-          -->
-
-        <!--//box_wrap-->
         <div class="box_wrap" v-show="coachingDetail.clinicId">
           <section class="box_p32">
             <p class="title_05 colorA">주치의 생활코칭</p>
@@ -305,109 +269,49 @@
               복약 알람 기록기능을 사용해보세요.</p>
           </section>
           <!--//box_p32-->
-          <section class="box_p32">
+          <section class="box_p32 pb0">
             <p class="title_05 colorA">내가 먹는 약</p>
             <h2 class="title_01">복약 알람 및 기록</h2>
             <div class="btnArea mt4 mb7"
                  v-if="result_code === 'error'">
               <button type="button" class="btn_fill" @click="movePagefnt">+ 알림/약 추가</button>
             </div>
-
-<!--            <template v-for="(item,index) in alarmList">-->
-<!--              <div class="medication_box "-->
-<!--                   v-if="(alarmList.length > 0 && alarmList) && !(index > 0) || viewList">-->
-<!--                <div class="medication_notice">-->
-<!--                  <p class="title_01">-->
-<!--                    <i class="icoCom_time"></i>-->
-<!--                    <span class="mr1">{{ item.takeMedicineTime  }}</span>-->
-<!--                    <span></span>-->
-<!--                  </p>-->
-<!--                  <button type="button" class="btn_border icoBtn"><i class="icoCom_write">작성</i></button>-->
-<!--                </div>-->
-<!--                <div class="btnArea mt4">-->
-<!--                  <button type="button" class="btn_border">모두 복용</button>-->
-<!--                </div>-->
-<!--                <ul class="medication_list">-->
-<!--                  <li v-for="subitem in item.takeMedicineHistoryDetails">-->
-<!--                    <p class="medi_name">{{ subitem.takeMedicineDetailsName }}</P>-->
-<!--                    <button type="button" class="btn_fill sm">{{ subitem.intakeTakeMedicine === 'N' ? '복용' : '복용완료'}}</button>-->
-<!--                  </li>-->
-<!--                </ul>-->
-<!--              </div>-->
-<!--            </template>-->
             <template v-else>
               <div class="btnArea mt4 mb7"
                    v-if="result_code !== 'error'">
-                <button class="btn_fill">
+                <button class="btn_fill" :class="alarmList.length < 5 ? '' : 'disabled'" @click="openModal('medicationPopup')">
                   알림/약 추가
                 </button>
-                <button class="btn_border">
+                <button class="btn_border" @click="openModal('historyPopup')">
                   히스토리
                 </button>
               </div>
-              <div class="medication_box">
-                <div class="medication_notice">
-                  <p class="title_02">
-                    <!--수정 20210803 아이콘 클래스변경 -->
-                    <i class="icoCom_time_purple02">시간</i>
-                    <!--//수정 20210803 아이콘 클래스변경 -->
-                    <span class="mr1">오후</span>
-                    <span>12:30</span>
-                  </p>
-                  <button class="btn_text_size01 colorA"><i class="icoCom_write mr1"></i>수정</button>
+              <template v-for="(item,index) in alarmList">
+                <div class="medication_box " v-if="index === 0 ? true : viewList">
+                    <div class="medication_notice">
+                      <p class="title_01">
+                        <i class="icoCom_time_purple02"></i>
+                        <span class="mr1">{{ item.timeAmPm }} {{ item.takeMedicineAmPm  }}</span>
+                        <span></span>
+                      </p>
+                      <button type="button" class="btn_text_size01 colorA" @click="openModal('medicationUpdatePopup', item)"><i class="icoCom_write mr1"></i>수정</button>
+                    </div>
+                    <ul class="medication_list">
+                      <li class="list_tit" @click="takeAllMedichine(item.takeMedicineId, '')">
+                        <p class="title_03">복용약</P>
+                        <button type="button" class="btn_text_size02 colorA sm" ><i class="icoCom_check mr1"></i>전체 복용</button>
+                      </li>
+                      <li v-for="subitem in item.takeMedicineHistoryDetails">
+                        <p class="medi_name">{{ subitem.takeMedicineDetailsName }}</P>
+                        <button type="button" :class="subitem.intakeTakeMedicine === 'N' ? 'btn_border sm' : 'btn_fill_color02 sm'"
+                                @click="takeAllMedichine(item.takeMedicineId, subitem.takeMedicineDetailId)">{{ subitem.intakeTakeMedicine === 'N' ? '복용' : '복용완료'}}</button>
+                      </li>
+                    </ul>
+                    <div class="btnArea mt4 ">
+                      <button type="button" class="btn_fill" :ref="'status_'+item.takeMedicineId" :class="buttonStatus" @click="registMedicine(item.takeMedicineId)">저장</button>
+                    </div>
                 </div>
-                <ul class="medication_list">
-                  <li class="list_tit">
-                    <p class="title_03">복용약 </P>
-                    <button type="button" class="btn_text_size02 colorA sm"><i class="icoCom_check mr1">시간</i>전체복용</button>
-                  </li>
-                  <li>
-                    <p class="medi_name">그린노즈 캡슐 </P>
-                    <button type="button" class="btn_border sm">복용</button>
-                  </li>
-                  <li>
-                    <p class="medi_name">알레그라디 정</P>
-                    <button type="button" class="btn_border sm">복용</button>
-                  </li>
-                  <li>
-                    <p class="medi_name">스니코에스 캡슐</P>
-                    <button type="button" class="btn_fill_color02 sm">복용완료</button>
-                  </li>
-                </ul>
-                <div class="btnArea mt4 ">
-                  <button type="button" class="btn_fill">저장</button>
-                </div>
-              </div>
-              <!-- //medication_box -->
-              <div class="medication_box" v-if="viewList">
-                <div class="medication_notice">
-                  <p class="title_02">
-                    <!--수정 20210803 아이콘 클래스변경 -->
-                    <i class="icoCom_time_purple02">시간</i>
-                    <!--//수정 20210803 아이콘 클래스변경 -->
-                    <span class="mr1">오후</span>
-                    <span>12:30</span>
-                  </p>
-                  <button class="btn_text_size01 colorA"><i class="icoCom_write mr1"></i>수정</button>
-                </div>
-                <ul class="medication_list">
-                  <li class="list_tit">
-                    <p class="title_03">복용약 </P>
-                    <button type="button" class="btn_text_size02 colorA sm"><i class="icoCom_check mr1">시간</i>전체복용</button>
-                  </li>
-                  <li>
-                    <p class="medi_name">이부프로펜 (진통제)</P>
-                    <button type="button" class="btn_border sm">복용</button>
-                  </li>
-                  <li>
-                    <p class="medi_name">아세트아미노펜 (해열)</P>
-                    <button type="button" class="btn_border sm">복용</button>
-                  </li>
-                </ul>
-                <div class="btnArea mt4 ">
-                  <button type="button" class="btn_fill">저장</button>
-                </div>
-              </div>
+              </template>
               <div class="btnMore">
                 <button type="button" :class=" viewList ? 'close' : ''" @click="listAll"><!-- 아래방향은 클래스 없음. 위로방향은 close 클래스 추가-->
                   <i class="icoArrow_purpleMore">더보기</i>
@@ -416,8 +320,16 @@
             </template>
           </section>
           <div v-if="isOpenModal">
-            <component :is="modalGbn" v-bind:selectmodal="modalObj">
-
+            <component :is="modalGbn" v-bind:selectmodal="modalObj" v-on:popupdata="modalData">
+              <div class="modal-header" slot="header">
+                <h3>{{ modalTitle }}</h3>
+              </div>
+              <p slot="body" v-html="modalContent"></p>
+              <button slot="moveBtn2" @click="registSave(modalObj)" class="btn modal-default-button">저장</button>
+              <button slot="moveBtn1" @click="modalData"
+                      class="btn"
+                      :class="this.modalOnOff === 'one' ? 'modal-default-button' : ''">
+                {{ this.modalOnOff === 'one' ? '확인' : '취소'}}</button>
             </component>
           </div>
         </div>
@@ -428,9 +340,11 @@
 
 <script>
 import Modal from '@/components/modal/MoveModal.vue'
-import HospitalDetailModal from '@/components/hospital/HospitalDetailSmallPopup'
+import confirm from '@/components/modal/ConfirmModal'
+import medicationPopup from '@/components/medication/MedicationSetting'
+import historyPopup from '@/components/medication/MedicationHistory'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import {fetchUserVisitPlan, fetchUserMain} from '../api'
+import {fetchUserVisitPlan, fetchUserMain, MedicationTodayList, MedicationStatusRegist} from '../api'
 import dayjs from 'dayjs'
 
 export default {
@@ -440,7 +354,9 @@ export default {
     Swiper,
     SwiperSlide,
     Modal: Modal,
-    HospitalDetailModal: HospitalDetailModal
+    MedicationPopup: medicationPopup,
+    HistoryPopup: historyPopup,
+    Confirm: confirm
   },
   data () {
     return {
@@ -452,6 +368,7 @@ export default {
       },
       usr_name: '',
       usr_telnum: '',
+      modalContent: '',
       modalTitle: '건강 앱 접근 허용',
       modalContents: '앱에서 이 기기의 건강앱에 접근하려고 합니다.',
       showModal: false,
@@ -473,22 +390,34 @@ export default {
       kcalGraph: null,
       coachingDetail: [],
       goodStepCnt: '',
-      isOpenModal: false
+      isOpenModal: false,
+      modalGbn: '',
+      modalObj: {},
+      modalOnOff: '',
+      takeMedicineDetailIds: [],
+      takeMedicineHistoryDetails: [],
+      buttonStatus: 'disabled',
+      clickMedichineList: []
     }
   },
   created () {
     this.usr_name = sessionStorage.getItem('usr_name')
     this.result_code = sessionStorage.getItem('result_code')
     this.showModal = !this.showModal
-    // this.init()
-    // MedicationTodayList().then(res => {
-    //   console.log(res)
-    //   if (res.data.data) {
-    //     this.alarmList = res.data.data
-    //   }
-    // }).catch(error => {
-    //   console.log(error)
-    // })
+    MedicationTodayList().then(res => {
+      if (res.data.resultCode === '0000') {
+        this.alarmList = res.data.data
+        res.data.data.forEach(item => {
+          item.takeMedicineHistoryDetails.forEach(subitem => {
+            if (subitem.intakeTakeMedicine === 'Y') {
+              this.$set(subitem, 'realdata', 'Y')
+            }
+          })
+        })
+      }
+    }).catch(error => {
+      console.log(error)
+    })
     fetchUserMain().then(res => {
       if (res.data.resultCode === 'error') {
         goodStepChart([])
@@ -525,8 +454,116 @@ export default {
       if (this.result_code === 'error') {
         this.$router.replace({name: 'Lognin'})
       } else {
-        this.$router.replace({name: 'MedicationSetting'})
+        this.$router.replace({path: '/medicine/medicationSetting'})
       }
+    },
+    takeAllMedichine (key, subkey) {
+      // 전체 클릭시 해당배열 값 초기화
+      if (key !== '' && subkey === '') {
+        const delidx = []
+        this.clickMedichineList.forEach((resetItem, idx) => {
+          if (resetItem.itemkey === key) {
+            delidx.push(idx)
+          }
+        })
+        delidx.reverse()
+        delidx.forEach(res => {
+          this.clickMedichineList.splice(res, 1)
+        })
+      }
+
+      this.alarmList.forEach(item => {
+        if (item.takeMedicineId === key) {
+          item.takeMedicineHistoryDetails.forEach(subitem => {
+            if (subkey === '') {
+              this.$set(subitem, 'intakeTakeMedicine', 'Y')
+              if (subitem.realdata !== 'Y') {
+                this.clickMedichineList.push({itemkey: item.takeMedicineId, subitemkey: subitem.takeMedicineDetailId})
+              }
+            } else {
+              if (subitem.takeMedicineDetailId === subkey) {
+                if (subitem.intakeTakeMedicine === 'Y') {
+                  if (subitem.realdata !== 'Y') {
+                    this.$set(subitem, 'intakeTakeMedicine', 'N')
+                    const findindex = this.clickMedichineList.findIndex(e => {
+                      return e.itemkey === key && e.subitemkey === subkey
+                    })
+                    this.$delete(this.clickMedichineList, findindex)
+                  }
+                } else {
+                  this.$set(subitem, 'intakeTakeMedicine', 'Y')
+                  this.clickMedichineList.push({itemkey: item.takeMedicineId, subitemkey: subitem.takeMedicineDetailId})
+                }
+              }
+            }
+          })
+        }
+      })
+      // 저장버튼 활성화 비 활성화
+      let checkStatus = []
+      this.clickMedichineList.forEach(statusitem => {
+        if (statusitem.itemkey === key) {
+          checkStatus.push(statusitem.itemkey)
+        }
+      })
+      if (this.clickMedichineList.length !== 0 && checkStatus.length !== 0) {
+        this.$refs['status_' + key][0].className = 'btn_fill'
+      } else {
+        this.$refs['status_' + key][0].className = 'btn_fill disabled'
+      }
+    },
+    registMedicine (key) {
+      let takeMedichineChk = false
+      let takeMedichinCnt = 0
+      this.alarmList.forEach(item => {
+        if (item.takeMedicineId === key) {
+          item.takeMedicineHistoryDetails.forEach(chkitem => {
+            if (chkitem.intakeTakeMedicine === 'N') {
+              takeMedichineChk = true
+            } else {
+              takeMedichinCnt++
+            }
+          })
+        }
+      })
+      if (takeMedichinCnt === 0) {
+        this.openModal('noTake')
+      } else {
+        if (takeMedichineChk) {
+          this.openModal('confrim', key)
+        } else {
+          this.registSave(key)
+        }
+      }
+      // takeMedicineId
+      // const objectValue = {
+      //   medicineDetailsList: medichinRegist,
+      //   takeMedicineAlarm: this.takeMedicineAlarm,
+      //   takeMedicineTime: this.takeMedicineTime,
+      //   timeAmPm: this.mechineTimerGbn
+      // }
+    },
+    registSave (itemkey) {
+      this.alarmList.forEach(item => {
+        if (item.takeMedicineId === itemkey) {
+          item.takeMedicineHistoryDetails.forEach(subitem => {
+            if (subitem.intakeTakeMedicine === 'Y' && subitem.realdata !== 'Y') {
+              this.takeMedicineDetailIds.push(subitem.takeMedicineDetailId)
+            }
+          })
+        }
+      })
+      let ObjectValue = {
+        takeMedicineDetailIds: this.takeMedicineDetailIds,
+        takeMedicineId: itemkey
+      }
+      MedicationStatusRegist(ObjectValue).then(res => {
+        if (res.data.resultCode === '0000') {
+          this.$router.go()
+        }
+      }).catch(error => {
+        console.log(error)
+      })
     },
     listAll: function () {
       this.viewList = !this.viewList
@@ -538,11 +575,36 @@ export default {
       this.setModalCompo(pCompo, intVal)
       this.isOpenModal = !this.isOpenModal
     },
-    setModalCompo (pCompo, intVal) {
-      if (pCompo === 'detailPopup') {
-        this.modalGbn = HospitalDetailModal
-        this.modalObj = intVal
+    setModalCompo (pCompo, obj) {
+      if (pCompo === 'medicationPopup') {
+        this.modalGbn = medicationPopup
+      } else if (pCompo === 'medicationUpdatePopup') {
+        this.modalGbn = medicationPopup
+        this.modalObj = obj
+      } else if (pCompo === 'confrim') {
+        this.modalGbn = Modal
+        this.modalObj = obj
+        this.modalTitle = '주의'
+        this.modalContent = '아직 복용하지 않은 약이 남아있어요. 이대로 저장하시겠어요?'
+      } else if (pCompo === 'historyPopup') {
+        this.modalGbn = historyPopup
+        this.modalObj = obj
+      } else if (pCompo === 'noTake') {
+        this.modalGbn = confirm
+        this.modalOnOff = 'one'
+        this.modalTitle = '주의'
+        this.modalContent = '복용약을 최소 1개 선택해주시겠어요?'
       }
+    },
+    closeModal () {
+      this.isOpenModal = !this.isOpenModal
+    },
+    modalData: function () {
+      this.isOpenModal = !this.isOpenModal
+      this.modalTitle = ''
+      this.modalContent = ''
+      this.modalGbn = ''
+      this.modalOnOff = ''
     }
   },
   mounted () {

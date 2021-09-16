@@ -404,7 +404,6 @@ function getChartList (obj) {
     } else if (item.checkupDetailItemCode === 'HEA' || item.checkupDetailItemCode === 'PRO' || item.checkupDetailItemCode === 'TUB') {
       var itemsYear = ''
       var itemsResult = ''
-      console.log(item)
       item.responseData.forEach(function (item2, idx) {
         itemsYear += '<td class="year">' + item2.checkupYear + '</td>'
         let resStyle = ''

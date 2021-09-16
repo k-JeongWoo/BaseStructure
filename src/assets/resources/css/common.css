@@ -500,7 +500,7 @@ a{font-family:'NotoSansKR','Sans-serif'; font-weight:400; color:#313131; letter-
 /***slide_nav***/
 .nav_wrap{position:relative; background: #FFF; width: 100%; height: 47px; padding:8px 0;border-bottom: 1px solid #D7DBEC; z-index: 10; white-space:nowrap;overflow: hidden;overflow-x: auto;-webkit-overflow-scrolling: touch; -ms-overflow-style: none; scrollbar-width: none;}
 .nav_wrap::-webkit-scrollbar { display: none;}
-.nav_wrap .slide_nav{display: -webkit-inline-box;display: -webkit-inline-flex;display: inline-flex;min-width: 100%;-webkit-box-pack: justify;-webkit-justify-content: space-between;justify-content: space-between;padding: 0 32px;}
+.nav_wrap .slide_nav{display: -webkit-inline-flex;display: inline-flex;min-width: 100%;-webkit-box-pack: justify;-webkit-justify-content: space-between;justify-content: space-between;padding: 0 32px;}
 .slide_nav .nav_list{display: -webkit-flex; display: flex;}
 .slide_nav .nav_list li{display: inline-block; height: 31px; padding:3px 8px; margin-right: 8px; background: #FFF;border: 1px solid #C1C7DE;-webkit-border-radius: 16px;border-radius: 16px;}
 .slide_nav .nav_list li>*{display: inline-block; font-weight: 500;font-size: 16px;line-height: 23px;color: #7E84A3;}

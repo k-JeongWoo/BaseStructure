@@ -26,12 +26,6 @@ const i18n = new VueI18n({
 })
 
 router.beforeEach((to, from, next) => {
-  // console.log(to)
-  // next(vm => {
-  //   console.log('ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ Start ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ')
-  //   console.log(from)
-  //   vm.prevRoute = from
-  // })
   // 사용자별 언어 설정 분기할 부분
   // i18n.locale = 'en'
   axios.get('/api/v1/api/user/userInfo').then(function (response) {

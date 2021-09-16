@@ -15,7 +15,6 @@ export default [
     path: '/medicine/medicationSetting',
     name: 'MedicationSetting',
     components: {
-      header: Header,
       default: MedicationSetting
     }
   }
