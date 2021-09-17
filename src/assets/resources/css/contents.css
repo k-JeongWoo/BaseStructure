@@ -184,6 +184,7 @@ a:not(.md-button):hover {text-decoration: none !important;}
 .reserv_timeBox .time_inputBox{display: -webkit-flex; line-height:36px; display: flex;font-weight: 700; font-size: 16px; color: #6765E9; }
 .reserv_timeBox .time_input{width:50px; margin:0 5px;}
 .reserv_timeBox .time_input input{width:100%; height:36px;border: 1px solid #6765E9;box-sizing: border-box;-webkit-border-radius: 8px;border-radius: 8px; font-weight: 700; font-size: 16px; color: #6765E9; text-align: center;}
+.reserv_timeBox select{width:120px; height:36px;border: 1px solid #6765E9;box-sizing: border-box;-webkit-border-radius: 8px;border-radius: 8px; font-weight: 700; font-size: 16px; color: #6765E9; text-align: center;}
 
 /*먹는약설정*/
 .mediReserv_list{border-top: 1px solid #D7DBEC;}

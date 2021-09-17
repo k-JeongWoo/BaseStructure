@@ -357,23 +357,31 @@ export default {
     var res = axios.get(`/api/v1/api/checkupDetail/checkupDetailDeseaseList`, { params: params })
     res.then(response => {
       this.checkupDetailList = response.data.data
-      let discObj = {}
-      let dataYearObj = {}
-      // var disease = obj.checkupDetailList.normalValueA + obj.checkupDetailList.normalValueB + obj.checkupDetailList.suspectedDisease
-      let subItem = []
-      let obj = this
-      this.checkupDetailList.responseData.forEach(function (item, idx) {
-        let diseaseTxt = {
-          normalValueA: item.normalValueA,
-          normalValueB: item.normalValueB,
-          suspectedDisease: item.suspectedDisease
-        }
-        discObj[item.checkupDetailItemCode] = diseaseTxt
+      // this.changeYearList()
+      getChartList(this)
+    }).catch(function (error) { console.log(error) })
+  },
+  methods: {
+  }
+}
 
-        // 대상년도의 데이터 추출
-        var dataLenght = item.responseData.length
-        dataYearObj[item.checkupDetailItemCode] = item.responseData[dataLenght - 1]
-        obj.checkupYearDetail = dataYearObj
+function getChartList (obj) {
+  var dataList = obj.checkupDetailList.responseData
+  var discObj = {}
+  var dataYearObj = {}
+  // var disease = obj.checkupDetailList.normalValueA + obj.checkupDetailList.normalValueB + obj.checkupDetailList.suspectedDisease
+  dataList.forEach(function (item, idx) {
+    var diseaseTxt = {
+      normalValueA: item.normalValueA,
+      normalValueB: item.normalValueB,
+      suspectedDisease: item.suspectedDisease
+    }
+    discObj[item.checkupDetailItemCode] = diseaseTxt
+
+    // 대상년도의 데이터 추출
+    var dataLenght = item.responseData.length
+    dataYearObj[item.checkupDetailItemCode] = item.responseData[dataLenght - 1]
+    obj.checkupYearDetail = dataYearObj
 
         if (item.checkupDetailItemCode === 'SIG' || item.checkupDetailItemCode === 'TBP') {
           let tempItem = {

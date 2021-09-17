@@ -5,7 +5,7 @@
       <li class="inputBox centerFlex mb3">
         <p class="input_tit">이름</p>
         <p class="input disabled"><!--수정불가 :: disabled style과 터치가 안되도록 css속성넣음. -->
-          <input type="text"v-model="memberName" disabled>
+          <input type="text" v-model="memberName" disabled>
         </p>
       </li>
       <li class="inputBox centerFlex mb3">

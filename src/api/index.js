@@ -35,6 +35,26 @@ function fetchUserVisitPlan (objectValue) {
 function MedicationTodayList () {
   return axios.get(`${config.baseUrl}medicine/takeMedicineTodayList`)
 }
+
+// 복약 알람 등록
+function MedicationAlarmRegist (objectValue) {
+  return axios.post(`${config.baseUrl}medicine/takeMedicineWrite`, objectValue)
+}
+// 복약 상태 등록
+function MedicationStatusRegist (objectValue) {
+  return axios.post(`${config.baseUrl}medicine/takeMedicineHistoryWrite`, objectValue)
+}
+
+// 복약 히스토리 목록
+function MedicationHistory (objectValue) {
+  return axios.get(`${config.baseUrl}medicine/takeMedicineHistoryList`, {params: objectValue})
+}
+
+// 복약 알람 수정
+function MedicationAlarmModify (objectValue) {
+  return axios.post(`${config.baseUrl}medicine/takeMedicineUpdate`, objectValue)
+}
+
 // 등록된 병원 ListCnt 판별 -> 주치의 페이지 분기 처리
 function myHospitalList () {
   return axios.get(`${config.baseUrl}hospital/myHospital`)
@@ -95,6 +115,10 @@ export {
   fetchMedicineList,
   fetchUserVisitPlan,
   MedicationTodayList,
+  MedicationAlarmRegist,
+  MedicationStatusRegist,
+  MedicationHistory,
+  MedicationAlarmModify,
   myHospitalList,
   hospitalList,
   hospitalHealthyList,
