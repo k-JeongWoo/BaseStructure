@@ -215,7 +215,6 @@ export default {
 
 function getChartDataParese (obj) {
   var dataLine = obj.healthResult
-  let subItem = []
   dataLine.forEach(function (item, index) {
     if (item.checkupDetailItemCode === 'SIG' || item.checkupDetailItemCode === 'TBP') {
       let tempItem = {
@@ -234,7 +233,6 @@ function getChartDataParese (obj) {
       tempItem['checkupDetailItemCode'] = item.checkupDetailItemCode + '_S'
       tempItem['normalValueA'] = item.normalValueA
       dataLine.push(tempItem)
-      subItem.push(tempItem)
     } else if (item.checkupDetailItemCode === 'HEA' || item.checkupDetailItemCode === 'PRO' || item.checkupDetailItemCode === 'TUB') {
       // tblTUB
       var itemsYear = ''
@@ -261,22 +259,24 @@ function fnDrawChart (item) {
   AmCharts.makeChart('everWalk_bargraph' + item.checkupDetailItemCode,
     {
       'type': 'serial',
-      'autoMarginOffset': 0,
-      'marginTop': 70,
-      'marginLeft': 0,
+      'columnWidth': 0.5,
+      'autoMarginOffset': 4,
       'marginRight': 0,
-      'addClassNames': true,
-      'color': '#C1C7DE',
+      'marginLeft': 0,
+      'marginBottom': 0,
+      'marginTop': 10,
       'valueAxes': [{
         'axisAlpha': 0,
-        'gridAlpha': 0,
-        'labelsEnabled': false,
-        'balloonEnabled': false
+        'gridAlpha': 0.7,
+        'gridColor': '#D7DBEC',
+        'position': 'left',
+        'color': '#7E84A3',
+        'fontSize': 10,
+        'minimum': 0, // 최소 시작값
+        // 'maximum': 500, // 최대 그리드값
+        'autoGridCount': false, // 라인갯수조정하기위한 gridauto기능 풀어주기
+        'gridCount': 5 // 원하는 라인 갯수
       }],
-      'balloon': {
-        'borderThickness': 0,
-        'shadowAlpha': 0
-      },
       'graphs': [
         {
           'id': 'g1',
@@ -295,11 +295,10 @@ function fnDrawChart (item) {
       'categoryField': 'checkupYear',
       'categoryAxis': {
         'axisAlpha': 0,
-        'gridAlpha': 1,
-        'gridColor': '#E6E9F4',
-        'fontSize': 14,
-        'boldLabels': true,
-        'classNameField': 'today'
+        'gridAlpha': 0,
+        'color': '#7E84A3',
+        // '#eab144'
+        'fontSize': 14
       },
       'dataProvider': item.responseData
     }
