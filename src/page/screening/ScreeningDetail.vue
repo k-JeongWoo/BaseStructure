@@ -1,10 +1,10 @@
 <template>
   <!--  container  -->
   <div class="contents">
-<!--    {{searchYear}}{{searchDiseaseType}}-->
-<!--    <div>
-      {{checkupDetailList}}
-    </div>-->
+    <!--    {{searchYear}}{{searchDiseaseType}}-->
+    <!--    <div>
+          {{checkupDetailList}}
+        </div>-->
     <div class="healthIn_detail" v-if="searchDiseaseType === 'OBE'">
       <h2 class="title_07">비만 검사</h2>
       <dl class="helthIn_detail">
@@ -12,7 +12,7 @@
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.BMI.checkupDetailResult : ''}}</span>
           <span>kg/㎡</span>
-<!--          <span class="checkup_state">정상</span>-->
+          <!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -21,7 +21,7 @@
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.HEI.checkupDetailResult : ''}}</span>
           <span>cm</span>
-<!--          <span class="checkup_state">정상</span>-->
+          <!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -30,7 +30,7 @@
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.WEI.checkupDetailResult : ''}}</span>
           <span>kg</span>
-<!--          <span class="checkup_state">정상</span>-->
+          <!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -39,7 +39,7 @@
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.WAI.checkupDetailResult : ''}}</span>
           <span>cm</span>
-<!--          <span class="checkup_state">정상</span>-->
+          <!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -86,7 +86,7 @@
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.SIG.checkupDetailResult : ''}}</span>
           <span>ml/min</span>
-<!--          <span class="checkup_state">정상</span>-->
+          <!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -113,8 +113,8 @@
         <dt class="title_10 colorH">청력 (좌/우)</dt>
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.HEA.checkupDetailResult : ''}}</span>
-<!--          <span>ml/min</span>-->
-<!--          <span class="checkup_state">정상</span>-->
+          <!--          <span>ml/min</span>-->
+          <!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -204,7 +204,7 @@
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.SER.checkupDetailResult : ''}}</span>
           <span>ml/min</span>
-<!--          <span class="checkup_state">정상</span>-->
+          <!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -213,7 +213,7 @@
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.GFR.checkupDetailResult : ''}}</span>
           <span>mg/dl</span>
-<!--          <span class="checkup_state">정상</span>-->
+          <!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
       </dl>
@@ -298,7 +298,7 @@
         <dt class="title_10 colorH">혈색소</dt>
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.PRO.checkupDetailResult : ''}}</span>
-<!--          <span>g/dl</span>-->
+          <!--          <span>g/dl</span>-->
           <!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
@@ -316,7 +316,7 @@
         <dt class="title_10 colorH">혈색소</dt>
         <dd class="title_10">
           <span>{{ checkupYearDetail !== null ? checkupYearDetail.TUB.checkupDetailResult : ''}}</span>
-<!--          <span>g/dl</span>-->
+          <!--          <span>g/dl</span>-->
           <!--          <span class="checkup_state">정상</span>-->
           <!--state01 주의(노랑) /state02 위험(빨강)-->
         </dd>
@@ -357,31 +357,23 @@ export default {
     var res = axios.get(`/api/v1/api/checkupDetail/checkupDetailDeseaseList`, { params: params })
     res.then(response => {
       this.checkupDetailList = response.data.data
-      // this.changeYearList()
-      getChartList(this)
-    }).catch(function (error) { console.log(error) })
-  },
-  methods: {
-  }
-}
+      let discObj = {}
+      let dataYearObj = {}
+      // var disease = obj.checkupDetailList.normalValueA + obj.checkupDetailList.normalValueB + obj.checkupDetailList.suspectedDisease
+      let subItem = []
+      let obj = this
+      this.checkupDetailList.responseData.forEach(function (item, idx) {
+        let diseaseTxt = {
+          normalValueA: item.normalValueA,
+          normalValueB: item.normalValueB,
+          suspectedDisease: item.suspectedDisease
+        }
+        discObj[item.checkupDetailItemCode] = diseaseTxt
 
-function getChartList (obj) {
-  var dataList = obj.checkupDetailList.responseData
-  var discObj = {}
-  var dataYearObj = {}
-  // var disease = obj.checkupDetailList.normalValueA + obj.checkupDetailList.normalValueB + obj.checkupDetailList.suspectedDisease
-  dataList.forEach(function (item, idx) {
-    var diseaseTxt = {
-      normalValueA: item.normalValueA,
-      normalValueB: item.normalValueB,
-      suspectedDisease: item.suspectedDisease
-    }
-    discObj[item.checkupDetailItemCode] = diseaseTxt
-
-    // 대상년도의 데이터 추출
-    var dataLenght = item.responseData.length
-    dataYearObj[item.checkupDetailItemCode] = item.responseData[dataLenght - 1]
-    obj.checkupYearDetail = dataYearObj
+        // 대상년도의 데이터 추출
+        var dataLenght = item.responseData.length
+        dataYearObj[item.checkupDetailItemCode] = item.responseData[dataLenght - 1]
+        obj.checkupYearDetail = dataYearObj
 
         if (item.checkupDetailItemCode === 'SIG' || item.checkupDetailItemCode === 'TBP') {
           let tempItem = {
