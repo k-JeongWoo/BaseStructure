@@ -38,7 +38,7 @@
 <!--              <p class="contTxt_14">최소 기준 값 100~150</p>-->
               <div class=" mt4" v-if="item.checkupDetailItemCode !== 'HEA' && item.checkupDetailItemCode !== 'PRO' && item.checkupDetailItemCode !== 'TUB'">
                 <div class="line_graph mt3">
-                    <div :id="'everWalk_bargraph'+item.checkupDetailItemCode" class="graph" ></div>
+                    <div :id="'everWalk_bargraph'+item.checkupDetailItemCode" class="graph" :ref="'everWalk_bargraph'+item.checkupDetailItemCode"></div>
                   <!--//그래프-->
                 </div>
               </div>
@@ -183,7 +183,6 @@ export default {
     return {
       docutorInfo: Object,
       healthResult: Object,
-      healthgraph: Object,
       tblHEA: '',
       tblPRO: '',
       tblTUB: ''
@@ -198,73 +197,44 @@ export default {
       if (res.data.resultCode === '0000') {
         this.docutorInfo = res.data.data
         this.healthResult = res.data.data.responseData
-        this.healthgraph = res.data.data.responseData
-        // getChartList(this.healthgraph)
+        getChartDataParese(this)
+
+        console.log(this.healthResult)
+        this.healthResult.map(item => item.checkupDetailItemCode === 'SIG' || item.checkupDetailItemCode === 'TBP' ? sortDetailArr(item.checkupDetailItemCode, this.healthResult) : null)
       }
     }).catch(error => {
       console.log(error)
     })
-    if (this.healthgraph) {
-      getChartList(this)
+    if (this.healthResult) {
+      this.healthResult.forEach(item => {
+        fnDrawChart(item)
+      })
     }
   }
 }
 
-function getChartList (obj) {
-  var dataLine = obj.healthgraph
+function getChartDataParese (obj) {
+  var dataLine = obj.healthResult
+  let subItem = []
   dataLine.forEach(function (item, index) {
-    var healthArrary = []
-    const dobleGrapMode = [
-      {
-        'id': 'g1',
-        'type': 'line',
-        'balloon': {
-          'drop': true, // 풍선모양
-          'color': '#ffffff',
-          'fillColor': '#6765E9',
-          'fillAlpha': 1,
-          'borderAlpha': 0
-        },
-        'bullet': 'round',
-        'bulletBorderAlpha': 0,
-        'useLineColorForBulletBorder': true,
-        'lineColor': '#60CFE3',
-        'valueField': 'detailResultGbn1',
-        'balloonText': '<span style=font-size:12px;>[[value]]</span>',
-        'lineThickness': 2,
-        'bulletColor': '#60CFE3',
-        'bulletSize': 5,
-        'bulletSizeField': 'bulletSize'
-      },
-      {
-        'id': 'g2',
-        'type': 'line',
-        'balloon': {
-          'drop': true, // 풍선모양
-          'color': '#ffffff',
-          'fillColor': '#6765E9',
-          'fillAlpha': 1,
-          'borderAlpha': 0
-        },
-        'bullet': 'round',
-        'bulletBorderAlpha': 0,
-        'useLineColorForBulletBorder': true,
-        'lineColor': '#60CFE3',
-        'valueField': 'detailResultGbn2',
-        'balloonText': '<span style=font-size:12px;>[[value]]</span>',
-        'lineThickness': 2,
-        'bulletColor': '#60CFE3',
-        'bulletSize': 5,
-        'bulletSizeField': 'bulletSize'
-      }
-    ]
     if (item.checkupDetailItemCode === 'SIG' || item.checkupDetailItemCode === 'TBP') {
-      item.responseData.forEach(function (dataobj) {
+      let tempItem = {
+        checkupDetailItem: item.checkupDetailItem,
+        checkupDetailItemCode: item.checkupDetailItemCode,
+        responseData: []
+      }
+      item.responseData.forEach(function (dataobj, idx) {
         var codeGbn = dataobj.checkupDetailResult.split('/')
-        dataobj.detailResultGbn1 = codeGbn[0]
-        dataobj.detailResultGbn2 = codeGbn[1]
-        healthArrary.push(dataobj)
+        dataobj.checkupDetailResult = codeGbn[0]
+        tempItem.responseData[idx] = {checkupDetailResult: codeGbn[1], checkupYear: dataobj.checkupYear}
+        // dataobj.detailResultGbn2 = codeGbn[1]
+        // healthArrary.push(dataobj)
       })
+      tempItem['checkupDetailItem'] = item.checkupDetailItem
+      tempItem['checkupDetailItemCode'] = item.checkupDetailItemCode + '_S'
+      tempItem['normalValueA'] = item.normalValueA
+      dataLine.push(tempItem)
+      subItem.push(tempItem)
     } else if (item.checkupDetailItemCode === 'HEA' || item.checkupDetailItemCode === 'PRO' || item.checkupDetailItemCode === 'TUB') {
       // tblTUB
       var itemsYear = ''
@@ -278,70 +248,77 @@ function getChartList (obj) {
           resStyle = 'type01'
         }
         itemsResult += '<td class="normal_info ' + resStyle + '"><span>' + dataobj.checkupDetailResult + '</span></td>'
-        // healthArrary.push({
-        //   checkupYear: dataobj.checkupYear,
-        //   detailResultGbn1: dataobj.checkupDetailResult
       })
       var tblHtml = '<tr>' + itemsYear + '</tr>' + '<tr>' + itemsResult + '</tr>'
       if (item.checkupDetailItemCode === 'HEA') obj.tblHEA = tblHtml
       else if (item.checkupDetailItemCode === 'PRO') obj.tblPRO = tblHtml
       else if (item.checkupDetailItemCode === 'TUB') obj.tblTUB = tblHtml
-    } else {
-      item.responseData.forEach(function (dataobj) {
-        healthArrary.push({
-          checkupYear: dataobj.checkupYear,
-          detailResultGbn1: dataobj.checkupDetailResult
-        })
-      })
-    }
-
-    // eslint-disable-next-line no-undef,no-unused-expressions
-    var chartLine = AmCharts.makeChart('everWalk_bargraph' + item.checkupDetailItemCode,
-      {
-        'type': 'serial',
-        'autoMarginOffset': 0,
-        'marginTop': 70,
-        'marginLeft': 0,
-        'marginRight': 0,
-        'addClassNames': true,
-        'color': '#C1C7DE',
-        'valueAxes': [{
-          'axisAlpha': 0,
-          'gridAlpha': 0,
-          'labelsEnabled': false,
-          'balloonEnabled': false
-        }],
-        'balloon': {
-          'borderThickness': 0,
-          'shadowAlpha': 0
-        },
-        'graphs': dobleGrapMode,
-        'chartCursor': {
-          'cursorColor': '#6765E9', // 커서 세로색상
-          'categoryBalloonEnabled': 0,
-          'zoomable': false
-        },
-        'categoryField': 'checkupYear',
-        'categoryAxis': {
-          'axisAlpha': 0,
-          'gridAlpha': 1,
-          'gridColor': '#E6E9F4',
-          'fontSize': 14,
-          'boldLabels': true,
-          'classNameField': 'today'
-        },
-        'dataProvider': healthArrary
-      }
-    )
-    // today 요일 들어간 배열 순서로 스타일 먹이는 스크립트 (today_00=월 ~ today_06=일)
-    let todaynum = chartLine.dataProvider.findIndex(findToday)
-    function findToday (element) {
-      if (element.today === 'today') return true
-    }
-    let todaybox = (document).getElementsByClassName('today_0')
-    for (var i = 0; i < todaybox.length; i++) {
-      todaybox.item(i).className += todaynum
     }
   })
+}
+function fnDrawChart (item) {
+  // eslint-disable-next-line no-undef,no-unused-expressions
+  AmCharts.makeChart('everWalk_bargraph' + item.checkupDetailItemCode,
+    {
+      'type': 'serial',
+      'autoMarginOffset': 0,
+      'marginTop': 70,
+      'marginLeft': 0,
+      'marginRight': 0,
+      'addClassNames': true,
+      'color': '#C1C7DE',
+      'valueAxes': [{
+        'axisAlpha': 0,
+        'gridAlpha': 0,
+        'labelsEnabled': false,
+        'balloonEnabled': false
+      }],
+      'balloon': {
+        'borderThickness': 0,
+        'shadowAlpha': 0
+      },
+      'graphs': [
+        {
+          'id': 'g1',
+          'valueField': 'checkupDetailResult',
+          'balloonText': '[[category]]: <b>[[value]]</b>',
+          'type': 'column',
+          'lineAlpha': '0',
+          'fillAlphas': '1',
+          'fillColors': '#60CFE3',
+          'colorField': 'color'
+        }
+      ],
+      'chartCursor': {
+        'zoomable': false
+      },
+      'categoryField': 'checkupYear',
+      'categoryAxis': {
+        'axisAlpha': 0,
+        'gridAlpha': 1,
+        'gridColor': '#E6E9F4',
+        'fontSize': 14,
+        'boldLabels': true,
+        'classNameField': 'today'
+      },
+      'dataProvider': item.responseData
+    }
+  )
+
+  // eslint-disable-next-line no-undef,no-unused-expressions
+  AmCharts.addInitHandler(function (chart) {
+    chart.dataProvider.forEach(function (item, idx) {
+      item['color'] = idx % 2 === 0 ? '#AF89FF' : '#9792FF'
+    })
+  })
+}
+
+function sortDetailArr (item, obj) {
+  const getIdx = obj.findIndex(i => i.checkupDetailItemCode === item)
+  const getItem = obj.splice(getIdx, 1)
+  obj.splice(0, 0, getItem[0])
+  const getIdxS = obj.findIndex(i => i.checkupDetailItemCode === (item + '_S'))
+  const getItemS = obj.splice(getIdxS, 1)
+  obj.splice(1, 0, getItemS[0])
 }
 </script>

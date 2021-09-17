@@ -99,6 +99,12 @@
         <!--그래프영역-->
         <div id="chart_SIG" style="width: 100%; height: 200px;"></div>
       </div>
+      <div class="graph_cont">
+        <h3 class="contTxt_16">시력 (좌/우)</h3>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
+        <!--그래프영역-->
+        <div id="chart_SIG_S" style="width: 100%; height: 200px;"></div>
+      </div>
       <p class="contTxt_06">신장이 효과적으로 혈액을 거르는지 판단하는 지표로 수치가 높으면 신장염, 신부전증을 의심해볼 수 있음.</p>
     </div>
     <div class="healthIn_detail" v-if="searchDiseaseType === 'DEA'">
@@ -138,6 +144,12 @@
         <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
         <!--그래프영역-->
         <div id="chart_TBP" style="width: 100%; height: 200px;"></div>
+      </div>
+      <div class="graph_cont">
+        <h3 class="contTxt_16">혈압(최고/최저)</h3>
+        <!--<p class="contTxt_14">최소 기준 값 100~150</p>-->
+        <!--그래프영역-->
+        <div id="chart_TBP_S" style="width: 100%; height: 200px;"></div>
       </div>
       <p class="contTxt_06">신장이 효과적으로 혈액을 거르는지 판단하는 지표로 수치가 높으면 신장염, 신부전증을 의심해볼 수 있음.</p>
     </div>
@@ -345,97 +357,124 @@ export default {
     var res = axios.get(`/api/v1/api/checkupDetail/checkupDetailDeseaseList`, { params: params })
     res.then(response => {
       this.checkupDetailList = response.data.data
-      // this.changeYearList()
-      getChartList(this)
+      let discObj = {}
+      let dataYearObj = {}
+      // var disease = obj.checkupDetailList.normalValueA + obj.checkupDetailList.normalValueB + obj.checkupDetailList.suspectedDisease
+      let subItem = []
+      let obj = this
+      this.checkupDetailList.responseData.forEach(function (item, idx) {
+        let diseaseTxt = {
+          normalValueA: item.normalValueA,
+          normalValueB: item.normalValueB,
+          suspectedDisease: item.suspectedDisease
+        }
+        discObj[item.checkupDetailItemCode] = diseaseTxt
+
+        // 대상년도의 데이터 추출
+        var dataLenght = item.responseData.length
+        dataYearObj[item.checkupDetailItemCode] = item.responseData[dataLenght - 1]
+        obj.checkupYearDetail = dataYearObj
+
+        if (item.checkupDetailItemCode === 'SIG' || item.checkupDetailItemCode === 'TBP') {
+          let tempItem = {
+            checkupDetailItem: item.checkupDetailItem,
+            checkupDetailItemCode: item.checkupDetailItemCode,
+            responseData: []
+          }
+          item.responseData.forEach(function (item2, idx) {
+            var itemsplit = item2.checkupDetailResult.split('/')
+            item2.checkupDetailResult = itemsplit[0]
+            tempItem.responseData[idx] = {checkupDetailResult: itemsplit[1], checkupYear: item2.checkupYear}
+          })
+          tempItem['checkupDetailItem'] = item.checkupDetailItem
+          tempItem['checkupDetailItemCode'] = item.checkupDetailItemCode + '_S'
+          subItem.push(tempItem)
+        } else if (item.checkupDetailItemCode === 'HEA' || item.checkupDetailItemCode === 'PRO' || item.checkupDetailItemCode === 'TUB') {
+          var itemsYear = ''
+          var itemsResult = ''
+          item.responseData.forEach(function (item2, idx) {
+            itemsYear += '<td class="year">' + item2.checkupYear + '</td>'
+            let resStyle = ''
+            if (item2.checkupDetailResult === '정상' || item2.checkupDetailResult === '음성' || item2.checkupDetailResult === '정상/정상') {
+              resStyle = 'type00'
+            } else {
+              resStyle = 'type01'
+            }
+            itemsResult += '<td class="normal_info ' + resStyle + '"><span>' + item2.checkupDetailResult + '</span></td>'
+          })
+          var tblHtml = '<tr>' + itemsYear + '</tr>' + '<tr>' + itemsResult + '</tr>'
+          if (item.checkupDetailItemCode === 'HEA') obj.tblHEA = tblHtml
+          else if (item.checkupDetailItemCode === 'PRO') obj.tblPRO = tblHtml
+          else if (item.checkupDetailItemCode === 'TUB') obj.tblTUB = tblHtml
+        }
+        fnDrawChart(item)
+      })
+
+      obj.discList = discObj
+
+      subItem.forEach(function (item) {
+        fnDrawChart(item)
+      })
     }).catch(function (error) { console.log(error) })
   },
   methods: {
   }
 }
 
-function getChartList (obj) {
-  var dataList = obj.checkupDetailList.responseData
-  var discObj = {}
-  var dataYearObj = {}
-  // var disease = obj.checkupDetailList.normalValueA + obj.checkupDetailList.normalValueB + obj.checkupDetailList.suspectedDisease
-  dataList.forEach(function (item, idx) {
-    var diseaseTxt = {
-      normalValueA: item.normalValueA,
-      normalValueB: item.normalValueB,
-      suspectedDisease: item.suspectedDisease
-    }
-    discObj[item.checkupDetailItemCode] = diseaseTxt
-
-    // 대상년도의 데이터 추출
-    var dataLenght = item.responseData.length
-    dataYearObj[item.checkupDetailItemCode] = item.responseData[dataLenght - 1]
-    obj.checkupYearDetail = dataYearObj
-
-    const graphsMode1 = [
-      {
-        'type': 'line',
-        'bullet': 'round',
-        'valueField': 'checkupDetailResult',
-        'fillAlphas': 0
-      }
-    ]
-    const graphsMode2 = [
-      {
-        'type': 'line',
-        'bullet': 'round',
-        'valueField': 'checkupDetailResultSub1',
-        'fillAlphas': 0
+function fnDrawChart (item) {
+  // eslint-disable-next-line no-undef,no-unused-expressions
+  AmCharts.makeChart('chart_' + item.checkupDetailItemCode,
+    {
+      'type': 'serial',
+      'columnWidth': 0.5,
+      'autoMarginOffset': 4,
+      'marginRight': 0,
+      'marginLeft': 0,
+      'marginBottom': 0,
+      'marginTop': 10,
+      'valueAxes': [{
+        'axisAlpha': 0,
+        'gridAlpha': 0.7,
+        'gridColor': '#D7DBEC',
+        'position': 'left',
+        'color': '#7E84A3',
+        'fontSize': 10,
+        'minimum': 0, // 최소 시작값
+        // 'maximum': 500, // 최대 그리드값
+        'autoGridCount': false, // 라인갯수조정하기위한 gridauto기능 풀어주기
+        'gridCount': 5 // 원하는 라인 갯수
+      }],
+      'categoryField': 'checkupYear',
+      'categoryAxis': {
+        'axisAlpha': 0,
+        'gridAlpha': 0,
+        'color': '#7E84A3',
+        // '#eab144'
+        'fontSize': 14
       },
-      {
-        'type': 'line',
-        'bullet': 'round',
-        'valueField': 'checkupDetailResultSub2',
-        'fillAlphas': 0
-      }
-    ]
-    var graphsMode = graphsMode1
-    if (item.checkupDetailItemCode === 'SIG' || item.checkupDetailItemCode === 'TBP') {
-      graphsMode = graphsMode2
-      item.responseData.forEach(function (item2, idx) {
-        var itemsplit = item2.checkupDetailResult.split('/')
-        item2.checkupDetailResultSub1 = itemsplit[0]
-        item2.checkupDetailResultSub2 = itemsplit[1]
-      })
-    } else if (item.checkupDetailItemCode === 'HEA' || item.checkupDetailItemCode === 'PRO' || item.checkupDetailItemCode === 'TUB') {
-      var itemsYear = ''
-      var itemsResult = ''
-      console.log(item)
-      item.responseData.forEach(function (item2, idx) {
-        itemsYear += '<td class="year">' + item2.checkupYear + '</td>'
-        let resStyle = ''
-        if (item2.checkupDetailResult === '정상' || item2.checkupDetailResult === '음성' || item2.checkupDetailResult === '정상/정상') {
-          resStyle = 'type00'
-        } else {
-          resStyle = 'type01'
+      'chartCursor': {
+        'zoomable': false
+      },
+      'graphs': [
+        {
+          'valueField': 'checkupDetailResult',
+          'balloonText': '[[category]]: <b>[[value]]</b>',
+          'type': 'column',
+          'lineAlpha': '0',
+          'fillAlphas': '1',
+          'fillColors': '#60CFE3',
+          'colorField': 'color'
         }
-        itemsResult += '<td class="normal_info ' + resStyle + '"><span>' + item2.checkupDetailResult + '</span></td>'
-      })
-      var tblHtml = '<tr>' + itemsYear + '</tr>' + '<tr>' + itemsResult + '</tr>'
-      if (item.checkupDetailItemCode === 'HEA') obj.tblHEA = tblHtml
-      else if (item.checkupDetailItemCode === 'PRO') obj.tblPRO = tblHtml
-      else if (item.checkupDetailItemCode === 'TUB') obj.tblTUB = tblHtml
+      ],
+      'dataProvider': item.responseData
     }
-    // eslint-disable-next-line no-undef,no-unused-expressions
-    AmCharts.makeChart('chart_' + item.checkupDetailItemCode,
-      {
-        'type': 'serial',
-        'theme': 'none',
-        'categoryField': 'checkupYear',
-        'chartCursor': {
-          'zoomable': false
-        },
-        'graphs': graphsMode,
-        'dataProvider': item.responseData
-      }
-    )
+  )
+  // eslint-disable-next-line no-undef,no-unused-expressions
+  AmCharts.addInitHandler(function (chart) {
+    chart.dataProvider.forEach(function (item, idx) {
+      item['color'] = idx % 2 === 0 ? '#AF89FF' : '#9792FF'
+    })
   })
-
-  obj.discList = discObj
 }
 </script>
 
