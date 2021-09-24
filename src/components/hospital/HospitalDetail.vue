@@ -164,7 +164,7 @@
             </div>
             <p slot="body" v-html="modalContent"></p>
             <button slot="moveBtn1" @click="userHospitalRegist(hospitalDetail.thirdAgreeChk)" class="btn modal-default-button">확인</button>
-            <button slot="moveBtn2" @click="modalData" class="btn modal-default-button">취소</button>
+            <button slot="moveBtn2" @click="modalData" class="btn">취소</button>
           </component>
         </div>
         <!--//box_wrap-->
@@ -246,6 +246,7 @@ export default {
       this.modalGbn = ''
     },
     userHospitalRegist (value) {
+      console.log(value)
       if (value === 'N') {
         const objectValue = {
           hospitalIds: [this.hospitalId]

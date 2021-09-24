@@ -360,10 +360,8 @@ export default {
       } else if (value === 'inquire') {
         this.$router.push({path: '/hospital/inquireList', query: { dynamicTitle: '최근 문의사항', conClass: 'noBg recent_question', searchVal: searchVal }})
       } else if (value === 'detail') {
-        this.$router.push({path: '/hospital/hospitalDetail', query: { dynamicTitle: '문의내용 상세보기', conClass: 'noBg question_detail', searchVal: searchVal }})
+        this.$router.push({path: '/hospital/hospitalDetail', query: { dynamicTitle: '씨젠 클리닉', conClass: 'noBg question_detail', searchVal: searchVal }})
         // this.$router.push({path: '/hospital/hospitalDetail', query: { searchVal: searchVal, dynamicTitle: this.pdYadmNm }})
-      } else if (value === 'inquireDetail') {
-        this.$router.push({path: '/hospital/hospitalDetail', query: { dynamicTitle: '문의내용 상세보기', conClass: 'noBg question_detail', searchVal: searchVal }})
       }
     },
     setModalCompo (pCompo, intVal) {

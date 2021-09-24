@@ -324,7 +324,7 @@
               <div class="modal-header" slot="header">
                 <h3>{{ modalTitle }}</h3>
               </div>
-              <p slot="body" v-html="modalContent"></p>
+              <p slot="body" v-html="subTitle"></p>
               <button slot="moveBtn2" @click="registSave(modalObj)" class="btn modal-default-button">저장</button>
               <button slot="moveBtn1" @click="modalData"
                       class="btn"
@@ -452,6 +452,7 @@ export default {
   methods: {
     movePagefnt: function () {
       if (this.result_code === 'error') {
+        // this.$router.push({name: 'EnterCodePage'})
         this.$router.replace({name: 'Lognin'})
       } else {
         this.$router.replace({path: '/medicine/medicationSetting'})
@@ -585,7 +586,7 @@ export default {
         this.modalGbn = Modal
         this.modalObj = obj
         this.modalTitle = '주의'
-        this.modalContent = '아직 복용하지 않은 약이 남아있어요. 이대로 저장하시겠어요?'
+        this.modalContent = '아직 복용하지 않은 약이 남아있어요.\n이대로 저장하시겠어요?'
       } else if (pCompo === 'historyPopup') {
         this.modalGbn = historyPopup
         this.modalObj = obj
@@ -624,6 +625,11 @@ export default {
     }).catch(error => {
       console.log(error)
     })
+  },
+  computed: {
+    subTitle () {
+      return this.modalContent.split('\n').join('<br />')
+    }
   }
 }
 

@@ -29,9 +29,9 @@
             <li class="list_item reserv_timeBox">
               <p class="tit">켜짐/꺼짐</p>
               <div class="switch">
-                <input type="radio" class="switch-input" name="view" value="Y" id="on" checked v-model="takeMedicineAlarm">
+                <input type="radio" class="switch-input" name="view" value="N" id="on" checked v-model="takeMedicineAlarm">
                 <label for="on" class="switch-label switch-label-off">켜짐</label>
-                <input type="radio" class="switch-input" name="view" value="N" id="off" v-model="takeMedicineAlarm">
+                <input type="radio" class="switch-input" name="view" value="Y" id="off" v-model="takeMedicineAlarm">
                 <label for="off" class="switch-label switch-label-on">꺼짐</label>
                 <span class="switch-selection"></span>
               </div>
@@ -44,9 +44,9 @@
             <li class="list_item reserv_timeBox">
               <p class="tit">오전/오후 설정</p>
               <div class="tab_btnBox">
-                <input type="radio" name="time" value="A" id="am" v-model="mechineTimerGbn" @click="setTimePicker('A')" checked >
+                <input type="radio" name="time" value="A" id="am" v-model="mechineTimerGbn" @click="selectTimeFnt(takeMedicineTime)" checked >
                 <label for="am" class="label_typeTab">오전</label>
-                <input type="radio" name="time" value="P" id="pm" v-model="mechineTimerGbn" @click="setTimePicker('P')">
+                <input type="radio" name="time" value="P" id="pm" v-model="mechineTimerGbn" @click="selectTimeFnt(takeMedicineTime)">
                 <label for="pm" class="label_typeTab">오후</label>
               </div>
             </li>
@@ -58,8 +58,8 @@
 <!--                  <option v-for="item in timePickerSetArr" :value="item" >{{ item }}</option>-->
 <!--                </select>-->
                 <div class="select typeA">
-                  <div class="selectbox " :class="{on : toggleTimePicker}" v-on:click="toggleTimePicker = !toggleTimePicker"><!-- on 클래스 추가시 .select_options display:block-->
-                    <button type="button" class="select_title placeholder"><!--옵션 선택 전 흐린회색 placeholder속성이 필요할경우 클래스 placeholder 끼워주시면 회색 텍스트-->
+                  <div class="selectbox " :class="{on : toggleTimePicker}"><!-- on 클래스 추가시 .select_options display:block-->
+                    <button type="button" class="select_title placeholder" v-on:click="toggleTimePicker = !toggleTimePicker"><!--옵션 선택 전 흐린회색 placeholder속성이 필요할경우 클래스 placeholder 끼워주시면 회색 텍스트-->
                       <span>{{ takeMedicineTime }}</span>
                     </button>
                     <ul class="select_options">
@@ -93,7 +93,7 @@
             </li>
           </ul>
         </section>
-        <div class="btnArea mt6">
+        <div class="btnArea mt6" v-if="Object.keys($props.selectmodal).length !== 0">
           <button type="button" class="btn_border_red" @click="registMedichine('alarmRemove')">알람/약 삭제</button>
         </div>
       </div>
@@ -103,7 +103,7 @@
           <div class="modal-header" slot="header">
             <h3>{{ modalTitle }}</h3>
           </div>
-          <p slot="body" v-html="modalContent"></p>
+          <p slot="body" v-html="subTitle"></p>
           <button slot="moveBtn1" @click="cancleModal" class="btn modal-default-button">확인</button>
           <button slot="moveBtn2" @click="modalClean" class="btn">취소</button>
         </component>
@@ -125,7 +125,7 @@ export default {
   },
   data () {
     return {
-      takeMedicineAlarm: 'Y',
+      takeMedicineAlarm: Object.keys(this.$props.selectmodal).length === 0 ? 'Y' : this.$props.selectmodal.takeMedicineAlarm,
       mechineTimerGbn: Object.keys(this.$props.selectmodal).length === 0 ? 'A' : this.$props.selectmodal.mechineTimerGbn,
       takeMedicineTime: Object.keys(this.$props.selectmodal).length === 0 ? '선택' : this.$props.selectmodal.takeMedicineAmPm,
       medicineDetailsList: [],
@@ -146,6 +146,7 @@ export default {
   },
   methods: {
     selectTimeFnt (timer) {
+      this.toggleTimePicker = false
       this.takeMedicineTime = timer
     },
     registMedichine (value) {
@@ -204,12 +205,13 @@ export default {
       if (timegbn === 'A') {
         this.takeMedicineTime = '선택'
         this.toggleTimePicker = false
-        this.amResetForm()
+        // this.amResetForm()
       } else {
         this.takeMedicineTime = '선택'
         this.toggleTimePicker = false
-        this.pmResetForm()
+        // this.pmResetForm()
       }
+      this.pmResetForm()
     },
     medichinSave (value) {
       if (this.medichinName === '') {
@@ -228,7 +230,6 @@ export default {
     },
     medichinRemove (idx, itemKey) {
       if (idx === 'remove') {
-        console.log(1)
       } else {
         if (itemKey !== 0) {
           this.modicineRemoveList.push(itemKey)
@@ -245,7 +246,7 @@ export default {
       } else if (pCompo === 'close') {
         this.modalOnOff = 'two'
         this.modalTitle = '주의'
-        this.modalContent = '입력한 내용이 저장되지 않았습니다. 계속하시겠어요?'
+        this.modalContent = '입력한 내용이 저장되지 않았습니다.\n 계속하시겠어요?'
         this.modalGbn = movePopup
       } else if (pCompo === 'timeSelect') {
         this.modalGbn = confirmPopup
@@ -286,14 +287,14 @@ export default {
       this.modalOnOff = ''
       this.isOpenModal = !this.isOpenModal
     },
-    amResetForm () {
-      let timeSet = ''
-      let timeCnt = 0
-      for (timeCnt; timeCnt < 24; timeCnt++) {
-        timeSet = (Math.floor(timeCnt / 2) < 10 ? '0' + Math.floor(timeCnt / 2) : Math.floor(timeCnt / 2)) + ':' + (timeCnt % 2 === 0 ? '00' : '30')
-        this.timePickerSetArr.push(timeSet)
-      }
-    },
+    // amResetForm () {
+    //   let timeSet = ''
+    //   let timeCnt = 0
+    //   for (timeCnt; timeCnt < 24; timeCnt++) {
+    //     timeSet = (Math.floor(timeCnt / 2) < 10 ? '0' + Math.floor(timeCnt / 2) : Math.floor(timeCnt / 2)) + ':' + (timeCnt % 2 === 0 ? '00' : '30')
+    //     this.timePickerSetArr.push(timeSet)
+    //   }
+    // },
     pmResetForm () {
       let timeSet = ''
       let timeCnt = 0
@@ -308,8 +309,8 @@ export default {
     }
   },
   mounted () {
+    this.pmResetForm()
     if (Object.keys(this.$props.selectmodal).length !== 0) {
-      console.log(this.$props.selectmodal)
       this.medicineDetailsList = []
       this.medichinDetail = this.$props.selectmodal
       this.takeMedicineTime = this.$props.selectmodal.takeMedicineAmPm
@@ -318,14 +319,12 @@ export default {
         this.medicineDetailsList.push({itemName: item.takeMedicineDetailsName, itemKey: item.takeMedicineDetailId})
         this.allRemoveDetail.push({itemName: item.takeMedicineDetailsName, itemKey: item.takeMedicineDetailId})
         this.mechineTimerGbn = this.$props.selectmodal.timeAmPm === '오후' ? 'P' : 'A'
-        if (this.$props.selectmodal.timeAmPm === '오후') {
-          this.pmResetForm()
-        } else {
-          this.amResetForm()
-        }
       })
-    } else {
-      this.amResetForm()
+    }
+  },
+  computed: {
+    subTitle () {
+      return this.modalContent.split('\n').join('<br />')
     }
   }
 }

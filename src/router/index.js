@@ -8,6 +8,7 @@ import Screening from './screening'
 import Medicine from './medicine'
 import Hospital from './hospital'
 import AppInformation from './AppInformation'
+import Notice from './notice'
 
 Vue.use(Router)
 
@@ -19,7 +20,8 @@ const routes = [
   ...UserInfo,
   ...Medicine,
   ...Hospital,
-  ...AppInformation
+  ...AppInformation,
+  ...Notice
 ]
 
 export default new Router({

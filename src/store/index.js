@@ -118,6 +118,13 @@ const headerBtnType = {
     RGNBGbn: 'CL', // TYPE AR(ALARM), CL(CLOSE), JM(JUMP), NN (NONE)
     conClass: 'main' // ex) 'noBg inquery_info_01',
   },
+  'page_notice': {
+    titleTxt: '알림', // TEXT
+    titleGbn: 'TX', // TX(TEXT), IM(IMAGE), NN (NONE)
+    LGNBGbn: 'BA', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION), NN (NONE)
+    RGNBGbn: 'NN', // TYPE AR(ALARM), CL(CLOSE), JM(JUMP), NN (NONE)
+    conClass: 'noBg notice' // ex) 'noBg inquery_info_01',
+  },
   'page_common_back': {
     titleTxt: 'title', // TEXT
     titleGbn: 'TX', // TX(TEXT), IM(IMAGE), NN (NONE)

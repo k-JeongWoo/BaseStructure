@@ -16,7 +16,7 @@
         <i class="ico_back" v-else-if="$route.meta.LGNBGbn === 'BA'" @click="historyBack"></i>
         <i class="" v-else></i>
       </button>
-      <a class="btn_right" id="show-modal" @click="selectCloseBtn($route.meta.RGNBGbn, $route.path)">
+      <a class="btn_right" id="show-modal" @click="selectCloseBtn($route.meta.RGNBGbn)">
         <i class="ico_close"
            v-if="$route.meta.RGNBGbn === 'CL'"></i>
         <div class="notic_ico"
@@ -79,7 +79,8 @@
           <h3>{{ headModalTitle }}</h3>
         </div>
         <p slot="body" v-html="headModalContent"></p>
-        <button slot="moveBtn1" @click="confirmBtn($route.path.indexOf('screening/') > -1 || $route.path.indexOf('hospitalRegist') > -1)" class="btn modal-default-button">확인</button>
+        <button slot="moveBtn1"
+                @click="confirmBtn($route.path)" class="btn modal-default-button">확인</button>
         <button slot="moveBtn2" class="btn" @click="modalClean">취소</button>
       </Modal>
     </div>
@@ -114,10 +115,13 @@ export default {
     this.init()
   },
   methods: {
-    confirmBtn (value) {
-      if (value) {
+    confirmBtn (currentUrl) {
+      if (currentUrl.indexOf('screening/') > -1 ||
+        currentUrl.indexOf('hospitalRegist') > -1) {
         this.historyBack()
         this.showModal = !this.showModal
+      } else if (currentUrl.indexOf('login') > -1) {
+        this.$router.push({name: 'mainHome'})
       } else {
         this.modalClean()
       }
@@ -138,9 +142,10 @@ export default {
     },
     selectCloseBtn: function (valueGbn) {
       if (valueGbn === 'AR') {
-        this.headModalTitle = '알림'
-        this.headModalContent = '준비중 입니다'
-        this.showModal = !this.showModal
+        // this.headModalTitle = '알림'
+        // this.headModalContent = '준비중 입니다'
+        // this.showModal = !this.showModal
+        this.$router.push({name: 'NoticeList'})
       } else if (valueGbn === 'CL') {
         if (this.$route.path.indexOf('screening') > -1) {
           this.$router.go(-1)

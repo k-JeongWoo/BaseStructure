@@ -1,3 +1,4 @@
+import EnterCodePage from '@/components/auth/EnterCodePage'
 import Login from '@/components/Index'
 import Mainhome from '@/components/Mainhome'
 import Footer from '@/components/layout/Footer.vue'
@@ -8,6 +9,14 @@ import DoctorMain from '@/components/DoctorMain'
 import {headerBtnType} from '../store/index'
 
 export default [
+  {
+    path: '/enterCodePage',
+    name: 'EnterCodePage',
+    components: {
+      header: Header,
+      default: EnterCodePage
+    }
+  },
   {
     path: '/login',
     name: 'Lognin',
@@ -21,6 +30,22 @@ export default [
       headerBtnType.page_common_close.conClass = 'noBg login01'
       sessionStorage.clear()
       next()
+    }
+  },
+  {
+    path: '/',
+    name: 'mainHome',
+    components: {
+      header: Header,
+      leftMenu: LeftMenu,
+      default: Mainhome,
+      footer: Footer
+    },
+    meta: headerBtnType.page_main,
+    props: true,
+    beforeRouteLeave (to, from, next) {
+      console.log(to)
+      console.log(from)
     }
   },
   {
@@ -38,17 +63,5 @@ export default [
   {
     path: '*',
     component: NotFound
-  },
-  {
-    path: '/',
-    name: 'mainHome',
-    components: {
-      header: Header,
-      leftMenu: LeftMenu,
-      default: Mainhome,
-      footer: Footer
-    },
-    meta: headerBtnType.page_main,
-    props: true
   }
 ]

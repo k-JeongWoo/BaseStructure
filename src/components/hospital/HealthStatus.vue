@@ -198,8 +198,6 @@ export default {
         this.docutorInfo = res.data.data
         this.healthResult = res.data.data.responseData
         getChartDataParese(this)
-
-        console.log(this.healthResult)
         this.healthResult.map(item => item.checkupDetailItemCode === 'SIG' || item.checkupDetailItemCode === 'TBP' ? sortDetailArr(item.checkupDetailItemCode, this.healthResult) : null)
       }
     }).catch(error => {

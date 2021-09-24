@@ -107,6 +107,15 @@ function fetchInquireRegist (objectValue) {
 function fetchHealthDetail (objectValue) {
   return axios.get(`${config.baseUrl}checkupDetail/functionCheckupList`, {params: objectValue})
 }
+// 알림 리스트
+function fetchNoticeList () {
+  return axios.get(`${config.baseUrl}alarm/alarmList`)
+}
+
+function fetchAlarmUpdate () {
+  return axios.post(`${config.baseUrl}alarm/alarmUpdate`)
+}
+
 export {
   fetchUserMain,
   fetchProgramlList,
@@ -131,5 +140,7 @@ export {
   fetchInquireDetail,
   fetchInquireRemove,
   fetchInquireRegist,
-  fetchHealthDetail
+  fetchHealthDetail,
+  fetchNoticeList,
+  fetchAlarmUpdate
 }

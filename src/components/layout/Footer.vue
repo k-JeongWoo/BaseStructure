@@ -15,18 +15,32 @@
         </button>
       </li>
     </ul>
+    <div v-if="isOpenModal">
+      <component :is="modalGbn">
+        <div class="modal-header" slot="header">
+          <h3>{{ modalTitle }}</h3>
+        </div>
+        <p slot="body" v-html="modalContent"></p>
+        <button slot="moveBtn1" @click="modalClean" class="btn modal-default-button">확인</button>
+      </component>
+    </div>
   </div>
   <!-- //footer -->
 </template>
 
 <script>
 import { myHospitalList } from '../../api/index'
+import confirmPopup from '../modal/ConfirmModal'
 
 export default {
   data () {
     return {
       myHospitalListLength: [],
-      classGbn: this.$route.meta.titleTxt
+      classGbn: this.$route.meta.titleTxt,
+      isOpenModal: false,
+      modalGbn: '',
+      modalTitle: '',
+      modalContent: ''
     }
   },
   methods: {
@@ -35,7 +49,6 @@ export default {
         this.classGbn = urlValue
         this.$router.push({name: 'mainHome'}).catch(() => {})
       } else {
-        this.classGbn = urlValue
         myHospitalList().then(res => {
           if (res.data.resultCode !== 'error') {
             this.myHospitalListLength = res.data.data
@@ -47,13 +60,30 @@ export default {
               //   })
             } else {
               this.$router.push('/hospital/hospitalRegist')
+              this.classGbn = urlValue
             }
           } else {
-            alert('로그인 후 이용 가능합니다.')
+            this.openModal('message')
           }
         }).catch(error => {
           console.log(error)
         })
+      }
+    },
+    openModal (pCompo) {
+      this.setModalCompo(pCompo)
+      this.isOpenModal = !this.isOpenModal
+    },
+    modalClean () {
+      this.modalTitle = ''
+      this.modalContent = ''
+      this.isOpenModal = !this.isOpenModal
+    },
+    setModalCompo (pCompo) {
+      if (pCompo === 'message') {
+        this.modalGbn = confirmPopup
+        this.modalTitle = '확인'
+        this.modalContent = '로그인 후 이용 가능합니다.'
       }
     }
   }

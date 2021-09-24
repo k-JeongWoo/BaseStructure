@@ -29,7 +29,7 @@
           * 마지막 페이지일 경우 ​
           이후 월 이동 버튼 비노출
         -->
-        <button type="button" class="btn_right" v-show="compareMonth !== todayMonth" @click="searchMonth('next')">
+        <button type="button" class="btn_right" v-show="(compareYear === todayYear &&  todayMonth < compareMonth) || (compareYear > todayYear)" @click="searchMonth('next')">
           <i class="icoArrow_purpleR">다음</i>
         </button>
       </div>
@@ -86,9 +86,11 @@ export default {
       todayYear: dayjs().year(),
       todayMonth: dayjs().add(1, 'month').month(),
       compareMonth: dayjs().add(1, 'month').month(),
+      compareYear: dayjs().year(),
       todayDate: dayjs().date(),
       historyList: [],
-      monthCount: 0
+      monthCount: 0,
+      yearCount: 0
     }
   },
   created () {
@@ -115,18 +117,26 @@ export default {
       if (moveGbn === 'back') {
         this.monthCount--
         this.todayMonth = dayjs().add(this.monthCount + 1, 'month').month()
+        if (this.todayMonth === 0) {
+          this.yearCount--
+          this.todayYear = dayjs().add(this.yearCount, 'year').year()
+          this.todayMonth = 12
+        }
       } else if (moveGbn === 'next') {
         this.monthCount++
         this.todayMonth = dayjs().add(this.monthCount + 1, 'month').month()
+        if (this.todayMonth === 0) {
+          this.todayMonth = 12
+        } else if (this.todayMonth === 1) {
+          this.yearCount++
+          this.todayYear = dayjs().add(this.yearCount, 'year').year()
+        }
       }
       let ObjectValue = {
         pageNo: 1,
         searchInterval: this.monthCount
       }
-      console.log('+++++++start+++++++')
-      console.log(ObjectValue)
       MedicationHistory(ObjectValue).then(res => {
-        console.log(res.data.data)
         if (res.data.resultCode === '0000') {
           this.historyList = res.data.data.content
           res.data.data.content.forEach(item => {
@@ -136,6 +146,7 @@ export default {
       }).catch(error => {
         console.log(error)
       })
+      console.log(this.todayMonth)
     },
     scrollTop () {
       this.$refs.fixScroll.scrollTop = 0

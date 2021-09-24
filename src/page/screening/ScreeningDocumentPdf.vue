@@ -30,7 +30,6 @@ export default {
     try {
       await axios.get(`/api/v1/api/checkupDetail/checkupDocument/`, { params: params })
         .then(response => {
-          console.log(response)
           this.pdf = base64ToArrayBuffer(response.data.data.checkupPdf)
         }).catch(function (error) { console.log(error) })
     } catch (error) {
