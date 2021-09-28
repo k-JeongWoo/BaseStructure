@@ -13,7 +13,7 @@
         <li class="inputBox centerFlex mb3">
           <p class="input_tit">생년월일<span class="required">*</span></p>
           <p class="input "><!--수정불가 :: disabled-->
-            <input type="text" v-model="usr_birth" name="" value="19921111" >
+            <input type="text" v-model="usr_birth" name="" value="19921111" maxlength="8">
           </p>
         </li>
         <li class="inputBox centerFlex mb3">
@@ -36,7 +36,7 @@
         <li class="inputBox centerFlex mb3">
           <p class="input_tit">휴대폰<span class="required">*</span></p>
           <p class="input "><!--수정불가 :: disabled-->
-            <input type="text" v-model="usr_telnum" name="" value="010-1234-5678" >
+            <input type="text" v-model="usr_telnum" name="" value="010-1234-5678"  maxlength="11">
           </p>
         </li>
         <li class="inputBox centerFlex mb7">
@@ -113,33 +113,43 @@ export default {
         return
       }
       */
-      axios.post(`/api/v1/api/auth/signup`,
-        {
-          'memberAddress': this.usr_address,
-          'memberAddressDetail': this.usr_address_detail,
-          'memberZipcode': this.usr_zipcode,
-          'memberBirth': this.usr_birth,
-          // 'memberGender': this.usr_gender === '남' ? 'M' : 'F',
-          'memberGender': this.usr_gender,
-          'memberHpno': this.usr_telnum,
-          'memberName': this.usr_name,
-          'socialImage': this.usr_url,
-          'socialMail': this.usr_email,
-          'socialName': this.usr_sname,
-          'socialProvider': this.usr_provider,
-          'memberMarketingAgree': sessionStorage.getItem('marketAgree')
-        },
-        {withCredentials: true}
-      ).then(function (response) {
-        if (response.data.status === 200) {
-          sessionStorage.removeItem('marketAgree')
-          obj.$router.push({
-            path: obj.redirect_Uri
-          })
-        } else {
-          alert(response.data.message)
-        }
-      })
+      if (obj.usr_birth === undefined) {
+        alert('생년월일을 입력해주세요.')
+      } else if (obj.usr_telnum === undefined) {
+        alert('연락처를 입력해주세요.')
+      } else if (obj.usr_birth < 19200101) {
+        alert('생년월일을 다시 입력해주세요.')
+      } else if (phoneFomatter(obj.usr_telnum) === 'error') {
+        alert('연락처를 다시 입력해주세요.')
+      } else {
+        axios.post(`/api/v1/api/auth/signup`,
+          {
+            'memberAddress': this.usr_address,
+            'memberAddressDetail': this.usr_address_detail,
+            'memberZipcode': this.usr_zipcode,
+            'memberBirth': this.usr_birth,
+            // 'memberGender': this.usr_gender === '남' ? 'M' : 'F',
+            'memberGender': this.usr_gender,
+            'memberHpno': this.usr_telnum,
+            'memberName': this.usr_name,
+            'socialImage': this.usr_url,
+            'socialMail': this.usr_email,
+            'socialName': this.usr_sname,
+            'socialProvider': this.usr_provider,
+            'memberMarketingAgree': sessionStorage.getItem('marketAgree')
+          },
+          {withCredentials: true}
+        ).then(function (response) {
+          if (response.data.status === 200) {
+            sessionStorage.removeItem('marketAgree')
+            obj.$router.push({
+              path: obj.redirect_Uri
+            })
+          } else {
+            alert(response.data.message)
+          }
+        })
+      }
     },
     showApi () {
       new window.daum.Postcode({
@@ -174,12 +184,45 @@ export default {
     axios.get(`/api/v1/api/auth/tokenUserInfo`, {},
       {withCredentials: true}
     ).then(function (response) {
-      dataObj.usr_sname = response.data.data.name
-      dataObj.usr_email = response.data.data.email
-      dataObj.usr_provider = response.data.data.provider
-      dataObj.usr_url = response.data.data.picture
+      if (response.data.resultCode !== 'error') {
+        dataObj.usr_sname = response.data.data.name
+        dataObj.usr_email = response.data.data.email
+        dataObj.usr_provider = response.data.data.provider
+        dataObj.usr_url = response.data.data.picture
+      } else {
+        alert(response.data.resultMsg)
+      }
     })
+  },
+  watch: {
+    usr_telnum: function () {
+      this.usr_telnum = this.usr_telnum.replace(/[^0-9]/g, '') // 정규식 사용
+    },
+    usr_birth: function () {
+      this.usr_birth = this.usr_birth.replace(/[^0-9]/g, '') // 정규식 사용
+    }
   }
+}
+
+function phoneFomatter (num) {
+  var formatNum = ''
+  if (num.length === 11) {
+    formatNum = num.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+  } else if (num.length === 8) {
+    formatNum = num.replace(/(\d{4})(\d{4})/, '$1-$2')
+  } else {
+    if (num.indexOf('02') === 0) {
+      formatNum = num.replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3')
+    } else {
+      formatNum = num.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3')
+    }
+  }
+
+  var phoneRule = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/
+  if (!phoneRule.test(formatNum)) {
+    formatNum = 'error'
+  }
+  return formatNum
 }
 </script>
 
