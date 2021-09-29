@@ -85,6 +85,7 @@
 
 <script>
 import axios from 'axios'
+import dayjs from 'dayjs'
 
 export default {
   data () {
@@ -117,7 +118,7 @@ export default {
         alert('생년월일을 입력해주세요.')
       } else if (obj.usr_telnum === undefined) {
         alert('연락처를 입력해주세요.')
-      } else if (obj.usr_birth < 19200101) {
+      } else if (obj.usr_birth < 19200101 || obj.usr_birth > dayjs(new Date()).format('YYYYMMDD')) {
         alert('생년월일을 다시 입력해주세요.')
       } else if (phoneFomatter(obj.usr_telnum) === 'error') {
         alert('연락처를 다시 입력해주세요.')
