@@ -30,7 +30,7 @@
         </div>
       </div>
     <div v-if="isOpenModal">
-      <component :is="modalGbn">
+      <component :is="modalGbn" v-bind:selectmodal="modalObj" v-bind:hospitalkey="propsdata">
         <div class="modal-header" slot="header">
           <h3>{{ modalTitle }}</h3>
         </div>
@@ -48,6 +48,7 @@ import inquirePopup from '../hospital/InquireDetailPopup'
 import confirm from '../modal/ConfirmModal'
 
 export default {
+  props: ['propsdata'],
   data () {
     return {
       noticeList: [],
@@ -95,7 +96,6 @@ export default {
     },
     alarmFnt () {
       fetchAlarmUpdate().then(res => {
-        console.log(res)
         if (res.data.resultCode === '0000') {
           if (this.alarmOnOff === 'Y') {
             this.modalTitle = '확인'

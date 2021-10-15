@@ -79,24 +79,15 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   data () {
     return {
       chckAgree: [],
       chckAgreeM: false,
-      checkval: '',
-      sEncData: '',
-      m: 'checkplusService'
+      checkval: ''
     }
   },
   methods: {
-    nicePopUp: function () {
-      document.form_chk.action = 'https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb'
-      document.form_chk.target = 'popupChk'
-      document.form_chk.submit()
-    },
     goSignProcess: function () {
       // 마케팅 수신동의 처리
       let marketChk = this.chckAgree.find(element => element === '3') === '3' ? 'Y' : 'N'
@@ -136,14 +127,6 @@ export default {
         }
       }
     }
-  },
-  created () {
-    let dataObj = this
-    axios.get(`/api/v1/api/niceModule/niceInfo`, {},
-      {withCredentials: true}
-    ).then(function (response) {
-      dataObj.sEncData = response.data.data.sEncData
-    })
   }
 }
 </script>

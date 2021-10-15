@@ -80,7 +80,7 @@ export default {
       var params = {
         'memberId': this.memberId
       }
-      var res = axios.get(`/api/v1/api/checkup/checkupDocList`, {params: params})
+      var res = axios.get(`/api/data/V1.0/api/checkup/checkupDocList`, {params: params})
       res.then(response => {
         if (response.data.data.length > 0) {
           this.checkupDocList = response.data.data

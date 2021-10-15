@@ -42,11 +42,7 @@ export default [
       footer: Footer
     },
     meta: headerBtnType.page_main,
-    props: true,
-    beforeRouteLeave (to, from, next) {
-      console.log(to)
-      console.log(from)
-    }
+    props: true
   },
   {
     path: '/doctorMain',

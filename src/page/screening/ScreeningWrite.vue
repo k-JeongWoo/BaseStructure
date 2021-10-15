@@ -321,7 +321,6 @@ export default {
   },
   methods: {
     findPage: function () {
-      alert('Test')
       this.$router.push('ScreeningSecurityNumber')
     }
   }

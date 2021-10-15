@@ -36,7 +36,7 @@
             <div class="modal-header" slot="header">
               <h3>{{ modalTitle }}</h3>
             </div>
-            <p slot="body" v-html="modalContent"></p>
+            <p slot="body" v-html="subTitle"></p>
             <button slot="moveBtn1" @click="popupControll" class="btn modal-default-button">확인</button>
             <button slot="moveBtn2" class="btn" @click="modalClean">취소</button>
         </component>
@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     popupControll () {
-      this.$emit('popupdata', false)
+      // this.$emit('popupdata', false)
       this.$router.go()
     },
     setModalCompo (pCompo) {
@@ -106,6 +106,11 @@ export default {
     },
     inqueryTyping: function (e) {
       this.medicalInquirySize = getByte(e.target.value)
+    }
+  },
+  computed: {
+    subTitle () {
+      return this.modalContent.split('\n').join('<br />')
     }
   }
 }

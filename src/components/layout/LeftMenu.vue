@@ -52,7 +52,7 @@ export default {
       if (this.result_code === 'error') {
         alert('로그인 후 이용 가능합니다.')
       } else {
-        axios.get(`/api/v1/api/checkup/myCheckupList`).then(response => {
+        axios.get(`/api/data/V1.0/api/checkup/myCheckupList`).then(response => {
           if (response.data.status === 9999) {
             this.$router.push('/screening/screeningDataLoad')
           } else {
@@ -70,11 +70,11 @@ export default {
         } else if (pageGbn === '/hospital/hospitalList') {
           this.$router.push({path: pageGbn, query: { dynamicTitle: '병원 목록 조회' }})
         } else if (pageGbn === 'AppInformation') {
-          this.$router.push({path: pageGbn, query: { dynamicTitle: 'cellimedi 정보', conClass: 'noBg about' }})
+          this.$router.push({path: pageGbn, query: { dynamicTitle: 'cellimedi 앱 정보', conClass: 'noBg about' }})
         } else if (pageGbn === 'AppPrivacyAgree') {
           this.$router.push({path: pageGbn, query: { dynamicTitle: '약관 및 개인정보 처리 방침', conClass: 'noBg terms01' }})
         } else {
-          axios.post(`/api/v1/api/user/loginout`).then(res => {
+          axios.post(`/api/data/V1.0/api/user/loginout`).then(res => {
             if (res.data.resultCode !== 'error' && this.$route.name.indexOf('mainHome') > -1) {
               this.$router.go()
             } else {

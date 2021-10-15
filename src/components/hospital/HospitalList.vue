@@ -2,9 +2,9 @@
     <!--contents-->
     <div class="contents">
       <div class="attendPhy_box">
-        <p class="title_05 colorA">Cellimedi 협동병원</p>
+        <p class="title_05 colorA">cellimedi 협동병원</p>
         <h2 class="title_01">주치의 병원을 등록하세요!</h2>
-        <p class="contTxt_06 mt4">Cellimedi 서비스를 제공하고 있는 병원들입니다.<br>
+        <p class="contTxt_06 mt4">cellimedi 서비스를 제공하고 있는 병원들입니다.<br>
           관심병원을 등록하고 주치의 서비스를 받아보세요.</p>
       </div>
       <!-- // attendPhy_box 주치의병원등록 -->

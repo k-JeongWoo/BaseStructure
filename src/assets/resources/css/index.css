@@ -18,7 +18,7 @@
 .todayWalking .walkBul::before{content:''; display: block; margin:0 auto; width:84px; height:127px; background:url(../images/contents/ico_goodWalk.jpg)no-repeat -16px 0; background-size:235px;}
 .todayWalking .walkBul.good::before{width:129px; background-position:-116px 0}
 .todayWalking .walkBul p{font-weight: 700; font-size: 20px; line-height: 29px;color: #31313D;}
-.todayWalking ul{display: -webkit-flex;display: flex;-webkit-justify-content:space-between;justify-content:space-between; padding:0 19px; margin-bottom:16px;}
+.todayWalking ul{display: -webkit-flex;display: flex;-webkit-justify-content:space-between;justify-content:space-between; padding:0 19px; }
 .todayWalking ul li{text-align: center;}
 .todayWalking ul li .num{font-weight: 700;font-size: 22px;line-height: 32px;color: #31313D;}
 

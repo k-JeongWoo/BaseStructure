@@ -13,7 +13,7 @@ export default [
     meta: headerBtnType.page_common_back,
     beforeEnter (to, from, next) {
       headerBtnType.page_common_back.titleTxt = to.query.dynamicTitle
-      // headerBtnType.page_common_back.conClass = to.params.conClass
+      headerBtnType.page_common_back.conClass = to.query.conClass
       next()
     },
     props: true

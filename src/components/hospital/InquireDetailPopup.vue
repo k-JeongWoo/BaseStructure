@@ -16,9 +16,9 @@
       <!-- //header -->
       <!--contents-->
       <div class="contents">
-        <ul class="inquiry_wrap">
+        <ul class="inquiry_wrap" v-if="Object.keys(InquireDetail).length !== 0">
           <li class="inquiry_content"><!-- 문의 : inquiry_content // 답변 : answer_content-->
-            <p class="title_05 colorH">문의내용</p>
+            <p class="title_05 colorH">문의내용 {{ InquireDetail.length }}</p>
             <p class="title_06">{{ InquireDetail.medicalInquiryDesc }}</p>
             <p class="title_12 colorH">{{ InquireDetail.medicalInqueryDate }}</p>
           </li>
@@ -29,6 +29,11 @@
           </li>
           <li class="answer_content" v-else>
             <p class="title_06">답변 대기중입니다.</p>
+          </li>
+        </ul>
+        <ul class="inquiry_wrap" v-else>
+          <li class="answer_content">
+            <p class="title_06">문의하신 글이 삭제 되었습니다.</p>
           </li>
         </ul>
       </div>
@@ -59,8 +64,7 @@ import modal from '../modal/MoveModal'
 
 export default {
   props: {
-    selectmodal: Number,
-    hospitalkey: Number
+    selectmodal: Number
   },
   data () {
     return {
@@ -72,7 +76,8 @@ export default {
   },
   methods: {
     popupControll () {
-      this.$emit('popupdata', false)
+      // this.$emit('popupdata', false)
+      this.$router.go(-1)
     },
     removeinquire (value) {
       let objectValue = {
@@ -97,8 +102,11 @@ export default {
       inqueryId: this.selectmodal
     }
     fetchInquireDetail(objectValue).then(res => {
-      this.InquireDetail = res.data.data
+      if (res.data.resultCode === '0000') {
+        this.InquireDetail = res.data.data
+      }
     }).catch(error => {
+      this.InquireDetail = {}
       console.log(error)
     })
   },

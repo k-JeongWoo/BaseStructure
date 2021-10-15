@@ -5,13 +5,13 @@
       <li class="inputBox centerFlex mb3">
         <p class="input_tit">이름<span class="required">*</span></p>
         <p class="input "><!--수정불가 :: disabled style과 터치가 안되도록 css속성넣음. -->
-          <input type="text" v-model="usr_name" name="" value="홍길동" >
+          <input type="text" v-model="usr_name" name="" placeholder="이름을 입력하세요." >
         </p>
       </li>
       <li class="inputBox centerFlex mb3">
         <p class="input_tit">생년월일<span class="required">*</span></p>
         <p class="input "><!--수정불가 :: disabled-->
-          <input type="text" v-model="usr_birth" name="" value="19921111" maxlength="8">
+          <input type="text" v-model="usr_birth" name="" placeholder="생년월일 8자 (예:19990101)" maxlength="8">
         </p>
       </li>
       <li class="inputBox centerFlex mb3">
@@ -34,13 +34,13 @@
       <li class="inputBox centerFlex mb3">
         <p class="input_tit">휴대폰<span class="required">*</span></p>
         <p class="input "><!--수정불가 :: disabled-->
-          <input type="text" v-model="usr_telnum" name="" value="010-1234-5678"  maxlength="11">
+          <input type="text" v-model="usr_telnum" name="" placeholder="(-)없이 입력하세요."  maxlength="11">
         </p>
       </li>
       <li class="inputBox centerFlex mb7">
         <p class="input_tit">E-mail<span class="required">*</span></p>
         <p class="input disabled"><!--수정불가 :: disabled-->
-          <input type="text" v-model="usr_email" name="" value="aaaaaaaa@seegene.com" disabled>
+          <input type="text" v-model="usr_email" name="" placeholder="이메일을 입력하세요" disabled>
         </p>
       </li>
     </ul>
@@ -57,12 +57,12 @@
       </li>
       <li class="inputBox centerFlex mb3">
         <p class="input">
-          <input type="text" v-model="usr_address" name="" placeholder="상세주소">
+          <input type="text" v-model="usr_address" name="" placeholder="주소" disabled>
         </p>
       </li>
       <li class="inputBox centerFlex mb3">
         <p class="input">
-          <input type="text" v-model="usr_address_detail" name="" placeholder="상세주소">
+          <input type="text" v-model="usr_address_detail" name="" placeholder="상세주소를 입력하세요.">
         </p>
       </li>
       <div ref="embed"></div>
@@ -71,7 +71,7 @@
     <div class="footer typeB">
       <div class="btnArea">
         <button class="btn_fill"
-                @click="regUsrInfo">가입완료
+                @click="regUsrInfo">가입
         </button>
       </div>
     </div>
@@ -120,7 +120,7 @@ export default {
       } else if (phoneFomatter(obj.usr_telnum) === 'error') {
         alert('연락처를 다시 입력해주세요.')
       } else {
-        axios.post(`/api/v1/api/auth/signup`,
+        axios.post(`/api/data/V1.0/api/auth/signup`,
           {
             'memberAddress': this.usr_address,
             'memberAddressDetail': this.usr_address_detail,
@@ -179,7 +179,7 @@ export default {
   },
   created () {
     let dataObj = this
-    axios.get(`/api/v1/api/auth/tokenUserInfo`, {},
+    axios.get(`/api/data/V1.0/api/auth/tokenUserInfo`, {},
       {withCredentials: true}
     ).then(function (response) {
       if (response.data.resultCode !== 'error') {

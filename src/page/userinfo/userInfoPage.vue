@@ -88,11 +88,6 @@ export default {
   data: function () {
     return {
     }
-  },
-  methods: {
-    validationChk: function () {
-      alert('a')
-    }
   }
 }
 </script>

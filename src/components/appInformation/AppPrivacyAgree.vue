@@ -2,7 +2,7 @@
     <!--contents-->
     <div class="contents">
       <section class="mb7">
-        <h3 class="title_02 mb3">알람 </h3>
+        <h3 class="title_02 mb3">약관 </h3>
         <ul class="terms_list">
           <li class="item">
             <button @click="pageDetail('AppPrivacyService')">서비스 이용약관</button>

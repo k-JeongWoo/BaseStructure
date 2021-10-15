@@ -28,8 +28,7 @@ const i18n = new VueI18n({
 router.beforeEach((to, from, next) => {
   // 사용자별 언어 설정 분기할 부분
   // i18n.locale = 'en'
-  axios.get('/api/v1/api/user/userInfo').then(function (response) {
-    sessionStorage.setItem('result_code', response.data.resultCode)
+  axios.get('/api/data/V1.0/api/user/userInfo').then(function (response) {
     if (response.data.resultCode !== 'error') {
       // 로그인 한 상태
       console.log('Add Session Storage ! - User Name = ' + response.data.data.name)
@@ -43,7 +42,13 @@ router.beforeEach((to, from, next) => {
       // 로그인 안한상태
       sessionStorage.setItem('usr_name', '게스트')
       sessionStorage.setItem('result_code', response.data.resultCode)
-      next()
+      if ((to.name === 'UserDetail' && from.name === 'mainHome') ||
+        (to.name === 'UserDetail' && from.name === 'DoctorMain')) {
+        // 회원탈퇴후 back 방지
+        window.history.go(1)
+      } else {
+        next()
+      }
       // sessionStorage.setItem('usr_name', '게스트')
       // alert('로그인 후 이용 가능합니다.')
       // console.log(to.path)

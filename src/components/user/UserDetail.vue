@@ -79,15 +79,18 @@
     <div class="executives_certifi">
       <h3 class="title_05 mb3">임직원 인증</h3>
       <div class="inputBox mb4">
-        <div class="inputBox">
-          <p class="input width03 disabled">
-            <input type="text" name="" value="아이디" disabled>
+        <div class="inputBox" v-if="seegeneMailAgreeDate === ''">
+          <p class="input width03">
+            <input type="text" v-model="memberSeegenMail">
           </p>
           <p class="input_txt">@seegene.com</p>
         </div>
+        <div class="inputBox" v-else>
+          <p class="input_txt">{{ seegeneMail }}</p>
+        </div>
       </div>
-      <div class="btnArea">
-        <a href="" class="btn_border">인증하기</a>
+      <div class="btnArea" v-if="seegeneMailAgreeDate === ''">
+        <button class="btn_border" @click="pageUrl('cetification')">인증하기</button>
       </div>
     </div>
     <!-- <div class="executives_certifi">
@@ -99,7 +102,19 @@
     <!--//executives_certifi-->
 
     <div class="btnArea">
-      <a href="" class="btn_border ">회원탈퇴</a><!-- disabled 클래스 추가시 비활성화 (흐린보라색)-->
+      <button class="btn_border " @click="openModal('userDel')">회원탈퇴</button><!-- disabled 클래스 추가시 비활성화 (흐린보라색)-->
+    </div>
+    <div v-if="isOpenModal">
+      <component :is="modalGbn">
+        <div class="modal-header" slot="header">
+          <h3>{{ modalTitle }}</h3>
+        </div>
+        <p slot="body" v-html="subTitle"></p>
+        <button slot="moveBtn1" class="btn" @click="closeModal">취소</button>
+        <button slot="moveBtn2"
+                class="btn modal-default-button" @click="pageUrl">
+          {{ this.modalOnOff === 'one' ? '탈퇴' : '확인'}}</button>
+      </component>
     </div>
   </div>
   <!--//contents-->
@@ -107,6 +122,9 @@
 
 <script>
 import axios from 'axios'
+import {fetchUserDelete, fetchEmployeeCertification} from '../../api'
+import confirm from '@/components/modal/MoveModal'
+import contentModal from '@/components/modal/ContentModal'
 
 export default {
   data () {
@@ -121,12 +139,20 @@ export default {
       socialImage: '',
       socialMail: '',
       marketAgree: false,
-      memberZipcode: ''
+      memberZipcode: '',
+      isOpenModal: false,
+      modalGbn: '',
+      modalTitle: '',
+      modalContent: '',
+      modalOnOff: '',
+      memberSeegenMail: '',
+      seegeneMail: '',
+      seegeneMailAgreeDate: ''
     }
   },
   methods: {
     updUsrInfo: function () {
-      axios.post(`/api/v1/api/user/userUpdate`,
+      axios.post(`/api/data/V1.0/api/user/userUpdate`,
         {
           memberAddress: this.memberAddress,
           memberAddressDetail: this.memberRaddress,
@@ -167,15 +193,66 @@ export default {
           this.memberRaddress = ''
         }
       }).embed(this.$refs.embed)
+    },
+    pageUrl (pageGbn) {
+      if (pageGbn === 'cetification') {
+        // 임직원 인증
+        this.openModal('spinner')
+        let Objectvalue = {
+          memberSeegenMail: this.memberSeegenMail + '@seegene.com'
+        }
+        fetchEmployeeCertification(Objectvalue).then(res => {
+          if (res.data.resultCode === '0000') {
+            // setTimeout(() => {
+            //   console.log(2)
+            //   this.closeModal()
+            // }, 3000)
+            this.closeModal()
+          }
+        }).catch(error => {
+          console.log(error)
+        })
+      } else {
+        // 사용자 탈퇴
+        fetchUserDelete().then(res => {
+          if (res.data.resultCode === '0000') {
+            this.$router.push({name: 'mainHome'})
+          }
+        }).catch(error => {
+          console.log(error)
+        })
+      }
+    },
+    openModal (pCompo, intVal) {
+      this.setModalCompo(pCompo, intVal)
+      this.isOpenModal = !this.isOpenModal
+    },
+    setModalCompo (pCompo, obj) {
+      if (pCompo === 'userDel') {
+        this.modalGbn = confirm
+        this.modalOnOff = 'one'
+        this.modalTitle = '주의'
+        this.modalContent = 'cellimedi에서 탈퇴하시겠습니까?\n탈퇴 시 저장하신 정보는 삭제되며\n더 이상 서비스 이용이 불가합니다.'
+      } else if (pCompo === 'spinner') {
+        this.modalOnOff = 'three'
+        this.modalGbn = contentModal
+        this.modalTitle = '확인'
+        this.modalContent = '인증 메일 전송중 입니다.'
+      }
+    },
+    closeModal () {
+      this.isOpenModal = !this.isOpenModal
+      this.modalOnOff = ''
+      this.modalTitle = ''
+      this.modalContent = ''
     }
   },
   created () {
     let obj = this
-    axios.get(`/api/v1/api/user/userDetail`,
+    axios.get(`/api/data/V1.0/api/user/userDetail`,
       {},
       {withCredentials: true}
     ).then(function (response) {
-      // console.log(response)
       obj.memberName = response.data.data.memberName
       obj.memberBirth = response.data.data.memberBirth
       obj.memberGender = response.data.data.memberGender
@@ -185,6 +262,13 @@ export default {
       obj.memberAddress = response.data.data.memberAddress
       obj.memberRaddress = response.data.data.memberAddressDetail
       obj.memberZipcode = response.data.data.memberZipcode
+      obj.seegeneMail = response.data.data.seegeneMail
+      if (response.data.data.seegeneMail !== '' && response.data.data.seegeneMail !== null) {
+        let emailString = response.data.data.seegeneMail
+        let emailSplit = emailString.split('@')
+        obj.memberSeegenMail = emailSplit[0]
+      }
+      obj.seegeneMailAgreeDate = response.data.data.seegeneMailAgreeDate
       let mAchk = response.data.data.marketAgree
       if (mAchk === 'Y') {
         obj.marketAgree = true
@@ -192,6 +276,11 @@ export default {
         obj.marketAgree = false
       }
     })
+  },
+  computed: {
+    subTitle () {
+      return this.modalContent.split('\n').join('<br />')
+    }
   }
 }
 </script>

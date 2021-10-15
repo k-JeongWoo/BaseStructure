@@ -330,7 +330,7 @@ export default {
       searchCheckType: this.screenType
     }
 
-    var res = axios.get(`/api/v1/api/checkup/myCheckupList`, { params: params })
+    var res = axios.get(`/api/data/V1.0/api/checkup/myCheckupList`, { params: params })
     res.then(response => {
       this.checkupList = response.data.data
       this.selCheckupYear.year = response.data.data[0].pdCheckupYear
@@ -352,7 +352,7 @@ export default {
       this.selCheckupYear.diagnosis = diagnosis
       this.selCheckupYear.checkupplace = checkupplace
 
-      var res = axios.get(`/api/v1/api/checkupDetail/checkupDetailList`, { params: params })
+      var res = axios.get(`/api/data/V1.0/api/checkupDetail/checkupDetailList`, { params: params })
       res.then(response => {
         this.checkupDetailList = response.data.data
         var renderList = {}

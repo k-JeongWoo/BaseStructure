@@ -354,7 +354,7 @@ export default {
       searchYear: this.$route.query.searchYear,
       searchDiseaseType: this.$route.query.searchDiseaseType
     }
-    var res = axios.get(`/api/v1/api/checkupDetail/checkupDetailDeseaseList`, { params: params })
+    var res = axios.get(`/api/data/V1.0/api/checkupDetail/checkupDetailDeseaseList`, { params: params })
     res.then(response => {
       this.checkupDetailList = response.data.data
       let discObj = {}
@@ -422,6 +422,9 @@ export default {
 }
 
 function fnDrawChart (item) {
+  item.responseData.map(function (item, idx) {
+    item['color'] = idx % 2 === 0 ? '#AF89FF' : '#9792FF'
+  })
   // eslint-disable-next-line no-undef,no-unused-expressions
   AmCharts.makeChart('chart_' + item.checkupDetailItemCode,
     {
@@ -470,11 +473,11 @@ function fnDrawChart (item) {
     }
   )
   // eslint-disable-next-line no-undef,no-unused-expressions
-  AmCharts.addInitHandler(function (chart) {
-    chart.dataProvider.forEach(function (item, idx) {
-      item['color'] = idx % 2 === 0 ? '#AF89FF' : '#9792FF'
-    })
-  })
+  // AmCharts.addInitHandler(function (chart) {
+  //   chart.dataProvider.forEach(function (item, idx) {
+  //     item['color'] = idx % 2 === 0 ? '#AF89FF' : '#9792FF'
+  //   })
+  // })
 }
 </script>
 

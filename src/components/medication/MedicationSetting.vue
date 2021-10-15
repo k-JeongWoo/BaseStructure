@@ -6,10 +6,10 @@
       <header class="header">
         <div class="headerBox">
           <h1>
-            <span class="tit">약 추가/알람설정</span>
+            <span class="tit">알람/약 설정</span>
           </h1>
           <button type="button" class="txt_btn btn_left" @click="registMedichine(Object.keys($props.selectmodal).length)">
-            {{ Object.keys($props.selectmodal).length === 0 ? '완료' : '수정' }}
+            {{ Object.keys($props.selectmodal).length === 0 ? '저장' : '수정' }}
           </button>
           <button class="btn_right" @click="openModal('close')">
             <i class="ico_close">닫기</i>
@@ -29,7 +29,7 @@
             <li class="list_item reserv_timeBox">
               <p class="tit">켜짐/꺼짐</p>
               <div class="switch">
-                <input type="radio" class="switch-input" name="view" value="N" id="on" checked v-model="takeMedicineAlarm">
+                <input type="radio" class="switch-input" name="view" value="N" id="on" v-model="takeMedicineAlarm" checked>
                 <label for="on" class="switch-label switch-label-off">켜짐</label>
                 <input type="radio" class="switch-input" name="view" value="Y" id="off" v-model="takeMedicineAlarm">
                 <label for="off" class="switch-label switch-label-on">꺼짐</label>

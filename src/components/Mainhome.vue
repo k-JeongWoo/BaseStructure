@@ -103,17 +103,6 @@
             <p class="title_05 colorA">활동 요약</p>
             <h2 class="title_01">오늘의 걷기</h2>
             <div class="todayWalking mt4">
-              <div class="walkBul tac" v-if="result_code !== 'error'">
-                <i class="icoCom_walking">걷기</i>
-                <p>
-                  <span class="colorA">좋은 걸음</span>으로<br>
-                  <span>걸어보세요!</span>
-                  <!-- <span>걸으셨군요!</span> -->
-                </p>
-              </div>
-              <p class="contTxt_05 tac">아직 좋은 걸음으로 걸어보지 않으셨네요!<br>
-                1분당 100 걸음으로 연속 10분을 걸으면 건강을
-                유지하는데 도움이 됩니다.</p>
               <ul class="mt4">
                 <li>
                   <i class="icoToday_01">걸음</i>
@@ -131,11 +120,11 @@
                   <p class="title_10 colorC">kcal</p>
                 </li>
               </ul>
-              <p class="todayWalking_txt">
+<!--              <p class="todayWalking_txt">
                 <i class="icoCom_i">i</i>
                 <span class="tit">좋은 걸음</span>
                 <span class="cont">1분당 100 걸음으로 연속 10분 이상 걷는 것!</span>
-              </p>
+              </p>-->
             </div>
           </section>
           <!--//box_p32-->
@@ -171,30 +160,30 @@
 <!--            </div>-->
 <!--          </section>-->
           <!--//box_p32-->
-          <section class="box_p32">
-            <h3 class="title_01">오늘의 좋은 걸음</h3>
-            <div class="good_walk mt4">
-              <p class="good_walkTxt type00"><!--좋지않음 type00 // 보통 type01 // 좋음 type02-->
-                아직 좋은 걸음으로 걷지 않으셨어요.<br>
-                도전해보세요! 1분당 100 걸음 걷기!
-              </p>
-              <p class="data_infoTxt mt4">
-                총<span class="num">{{ goodStepCnt }}</span>회/일
-              </p>
-              <div class="bar_graph mt3">
-                <!--그래프-->
-                <div id="goodWalk_bargraph"></div>
-                <!--//그래프-->
-                <ul class="time_txt">
-                  <li>오전 12시</li>
-                  <li>오전 6시</li>
-                  <li>오후 12시</li>
-                  <li>오후 6시</li>
-                </ul>
-                <p class="legend">좋은 걸음</p>
-              </div>
-            </div>
-          </section>
+<!--          <section class="box_p32">-->
+<!--            <h3 class="title_01">오늘의 좋은 걸음</h3>-->
+<!--            <div class="good_walk mt4">-->
+<!--              <p class="good_walkTxt type00">&lt;!&ndash;좋지않음 type00 // 보통 type01 // 좋음 type02&ndash;&gt;-->
+<!--                아직 좋은 걸음으로 걷지 않으셨어요.<br>-->
+<!--                도전해보세요! 1분당 100 걸음 걷기!-->
+<!--              </p>-->
+<!--              <p class="data_infoTxt mt4">-->
+<!--                총<span class="num">{{ goodStepCnt }}</span>회/일-->
+<!--              </p>-->
+<!--              <div class="bar_graph mt3">-->
+<!--                &lt;!&ndash;그래프&ndash;&gt;-->
+<!--                <div id="goodWalk_bargraph"></div>-->
+<!--                &lt;!&ndash;//그래프&ndash;&gt;-->
+<!--                <ul class="time_txt">-->
+<!--                  <li>오전 12시</li>-->
+<!--                  <li>오전 6시</li>-->
+<!--                  <li>오후 12시</li>-->
+<!--                  <li>오후 6시</li>-->
+<!--                </ul>-->
+<!--                <p class="legend">좋은 걸음</p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </section>-->
           <!--//box_p32-->
           <section class="box_p32">
             <h3 class="title_02">지난 7일간의 평균 걸음</h3>
@@ -241,9 +230,9 @@
               </div>
               <div class="suggestion_doctor">
                 <div class="doctor_info">
-                  <div class="doctor_img">
-                    <img src="http://sgn-stg.neodreams.co.kr/images/sample.jpg" alt="의사얼굴">
-                  </div>
+<!--                  <div class="doctor_img">-->
+<!--                    <img src="http://sgn-stg.neodreams.co.kr/images/sample.jpg" alt="의사얼굴">-->
+<!--                  </div>-->
                   <ul>
                     <li class="sugges_date">{{ coachingDetail.regDate }}</li>
                     <li class="sugges_doc">{{ coachingDetail.emplyName }}</li>
@@ -269,22 +258,25 @@
               복약 알람 기록기능을 사용해보세요.</p>
           </section>
           <!--//box_p32-->
-          <section class="box_p32 pb0">
+          <section class="box_p32" :class="result_code!=='error' ? 'pb0' : ''">
             <p class="title_05 colorA">내가 먹는 약</p>
-            <h2 class="title_01">복약 알람 및 기록</h2>
+            <h2 class="title_01">복약 알람 및 기록 {{ alarmList.length }}</h2>
             <div class="btnArea mt4 mb7"
                  v-if="result_code === 'error'">
               <button type="button" class="btn_fill" @click="movePagefnt">+ 알림/약 추가</button>
             </div>
             <template v-else>
               <div class="btnArea mt4 mb7"
-                   v-if="result_code !== 'error'">
-                <button class="btn_fill" :class="alarmList.length < 5 ? '' : 'disabled'" @click="openModal('medicationPopup')">
+                   v-if="alarmList.length !== 0">
+                <button class="btn_fill" :class="alarmList.length < 5 ? '' : 'disabled'" @click="openModal('medicationPopup', {})">
                   알림/약 추가
                 </button>
                 <button class="btn_border" @click="openModal('historyPopup')">
                   히스토리
                 </button>
+              </div>
+              <div class="btnArea mt4 mb7" v-else>
+                <button type="button" class="btn_fill" @click="openModal('medicationPopup', {})">+ 알림/약 추가</button>
               </div>
               <template v-for="(item,index) in alarmList">
                 <div class="medication_box " v-if="index === 0 ? true : viewList">
@@ -312,7 +304,7 @@
                     </div>
                 </div>
               </template>
-              <div class="btnMore">
+              <div class="btnMore" v-if="alarmList.length > 1">
                 <button type="button" :class=" viewList ? 'close' : ''" @click="listAll"><!-- 아래방향은 클래스 없음. 위로방향은 close 클래스 추가-->
                   <i class="icoArrow_purpleMore">더보기</i>
                 </button>
@@ -325,7 +317,7 @@
                 <h3>{{ modalTitle }}</h3>
               </div>
               <p slot="body" v-html="subTitle"></p>
-              <button slot="moveBtn2" @click="registSave(modalObj)" class="btn modal-default-button">저장</button>
+              <button slot="moveBtn2" @click.once="registSave(modalObj)" class="btn modal-default-button">저장</button>
               <button slot="moveBtn1" @click="modalData"
                       class="btn"
                       :class="this.modalOnOff === 'one' ? 'modal-default-button' : ''">
@@ -397,10 +389,15 @@ export default {
       takeMedicineDetailIds: [],
       takeMedicineHistoryDetails: [],
       buttonStatus: 'disabled',
-      clickMedichineList: []
+      clickMedichineList: [],
+      doubleClick: false
     }
   },
   created () {
+    let obj = this
+    window.onpopstate = function () {
+      obj.isOpenModal = !obj.isOpenModal
+    }
     this.usr_name = sessionStorage.getItem('usr_name')
     this.result_code = sessionStorage.getItem('result_code')
     this.showModal = !this.showModal
@@ -420,7 +417,7 @@ export default {
     })
     fetchUserMain().then(res => {
       if (res.data.resultCode === 'error') {
-        goodStepChart([])
+        // goodStepChart([])
         AvgStepFnt(0)
         getChartList(null)
       } else {
@@ -437,7 +434,7 @@ export default {
         this.todayCalorie = res.data.data.todayCalorie
         this.Linked_data = res.data.data.shDataSync
         this.goodStepCnt = res.data.data.todayStepInfo.goodStepCount
-        goodStepChart(res.data.data.todayStepInfo)
+        // goodStepChart(res.data.data.todayStepInfo)
       }
       this.isLoading = true
     }).catch(error => {
@@ -578,8 +575,13 @@ export default {
     },
     setModalCompo (pCompo, obj) {
       if (pCompo === 'medicationPopup') {
+        // history.pushState({}, null, 'fullPopup')
+        window.history.pushState({}, null, null)
         this.modalGbn = medicationPopup
+        this.modalObj = obj
       } else if (pCompo === 'medicationUpdatePopup') {
+        // window.history.pushState({}, null, 'fullPopup')
+        window.history.pushState({}, null, null)
         this.modalGbn = medicationPopup
         this.modalObj = obj
       } else if (pCompo === 'confrim') {
@@ -588,6 +590,8 @@ export default {
         this.modalTitle = '주의'
         this.modalContent = '아직 복용하지 않은 약이 남아있어요.\n이대로 저장하시겠어요?'
       } else if (pCompo === 'historyPopup') {
+        // window.history.pushState({}, null, 'fullPopup')
+        window.history.pushState({}, null, null)
         this.modalGbn = historyPopup
         this.modalObj = obj
       } else if (pCompo === 'noTake') {
@@ -632,143 +636,142 @@ export default {
     }
   }
 }
-
-function goodStepChart (obj) {
-  let steplist = obj.todaySetpCounts
-
-  var dataBar = [{
-    'time': '00시',
-    'value': 0
-  }, {
-    'time': '01시',
-    'value': null
-  }, {
-    'time': '02시',
-    'value': null
-  }, {
-    'time': '03시',
-    'value': null
-  }, {
-    'time': '04시',
-    'value': null
-  }, {
-    'time': '05시',
-    'value': null
-  }, {
-    'time': '06시',
-    'value': null
-  }, {
-    'time': '07시',
-    'value': null
-  }, {
-    'time': '08시',
-    'value': null
-  }, {
-    'time': '09시',
-    'value': null
-  }, {
-    'time': '10시',
-    'value': null
-  }, {
-    'time': '11시',
-    'value': null
-  }, {
-    'time': '12시',
-    'value': null
-  }, {
-    'time': '13시',
-    'value': null
-  }, {
-    'time': '14시',
-    'value': null
-  }, {
-    'time': '15시',
-    'value': null
-  }, {
-    'time': '16시',
-    'value': null
-  }, {
-    'time': '17시',
-    'value': null
-  }, {
-    'time': '18시',
-    'value': null
-  }, {
-    'time': '19시',
-    'value': null
-  }, {
-    'time': '20시',
-    'value': null
-  }, {
-    'time': '21시',
-    'value': null
-  }, {
-    'time': '22시',
-    'value': null
-  }, {
-    'time': '23시',
-    'value': null
-  }]
-
-  if (steplist !== undefined) {
-    steplist.forEach(function (item, index) {
-      let searchTarget = item.pd_standard_hour < 10 ? '0' + item.pd_standard_hour + '시' : item.pd_standard_hour + '시'
-      const target = dataBar.find(e => e.time === searchTarget)
-      target.value = item.pd_count
-      target.color = item.goodStep === 'Y' ? '#6765E9' : '#60CFE3'
-      // target.bullet = item.goodStep === 'Y' ? '../../src/assets/resources/images/common/rec.png' : '' // 보라색블릿
-    })
-  }
-
-  // var chartBar =
-  // eslint-disable-next-line no-undef,no-unused-expressions
-  AmCharts.makeChart('goodWalk_bargraph', {
-    'type': 'serial',
-    'columnWidth': 0.5,
-    'autoMarginOffset': 4,
-    'marginRight': 0,
-    'marginLeft': 0,
-    'marginBottom': 0,
-    'marginTop': 10,
-    'chartCursor': {
-      'zoomable': false
-    },
-    'valueAxes': [{
-      'axisAlpha': 0,
-      'gridAlpha': 0.7,
-      'gridColor': '#E6E9F4',
-      'axisColor': '#E6E9F4',
-      'position': 'right',
-      'color': '#9BA0BC',
-      'fontSize': 10
-    }],
-    'categoryField': 'time',
-    'categoryAxis': {
-      'axisAlpha': 0,
-      'gridAlpha': 0,
-      'gridPosition': 'start',
-      'tickPosition': 'start',
-      'tickLength': 20,
-      'gridColor': '#E6E9F4',
-      'axisColor': '#E6E9F4',
-      'labelsEnabled': false,
-      'balloonEnabled': false
-    },
-    'graphs': [{
-      'valueField': 'value',
-      'balloonText': '[[category]]: <b>[[value]]</b>',
-      'type': 'column',
-      'lineAlpha': '0',
-      'fillAlphas': '1',
-      'fillColors': '#60CFE3',
-      'colorField': 'color',
-      'customBulletField': 'bullet',
-      'bulletOffset': '6',
-      'bulletSize': '6'
-    }],
-    'dataProvider': dataBar
-  })
-}
+// function goodStepChart (obj) {
+//   let steplist = obj.todaySetpCounts
+//
+//   var dataBar = [{
+//     'time': '00시',
+//     'value': 0
+//   }, {
+//     'time': '01시',
+//     'value': null
+//   }, {
+//     'time': '02시',
+//     'value': null
+//   }, {
+//     'time': '03시',
+//     'value': null
+//   }, {
+//     'time': '04시',
+//     'value': null
+//   }, {
+//     'time': '05시',
+//     'value': null
+//   }, {
+//     'time': '06시',
+//     'value': null
+//   }, {
+//     'time': '07시',
+//     'value': null
+//   }, {
+//     'time': '08시',
+//     'value': null
+//   }, {
+//     'time': '09시',
+//     'value': null
+//   }, {
+//     'time': '10시',
+//     'value': null
+//   }, {
+//     'time': '11시',
+//     'value': null
+//   }, {
+//     'time': '12시',
+//     'value': null
+//   }, {
+//     'time': '13시',
+//     'value': null
+//   }, {
+//     'time': '14시',
+//     'value': null
+//   }, {
+//     'time': '15시',
+//     'value': null
+//   }, {
+//     'time': '16시',
+//     'value': null
+//   }, {
+//     'time': '17시',
+//     'value': null
+//   }, {
+//     'time': '18시',
+//     'value': null
+//   }, {
+//     'time': '19시',
+//     'value': null
+//   }, {
+//     'time': '20시',
+//     'value': null
+//   }, {
+//     'time': '21시',
+//     'value': null
+//   }, {
+//     'time': '22시',
+//     'value': null
+//   }, {
+//     'time': '23시',
+//     'value': null
+//   }]
+//
+//   if (steplist !== undefined) {
+//     steplist.forEach(function (item, index) {
+//       let searchTarget = item.pd_standard_hour < 10 ? '0' + item.pd_standard_hour + '시' : item.pd_standard_hour + '시'
+//       const target = dataBar.find(e => e.time === searchTarget)
+//       target.value = item.pd_count
+//       target.color = item.goodStep === 'Y' ? '#6765E9' : '#60CFE3'
+//       // target.bullet = item.goodStep === 'Y' ? '../../src/assets/resources/images/common/rec.png' : '' // 보라색블릿
+//     })
+//   }
+//
+//   // var chartBar =
+//   // eslint-disable-next-line no-undef,no-unused-expressions
+//   AmCharts.makeChart('goodWalk_bargraph', {
+//     'type': 'serial',
+//     'columnWidth': 0.5,
+//     'autoMarginOffset': 4,
+//     'marginRight': 0,
+//     'marginLeft': 0,
+//     'marginBottom': 0,
+//     'marginTop': 10,
+//     'chartCursor': {
+//       'zoomable': false
+//     },
+//     'valueAxes': [{
+//       'axisAlpha': 0,
+//       'gridAlpha': 0.7,
+//       'gridColor': '#E6E9F4',
+//       'axisColor': '#E6E9F4',
+//       'position': 'right',
+//       'color': '#9BA0BC',
+//       'fontSize': 10
+//     }],
+//     'categoryField': 'time',
+//     'categoryAxis': {
+//       'axisAlpha': 0,
+//       'gridAlpha': 0,
+//       'gridPosition': 'start',
+//       'tickPosition': 'start',
+//       'tickLength': 20,
+//       'gridColor': '#E6E9F4',
+//       'axisColor': '#E6E9F4',
+//       'labelsEnabled': false,
+//       'balloonEnabled': false
+//     },
+//     'graphs': [{
+//       'valueField': 'value',
+//       'balloonText': '[[category]]: <b>[[value]]</b>',
+//       'type': 'column',
+//       'lineAlpha': '0',
+//       'fillAlphas': '1',
+//       'fillColors': '#60CFE3',
+//       'colorField': 'color',
+//       'customBulletField': 'bullet',
+//       'bulletOffset': '6',
+//       'bulletSize': '6'
+//     }],
+//     'dataProvider': dataBar
+//   })
+// }
 
 function getChartList (obj) {
   var dataLine = obj

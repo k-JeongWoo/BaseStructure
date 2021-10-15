@@ -62,7 +62,7 @@
         </div>
       </template>
       <!--//medication_listBox-->
-      <div class="btnArea" v-show="historyList.length >= 5">
+      <div class="btnArea" v-show="historyList.length >= 5"  @click="listAdd">
         <button type="button" class="btn_text_size02 colorA ">더보기<i class="icoCom_arrowB_purple ml1"></i></button>
       </div>
     </div>
@@ -90,7 +90,8 @@ export default {
       todayDate: dayjs().date(),
       historyList: [],
       monthCount: 0,
-      yearCount: 0
+      yearCount: 0,
+      pagingCnt: 1
     }
   },
   created () {
@@ -111,9 +112,11 @@ export default {
   },
   methods: {
     closePopup () {
-      this.$emit('popupdata', false)
+      // this.$emit('popupdata', false)
+      this.$router.go(-1)
     },
     searchMonth (moveGbn) {
+      this.pagingCnt = 1
       if (moveGbn === 'back') {
         this.monthCount--
         this.todayMonth = dayjs().add(this.monthCount + 1, 'month').month()
@@ -133,7 +136,7 @@ export default {
         }
       }
       let ObjectValue = {
-        pageNo: 1,
+        pageNo: this.pagingCnt,
         searchInterval: this.monthCount
       }
       MedicationHistory(ObjectValue).then(res => {
@@ -146,10 +149,27 @@ export default {
       }).catch(error => {
         console.log(error)
       })
-      console.log(this.todayMonth)
     },
     scrollTop () {
       this.$refs.fixScroll.scrollTop = 0
+    },
+    listAdd () {
+      this.pagingCnt++
+      let ObjectValue = {
+        pageNo: this.pagingCnt,
+        searchInterval: this.monthCount
+      }
+      console.log(ObjectValue)
+      // MedicationHistory(ObjectValue).then(res => {
+      //   if (res.data.resultCode === '0000') {
+      //     this.historyList = res.data.data.content
+      //     res.data.data.content.forEach(item => {
+      //       this.$set(item, 'takeMedicineHistoryDate', dateFormatFnt(item.takeMedicineHistoryDate))
+      //     })
+      //   }
+      // }).catch(error => {
+      //   console.log(error)
+      // })
     }
   }
 }

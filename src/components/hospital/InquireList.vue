@@ -20,7 +20,7 @@
       </template>
       <!--//box_wrap-->
       <div v-if="isOpenModal">
-        <component :is="modalGbn" v-bind:selectmodal="modalObj" v-bind:hospitalkey="propsdata" v-on:popupdata="modalData">
+        <component :is="modalGbn" v-bind:selectmodal="modalObj" v-on:popupdata="modalData">
 
         </component>
       </div>

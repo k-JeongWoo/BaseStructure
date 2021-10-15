@@ -47,6 +47,9 @@
               <div class="normal_abnormal" v-else><table v-html="tblTUB"></table></div>
             </div>
           </div>
+          <div class="btnArea mt4" v-if="healthBtnCheck">
+            <button class="btn_fill" @click="pageUrl">건강검진정보 연동</button>
+          </div>
         </section>
       </div>
       <!--//box_wrap-->
@@ -176,7 +179,7 @@
 </template>
 
 <script>
-import {fetchHealthDetail} from '../../api/index'
+import {fetchHealthDetail, fetchMyCheckupList} from '../../api/index'
 
 export default {
   data () {
@@ -185,7 +188,8 @@ export default {
       healthResult: Object,
       tblHEA: '',
       tblPRO: '',
-      tblTUB: ''
+      tblTUB: '',
+      healthBtnCheck: false
     }
   },
   async created () {
@@ -197,16 +201,28 @@ export default {
       if (res.data.resultCode === '0000') {
         this.docutorInfo = res.data.data
         this.healthResult = res.data.data.responseData
-        getChartDataParese(this)
-        this.healthResult.map(item => item.checkupDetailItemCode === 'SIG' || item.checkupDetailItemCode === 'TBP' ? sortDetailArr(item.checkupDetailItemCode, this.healthResult) : null)
+        if (res.data.data.responseData.length > 0) {
+          getChartDataParese(this)
+          this.healthResult.map(item => item.checkupDetailItemCode === 'SIG' || item.checkupDetailItemCode === 'TBP' ? sortDetailArr(item.checkupDetailItemCode, this.healthResult) : null)
+        }
       }
     }).catch(error => {
       console.log(error)
     })
+    fetchMyCheckupList().then(response => {
+      if (response.data.status === 9999) {
+        this.healthBtnCheck = true
+      }
+    }).catch(function (error) { console.log(error) })
     if (this.healthResult) {
       this.healthResult.forEach(item => {
         fnDrawChart(item)
       })
+    }
+  },
+  methods: {
+    pageUrl () {
+      this.$router.push('/screening/screeningDataLoad')
     }
   }
 }
@@ -253,6 +269,9 @@ function getChartDataParese (obj) {
   })
 }
 function fnDrawChart (item) {
+  item.responseData.map(function (item, idx) {
+    item['color'] = idx % 2 === 0 ? '#AF89FF' : '#9792FF'
+  })
   // eslint-disable-next-line no-undef,no-unused-expressions
   AmCharts.makeChart('everWalk_bargraph' + item.checkupDetailItemCode,
     {
@@ -303,11 +322,11 @@ function fnDrawChart (item) {
   )
 
   // eslint-disable-next-line no-undef,no-unused-expressions
-  AmCharts.addInitHandler(function (chart) {
-    chart.dataProvider.forEach(function (item, idx) {
-      item['color'] = idx % 2 === 0 ? '#AF89FF' : '#9792FF'
-    })
-  })
+  // AmCharts.addInitHandler(function (chart) {
+  //   chart.dataProvider.forEach(function (item, idx) {
+  //     item['color'] = idx % 2 === 0 ? '#AF89FF' : '#9792FF'
+  //   })
+  // })
 }
 
 function sortDetailArr (item, obj) {

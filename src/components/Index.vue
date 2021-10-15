@@ -4,7 +4,7 @@
       <div class="snsLogin_box tac">
         <h2 class="logo_title">
           당신의 건강돌봄, <br>
-          <span>Cellimedi</span> 로 시작해보세요.
+          <span>cellimedi</span> 로 시작해보세요.
         </h2>
         <div class="sns_btn">
 <!--          <a href="" class="btn_border_snsLog sm"><i class="icoSns_apple"></i>애플로 시작하기</a>-->

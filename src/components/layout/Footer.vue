@@ -45,10 +45,12 @@ export default {
   },
   methods: {
     pageUrl (urlValue) {
+      console.log(urlValue)
       if (urlValue === 'home') {
         this.classGbn = urlValue
         this.$router.push({name: 'mainHome'}).catch(() => {})
       } else {
+        this.classGbn = urlValue
         myHospitalList().then(res => {
           if (res.data.resultCode !== 'error') {
             this.myHospitalListLength = res.data.data
@@ -60,7 +62,6 @@ export default {
               //   })
             } else {
               this.$router.push('/hospital/hospitalRegist')
-              this.classGbn = urlValue
             }
           } else {
             this.openModal('message')

@@ -1,27 +1,12 @@
 import axios from 'axios'
 // HTTP Request & Response 와 관련된 기본 설정
 const config = {
-  baseUrl: '/api/v1/api/'
+  baseUrl: '/api/data/V1.0/api/'
 }
 /* API - 리스트 목록 조회 */
 // 사용자 메인화면
 function fetchUserMain () {
   return axios.get(`${config.baseUrl}user/userHealthMain`)
-}
-// 관심프로그램 목록 조회
-function fetchProgramlList () {
-  return axios.get(`${config.baseUrl}carePrgm/careProgramList`)
-}
-// 사용자 선택 관심프로그램 목록
-function fetchUserProgramList () {
-  return axios.get(`${config.baseUrl}/attentionProgram/attentionProgramList`)
-}
-// 관심프로그램 중간 저장
-function fetchProgramRegist (stringValue) {
-  const sendData = {
-    careProgramIds: stringValue
-  }
-  return axios.post(`${config.baseUrl}attentionProgram/attentionProgramWrite`, sendData)
 }
 // 진료 및 투약 이력
 function fetchMedicineList () {
@@ -111,16 +96,25 @@ function fetchHealthDetail (objectValue) {
 function fetchNoticeList () {
   return axios.get(`${config.baseUrl}alarm/alarmList`)
 }
-
+// 알림 On Off
 function fetchAlarmUpdate () {
   return axios.post(`${config.baseUrl}alarm/alarmUpdate`)
+}
+// 사용자 회원 탈퇴
+function fetchUserDelete () {
+  return axios.post(`${config.baseUrl}user/userDelete`)
+}
+// 임직원 인증
+function fetchEmployeeCertification (objectValue) {
+  return axios.post(`${config.baseUrl}user/sendSeegeneMail`, objectValue)
+}
+// 건강검진 List
+function fetchMyCheckupList () {
+  return axios.get(`${config.baseUrl}checkup/myCheckupList`)
 }
 
 export {
   fetchUserMain,
-  fetchProgramlList,
-  fetchProgramRegist,
-  fetchUserProgramList,
   fetchMedicineList,
   fetchUserVisitPlan,
   MedicationTodayList,
@@ -142,5 +136,8 @@ export {
   fetchInquireRegist,
   fetchHealthDetail,
   fetchNoticeList,
-  fetchAlarmUpdate
+  fetchAlarmUpdate,
+  fetchUserDelete,
+  fetchEmployeeCertification,
+  fetchMyCheckupList
 }

@@ -28,7 +28,7 @@ export default {
       checkupDoc: checkupMasterId
     }
     try {
-      await axios.get(`/api/v1/api/checkupDetail/checkupDocument/`, { params: params })
+      await axios.get(`/api/data/V1.0/api/checkupDetail/checkupDocument/`, { params: params })
         .then(response => {
           this.pdf = base64ToArrayBuffer(response.data.data.checkupPdf)
         }).catch(function (error) { console.log(error) })

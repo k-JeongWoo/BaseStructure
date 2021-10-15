@@ -4,13 +4,13 @@
     <div class="hospital_detail">
       <p class="title_05 colorA">병원안내</p>
 <!--      <h2 class="title_01 mb4">{{ hospitalDetail.pdYadmNm === '' ? '씨젠 클리닉' : '' }}</h2>-->
-      <h2 class="title_01 mb4">씨젠 클리닉 (부속의원)</h2>
+      <h2 class="title_01 mb4">씨젠 클리닉(부속의원)</h2>
       <div class="hospital_sampleImg">
         <img src="../../assets/resources/images/_temp/hospital_temp01.png" alt="씨젠클리닉 병원사진">
       </div>
       <div class="btnArea" v-if="prevRoute.name !== 'HospitalRegist'">
         <button :class="hospitalDetail.thirdAgreeChk === 'N' ? 'btn_fill' : 'btn_fill_color04'"
-                @click="pageUrl(hospitalDetail.thirdAgreeChk, hospitalDetail.hospitalId)">주치의 병원으로 등록</button>
+                @click="pageUrl(hospitalDetail.thirdAgreeChk, hospitalDetail.hospitalId)">주치의 {{ hospitalDetail.thirdAgreeChk === 'N' ? '병원으로 등록' : '병원 해제'}}</button>
       </div>
       <h2 class="title_02 mt5"><span>수요일</span><span>9:00 ~ 18:00</span></h2>
       <p class="title_09 mt3">
@@ -22,25 +22,19 @@
       </ul>
       <div class="btnArea mt6 mb5">
         <iframe id="app_init_frame" style="display:none"></iframe>
-        <a href="tel:82+03212345678" target="app_init_frame" class="btn_border">전화하기</a>
+        <a href="tel:82+0221953400" target="app_init_frame" class="btn_border">전화하기</a>
         <button class="btn_border" @click="openModal('inquireRegist', hospitalDetail.hospitalId)">문의하기</button>
       </div>
       <div class="hospital_detailInfo">
         <section>
           <h3 class="title_05">병원소개</h3>
           <p class="contTxt_06 mt4">
-            국내 최초로 의원에서 분자진단을 통해 병의 원인을 정확하게 진단할 수 있고 의사에게 생활 건강 코칭을 받을 수 있는 라이프케어 병원입니다.
+            분자진단을 통해 병의 원인을 정확하게 진단할 수 있고 의사에게 생활 건강 코칭을 받을 수 있는 씨젠 임직원들을 위한 라이프 케어 부속의원 입니다.
           </p>
         </section>
         <section class="mt7">
           <h3 class="title_05">씨젠클리닉 프로그램</h3>
           <ul class="hospital_program mt4">
-            <li>
-              <div class="icoBox">
-                <i class="icoProgram_01 hP"></i><!-- ico_program_01 : 마음 / ico_program_02 : 신경인지 / ico_program_03 : 심혈관 / ico_program_04 : 근골격 / ico_program_05 : 대사 / ico_program_06 : 면역 / ico_program_07 : 피부&체형 -->
-              </div>
-              <p>마음</p>
-            </li>
             <li>
               <div class="icoBox">
                 <i class="icoProgram_02 hP"></i><!-- ico_program_01 : 마음 / ico_program_02 : 신경인지 / ico_program_03 : 심혈관 / ico_program_04 : 근골격 / ico_program_05 : 대사 / ico_program_06 : 면역 / ico_program_07 : 피부&체형 -->
@@ -81,7 +75,7 @@
         </section>
         <section class="mt9">
           <h3 class="title_05">진료시간</h3>
-          <p class="title_09 mt4">점심시간 <span>13:00 ~ 14:00</span></p>
+          <p class="title_09 mt4">평일 08:30~17:30<span>(점심시간 11:30~12:30)</span></p>
           <ul class="list_styleB mt4">
             <li class="list_item">
               <span>월요일</span>
@@ -105,7 +99,7 @@
             </li>
             <li class="list_item">
               <span class="colorG">토요일</span>
-              <span>13:00 ~ 14:00</span>
+              <span>진료없음</span>
             </li>
             <li class="list_item">
               <span class="colorB">일요일</span>
@@ -120,9 +114,9 @@
         <section class="mt7">
           <h3 class="title_05">
             위치정보
-            <button type="button" class="rabel_fill_color02 radius">복사하기</button>
+            <button type="button" class="rabel_fill_color02 radius" v-clipboard="copyData">복사하기</button>
           </h3>
-          <p class="title_10 mt4">서울시 송파구 오금로 15길 5, 송파빌딩 2, 3층</p>
+          <p class="title_10 mt4" id="urlText">서울시 송파구 오금로 15길 5, 송파빌딩 2, 3층</p>
         </section>
         <section class="mt7">
           <h3 class="title_05">의사정보</h3>
@@ -132,26 +126,26 @@
           </ul>
         </section>
         <section class="mt7">
-          <h3 class="title_05">진료과목</h3>
+          <h3 class="title_05">진료분야</h3>
           <p class="title_10 mt4">통합기능의학, 만성피로, 스트레스, 항노화프로그램, 대사질환, 면역</p>
         </section>
         <section class="mt7">
           <h3 class="title_05">진료항목</h3>
-          <p class="title_10 mt4">치료, 검사, 예방접종 </p>
+          <p class="title_10 mt4">치료, 검사, 예방접종</p>
         </section>
         <section class="mt7">
           <h3 class="title_05">의료장비</h3>
           <ul class="list_styleB mt4">
             <li class="list_item layoutFlex betweenFlex">
-              <p>임상화학/명역검사기</p>
+              <p>초음파기</p>
               <span class="num">1</span>
             </li>
             <li class="list_item layoutFlex betweenFlex">
-              <p>적외선 조사기</p>
+              <p>셀포톤</p>
               <span class="num">2</span>
             </li>
             <li class="list_item layoutFlex betweenFlex">
-              <p>일반 엑스선 촬영장치</p>
+              <p>인바디</p>
               <span class="num">3</span>
             </li>
           </ul>
@@ -162,7 +156,7 @@
             <div class="modal-header" slot="header">
               <h3>{{ modalTitle }}</h3>
             </div>
-            <p slot="body" v-html="modalContent"></p>
+            <p slot="body" v-html="subTitle"></p>
             <button slot="moveBtn1" @click="userHospitalRegist(hospitalDetail.thirdAgreeChk)" class="btn modal-default-button">확인</button>
             <button slot="moveBtn2" @click="modalData" class="btn">취소</button>
           </component>
@@ -179,11 +173,13 @@
 
 <script>
 import {hospitalDetail, personAgreeRegist, hospitalRegist} from '../../api'
+import {clipboard} from 'vue-clipboards'
 import inquireRegistPopup from './InquireRegist'
 import moveModal from '../modal/MoveModal'
 
 export default {
   props: ['popupdata'],
+  directives: {clipboard},
   data () {
     return {
       hospitalId: this.$route.query.searchVal,
@@ -193,7 +189,8 @@ export default {
       isOpenModal: false,
       modalObj: this.$route.query,
       modalTitle: '',
-      modalContent: ''
+      modalContent: '',
+      copyData: '서울시 송파구 오금로 15길 5, 송파빌딩 2, 3층'
     }
   },
   mounted () {
@@ -221,7 +218,7 @@ export default {
         this.openModal('hospitalRegist', hospitalkey)
       } else {
         this.modalTitle = '주의'
-        this.modalContent = '주치의 병원을 취소 하시겠습니까?'
+        this.modalContent = '주치의 병원목록에서 삭제하시겠어요?\n삭제시 해당 병원에 본인의 건강정보\n제공이 중단됩니다.'
         this.openModal('hospitalCancle', hospitalkey)
       }
     },
@@ -246,7 +243,6 @@ export default {
       this.modalGbn = ''
     },
     userHospitalRegist (value) {
-      console.log(value)
       if (value === 'N') {
         const objectValue = {
           hospitalIds: [this.hospitalId]
@@ -271,6 +267,11 @@ export default {
           console.log(error)
         })
       }
+    }
+  },
+  computed: {
+    subTitle () {
+      return this.modalContent.split('\n').join('<br />')
     }
   }
 }

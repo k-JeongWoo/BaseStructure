@@ -83,7 +83,7 @@
           </p>
           <div class="btnArea mb4">
             <iframe id="app_init_frame" style="display:none"></iframe>
-            <a href="tel:82+03212345678" target="app_init_frame" class="btn_fill">전화 예약하기</a>
+            <a href="tel:82+0221953400" target="app_init_frame" class="btn_fill">전화 예약하기</a>
           </div>
           <ul class="reservation_list">
             <li class="item" v-for="item in magementPlanList">
@@ -289,7 +289,7 @@
       </div>
       <!--//box_wrap-->
       <div v-if="isOpenModal">
-        <component :is="modalGbn" v-bind:selectmodal="modalObj" v-on:popupdata="modalData">
+        <component :is="modalGbn" v-bind:selectmodal="modalObj" v-bind:hospitalkey="propsdata" v-on:popupdata="modalData">
           <div class="modal-header" slot="header">
             <h3>{{ modalTitle }}</h3>
           </div>
@@ -369,9 +369,12 @@ export default {
         this.modalGbn = agreePopup
         this.modalObj = this.propsdata
       } else if (pCompo === 'inquiremodal') {
+        window.history.pushState({}, null, null)
         this.modalGbn = inquirePopup
         this.modalObj = intVal
       } else if (pCompo === 'inquireRegist') {
+        // window.history.pushState({}, null, 'fullPopup')
+        window.history.pushState({}, null, null)
         this.modalGbn = inquireRegistPopup
         this.modalObj = intVal
       } else if (pCompo === 'agree') {
@@ -394,6 +397,12 @@ export default {
       } else {
         this.$router.push({path: '/hospital/healthStatus', query: { dynamicTitle: programName, conClass: 'health_status', careProgramId: programkey, hospitalId: hospitalkey }})
       }
+    }
+  },
+  created () {
+    let obj = this
+    window.onpopstate = function (event) {
+      obj.isOpenModal = !obj.isOpenModal
     }
   }
 }
