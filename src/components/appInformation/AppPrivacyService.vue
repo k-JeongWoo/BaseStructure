@@ -283,10 +283,24 @@
 <script>
 
 export default {
+  data () {
+    return {
+      prevRoute: []
+    }
+  },
   methods: {
     closePage: function () {
-      this.$router.replace('AppPrivacyAgree')
+      if (this.prevRoute.fullPath === '/agreement') {
+        this.$router.go(-1)
+      } else {
+        this.$router.replace('AppPrivacyAgree')
+      }
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.prevRoute = from
+    })
   }
 }
 </script>

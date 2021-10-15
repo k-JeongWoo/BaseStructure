@@ -45,7 +45,6 @@ export default {
   },
   methods: {
     pageUrl (urlValue) {
-      console.log(urlValue)
       if (urlValue === 'home') {
         this.classGbn = urlValue
         this.$router.push({name: 'mainHome'}).catch(() => {})

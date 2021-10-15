@@ -76,6 +76,16 @@
       </div>
     </div>
     <!-- //footer -->
+    <div v-if="isOpenModal">
+      <component :is="modalGbn">
+        <div class="modal-header" slot="header">
+          <h3>{{ modalTitle }}</h3>
+        </div>
+        <p slot="body" v-html="modalContent"></p>
+        <button slot="moveBtn2" @click.once="registSave" class="btn modal-default-button">저장</button>
+        <button slot="moveBtn1" @click="isOpenModal = !isOpenModal" class="btn">취소</button>
+      </component>
+    </div>
   </div>
   <!--//contents-->
 </template>
@@ -83,23 +93,28 @@
 <script>
 import axios from 'axios'
 import dayjs from 'dayjs'
+import moveModal from '../modal/MoveModal'
 
 export default {
   data () {
     return {
-      usr_name: this.$route.params.usrname,
+      usr_name: '',
       usr_sname: '',
-      usr_birth: this.$route.params.usrbirth,
+      usr_birth: '',
       // usr_gender: this.$route.params.usrgender === 'M' ? '남' : '여',
       usr_gender: 'M',
-      usr_telnum: this.$route.params.usrtelnum,
+      usr_telnum: '',
       usr_email: '',
       usr_zipcode: '',
       usr_address: '',
       usr_address_detail: '',
       usr_provider: '',
       usr_url: '',
-      redirect_Uri: this.$route.query.redirect_Uri === undefined ? '/' : decodeURI(this.$route.query.redirect_Uri)
+      redirect_Uri: this.$route.query.redirect_Uri === undefined ? '/' : decodeURI(this.$route.query.redirect_Uri),
+      isOpenModal: false,
+      modalGbn: '',
+      modalTitle: '',
+      modalContent: ''
     }
   },
   methods: {
@@ -120,34 +135,43 @@ export default {
       } else if (phoneFomatter(obj.usr_telnum) === 'error') {
         alert('연락처를 다시 입력해주세요.')
       } else {
-        axios.post(`/api/data/V1.0/api/auth/signup`,
-          {
-            'memberAddress': this.usr_address,
-            'memberAddressDetail': this.usr_address_detail,
-            'memberZipcode': this.usr_zipcode,
-            'memberBirth': this.usr_birth,
-            // 'memberGender': this.usr_gender === '남' ? 'M' : 'F',
-            'memberGender': this.usr_gender,
-            'memberHpno': this.usr_telnum,
-            'memberName': this.usr_name,
-            'socialImage': this.usr_url,
-            'socialMail': this.usr_email,
-            'socialName': this.usr_sname,
-            'socialProvider': this.usr_provider,
-            'memberMarketingAgree': sessionStorage.getItem('marketAgree')
-          },
-          {withCredentials: true}
-        ).then(function (response) {
-          if (response.data.status === 200) {
-            sessionStorage.removeItem('marketAgree')
-            obj.$router.push({
-              path: obj.redirect_Uri
-            })
-          } else {
-            alert(response.data.message)
-          }
-        })
+        this.setModalCompo('regist')
       }
+    },
+    setModalCompo (pCompo) {
+      if (pCompo === 'regist') {
+        this.modalGbn = moveModal
+        this.modalTitle = '확인'
+        this.modalContent = '입력한 정보로 가입하시겠습니까?'
+        this.isOpenModal = !this.isOpenModal
+      }
+    },
+    registSave () {
+      axios.post(`/api/data/V1.0/api/auth/signup`,
+        {
+          'memberAddress': this.usr_address,
+          'memberAddressDetail': this.usr_address_detail,
+          'memberZipcode': this.usr_zipcode,
+          'memberBirth': this.usr_birth,
+          // 'memberGender': this.usr_gender === '남' ? 'M' : 'F',
+          'memberGender': this.usr_gender,
+          'memberHpno': this.usr_telnum,
+          'memberName': this.usr_name,
+          'socialImage': this.usr_url,
+          'socialMail': this.usr_email,
+          'socialName': this.usr_sname,
+          'socialProvider': this.usr_provider,
+          'memberMarketingAgree': sessionStorage.getItem('marketAgree')
+        },
+        {withCredentials: true}
+      ).then(response => {
+        if (response.data.status === 200) {
+          sessionStorage.removeItem('marketAgree')
+          this.$router.push({path: '/'})
+        } else {
+          alert(response.data.message)
+        }
+      })
     },
     showApi () {
       new window.daum.Postcode({

@@ -55,11 +55,11 @@
       </div>
       <!--//contents-->
       <!-- footer -->
-      <footer class="footer typeB">
-        <div class="btnArea">
-          <a href="" class="btn_fill disabled">동의하기</a><!-- disabled 클래스 추가시 비활성화 -->
-        </div>
-      </footer>
+<!--      <footer class="footer typeB">-->
+<!--        <div class="btnArea">-->
+<!--          <a href="" class="btn_fill disabled">동의하기</a>&lt;!&ndash; disabled 클래스 추가시 비활성화 &ndash;&gt;-->
+<!--        </div>-->
+<!--      </footer>-->
       <!-- //footer -->
     </div>
     <!--  //container  -->
@@ -69,10 +69,24 @@
 
 <script>
 export default {
+  data () {
+    return {
+      prevRoute: []
+    }
+  },
   methods: {
     closePage: function () {
-      this.$router.replace('AppPrivacyAgree')
+      if (this.prevRoute.fullPath === '/agreement') {
+        this.$router.go(-1)
+      } else {
+        this.$router.replace('AppPrivacyAgree')
+      }
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.prevRoute = from
+    })
   }
 }
 </script>

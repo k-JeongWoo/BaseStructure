@@ -148,7 +148,6 @@ export default {
         this.$router.push({name: 'NoticeList'})
       } else if (valueGbn === 'CL') {
         if (this.$route.path.indexOf('screening') > -1) {
-          console.log('screening')
           this.$router.go(-1)
         } else {
           this.headModalTitle = '알림'

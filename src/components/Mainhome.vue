@@ -260,7 +260,7 @@
           <!--//box_p32-->
           <section class="box_p32" :class="result_code!=='error' ? 'pb0' : ''">
             <p class="title_05 colorA">내가 먹는 약</p>
-            <h2 class="title_01">복약 알람 및 기록 {{ alarmList.length }}</h2>
+            <h2 class="title_01">복약 알람 및 기록</h2>
             <div class="btnArea mt4 mb7"
                  v-if="result_code === 'error'">
               <button type="button" class="btn_fill" @click="movePagefnt">+ 알림/약 추가</button>

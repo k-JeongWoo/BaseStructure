@@ -29,9 +29,9 @@
             <li class="list_item reserv_timeBox">
               <p class="tit">켜짐/꺼짐</p>
               <div class="switch">
-                <input type="radio" class="switch-input" name="view" value="N" id="on" v-model="takeMedicineAlarm" checked>
+                <input type="radio" class="switch-input" name="view" value="N" id="on" v-model="takeMedicineAlarm" checked @change="cssEvent">
                 <label for="on" class="switch-label switch-label-off">켜짐</label>
-                <input type="radio" class="switch-input" name="view" value="Y" id="off" v-model="takeMedicineAlarm">
+                <input type="radio" class="switch-input" name="view" value="Y" id="off" v-model="takeMedicineAlarm" @change="cssEvent">
                 <label for="off" class="switch-label switch-label-on">꺼짐</label>
                 <span class="switch-selection"></span>
               </div>
@@ -306,6 +306,9 @@ export default {
         }
         this.timePickerSetArr.push(timeSet)
       }
+    },
+    cssEvent () {
+      console.log(1)
     }
   },
   mounted () {
