@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import axios from 'axios'
 import VuePdfApp from 'vue-pdf-app/dist/vue-pdf-app.umd.min'
+import {fetchCheckupDocument} from '../../api'
 
 export default {
   data () {
@@ -28,10 +28,9 @@ export default {
       checkupDoc: checkupMasterId
     }
     try {
-      await axios.get(`/api/data/V1.0/api/checkupDetail/checkupDocument/`, { params: params })
-        .then(response => {
-          this.pdf = base64ToArrayBuffer(response.data.data.checkupPdf)
-        }).catch(function (error) { console.log(error) })
+      await fetchCheckupDocument(params).then(response => {
+        this.pdf = base64ToArrayBuffer(response.data.data.checkupPdf)
+      }).catch(function (error) { console.log(error) })
     } catch (error) {
       console.log(error)
     }

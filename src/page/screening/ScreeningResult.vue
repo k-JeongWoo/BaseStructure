@@ -1,6 +1,7 @@
 <template>
   <!--contents-->
   <div class="contents">
+    <template v-if="checkupData">
     <div class="h-well_cont">
       <div class="start_year mb6">
         <div class="select typeA">
@@ -292,21 +293,33 @@
           </li>
           <!--//checkup_item-->
         </ul>
-        <div class="btnArea ">
-          <iframe id="app_init_frame" style="display:none"></iframe>
-          <a type="button" class="btn_border" href="cellimedi://import_healthexam" target="app_init_frame"><i class="icoCom_refresh mr3"></i>데이터 새로고침</a>
-        </div>
       </div>
       <!--//general_checkup-->
     </div>
     <!-- //h-well_result -->
+    </template>
+    <template v-else>
+      <div style="text-align: center" :class="checkupData ? '' : 'marginTypeA'">
+        <div class="visit_history_wrap box_shadow01"><!-- type01:진료(보라색) / type02:검사(하늘색) / type03:치료(주황색) -->
+          <div class="visit_history_detail">
+            <H4>일반검진 이력이 없습니다.</H4>
+          </div>
+        </div>
+      </div>
+    </template>
+    <div :class="checkupData === false ? '' : 'h-well_result'">
+      <div class="btnArea">
+        <iframe id="app_init_frame" style="display:none"></iframe>
+        <a type="button" class="btn_border" href="cellimedi://import_healthexam" target="app_init_frame"><i class="icoCom_refresh mr3"></i>데이터 새로고침</a>
+      </div>
+    </div>
   </div>
   <!--//contents-->
 </template>
 
 <script>
-import axios from 'axios'
 import dayjs from 'dayjs'
+import {fetchCheckupDetailList, fetchMyCheckupList} from '../../api'
 
 export default {
   data () {
@@ -322,6 +335,7 @@ export default {
         checkupdatetime: '',
         checkupplace: ''
       },
+      checkupData: true,
       toggleYear: false
     }
   },
@@ -329,15 +343,17 @@ export default {
     var params = {
       searchCheckType: this.screenType
     }
-
-    var res = axios.get(`/api/data/V1.0/api/checkup/myCheckupList`, { params: params })
-    res.then(response => {
-      this.checkupList = response.data.data
-      this.selCheckupYear.year = response.data.data[0].pdCheckupYear
-      this.selCheckupYear.diagnosis = response.data.data[0].pdCheckupDiagnosis
-      this.selCheckupYear.checkupdatetime = response.data.data[0].pdCheckupDatetime
-      this.selCheckupYear.checkupplace = response.data.data[0].pdCheckupPlace
-      this.changeYearList(this.selCheckupYear.year, this.selCheckupYear.checkupdatetime, this.selCheckupYear.diagnosis, this.selCheckupYear.checkupplace)
+    fetchMyCheckupList(params).then(response => {
+      if (response.data.status === 9999) {
+        this.checkupData = false
+      } else {
+        this.checkupList = response.data.data
+        this.selCheckupYear.year = response.data.data[0].pdCheckupYear
+        this.selCheckupYear.diagnosis = response.data.data[0].pdCheckupDiagnosis
+        this.selCheckupYear.checkupdatetime = response.data.data[0].pdCheckupDatetime
+        this.selCheckupYear.checkupplace = response.data.data[0].pdCheckupPlace
+        this.changeYearList(this.selCheckupYear.year, this.selCheckupYear.checkupdatetime, this.selCheckupYear.diagnosis, this.selCheckupYear.checkupplace)
+      }
     }).catch(function (error) { console.log(error) })
   },
   methods: {
@@ -352,8 +368,7 @@ export default {
       this.selCheckupYear.diagnosis = diagnosis
       this.selCheckupYear.checkupplace = checkupplace
 
-      var res = axios.get(`/api/data/V1.0/api/checkupDetail/checkupDetailList`, { params: params })
-      res.then(response => {
+      fetchCheckupDetailList(params).then(response => {
         this.checkupDetailList = response.data.data
         var renderList = {}
         response.data.data.forEach(function (item) {
@@ -389,4 +404,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+.marginTypeA{
+  margin-bottom: 330px;
+}
 </style>

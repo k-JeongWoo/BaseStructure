@@ -334,7 +334,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import {fetchDeseaseDetail} from '../../api'
 
 export default {
   data () {
@@ -350,12 +350,11 @@ export default {
     }
   },
   beforeCreate () {
-    var params = {
+    let params = {
       searchYear: this.$route.query.searchYear,
       searchDiseaseType: this.$route.query.searchDiseaseType
     }
-    var res = axios.get(`/api/data/V1.0/api/checkupDetail/checkupDetailDeseaseList`, { params: params })
-    res.then(response => {
+    fetchDeseaseDetail(params).then(response => {
       this.checkupDetailList = response.data.data
       let discObj = {}
       let dataYearObj = {}

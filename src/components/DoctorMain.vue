@@ -7,7 +7,7 @@
           <div class="tit_wrap mb4">
             <p class="title_05 colorA">최근 내원 이력</p>
             <h2 class="title_01">진료/검사/치료 이력 </h2>
-            <button class="btn_right" @click="pageUrl('clinic', propsdata)">
+            <button class="btn_right" @click="pageUrl('clinic', propsdata)" v-if="clinicList.length > 0">
               <i class="icoArrow_blackMore">더보기</i>
             </button>
           </div>
@@ -83,7 +83,7 @@
           </p>
           <div class="btnArea mb4">
             <iframe id="app_init_frame" style="display:none"></iframe>
-            <a href="tel:82+0221953400" target="app_init_frame" class="btn_fill">전화 예약하기</a>
+            <a href="tel:0221953400" target="app_init_frame" class="btn_fill">전화 예약하기</a>
           </div>
           <ul class="reservation_list">
             <li class="item" v-for="item in magementPlanList">

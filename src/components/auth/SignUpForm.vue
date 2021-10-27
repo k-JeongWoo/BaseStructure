@@ -91,9 +91,10 @@
 </template>
 
 <script>
-import axios from 'axios'
 import dayjs from 'dayjs'
 import moveModal from '../modal/MoveModal'
+import * as appService from '../../api/iosMessage'
+import {fetchUserAddInfoRegist, fetchUserBasicInfo} from '../../api'
 
 export default {
   data () {
@@ -126,7 +127,9 @@ export default {
         return
       }
       */
-      if (obj.usr_birth === undefined) {
+      if (obj.usr_name === '' || obj.usr_name === undefined) {
+        alert('이름을 입력해주세요.')
+      } else if (obj.usr_birth === undefined) {
         alert('생년월일을 입력해주세요.')
       } else if (obj.usr_telnum === undefined) {
         alert('연락처를 입력해주세요.')
@@ -147,34 +150,38 @@ export default {
       }
     },
     registSave () {
-      axios.post(`/api/data/V1.0/api/auth/signup`,
-        {
-          'memberAddress': this.usr_address,
-          'memberAddressDetail': this.usr_address_detail,
-          'memberZipcode': this.usr_zipcode,
-          'memberBirth': this.usr_birth,
-          // 'memberGender': this.usr_gender === '남' ? 'M' : 'F',
-          'memberGender': this.usr_gender,
-          'memberHpno': this.usr_telnum,
-          'memberName': this.usr_name,
-          'socialImage': this.usr_url,
-          'socialMail': this.usr_email,
-          'socialName': this.usr_sname,
-          'socialProvider': this.usr_provider,
-          'memberMarketingAgree': sessionStorage.getItem('marketAgree')
-        },
-        {withCredentials: true}
-      ).then(response => {
+      let objectValue = {
+        'memberAddress': this.usr_address,
+        'memberAddressDetail': this.usr_address_detail,
+        'memberZipcode': this.usr_zipcode,
+        'memberBirth': this.usr_birth,
+        'memberGender': this.usr_gender,
+        'memberHpno': this.usr_telnum,
+        'memberName': this.usr_name,
+        'socialImage': this.usr_url,
+        'socialMail': this.usr_email,
+        'socialName': this.usr_sname,
+        'socialProvider': this.usr_provider,
+        'memberMarketingAgree': sessionStorage.getItem('marketAgree')
+      }
+      fetchUserAddInfoRegist(objectValue).then(response => {
         if (response.data.status === 200) {
+          iosRegister()
           sessionStorage.removeItem('marketAgree')
           this.$router.push({path: '/'})
         } else {
           alert(response.data.message)
         }
+      }).catch(error => {
+        console.log(error)
       })
     },
     showApi () {
+      let width = window.screen.width * 0.8
+      let height = window.screen.height * 0.8
       new window.daum.Postcode({
+        width: width,
+        height: height,
         oncomplete: (data) => {
           let fullRoadAddr = data.roadAddress // 도로명 주소 변수
           let extraRoadAddr = '' // 도로명 조합형 주소 변수
@@ -202,19 +209,16 @@ export default {
     }
   },
   created () {
-    let dataObj = this
-    axios.get(`/api/data/V1.0/api/auth/tokenUserInfo`, {},
-      {withCredentials: true}
-    ).then(function (response) {
-      if (response.data.resultCode !== 'error') {
-        dataObj.usr_sname = response.data.data.name
-        dataObj.usr_email = response.data.data.email
-        dataObj.usr_provider = response.data.data.provider
-        dataObj.usr_url = response.data.data.picture
+    fetchUserBasicInfo().then(response => {
+      if (response.data.resultCode === '0000') {
+        this.usr_sname = response.data.data.name
+        this.usr_email = response.data.data.email
+        this.usr_provider = response.data.data.provider
+        this.usr_url = response.data.data.picture
       } else {
         alert(response.data.resultMsg)
       }
-    })
+    }).catch(error => { console.log(error) })
   },
   watch: {
     usr_telnum: function () {
@@ -224,6 +228,13 @@ export default {
       this.usr_birth = this.usr_birth.replace(/[^0-9]/g, '') // 정규식 사용
     }
   }
+}
+
+function iosRegister () {
+  var message = {
+    'action': 'register'
+  }
+  appService.iosinfoClean(message)
 }
 
 function phoneFomatter (num) {
@@ -252,4 +263,7 @@ function phoneFomatter (num) {
 <style>
 @import '../../assets/resources/css/common.css';
 @import '../../assets/resources/css/contents.css';
+.input input::placeholder {color: #808080!important;}
+.input input:disabled{color: #808080!important;}
+.inputRadio.typeA.disabled input[type="radio"] + label{color: #808080!important;}
 </style>

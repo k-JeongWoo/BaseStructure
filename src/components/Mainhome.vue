@@ -258,7 +258,7 @@
               복약 알람 기록기능을 사용해보세요.</p>
           </section>
           <!--//box_p32-->
-          <section class="box_p32" :class="result_code!=='error' ? 'pb0' : ''">
+          <section class="box_p32" :class="result_code !== 'error' && alarmList.length > 1 ? 'pb0' : ''">
             <p class="title_05 colorA">내가 먹는 약</p>
             <h2 class="title_01">복약 알람 및 기록</h2>
             <div class="btnArea mt4 mb7"

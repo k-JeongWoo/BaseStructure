@@ -38,7 +38,7 @@ export default {
       myHospitalListLength: [],
       classGbn: this.$route.meta.titleTxt,
       isOpenModal: false,
-      modalGbn: '',
+      modalGbn: 'home',
       modalTitle: '',
       modalContent: ''
     }

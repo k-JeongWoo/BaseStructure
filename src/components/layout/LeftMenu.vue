@@ -5,15 +5,15 @@
         <span class="name">{{ usr_name }}</span> 님
         <span class="executives"></span>
       </p>
-      <div class="btnArea mt6">
+      <div class="btnArea mt6" v-if="result_code !== 'error'">
         <a href="javascript:void(0);" @click="getMyCheckupList" class="btn_border" style="font-size: 14px !important;">국민건강보험 정보 조회</a>
       </div>
       <ul class="asid_navigation mt8">
-        <li>
+        <li v-if="result_code !== 'error'">
           <a @click="pageUrl('/user/userdetail')"><i class="ico_myinfo"></i>내 정보 관리</a>
 <!--          <router-link :to="{ path: '/user/userdetail', query: { dynamicTitle: '내 정보 정보', conClass: 'noBg myInfo' }}"><i class="ico_myinfo"></i>내 정보 관리</router-link>-->
         </li>
-        <li>
+        <li v-if="result_code !== 'error'">
           <a @click="pageUrl('/hospital/hospitalList')"><i class="ico_hospitalList"></i>병원 목록 조회</a>
 <!--          <router-link :to="{ path: '/hospital/hospitalList', query: { dynamicTitle: '병원 목록 조회' }}"><i class="ico_hospitalList"></i>병원 목록 조회</router-link>-->
         </li>
@@ -27,14 +27,15 @@
         </li>
       </ul>
       <div class="asid_footer" v-if="result_code !== 'error'">
-        <button class="btn_logOut" @click="pageUrl"><i class="ico_logOut"></i>로그아웃 </button>
+<!--        <router-link to="/" @click.native="logoutFnt"></router-link>-->
+        <button class="btn_logOut" @click="logoutFnt"><i class="ico_logOut"></i>로그아웃 </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import {fetchMedicineList, fetchMyCheckupList, fetchUserLogout} from '../../api'
 
 export default {
   data () {
@@ -52,9 +53,16 @@ export default {
       if (this.result_code === 'error') {
         alert('로그인 후 이용 가능합니다.')
       } else {
-        axios.get(`/api/data/V1.0/api/checkup/myCheckupList`).then(response => {
+        fetchMyCheckupList().then(response => {
           if (response.data.status === 9999) {
-            this.$router.push('/screening/screeningDataLoad')
+            fetchMedicineList().then(res => {
+              if (res.data.data.response.length === 0) {
+                this.$router.push('/screening/screeningDataLoad')
+              } else {
+                this.$router.push('/screening/screeningResult')
+              }
+            }).catch(error => { console.log(error) })
+            // this.$router.push('/screening/screeningDataLoad')
           } else {
             this.$router.push('/screening/screeningResult')
           }
@@ -73,18 +81,21 @@ export default {
           this.$router.push({path: pageGbn, query: { dynamicTitle: 'cellimedi 앱 정보', conClass: 'noBg about' }})
         } else if (pageGbn === 'AppPrivacyAgree') {
           this.$router.push({path: pageGbn, query: { dynamicTitle: '약관 및 개인정보 처리 방침', conClass: 'noBg terms01' }})
-        } else {
-          axios.post(`/api/data/V1.0/api/user/loginout`).then(res => {
-            if (res.data.resultCode !== 'error' && this.$route.name.indexOf('mainHome') > -1) {
-              this.$router.go()
-            } else {
-              this.$router.push({name: 'mainHome'})
-            }
-          }).catch(error => {
-            console.log(error)
-          })
         }
       }
+    },
+    logoutFnt () {
+      fetchUserLogout().then(res => {
+        if (res.data.resultCode !== 'error' && this.$route.name.indexOf('mainHome') > -1) {
+          this.$router.go()
+        } else {
+          sessionStorage.clear()
+          this.$router.push({name: 'mainHome'}).catch(() => {})
+          // this.$router.push({path: '/'})
+        }
+      }).catch(error => {
+        console.log(error)
+      })
     }
   }
 }

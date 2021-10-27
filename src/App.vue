@@ -3,9 +3,9 @@
     <router-view name="pdf"></router-view>
     <div id="container" class="container" :class="$route.meta.conClass" v-if="$route.name !== 'ScreeningDocumentPdf'">
       <router-view name="header" v-on:eventdata="transData" v-bind:propsdata="receiveData" :key="$route.fullPath + 'h'"></router-view>
-      <router-view name="leftMenu" v-on:eventdata="transData" v-bind:propsdata="receiveData"></router-view>
+      <router-view name="leftMenu" v-on:eventdata="transData" v-bind:propsdata="receiveData" :key="$route.fullPath + 'l'"></router-view>
       <router-view name="default" v-on:eventdata="transData" v-bind:propsdata="receiveData" :key="$route.fullPath"></router-view>
-      <router-view name="footer" v-on:eventdata="transData" v-bind:propsdata="receiveData"></router-view>
+      <router-view name="footer" v-on:eventdata="transData" v-bind:propsdata="receiveData" :key="$route.fullPath + 'f'"></router-view>
     </div>
   </div>
 </template>

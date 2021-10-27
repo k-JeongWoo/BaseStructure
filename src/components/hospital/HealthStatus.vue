@@ -189,7 +189,8 @@ export default {
       tblHEA: '',
       tblPRO: '',
       tblTUB: '',
-      healthBtnCheck: false
+      healthBtnCheck: false,
+      screenType: 'N'
     }
   },
   async created () {
@@ -209,7 +210,10 @@ export default {
     }).catch(error => {
       console.log(error)
     })
-    fetchMyCheckupList().then(response => {
+    let params = {
+      searchCheckType: this.screenType
+    }
+    await fetchMyCheckupList(params).then(response => {
       if (response.data.status === 9999) {
         this.healthBtnCheck = true
       }

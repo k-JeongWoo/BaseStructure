@@ -13,7 +13,7 @@
             <!--체크박스-->
             <p class="inputCheck typeA">
               <input type="checkbox" :id="'hospital_0'+item.hospitalId" v-model="checkVal" :value="item.hospitalId">
-              <label :for="'hospital_0'+item.hospitalId" @click="hospitalCheck">
+              <label :for="'hospital_0'+item.hospitalId" @click="hospitalCheck(item.hospitalId)">
                 <span class="bul"></span>
               </label>
             </p>
@@ -81,8 +81,9 @@ export default {
       if (!this.asyncComplete) {
         this.callback()
         let objectValue = {
-          hospitalId: this.checkVal
+          hospitalId: value
         }
+        console.log(objectValue)
         hospitalCheck(objectValue).then(res => {
           if (res.data.data.seegeneHospital !== 'Y') {
             this.checkVal.splice(value)
@@ -109,7 +110,7 @@ export default {
     },
     pageUrl (key, value) {
       if (key !== '') {
-        this.$router.push({path: '/hospital/hospitalDetail', query: { dynamicTitle: '문의내용 상세보기', conClass: 'noBg question_detail', searchVal: key }})
+        this.$router.push({path: '/hospital/hospitalDetail', query: { dynamicTitle: '씨젠 클리닉', conClass: 'noBg question_detail', searchVal: key }})
         // this.$router.push({path: '/hospital/hospitalDetail', query: { hospitalId: key, dynamicTitle: value }})
       } else {
         alert('준비중 입니다.')

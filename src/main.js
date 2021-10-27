@@ -7,10 +7,10 @@ import AmSerial from 'amcharts3/amcharts/serial'
 import AMGauge from 'amcharts3/amcharts/gauge'
 import AmPie from 'amcharts3/amcharts/pie'
 import router from './router'
-import axios from 'axios'
 import VueI18n from 'vue-i18n'
 import en from './locales/en.json'
 import ko from './locales/ko.json'
+import {fetchLoginUserInfo} from './api'
 
 Vue.use(VueI18n)
 Vue.use(AmCharts)
@@ -28,22 +28,27 @@ const i18n = new VueI18n({
 router.beforeEach((to, from, next) => {
   // 사용자별 언어 설정 분기할 부분
   // i18n.locale = 'en'
-  axios.get('/api/data/V1.0/api/user/userInfo').then(function (response) {
+  fetchLoginUserInfo().then(response => {
     if (response.data.resultCode !== 'error') {
-      // 로그인 한 상태
-      console.log('Add Session Storage ! - User Name = ' + response.data.data.name)
-      sessionStorage.setItem('usr_name', response.data.data.name)
-      sessionStorage.setItem('usr_mail', response.data.data.mail)
-      sessionStorage.setItem('usr_tel', response.data.data.tel)
-      sessionStorage.setItem('usr_age', response.data.data.age)
-      sessionStorage.setItem('result_code', response.data.resultCode)
-      next()
+      if ((to.name === 'SignUpForm' && from.name === 'mainHome')) {
+        // 회원가입후 back 방지
+        window.history.go(1)
+      } else {
+        // 로그인 한 상태
+        console.log('Add Session Storage ! - User Name = ' + response.data.data.name)
+        sessionStorage.setItem('usr_name', response.data.data.name)
+        sessionStorage.setItem('usr_mail', response.data.data.mail)
+        sessionStorage.setItem('usr_tel', response.data.data.tel)
+        sessionStorage.setItem('usr_age', response.data.data.age)
+        sessionStorage.setItem('result_code', response.data.resultCode)
+        next()
+      }
     } else if (response.data.resultCode === 'error') {
       // 로그인 안한상태
       sessionStorage.setItem('usr_name', '게스트')
       sessionStorage.setItem('result_code', response.data.resultCode)
       if ((to.name === 'UserDetail' && from.name === 'mainHome') ||
-        (to.name === 'UserDetail' && from.name === 'DoctorMain')) {
+          (to.name === 'UserDetail' && from.name === 'DoctorMain')) {
         // 회원탈퇴후 back 방지
         window.history.go(1)
       } else {

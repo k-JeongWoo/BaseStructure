@@ -1,6 +1,6 @@
 <template>
   <!--  container  -->
-  <div class="contents">
+  <div class="contents" v-if="checkupData">
     <div class="h-well_cont">
       <div class="start_year mb6">
         <div class="select typeA" v-if="checkupDocList.length > 0">
@@ -46,12 +46,23 @@
     </div>
     <!-- //h-well_result -->
   </div>
+  <div class="contents" v-else>
+    <div style="text-align: center">
+      <template>
+        <div class="visit_history_wrap box_shadow01"><!-- type01:진료(보라색) / type02:검사(하늘색) / type03:치료(주황색) -->
+          <div class="visit_history_detail">
+            <H4>암검진 이력이 없습니다.</H4>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
   <!--  //container  -->
 </template>
 
 <script>
-import axios from 'axios'
 import CryptoJS from 'crypto-js/aes.js'
+import {fetchCheckupDocList} from '../../api'
 
 export default {
   data () {
@@ -61,7 +72,8 @@ export default {
       selCheckupYear: {
         pdCheckupTitle: '',
         checkupDocList: null
-      }
+      },
+      checkupData: true
     }
   },
   created () {
@@ -80,11 +92,12 @@ export default {
       var params = {
         'memberId': this.memberId
       }
-      var res = axios.get(`/api/data/V1.0/api/checkup/checkupDocList`, {params: params})
-      res.then(response => {
+      fetchCheckupDocList(params).then(response => {
         if (response.data.data.length > 0) {
           this.checkupDocList = response.data.data
           this.changeYearList(this.checkupDocList[0])
+        } else {
+          this.checkupData = false
         }
       }).catch(function (error) {
         console.log(error)

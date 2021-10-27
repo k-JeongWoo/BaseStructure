@@ -18,7 +18,7 @@
         <p class="input_tit">성별</p>
         <p class="radioBox">
 							<span class="inputRadio typeA disabled"><!--수정불가 :: disabled-->
-								<input type="radio" v-model="memberGender" value="M" id="gender00" checked="" disabled>
+								<input type="radio" v-model="memberGender" value="M" id="gender00" checked="" disabled class="typeC">
 								<label for="gender00">
 									<span class="bul"></span>남
 								</label>
@@ -37,7 +37,7 @@
           <p class="input disabled"><!--수정불가 :: disabled-->
             <input type="text" v-model="memberHpno" disabled>
           </p>
-          <button type="button" class="btn_border sm ">수정</button>
+<!--          <button type="button" class="btn_border sm ">수정</button>-->
         </div>
       </li>
       <li class="inputBox centerFlex mb7 disabled">
@@ -62,12 +62,12 @@
       </li>
       <li class="inputBox centerFlex mb3">
         <p class="input">
-          <input type="text" v-model="memberAddress" placeholder="상세주소">
+          <input type="text" v-model="memberAddress" placeholder="상세주소" disabled>
         </p>
       </li>
       <li class="inputBox centerFlex ">
         <p class="input">
-          <input type="text" v-model="memberRaddress" placeholder="상세주소">
+          <input type="text" v-model="memberRaddress" placeholder="주소">
         </p>
       </li>
     </ul>
@@ -76,23 +76,23 @@
     </div>
 
     <!--executives_certifi-->
-    <div class="executives_certifi">
-      <h3 class="title_05 mb3">임직원 인증</h3>
-      <div class="inputBox mb4">
-        <div class="inputBox" v-if="seegeneMailAgreeDate === ''">
-          <p class="input width03">
-            <input type="text" v-model="memberSeegenMail">
-          </p>
-          <p class="input_txt">@seegene.com</p>
-        </div>
-        <div class="inputBox" v-else>
-          <p class="input_txt">{{ seegeneMail }}</p>
-        </div>
-      </div>
-      <div class="btnArea" v-if="seegeneMailAgreeDate === ''">
-        <button class="btn_border" @click="pageUrl('cetification')">인증하기</button>
-      </div>
-    </div>
+<!--    <div class="executives_certifi">-->
+<!--      <h3 class="title_05 mb3">임직원 인증</h3>-->
+<!--      <div class="inputBox mb4">-->
+<!--        <div class="inputBox" v-if="seegeneMailAgreeDate === ''">-->
+<!--          <p class="input width03">-->
+<!--            <input type="text" v-model="memberSeegenMail">-->
+<!--          </p>-->
+<!--          <p class="input_txt">@seegene.com</p>-->
+<!--        </div>-->
+<!--        <div class="inputBox" v-else>-->
+<!--          <p class="input_txt">{{ seegeneMail }}</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="btnArea" v-if="seegeneMailAgreeDate === ''">-->
+<!--        <button class="btn_border" @click="pageUrl('cetification')">인증하기</button>-->
+<!--      </div>-->
+<!--    </div>-->
     <!-- <div class="executives_certifi">
        <h3 class="title_05 mb3">임직원 인증</h3>
        <div class="inputBox mb4">
@@ -121,10 +121,10 @@
 </template>
 
 <script>
-import axios from 'axios'
-import {fetchUserDelete, fetchEmployeeCertification} from '../../api'
+import {fetchUserDelete, fetchEmployeeCertification, fetchUserUpdate, fetchUserDetail} from '../../api'
 import confirm from '@/components/modal/MoveModal'
 import contentModal from '@/components/modal/ContentModal'
+import * as appService from '../../api/iosMessage'
 
 export default {
   data () {
@@ -152,22 +152,24 @@ export default {
   },
   methods: {
     updUsrInfo: function () {
-      axios.post(`/api/data/V1.0/api/user/userUpdate`,
-        {
-          memberAddress: this.memberAddress,
-          memberAddressDetail: this.memberRaddress,
-          memberMarketingAgree: this.marketAgree === true ? 'Y' : 'N',
-          memberZipcode: this.memberZipcode
-        },
-        {withCredentials: true}
-      ).then(function (response) {
-        if (response.data.status === 200) {
+      let objectValue = {
+        memberAddress: this.memberAddress,
+        memberAddressDetail: this.memberRaddress,
+        memberMarketingAgree: this.marketAgree === true ? 'Y' : 'N',
+        memberZipcode: this.memberZipcode
+      }
+      fetchUserUpdate(objectValue).then(res => {
+        if (res.data.status === 200) {
           alert('수정이 완료되었습니다.')
         }
-      })
+      }).catch(error => { console.log(error) })
     },
     showApi () {
+      let width = window.screen.width * 0.8
+      let height = window.screen.height * 0.8
       new window.daum.Postcode({
+        width: width,
+        height: height,
         oncomplete: (data) => {
           let fullRoadAddr = data.roadAddress // 도로명 주소 변수
           let extraRoadAddr = '' // 도로명 조합형 주소 변수
@@ -216,6 +218,7 @@ export default {
         // 사용자 탈퇴
         fetchUserDelete().then(res => {
           if (res.data.resultCode === '0000') {
+            iosRegister()
             this.$router.push({name: 'mainHome'})
           }
         }).catch(error => {
@@ -249,33 +252,29 @@ export default {
   },
   created () {
     let obj = this
-    axios.get(`/api/data/V1.0/api/user/userDetail`,
-      {},
-      {withCredentials: true}
-    ).then(function (response) {
-      obj.memberName = response.data.data.memberName
-      obj.memberBirth = response.data.data.memberBirth
-      obj.memberGender = response.data.data.memberGender
-      obj.memberHpno = response.data.data.memberHpno
-      obj.socialMail = response.data.data.socialMail
-      obj.socialImage = response.data.data.socialImage
-      obj.memberAddress = response.data.data.memberAddress
-      obj.memberRaddress = response.data.data.memberAddressDetail
-      obj.memberZipcode = response.data.data.memberZipcode
-      obj.seegeneMail = response.data.data.seegeneMail
+    fetchUserDetail().then(response => {
+      this.memberName = response.data.data.memberName
+      this.memberBirth = response.data.data.memberBirth
+      this.memberGender = response.data.data.memberGender
+      this.memberHpno = response.data.data.memberHpno
+      this.socialMail = response.data.data.socialMail
+      this.socialImage = response.data.data.socialImage
+      this.memberAddress = response.data.data.memberAddress
+      this.memberRaddress = response.data.data.memberAddressDetail
+      this.memberZipcode = response.data.data.memberZipcode
+      this.seegeneMail = response.data.data.seegeneMail
       if (response.data.data.seegeneMail !== '' && response.data.data.seegeneMail !== null) {
         let emailString = response.data.data.seegeneMail
         let emailSplit = emailString.split('@')
-        obj.memberSeegenMail = emailSplit[0]
+        this.memberSeegenMail = emailSplit[0]
       }
-      obj.seegeneMailAgreeDate = response.data.data.seegeneMailAgreeDate
-      let mAchk = response.data.data.marketAgree
-      if (mAchk === 'Y') {
+      this.seegeneMailAgreeDate = response.data.data.seegeneMailAgreeDate
+      if (response.data.data.marketAgree === 'Y') {
         obj.marketAgree = true
       } else {
         obj.marketAgree = false
       }
-    })
+    }).catch(error => { console.log(error) })
   },
   computed: {
     subTitle () {
@@ -283,10 +282,20 @@ export default {
     }
   }
 }
+
+function iosRegister () {
+  var message = {
+    'action': 'delete'
+  }
+  appService.iosinfoClean(message)
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 @import '../../assets/resources/css/common.css';
 @import '../../assets/resources/css/contents.css';
+.input input::placeholder {color: #808080!important;}
+.input input:disabled{color: #808080!important;}
+.inputRadio.typeA.disabled input[type="radio"] + label{color: #808080!important;}
 </style>

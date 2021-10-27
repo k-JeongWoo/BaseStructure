@@ -22,7 +22,7 @@
       </ul>
       <div class="btnArea mt6 mb5">
         <iframe id="app_init_frame" style="display:none"></iframe>
-        <a href="tel:82+0221953400" target="app_init_frame" class="btn_border">전화하기</a>
+        <a href="tel:0221953400" target="app_init_frame" class="btn_border">전화하기</a>
         <button class="btn_border" @click="openModal('inquireRegist', hospitalDetail.hospitalId)">문의하기</button>
       </div>
       <div class="hospital_detailInfo">

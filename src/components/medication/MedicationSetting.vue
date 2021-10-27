@@ -28,10 +28,10 @@
           <ul class="list_styleE mt4">
             <li class="list_item reserv_timeBox">
               <p class="tit">켜짐/꺼짐</p>
-              <div class="switch">
-                <input type="radio" class="switch-input" name="view" value="N" id="on" v-model="takeMedicineAlarm" checked @change="cssEvent">
+              <div class="switch" :class="this.takeMedicineAlarm === 'N' ? 'offTarget' : 'onTarget'">
+                <input type="radio" class="switch-input" name="view" value="N" id="on" v-model="takeMedicineAlarm" checked>
                 <label for="on" class="switch-label switch-label-off">켜짐</label>
-                <input type="radio" class="switch-input" name="view" value="Y" id="off" v-model="takeMedicineAlarm" @change="cssEvent">
+                <input type="radio" class="switch-input" name="view" value="Y" id="off" v-model="takeMedicineAlarm">
                 <label for="off" class="switch-label switch-label-on">꺼짐</label>
                 <span class="switch-selection"></span>
               </div>
@@ -44,31 +44,54 @@
             <li class="list_item reserv_timeBox">
               <p class="tit">오전/오후 설정</p>
               <div class="tab_btnBox">
-                <input type="radio" name="time" value="A" id="am" v-model="mechineTimerGbn" @click="selectTimeFnt(takeMedicineTime)" checked >
+                <input type="radio" name="time" value="A" id="am" v-model="mechineTimerGbn" checked >
                 <label for="am" class="label_typeTab">오전</label>
-                <input type="radio" name="time" value="P" id="pm" v-model="mechineTimerGbn" @click="selectTimeFnt(takeMedicineTime)">
+                <input type="radio" name="time" value="P" id="pm" v-model="mechineTimerGbn">
                 <label for="pm" class="label_typeTab">오후</label>
               </div>
             </li>
             <li class="list_item reserv_timeBox">
               <p class="tit">시간 설정</p>
-              <div>
-<!--                <select v-model="takeMedicineTime" name="timer" style="background: white;">-->
-<!--                  <option disabled value="">선택</option>-->
-<!--                  <option v-for="item in timePickerSetArr" :value="item" >{{ item }}</option>-->
-<!--                </select>-->
-                <div class="select typeA">
-                  <div class="selectbox " :class="{on : toggleTimePicker}"><!-- on 클래스 추가시 .select_options display:block-->
-                    <button type="button" class="select_title placeholder" v-on:click="toggleTimePicker = !toggleTimePicker"><!--옵션 선택 전 흐린회색 placeholder속성이 필요할경우 클래스 placeholder 끼워주시면 회색 텍스트-->
-                      <span>{{ takeMedicineTime }}</span>
-                    </button>
-                    <ul class="select_options">
-                      <li class="select_option" v-for="item in timePickerSetArr" :value="item" @click="selectTimeFnt(item)">
-                        {{ item }}
-                      </li>
-                      <!--                        <li class="select_option">09:00</li> &lt;!&ndash; on 클래스 추가시 active&ndash;&gt;-->
-                    </ul>
-                  </div>
+<!--              <div>-->
+<!--                <div class="select typeA">-->
+<!--                  <div class="selectbox " :class="{on : toggleTimePicker}">&lt;!&ndash; on 클래스 추가시 .select_options display:block&ndash;&gt;-->
+<!--                    <button type="button" class="select_title placeholder" v-on:click="toggleTimePicker = !toggleTimePicker">&lt;!&ndash;옵션 선택 전 흐린회색 placeholder속성이 필요할경우 클래스 placeholder 끼워주시면 회색 텍스트&ndash;&gt;-->
+<!--                      <span>{{ takeMedicineTime }}</span>-->
+<!--                    </button>-->
+<!--                    <ul class="select_options">-->
+<!--                      <li class="select_option" v-for="item in timePickerSetArr" :value="item" @click="selectTimeFnt(item)">-->
+<!--                        {{ item }}-->
+<!--                      </li>-->
+<!--                      &lt;!&ndash;                        <li class="select_option">09:00</li> &lt;!&ndash; on 클래스 추가시 active&ndash;&gt;&ndash;&gt;-->
+<!--                    </ul>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+              <div class="time_inputBox typeA">
+                <div class="selectbox " :class="{on : toggleTimePicker}">
+                  <p class="time_input" v-on:click="setTimerFnt('H')">
+                    <input type="button" :value="takeMedicineTimeHour" style="background: white;">
+                  </p>
+                  :
+                  <p class="time_input" v-on:click="setTimerFnt('M')">
+                    <input type="button" :value="takeMedicineTimeMin" style="background: white;">
+                  </p>
+                  <ul class="select_options" v-if="selectTime==='H'">
+                    <li class="select_option" :class="item === takeMedicineTimeHour ? 'on' : ''" v-for="item in timeFormSetArr" :value="item" @click="selectTimeHourFnt(item)">
+                      {{ item }}
+                    </li>
+                  </ul>
+                  <ul class="select_options" v-else>
+                    <li class="select_option" :class="item === takeMedicineTimeMin ? 'on' : ''" v-for="item in timeFormSetArr" :value="item" @click="selectTimeHourFnt(item)">
+                      {{ item }}
+                    </li>
+                  </ul>
+<!--                  <ul class="select_options">-->
+<!--                    <li class="select_option" v-for="item in timeFormSetArr" :value="item" @click="selectTimeMinFnt(item)">-->
+<!--                      {{ item }}-->
+<!--                    </li>-->
+<!--                    &lt;!&ndash;                        <li class="select_option">09:00</li> &lt;!&ndash; on 클래스 추가시 active&ndash;&gt;&ndash;&gt;-->
+<!--                  </ul>-->
                 </div>
               </div>
             </li>
@@ -141,19 +164,34 @@ export default {
       modicineRemoveList: [],
       takeMedicineId: this.$props.selectmodal.takeMedicineId,
       allRemoveDetail: [],
-      toggleTimePicker: false
+      toggleTimePicker: false,
+      timeFormSetArr: [],
+      takeMedicineTimeHour: Object.keys(this.$props.selectmodal).length === 0 ? '00' : this.$props.selectmodal.takeMedicineAmPm.split(':')[0],
+      takeMedicineTimeMin: Object.keys(this.$props.selectmodal).length === 0 ? '00' : this.$props.selectmodal.takeMedicineAmPm.split(':')[1],
+      selectTime: 'H'
     }
   },
   methods: {
-    selectTimeFnt (timer) {
+    selectTimeHourFnt (selTime) {
       this.toggleTimePicker = false
-      this.takeMedicineTime = timer
+      if (this.selectTime === 'H') {
+        this.takeMedicineTimeHour = selTime
+      } else {
+        this.takeMedicineTimeMin = selTime
+      }
+    },
+    selectTimeMinFnt (minTime) {
+      this.toggleTimePicker = false
+      this.takeMedicineTimeMin = minTime
+    },
+    setTimerFnt (value) {
+      this.timeResetForm(value)
+      this.toggleTimePicker = !this.toggleTimePicker
     },
     registMedichine (value) {
       let updateGbn = 'regist'
-      if (this.takeMedicineTime === '선택') {
-        this.openModal('timeSelect')
-      } else if (this.medicineDetailsList.length === 0) {
+      this.takeMedicineTime = this.takeMedicineTimeHour + ':' + this.takeMedicineTimeMin
+      if (this.medicineDetailsList.length === 0) {
         this.openModal('medichinSelect')
       } else {
         if (value === 0) {
@@ -200,19 +238,6 @@ export default {
         }
       }
     },
-    setTimePicker (timegbn) {
-      this.timePickerSetArr.splice(0)
-      if (timegbn === 'A') {
-        this.takeMedicineTime = '선택'
-        this.toggleTimePicker = false
-        // this.amResetForm()
-      } else {
-        this.takeMedicineTime = '선택'
-        this.toggleTimePicker = false
-        // this.pmResetForm()
-      }
-      this.pmResetForm()
-    },
     medichinSave (value) {
       if (this.medichinName === '') {
         this.modalTitle = '주의'
@@ -248,11 +273,6 @@ export default {
         this.modalTitle = '주의'
         this.modalContent = '입력한 내용이 저장되지 않았습니다.\n 계속하시겠어요?'
         this.modalGbn = movePopup
-      } else if (pCompo === 'timeSelect') {
-        this.modalGbn = confirmPopup
-        this.modalOnOff = 'one'
-        this.modalTitle = '주의'
-        this.modalContent = '알람 시간을 선택해주세요.'
       } else if (pCompo === 'update') {
         this.modalTitle = '확인'
         this.modalContent = '수정 되었습니다.'
@@ -287,32 +307,27 @@ export default {
       this.modalOnOff = ''
       this.isOpenModal = !this.isOpenModal
     },
-    // amResetForm () {
-    //   let timeSet = ''
-    //   let timeCnt = 0
-    //   for (timeCnt; timeCnt < 24; timeCnt++) {
-    //     timeSet = (Math.floor(timeCnt / 2) < 10 ? '0' + Math.floor(timeCnt / 2) : Math.floor(timeCnt / 2)) + ':' + (timeCnt % 2 === 0 ? '00' : '30')
-    //     this.timePickerSetArr.push(timeSet)
-    //   }
-    // },
-    pmResetForm () {
+    timeResetForm (val) {
+      this.timeFormSetArr.splice(0)
       let timeSet = ''
-      let timeCnt = 0
-      for (timeCnt; timeCnt < 24; timeCnt++) {
-        if (timeCnt < 2) {
-          timeSet = (Math.floor(timeCnt / 2) < 10 ? '12' : Math.floor(timeCnt / 2)) + ':' + (timeCnt % 2 === 0 ? '00' : '30')
-        } else {
-          timeSet = (Math.floor(timeCnt / 2) < 10 ? '0' + Math.floor(timeCnt / 2) : Math.floor(timeCnt / 2)) + ':' + (timeCnt % 2 === 0 ? '00' : '30')
+      if (val === 'H') {
+        let timeCnt = 1
+        for (timeCnt; timeCnt < 13; timeCnt++) {
+          timeSet = (timeCnt < 10 ? '0' + timeCnt : timeCnt)
+          this.timeFormSetArr.push(timeSet)
         }
-        this.timePickerSetArr.push(timeSet)
+      } else {
+        let timeCnt = 0
+        for (timeCnt; timeCnt < 6; timeCnt++) {
+          timeSet = timeCnt + '0'
+          this.timeFormSetArr.push(timeSet)
+        }
       }
-    },
-    cssEvent () {
-      console.log(1)
+      this.selectTime = val
     }
   },
   mounted () {
-    this.pmResetForm()
+    this.timeResetForm()
     if (Object.keys(this.$props.selectmodal).length !== 0) {
       this.medicineDetailsList = []
       this.medichinDetail = this.$props.selectmodal
@@ -334,5 +349,10 @@ export default {
 </script>
 
 <style scoped>
-
+.onTarget {
+  background: #60CFE3
+}
+.offTarget {
+  background: #B2B2B2
+}
 </style>

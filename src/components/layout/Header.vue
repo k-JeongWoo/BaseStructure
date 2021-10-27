@@ -138,7 +138,11 @@ export default {
       this.showModal = !this.showModal
     },
     historyBack: function () {
-      this.$router.go(-1)
+      if (this.$route.path.indexOf('userdetail') > -1) {
+        this.$router.push({name: '/'})
+      } else {
+        this.$router.go(-1)
+      }
     },
     selectCloseBtn: function (valueGbn) {
       if (valueGbn === 'AR') {
