@@ -5,26 +5,26 @@
       <li class="inputBox centerFlex mb3">
         <p class="input_tit">이름</p>
         <p class="input disabled"><!--수정불가 :: disabled style과 터치가 안되도록 css속성넣음. -->
-          <input type="text" v-model="memberName" disabled>
+          <input type="text" :value="memberName">
         </p>
       </li>
       <li class="inputBox centerFlex mb3">
         <p class="input_tit">생년월일</p>
         <p class="input disabled"><!--수정불가 :: disabled-->
-          <input type="text" v-model="memberBirth" disabled>
+          <input type="text" :value="memberBirth">
         </p>
       </li>
       <li class="inputBox centerFlex mb3">
         <p class="input_tit">성별</p>
         <p class="radioBox">
 							<span class="inputRadio typeA disabled"><!--수정불가 :: disabled-->
-								<input type="radio" v-model="memberGender" value="M" id="gender00" checked="" disabled class="typeC">
+								<input type="radio" :value="memberGender" value="M" id="gender00" checked="" class="typeC">
 								<label for="gender00">
 									<span class="bul"></span>남
 								</label>
 							</span>
           <span class="inputRadio typeA disabled ml4"><!--수정불가 :: disabled-->
-								<input type="radio" v-model="memberGender" value="F" id="gender01" disabled>
+								<input type="radio" v-model="memberGender" value="F" id="gender01">
 								<label for="gender01">
 									<span class="bul"></span>여
 								</label>
@@ -35,15 +35,15 @@
         <p class="input_tit">휴대폰</p>
         <div class="inputBox centerFlex mb3">
           <p class="input disabled"><!--수정불가 :: disabled-->
-            <input type="text" v-model="memberHpno" disabled>
+            <input type="text" :value="memberHpno">
           </p>
 <!--          <button type="button" class="btn_border sm ">수정</button>-->
         </div>
       </li>
-      <li class="inputBox centerFlex mb7 disabled">
+      <li class="inputBox centerFlex mb7">
         <p class="input_tit">E-mail</p>
-        <p class="input">
-          <input type="text" v-model="socialMail" disabled>
+        <p class="input disabled">
+          <input type="text" v-model="socialMail">
         </p>
       </li>
     </ul>
@@ -52,22 +52,22 @@
         <p class="input_tit">주소 (선택)</p>
       </li>
       <li>
-        <div ref="embed"></div>
+        <div ref="embed" style="margin-bottom: 8px"></div>
       </li>
       <li class="inputBox centerFlex mb3 address">
         <p class="input disabled"><!--수정불가 :: disabled-->
-          <input type="text" v-model="memberZipcode" placeholder="우편번호" disabled>
+          <input type="text" v-model="memberZipcode" placeholder="우편번호">
         </p>
         <button type="button" class="btn_border sm " @click="showApi">검색</button>
       </li>
       <li class="inputBox centerFlex mb3">
-        <p class="input">
-          <input type="text" v-model="memberAddress" placeholder="상세주소" disabled>
+        <p class="input disabled">
+          <input type="text" v-model="memberAddress" placeholder="주소">
         </p>
       </li>
       <li class="inputBox centerFlex ">
         <p class="input">
-          <input type="text" v-model="memberRaddress" placeholder="주소">
+          <input type="text" v-model="memberRaddress" placeholder="상세주소를 입력하세요.">
         </p>
       </li>
     </ul>
@@ -101,7 +101,7 @@
      </div> -->
     <!--//executives_certifi-->
 
-    <div class="btnArea">
+    <div class="btnArea mt4">
       <button class="btn_border " @click="openModal('userDel')">회원탈퇴</button><!-- disabled 클래스 추가시 비활성화 (흐린보라색)-->
     </div>
     <div v-if="isOpenModal">
@@ -237,10 +237,8 @@ export default {
         this.modalTitle = '주의'
         this.modalContent = 'cellimedi에서 탈퇴하시겠습니까?\n탈퇴 시 저장하신 정보는 삭제되며\n더 이상 서비스 이용이 불가합니다.'
       } else if (pCompo === 'spinner') {
-        this.modalOnOff = 'three'
+        this.modalOnOff = ''
         this.modalGbn = contentModal
-        this.modalTitle = '확인'
-        this.modalContent = '인증 메일 전송중 입니다.'
       }
     },
     closeModal () {
@@ -296,6 +294,6 @@ function iosRegister () {
 @import '../../assets/resources/css/common.css';
 @import '../../assets/resources/css/contents.css';
 .input input::placeholder {color: #808080!important;}
-.input input:disabled{color: #808080!important;}
+.input.disabled {color: #808080; -webkit-text-fill-color: rgba(128, 128, 128, 1.0); opacity:1;}
 .inputRadio.typeA.disabled input[type="radio"] + label{color: #808080!important;}
 </style>

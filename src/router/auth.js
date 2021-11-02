@@ -1,7 +1,8 @@
 import Header from '@/components/layout/Header'
 import Agreement from '@/components/auth/Agreement'
-import NiceBlank from '@/components/auth/NiceBlank'
+import NiceBlank from '@/components/auth/Niceblank'
 import SignUpForm from '@/components/auth/SignUpForm'
+import {headerBtnType} from '../store'
 
 export default [
   {
@@ -22,6 +23,10 @@ export default [
     components: {
       header: Header,
       default: SignUpForm
+    },
+    beforeEnter (to, from, next) {
+      headerBtnType.page_common_back.titleTxt = '회원 정보 입력'
+      next()
     }
   }
 ]

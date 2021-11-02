@@ -420,3 +420,15 @@ a:not(.md-button):hover {text-decoration: none !important;}
 .health_state .btn_health_state:after{content:''; display: block; width:24px; height: 24px; position:absolute; right:0px; top:50%; background:url(../images/common/ico_arrow.png)no-repeat -72px -72px; background-size: 96px; transform:translateY( -50%); -webkit-transform:translateY( -50%); -moz-transform:translateY( -50%); -o-transform:translateY( -50%); -ms-transform:translateY( -50%); }
 .health_state .btn_health_state i{margin-right: 12px;}
 .health_state .btn_health_state span{font-weight: 700;font-size: 16px;line-height: 23px;}
+
+/* app info */
+.app_infoImg{display:block; margin-top: 50%; height: 36px;background:url(../images/common/logo_cellimedi.png)no-repeat center; background-size: contain; font-size: 0;}
+.app_contents {color: #707593}
+.app_contents .center {margin-top: 20px; text-align: center; }
+.app_contents .center p {font-style: normal; font-weight: bold; font-size: 14px;}
+.app_contents .bottom1 {position: fixed; bottom: 130px; margin: 0 auto;left: 0;right: 0; text-align: center;}
+.app_contents .bottom1 p {font-style: normal; font-weight: bold; font-size: 14px;}
+.app_contents .bottom2 {position: fixed; bottom: 78px; margin: 0 auto;left: 0;right: 0;}
+.app_contents .bottom2 ul {text-align: center}
+.app_contents .bottom2 li {padding: 4px 20px; list-style: inside; width: 100%}
+.app_contents .bottomTxt {position: fixed; bottom: 32px; margin: 0 auto;left: 0;right: 0; text-align: center;}

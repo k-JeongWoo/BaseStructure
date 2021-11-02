@@ -9,7 +9,7 @@
               나의 활동을 모니터링하고 병원에서 의사에게
               직접 라이프 코칭을 받아 보실 수 있습니다.</p>
             <div class="wellcome_img">
-              <img src="../assets/resources/images/common/img_wellcome.png" alt="코칭이미지">
+              <img src="../assets/resources/images/contents/img_main01.png" alt="코칭이미지">
             </div>
             <div class="btnArea mt4">
               <button type="button" class="btn_fill" @click="movePagefnt">로그인</button>

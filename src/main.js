@@ -28,45 +28,49 @@ const i18n = new VueI18n({
 router.beforeEach((to, from, next) => {
   // 사용자별 언어 설정 분기할 부분
   // i18n.locale = 'en'
-  fetchLoginUserInfo().then(response => {
-    if (response.data.resultCode !== 'error') {
-      if ((to.name === 'SignUpForm' && from.name === 'mainHome')) {
-        // 회원가입후 back 방지
-        window.history.go(1)
+  if (to.name === 'SamplePage') {
+    next()
+  } else {
+    fetchLoginUserInfo().then(response => {
+      if (response.data.resultCode !== 'error') {
+        if ((to.name === 'SignUpForm' && from.name === 'mainHome')) {
+          // 회원가입후 back 방지
+          window.history.go(1)
+        } else {
+          // 로그인 한 상태
+          console.log('Add Session Storage ! - User Name = ' + response.data.data.name)
+          sessionStorage.setItem('usr_name', response.data.data.name)
+          sessionStorage.setItem('usr_mail', response.data.data.mail)
+          sessionStorage.setItem('usr_tel', response.data.data.tel)
+          sessionStorage.setItem('usr_age', response.data.data.age)
+          sessionStorage.setItem('result_code', response.data.resultCode)
+          next()
+        }
+      } else if (response.data.resultCode === 'error') {
+        // 로그인 안한상태
+        sessionStorage.setItem('usr_name', '게스트')
+        sessionStorage.setItem('result_code', response.data.resultCode)
+        if ((to.name === 'UserDetail' && from.name === 'mainHome') ||
+            (to.name === 'UserDetail' && from.name === 'DoctorMain')) {
+          // 회원탈퇴후 back 방지
+          window.history.go(1)
+        } else {
+          next()
+        }
+        // sessionStorage.setItem('usr_name', '게스트')
+        // alert('로그인 후 이용 가능합니다.')
+        // console.log(to.path)
       } else {
-        // 로그인 한 상태
-        console.log('Add Session Storage ! - User Name = ' + response.data.data.name)
-        sessionStorage.setItem('usr_name', response.data.data.name)
-        sessionStorage.setItem('usr_mail', response.data.data.mail)
-        sessionStorage.setItem('usr_tel', response.data.data.tel)
-        sessionStorage.setItem('usr_age', response.data.data.age)
+        sessionStorage.setItem('usr_name', '게스트')
         sessionStorage.setItem('result_code', response.data.resultCode)
         next()
       }
-    } else if (response.data.resultCode === 'error') {
-      // 로그인 안한상태
-      sessionStorage.setItem('usr_name', '게스트')
-      sessionStorage.setItem('result_code', response.data.resultCode)
-      if ((to.name === 'UserDetail' && from.name === 'mainHome') ||
-          (to.name === 'UserDetail' && from.name === 'DoctorMain')) {
-        // 회원탈퇴후 back 방지
-        window.history.go(1)
-      } else {
-        next()
-      }
-      // sessionStorage.setItem('usr_name', '게스트')
-      // alert('로그인 후 이용 가능합니다.')
-      // console.log(to.path)
-    } else {
-      sessionStorage.setItem('usr_name', '게스트')
-      sessionStorage.setItem('result_code', response.data.resultCode)
-      next()
-    }
-  }).catch(function (error) {
-    console.log(error)
-    // next('/')
-    // 서비스 블랭크 페이지로
-  })
+    }).catch(function (error) {
+      console.log(error)
+      // next('/')
+      // 서비스 블랭크 페이지로
+    })
+  }
 })
 
 /* eslint-disable no-new */

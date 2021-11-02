@@ -40,7 +40,7 @@
       <li class="inputBox centerFlex mb7">
         <p class="input_tit">E-mail<span class="required">*</span></p>
         <p class="input disabled"><!--수정불가 :: disabled-->
-          <input type="text" v-model="usr_email" name="" placeholder="이메일을 입력하세요" disabled>
+          <input type="text" v-model="usr_email" name="">
         </p>
       </li>
     </ul>
@@ -50,14 +50,14 @@
       </li>
 
       <li class="inputBox centerFlex mb3 address">
-        <p class="input "><!--수정불가 :: disabled-->
-          <input type="text" v-model="usr_zipcode" name="" placeholder="우편번호" disabled>
+        <p class="input disabled"><!--수정불가 :: disabled-->
+          <input type="text" v-model="usr_zipcode" name="" placeholder="우편번호" >
         </p>
         <button type="button" @click="showApi" class="btn_border sm ">검 색</button>
       </li>
       <li class="inputBox centerFlex mb3">
-        <p class="input">
-          <input type="text" v-model="usr_address" name="" placeholder="주소" disabled>
+        <p class="input disabled">
+          <input type="text" v-model="usr_address" name="" placeholder="주소" >
         </p>
       </li>
       <li class="inputBox centerFlex mb3">
@@ -82,7 +82,7 @@
           <h3>{{ modalTitle }}</h3>
         </div>
         <p slot="body" v-html="modalContent"></p>
-        <button slot="moveBtn2" @click.once="registSave" class="btn modal-default-button">저장</button>
+        <button slot="moveBtn2" @click.once="registSave" class="btn modal-default-button">확인</button>
         <button slot="moveBtn1" @click="isOpenModal = !isOpenModal" class="btn">취소</button>
       </component>
     </div>
@@ -144,7 +144,7 @@ export default {
     setModalCompo (pCompo) {
       if (pCompo === 'regist') {
         this.modalGbn = moveModal
-        this.modalTitle = '확인'
+        this.modalTitle = '알림'
         this.modalContent = '입력한 정보로 가입하시겠습니까?'
         this.isOpenModal = !this.isOpenModal
       }
@@ -264,6 +264,6 @@ function phoneFomatter (num) {
 @import '../../assets/resources/css/common.css';
 @import '../../assets/resources/css/contents.css';
 .input input::placeholder {color: #808080!important;}
-.input input:disabled{color: #808080!important;}
+.input.disabled {color: #808080; -webkit-text-fill-color: rgba(128, 128, 128, 1.0); opacity:1;}
 .inputRadio.typeA.disabled input[type="radio"] + label{color: #808080!important;}
 </style>

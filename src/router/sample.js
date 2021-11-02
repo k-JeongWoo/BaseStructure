@@ -6,6 +6,7 @@ import Header from '@/components/layout/Header'
 import NotFound from '@/components/common/NotFound'
 import LeftMenu from '@/components/layout/LeftMenu'
 import DoctorMain from '@/components/DoctorMain'
+import ChartSample from '@/components/screening/chartsample'
 import {headerBtnType} from '../store/index'
 
 export default [
@@ -59,5 +60,20 @@ export default [
   {
     path: '*',
     component: NotFound
+  },
+  {
+    path: '/sample/SamplePage',
+    name: 'SamplePage',
+    components: {
+      header: Header,
+      default: ChartSample
+    },
+    meta: headerBtnType.page_common_back,
+    props: true,
+    beforeEnter (to, from, next) {
+      headerBtnType.page_common_back.titleTxt = to.query.dynamicTitle
+      headerBtnType.page_common_back.conClass = 'noBg about'
+      next()
+    }
   }
 ]

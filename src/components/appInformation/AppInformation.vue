@@ -1,17 +1,23 @@
 <template>
     <!--contents-->
-    <div class="contents">
-      <div class="about_txt">
-        <p class="pre">
-          (주)씨젠
-          대표자: 천종윤
-          사업자등록번호: 110-81-47859
-          고객센터: 02-2195-6224
-          이메일: ymson@seegene.com
-          기술지원: 1577-1298
-        </p>
-      </div>
+  <div class="app_contents">
+    <div class="app_infoImg"></div>
+    <div class="center">
+      <p>버전 v.10</p>
     </div>
+    <div class="bottom1">
+      <p>[서비스 문의]</p>
+    </div>
+    <div class="bottom2">
+      <ul>
+        <li>기술 지원 문의:1577-1298</li>
+        <li>이메일: sgapps@seegene.com</li>
+      </ul>
+    </div>
+    <div class="bottomTxt">
+      <p>Copyrights © 2021 Seegene Inc. All rights reserved.</p>
+    </div>
+  </div>
     <!--//contents-->
 </template>
 

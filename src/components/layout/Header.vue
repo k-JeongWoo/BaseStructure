@@ -139,7 +139,7 @@ export default {
     },
     historyBack: function () {
       if (this.$route.path.indexOf('userdetail') > -1) {
-        this.$router.push({name: '/'})
+        this.$router.push({name: 'mainHome'})
       } else {
         this.$router.go(-1)
       }
