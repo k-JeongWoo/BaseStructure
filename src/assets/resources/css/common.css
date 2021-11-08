@@ -4,7 +4,12 @@
  ========================= */
 @import url('reset.css');
 
-html{font-size:14px;}
+html{font-size:14px;
+    -webkit-text-size-adjust: none; /*Chrome, Safari, newer versions of Opera*/
+    -moz-text-size-adjust: none; /*Firefox*/
+    -ms-text-size-adjust: none;  /*Ie*/
+    -o-text-size-adjust: none; /*old versions of Opera*/
+}
 body,
 button,
 a{font-family:'NotoSansKR','Sans-serif'; font-weight:400; color:#313131; letter-spacing:0; position: relative;}

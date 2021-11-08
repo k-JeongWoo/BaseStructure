@@ -7,15 +7,15 @@
           <span>cellimedi</span> 로 시작해보세요.
         </h2>
         <div class="sns_btn">
-          <a :href="'https://api.cellimedi.com/oauth2/authorization/apple?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm" v-if="browserChk"><i class="icoSns_apple"></i>애플로 시작하기</a>
-          <a :href="'https://api.cellimedi.com/oauth2/authorization/google?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_google"></i>구글로 시작하기</a>
-          <a :href="'https://api.cellimedi.com/oauth2/authorization/kakao?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_kakao"></i>카카오로 시작하기</a>
-          <a :href="'https://api.cellimedi.com/oauth2/authorization/naver?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_naver"></i>네이버로 시작하기</a>
+<!--          <a :href="'https://api.cellimedi.com/oauth2/authorization/apple?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm" v-if="browserChk"><i class="icoSns_apple"></i>애플로 시작하기</a>-->
+<!--          <a :href="'https://api.cellimedi.com/oauth2/authorization/google?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_google"></i>구글로 시작하기</a>-->
+<!--          <a :href="'https://api.cellimedi.com/oauth2/authorization/kakao?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_kakao"></i>카카오로 시작하기</a>-->
+<!--          <a :href="'https://api.cellimedi.com/oauth2/authorization/naver?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_naver"></i>네이버로 시작하기</a>-->
 
-<!--          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/apple?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm" v-if="browserChk"><i class="icoSns_apple"></i>애플로 시작하기</a>-->
-<!--          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/google?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_google"></i>구글로 시작하기</a>-->
-<!--          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/kakao?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_kakao"></i>카카오로 시작하기</a>-->
-<!--          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/naver?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_naver"></i>네이버로 시작하기</a>-->
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/apple?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm" v-if="browserChk"><i class="icoSns_apple"></i>애플로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/google?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_google"></i>구글로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/kakao?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_kakao"></i>카카오로 시작하기</a>
+          <a :href="'http://sgn-stg.neodreams.co.kr:8080/oauth2/authorization/naver?redirect_Uri=' + redirecturi" class="btn_border_snsLog sm"><i class="icoSns_naver"></i>네이버로 시작하기</a>
 
 
 

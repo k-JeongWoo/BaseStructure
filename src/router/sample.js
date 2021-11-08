@@ -71,7 +71,7 @@ export default [
     meta: headerBtnType.page_common_back,
     props: true,
     beforeEnter (to, from, next) {
-      headerBtnType.page_common_back.titleTxt = to.query.dynamicTitle
+      headerBtnType.page_common_back.titleTxt = '테스트 페이지'
       headerBtnType.page_common_back.conClass = 'noBg about'
       next()
     }

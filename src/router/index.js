@@ -7,7 +7,7 @@ import UserInfo from './loginUserInfo'
 import Screening from './screening'
 import Medicine from './medicine'
 import Hospital from './hospital'
-import AppInformation from './AppInformation'
+import AppInformation from './appInformation'
 import Notice from './notice'
 
 Vue.use(Router)

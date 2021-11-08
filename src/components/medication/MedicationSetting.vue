@@ -284,8 +284,8 @@ export default {
         this.modalOnOff = 'two'
         this.modalGbn = confirmPopup
       } else if (pCompo === 'regist') {
-        this.modalTitle = '확인'
-        this.modalContent = '등록 되었습니다.'
+        this.modalTitle = '복약/알람 설정'
+        this.modalContent = '복약/알람 설정이 저장되었습니다.'
         this.modalOnOff = 'two'
         this.modalGbn = confirmPopup
       }

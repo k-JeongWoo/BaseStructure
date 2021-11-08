@@ -38,7 +38,6 @@ router.beforeEach((to, from, next) => {
           window.history.go(1)
         } else {
           // 로그인 한 상태
-          console.log('Add Session Storage ! - User Name = ' + response.data.data.name)
           sessionStorage.setItem('usr_name', response.data.data.name)
           sessionStorage.setItem('usr_mail', response.data.data.mail)
           sessionStorage.setItem('usr_tel', response.data.data.tel)

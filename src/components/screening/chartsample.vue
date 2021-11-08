@@ -30,12 +30,19 @@
 <!--    </section>-->
 <!--    <div class="app_infoImg"></div>-->
 <!--  </div>-->
-  <div class="app_contents">
-    <div v-if="isOpenModal">
-      <component :is="modalGbn">
-      </component>
-    </div>
-    <button type="button" @click="modalTestFnt('conFirm')">확인 버튼</button>
+<!--  <div class="app_contents">-->
+<!--    <div v-if="isOpenModal">-->
+<!--      <component :is="modalGbn">-->
+<!--      </component>-->
+<!--    </div>-->
+<!--    <button type="button" @click="modalTestFnt('conFirm')">확인 버튼</button>-->
+<!--  </div>-->
+  <div>
+    <div ref="test"></div>
+    <p v-for="item in listSize" class="mt6">123 {{item}}</p>
+    <div is="suggest_gaugeGraph"></div>
+    <p v-for="item in listSize" class="mt6">123 {{item}}</p>
+    <button type="button" class="btnFix_top " @click="scrollTop" v-show="visible">위로</button>
   </div>
 </template>
 
@@ -43,6 +50,8 @@
 <script>
 import ContentModal from '@/components/modal/ContentModal'
 import moveModal from '@/components/modal/MoveModal'
+import * as am4core from '@amcharts/amcharts4/core'
+import * as am4charts from '@amcharts/amcharts4/charts'
 
 export default {
   data () {
@@ -50,10 +59,23 @@ export default {
       isOpenModal: false,
       modalGbn: '',
       modalTitle: '',
-      modalContent: ''
+      modalContent: '',
+      listSize: [1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7],
+      visible: false
     }
   },
   methods: {
+    scrollTop () {
+      this.intervalId = setInterval(() => {
+        if (window.pageYOffset === 0) {
+          clearInterval(this.intervalId)
+        }
+        window.scroll(0, window.pageYOffset - 100)
+      }, 20)
+    },
+    scrollListener: function (e) {
+      this.visible = window.screen.height + window.scrollY > window.screen.height
+    },
     modalTestFnt (gbn) {
       if (gbn === 'move') {
         this.isOpenModal = !this.isOpenModal
@@ -69,7 +91,93 @@ export default {
   },
   created () {
     goodStepChart([])
+  },
+  beforeDestroy: function () {
+    window.removeEventListener('scroll', this.scrollListener)
+  },
+  mounted () {
+    window.addEventListener('scroll', this.scrollListener)
+    AvgStepFnt(0)
+    // chartLine.creditsPosition = "top-right";//워터마크 위치
+
+    am4core.createFromConfig({
+
+      // Set inner radius
+      'innerRadius': -20,
+
+      // Create axis
+      'xAxes': [{
+        'type': 'ValueAxis',
+        'min': 0,
+        'max': 100,
+        'strictMinMax': true,
+
+        'axes': [{
+          'axisAlpha': 0,
+          'tickAlpha': 0,
+          'labelsEnabled': false,
+          'radius': '80%',
+          'startValue': 0,
+          'endValue': 100,
+          'startAngle': -140,
+          'endAngle': 140,
+          'unit': '%',
+          'bands': [{
+            'color': '#E6E9F4',
+            'startValue': 0,
+            'endValue': 100,
+            'radius': '100%',
+            'innerRadius': '85%'
+          }, {
+            // 보라색게이지
+            'color': '#6765E9',
+            'startValue': 0,
+            'endValue': 75,
+            'radius': '100%',
+            'innerRadius': '85%'
+          }]
+        }]
+      }]
+    }, this.$refs.test, am4charts.GaugeChart)
   }
+}
+
+function AvgStepFnt (obj) {
+  // eslint-disable-next-line no-undef,no-unused-expressions
+  AmCharts.makeChart('suggest_gaugeGraph',
+    {
+      'type': 'gauge',
+      'autoMarginOffset': 0,
+      'chartCursor': {
+        'zoomable': false
+      },
+      'axes': [{
+        'axisAlpha': 0,
+        'tickAlpha': 0,
+        'labelsEnabled': false,
+        'radius': '80%',
+        'startValue': 0,
+        'endValue': 100,
+        'startAngle': -140,
+        'endAngle': 140,
+        'unit': '%',
+        'bands': [{
+          'color': '#E6E9F4',
+          'startValue': 0,
+          'endValue': 100,
+          'radius': '100%',
+          'innerRadius': '85%'
+        }, {
+          // 보라색게이지
+          'color': '#6765E9',
+          'startValue': 0,
+          'endValue': 75,
+          'radius': '100%',
+          'innerRadius': '85%'
+        }]
+      }]
+    })
+  // chartLine.creditsPosition = "top-right";//워터마크 위치
 }
 
 function goodStepChart (obj) {

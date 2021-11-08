@@ -83,7 +83,6 @@ export default {
         let objectValue = {
           hospitalId: value
         }
-        console.log(objectValue)
         hospitalCheck(objectValue).then(res => {
           if (res.data.data.seegeneHospital !== 'Y') {
             this.checkVal.splice(value)

@@ -48,7 +48,9 @@
       <li class="inputBox mb3">
         <p class="input_tit">주소 (선택)</p>
       </li>
-
+      <li>
+        <div ref="embed" class="mb3"></div>
+      </li>
       <li class="inputBox centerFlex mb3 address">
         <p class="input disabled"><!--수정불가 :: disabled-->
           <input type="text" v-model="usr_zipcode" name="" placeholder="우편번호" >
@@ -65,7 +67,6 @@
           <input type="text" v-model="usr_address_detail" name="" placeholder="상세주소를 입력하세요.">
         </p>
       </li>
-      <div ref="embed"></div>
     </ul>
     <!-- footer -->
     <div class="footer typeB">

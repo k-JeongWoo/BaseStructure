@@ -24,6 +24,7 @@ export default [
       header: Header,
       default: SignUpForm
     },
+    meta: headerBtnType.page_common_back,
     beforeEnter (to, from, next) {
       headerBtnType.page_common_back.titleTxt = '회원 정보 입력'
       next()

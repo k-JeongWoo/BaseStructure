@@ -31,12 +31,12 @@
             <div class="visitDetail_tit">
               <p class="title_14">
                 <i class="icoCom_memo_gray"></i>
-                <span>치료</span>
+                <span>{{ item.magementPlanType }}</span>
               </p>
             </div>
             <div class="textarea_cont">
               <p>
-                {{ item.magementPlanType }}
+                {{ item.magementPlayDesc }}
               </p>
             </div>
           </li>
@@ -47,7 +47,7 @@
       <template>
         <div class="visit_history_wrap box_shadow01"><!-- type01:진료(보라색) / type02:검사(하늘색) / type03:치료(주황색) -->
           <div class="visit_history_detail">
-            <H4>내원 내원일 정보가 없습니다.</H4>
+            <H4>내원일 정보가 없습니다.</H4>
           </div>
         </div>
       </template>

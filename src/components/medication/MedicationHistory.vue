@@ -68,7 +68,7 @@
     </div>
     <!--//contents-->
     <!-- footer -->
-    <button type="button" class="btnFix_top " @click="scrollTop">위로</button> <!-- opaHide 클래스 추가시 사라짐.-->
+    <button type="button" class="btnFix_top " @click="scrollTop" v-show="visible">위로</button> <!-- opaHide 클래스 추가시 사라짐.-->
     <!--//footer -->
     </div>
 <!--    <router-view :key="$route.fullPath + 'h'"></router-view>-->
@@ -91,7 +91,8 @@ export default {
       historyList: [],
       monthCount: 0,
       yearCount: 0,
-      pagingCnt: 1
+      pagingCnt: 1,
+      visible: false
     }
   },
   created () {
@@ -151,7 +152,15 @@ export default {
       })
     },
     scrollTop () {
-      this.$refs.fixScroll.scrollTop = 0
+      this.intervalId = setInterval(() => {
+        if (window.pageYOffset === 0) {
+          clearInterval(this.intervalId)
+        }
+        window.scroll(0, window.pageYOffset - 50)
+      }, 20)
+    },
+    scrollListener: function (e) {
+      this.visible = window.screen.height + window.scrollY > window.screen.height
     },
     listAdd () {
       this.pagingCnt++
@@ -171,6 +180,12 @@ export default {
       //   console.log(error)
       // })
     }
+  },
+  mounted () {
+    window.addEventListener('scroll', this.scrollListener)
+  },
+  beforeDestroy: function () {
+    window.removeEventListener('scroll', this.scrollListener)
   }
 }
 

@@ -66,7 +66,7 @@
                       v-for="(item,index) in userVisitList"
                       :key="index">
                     <div class="tit">
-                      <p>내일 가야 할 병원</p>
+                      <p>다음 예상 내원일</p>
                     </div>
                     <div class="reservation_info">
                       <div class="reser_dDay red">{{ item.ddays === 0 ? '' : 'D-'}}<span>{{ item.ddays === 0 ? 'Today' : item.ddays}}</span></div>
@@ -782,7 +782,7 @@ function getChartList (obj) {
       var datsSet = new Date()
       datsSet.setDate(datsSet.getDate() + (i - 7))
       weekAvgStep.push({
-        date: dayjs(datsSet).format('MM/DD'),
+        date: dayjs(datsSet).format('DD'),
         day: i,
         value: 0,
         today: i === 7 ? 'today' : ''
