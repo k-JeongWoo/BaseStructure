@@ -14,7 +14,6 @@ export default [
     path: '/enterCodePage',
     name: 'EnterCodePage',
     components: {
-      header: Header,
       default: EnterCodePage
     }
   },

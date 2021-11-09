@@ -285,7 +285,7 @@ function iosRegister () {
   var message = {
     'action': 'delete'
   }
-  appService.iosinfoClean(message)
+  appService.iosinfoClean2(message)
 }
 </script>
 

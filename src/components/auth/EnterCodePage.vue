@@ -1,7 +1,7 @@
 <template>
   <div class="codepage">
     <h2>코드입력</h2>
-    <input class="btn_border" v-model="enterCode" placeholder="cellimedi00">
+    <input class="btn_border" v-model="enterCode">
     <button class="btn_border" @click="pageUrl">입장</button>
     <div v-if="isOpenModal">
       <component :is="modalGbn">
@@ -30,7 +30,8 @@ export default {
   },
   methods: {
     pageUrl () {
-      if (this.enterCode === 'cellimedi00') {
+      if (this.enterCode === 'Seegene21') {
+        this.$cookies.set('pageNone', 'Y', '365d')
         this.$router.replace({name: 'Lognin'})
       } else {
         this.modalGbn = confirm

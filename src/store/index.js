@@ -98,7 +98,7 @@ const headerBtnType = {
     conClass: 'noBg hospital_01' // ex) 'noBg inquery_info_01',
   },
   'page_hospital_regist': {
-    titleTxt: '병원 등록하기', // TEXT
+    titleTxt: '주치의 병원 등록', // TEXT
     titleGbn: 'TX', // TX(TEXT), IM(IMAGE), NN (NONE)
     LGNBGbn: 'AC', // TYPE HA(HAMBERGER), BA(BACK), AC(ACTION), NN (NONE)
     RGNBGbn: 'CL', // TYPE AR(ALARM), CL(CLOSE), JM(JUMP), NN (NONE)

@@ -21,6 +21,13 @@ export default {
     return {
       receiveData: Object
     }
+  },
+  created () {
+    if (this.$cookies.isKey('pageNone')) {
+      this.$router.push({name: 'mainHome'})
+    } else {
+      this.$router.replace({name: 'EnterCodePage'})
+    }
   }
 }
 </script>

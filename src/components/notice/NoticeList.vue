@@ -5,11 +5,11 @@
       <div class="contents">
         <div class="notice_wrap">
           <div class="notice_permit">
-            <p class="title_05">알림허용</p>
-            <div class="switch small">
-              <input type="radio" class="switch-input" name="view" value="N" id="on" @change="alarmFnt" v-model="alarmOnOff">
+            <p class="title_05">알림받기</p>
+            <div class="switch small" :class="cssToggle" >
+              <input type="radio" class="switch-input" name="view" value="N" id="on" v-model="alarmOnOff" @click="alarmFnt()">
               <label for="on" class="switch-label switch-label-off">켜짐</label>
-              <input type="radio" class="switch-input" name="view" value="Y" id="off" @change="alarmFnt" v-model="alarmOnOff">
+              <input type="radio" class="switch-input" name="view" value="Y" id="off" v-model="alarmOnOff" @click="alarmFnt()">
               <label for="off" class="switch-label switch-label-on">꺼짐</label>
               <span class="switch-selection"></span>
             </div>
@@ -57,7 +57,9 @@ export default {
       modalObj: Number,
       modalTitle: '',
       modalContent: '',
-      alarmOnOff: ''
+      alarmOnOff: '',
+      cssToggle: '',
+      doubleClickDefence: true
     }
   },
   created: function () {
@@ -65,6 +67,7 @@ export default {
       if (res.data.resultCode === '0000') {
         this.noticeList = res.data.data.alarmLists
         this.alarmOnOff = res.data.data.pushStatus
+        this.cssToggle = res.data.data.pushStatus === 'Y' ? 'onTarget' : 'offTarget'
       }
     }).catch(error => {
       console.log(error)
@@ -94,22 +97,33 @@ export default {
       this.modalTitle = ''
       this.modalContent = ''
     },
-    alarmFnt () {
-      fetchAlarmUpdate().then(res => {
-        if (res.data.resultCode === '0000') {
-          if (this.alarmOnOff === 'Y') {
-            this.modalTitle = '확인'
-            this.modalContent = '알림 받기를 설정하였습니다'
-          } else {
-            this.modalTitle = '확인'
-            this.modalContent = '알림을 받기를 취소하셨습니다'
-          }
-          this.openModal('alarm')
+    async alarmFnt () {
+      if (this.doubleClickDefence) {
+        this.doubleClickDefence = !this.doubleClickDefence
+        if (this.alarmOnOff === 'Y') {
+          this.cssToggle = 'offTarget'
+          this.alarmOnOff = 'N'
+        } else {
+          this.cssToggle = 'onTarget'
+          this.alarmOnOff = 'Y'
         }
-      }).catch(error => {
-        console.log(error)
-      })
+        await fetchAlarmUpdate().then(res => {
+          if (res.data.resultCode === '0000') {
+            this.doubleClickDefence = !this.doubleClickDefence
+          }
+        }).catch(error => {
+          console.log(error)
+        })
+      }
     }
   }
 }
 </script>
+<style>
+.onTarget {
+  background: #60CFE3
+}
+.offTarget {
+  background: #B4B8D0
+}
+</style>

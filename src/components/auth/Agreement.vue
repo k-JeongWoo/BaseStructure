@@ -36,31 +36,31 @@
             </p>
           </div>
           <div class="agree_list">
-            <p class="inputCheck typeA">
-              <input type="checkbox" name="chckAgree" id="chckAgree05">
-              <label for="chckAgree05">
-                <span class="bul"></span>마케팅 정보 수신 및 이용 동의 <span class="colorJ">(선택)</span>
-              </label>
-              <button class="btn_text_size03 txt_r" @click="pageUrl('AppMarketing')">전체보기</button>
-            </p>
-            <p class="inputCheck typeA">
-              <input type="checkbox" name="chckAgree05" id="chckAgree05_01">
-              <label for="chckAgree05_01">
-                <span class="bul"></span>앱 서비스 알림 수신 동의
-              </label>
-            </p>
+<!--            <p class="inputCheck typeA">-->
+<!--              <input type="checkbox" name="chckAgree" id="chckAgree05">-->
+<!--              <label for="chckAgree05">-->
+<!--                <span class="bul"></span>마케팅 정보 수신 및 이용 동의 <span class="colorJ">(선택)</span>-->
+<!--              </label>-->
+<!--              <button class="btn_text_size03 txt_r" @click="pageUrl('AppMarketing')">전체보기</button>-->
+<!--            </p>-->
+<!--            <p class="inputCheck typeA">-->
+<!--              <input type="checkbox" name="chckAgree05" id="chckAgree05_01">-->
+<!--              <label for="chckAgree05_01">-->
+<!--                <span class="bul"></span>앱 서비스 알림 수신 동의-->
+<!--              </label>-->
+<!--            </p>-->
 <!--              <p class="inputCheck typeA">-->
 <!--                <input type="checkbox" name="chckAgree05" id="chckAgree05_02">-->
 <!--                <label for="chckAgree05_02">-->
 <!--                  <span class="bul"></span>SMS-->
 <!--                </label>-->
 <!--              </p>-->
-            <p class="inputCheck typeA">
-              <input type="checkbox" name="chckAgree05" id="chckAgree05_03">
-              <label for="chckAgree05_03">
-                <span class="bul"></span>이메일 수신 동의
-              </label>
-            </p>
+<!--            <p class="inputCheck typeA">-->
+<!--              <input type="checkbox" name="chckAgree05" id="chckAgree05_03">-->
+<!--              <label for="chckAgree05_03">-->
+<!--                <span class="bul"></span>이메일 수신 동의-->
+<!--              </label>-->
+<!--            </p>-->
           </div>
         </div>
       </div>

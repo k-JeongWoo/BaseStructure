@@ -8,10 +8,6 @@
       <div class="hospital_sampleImg">
         <img src="../../assets/resources/images/_temp/hospital_temp01.png" alt="씨젠클리닉 병원사진">
       </div>
-      <div class="btnArea" v-if="prevRoute.name !== 'HospitalRegist'">
-        <button :class="hospitalDetail.thirdAgreeChk === 'N' ? 'btn_fill' : 'btn_fill_color04'"
-                @click="pageUrl(hospitalDetail.thirdAgreeChk, hospitalDetail.hospitalId)">주치의 {{ hospitalDetail.thirdAgreeChk === 'N' ? '병원으로 등록' : '병원 해제'}}</button>
-      </div>
       <h2 class="title_02 mt5"><span>수요일</span><span>9:00 ~ 18:00</span></h2>
       <p class="title_09 mt3">
       </p>
@@ -162,6 +158,10 @@
           </component>
         </div>
         <!--//box_wrap-->
+      </div>
+      <div class="btnArea" v-if="prevRoute.name !== 'HospitalRegist'">
+        <button :class="hospitalDetail.thirdAgreeChk === 'N' ? 'btn_fill' : 'btn_fill_color04'"
+                @click="pageUrl(hospitalDetail.thirdAgreeChk, hospitalDetail.hospitalId)">주치의 {{ hospitalDetail.thirdAgreeChk === 'N' ? '병원으로 등록' : '병원 해제'}}</button>
       </div>
     </div>
     <div class="btnArea">

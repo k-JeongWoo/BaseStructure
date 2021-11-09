@@ -8,9 +8,6 @@
           <h1>
             <span class="tit">알람/약 설정</span>
           </h1>
-          <button type="button" class="txt_btn btn_left" @click="registMedichine(Object.keys($props.selectmodal).length)">
-            {{ Object.keys($props.selectmodal).length === 0 ? '저장' : '수정' }}
-          </button>
           <button class="btn_right" @click="openModal('close')">
             <i class="ico_close">닫기</i>
           </button>
@@ -28,10 +25,10 @@
           <ul class="list_styleE mt4">
             <li class="list_item reserv_timeBox">
               <p class="tit">켜짐/꺼짐</p>
-              <div class="switch" :class="this.takeMedicineAlarm === 'N' ? 'offTarget' : 'onTarget'">
-                <input type="radio" class="switch-input" name="view" value="N" id="on" v-model="takeMedicineAlarm" checked>
+              <div class="switch" :class="this.cssToggle">
+                <input type="radio" class="switch-input" name="view" value="N" id="on" v-model="takeMedicineAlarm" @click="onOffTarget" checked>
                 <label for="on" class="switch-label switch-label-off">켜짐</label>
-                <input type="radio" class="switch-input" name="view" value="Y" id="off" v-model="takeMedicineAlarm">
+                <input type="radio" class="switch-input" name="view" value="Y" id="off" v-model="takeMedicineAlarm" @click="onOffTarget">
                 <label for="off" class="switch-label switch-label-on">꺼짐</label>
                 <span class="switch-selection"></span>
               </div>
@@ -104,7 +101,7 @@
               <p class="input">
                 <input type="text" name="" placeholder="약이름을 입력하세요." v-model="medichinName">
               </p>
-              <button type="button" class="btn_border" @click="medichinSave(Object.keys($props.selectmodal).length)">저장</button>
+              <button type="button" class="btn_fill" @click="medichinSave(Object.keys($props.selectmodal).length)">저장</button>
             </div>
           </div>
           <ul class="mediReserv_list mt4" v-for="(item, index) in medicineDetailsList">
@@ -114,6 +111,9 @@
               </button>
               <p>{{ item.itemName }}</p>
             </li>
+          </ul>
+          <ul style="margin-top: 80px;">
+            <li class="list_item"></li>
           </ul>
         </section>
         <div class="btnArea mt6" v-if="Object.keys($props.selectmodal).length !== 0">
@@ -130,6 +130,13 @@
           <button slot="moveBtn1" @click="cancleModal" class="btn modal-default-button">확인</button>
           <button slot="moveBtn2" @click="modalClean" class="btn">취소</button>
         </component>
+      </div>
+    </div>
+    <div class="footer typeB">
+      <div class="btnArea">
+        <button type="button" class="btn_fill" @click="registMedichine(Object.keys($props.selectmodal).length)">
+          {{ Object.keys($props.selectmodal).length === 0 ? '저장' : '수정' }}
+        </button>
       </div>
     </div>
     <!--  //container  -->
@@ -168,7 +175,8 @@ export default {
       timeFormSetArr: [],
       takeMedicineTimeHour: Object.keys(this.$props.selectmodal).length === 0 ? '00' : this.$props.selectmodal.takeMedicineAmPm.split(':')[0],
       takeMedicineTimeMin: Object.keys(this.$props.selectmodal).length === 0 ? '00' : this.$props.selectmodal.takeMedicineAmPm.split(':')[1],
-      selectTime: 'H'
+      selectTime: 'H',
+      cssToggle: ''
     }
   },
   methods: {
@@ -191,7 +199,7 @@ export default {
     registMedichine (value) {
       let updateGbn = 'regist'
       this.takeMedicineTime = this.takeMedicineTimeHour + ':' + this.takeMedicineTimeMin
-      if (this.medicineDetailsList.length === 0) {
+      if (this.medicineDetailsList.length === 0 && Object.keys(this.$props.selectmodal).length === 0) {
         this.openModal('medichinSelect')
       } else {
         if (value === 0) {
@@ -284,8 +292,8 @@ export default {
         this.modalOnOff = 'two'
         this.modalGbn = confirmPopup
       } else if (pCompo === 'regist') {
-        this.modalTitle = '복약/알람 설정'
-        this.modalContent = '복약/알람 설정이 저장되었습니다.'
+        this.modalTitle = '알림'
+        this.modalContent = '약복용 알림 정보가 등록되었습니다.'
         this.modalOnOff = 'two'
         this.modalGbn = confirmPopup
       }
@@ -324,6 +332,15 @@ export default {
         }
       }
       this.selectTime = val
+    },
+    onOffTarget () {
+      if (this.takeMedicineAlarm === 'N') {
+        this.cssToggle = 'onTarget'
+        this.takeMedicineAlarm = 'Y'
+      } else {
+        this.cssToggle = 'offTarget'
+        this.takeMedicineAlarm = 'N'
+      }
     }
   },
   mounted () {
@@ -333,6 +350,7 @@ export default {
       this.medichinDetail = this.$props.selectmodal
       this.takeMedicineTime = this.$props.selectmodal.takeMedicineAmPm
       this.takeMedicineAlarm = this.$props.selectmodal.takeMedicineAlarm
+      this.cssToggle = this.$props.selectmodal.takeMedicineAlarm === 'N' ? 'offTarget' : 'onTarget'
       this.$props.selectmodal.takeMedicineHistoryDetails.forEach(item => {
         this.medicineDetailsList.push({itemName: item.takeMedicineDetailsName, itemKey: item.takeMedicineDetailId})
         this.allRemoveDetail.push({itemName: item.takeMedicineDetailsName, itemKey: item.takeMedicineDetailId})
@@ -353,6 +371,6 @@ export default {
   background: #60CFE3
 }
 .offTarget {
-  background: #B2B2B2
+  background: #B4B8D0
 }
 </style>

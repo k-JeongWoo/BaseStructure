@@ -64,8 +64,9 @@
       <div class="slide_nav">
         <ul class="nav_list">
           <template v-for="item in healthyList">
-            <router-link :to="{ path: '/hospital/healthStatus', query: { dynamicTitle: item.careProgramName, conClass: 'health_status', careProgramId: item.careProgramId, hospitalId: propsdata }}" replace>
-              <li :class="{on: $route.query.careProgramId === item.careProgramId.toString()}"><a>{{ item.careProgramName }}</a></li>
+            <router-link :to="{ path: '/hospital/healthStatus', query: { dynamicTitle: item.careProgramName, conClass: 'health_status', careProgramId: item.careProgramId, hospitalId: $route.query.hospitalId }}" replace>
+              <li :class="{on: $route.query.careProgramId === item.careProgramId.toString()}">
+                <a>{{ item.careProgramName }}</a></li>
             </router-link>
           </template>
 
@@ -104,7 +105,6 @@ export default {
       userHealthyList: [],
       healthyList: [],
       hospitalId: '',
-      testCnt: 1,
       careProgramId: this.$route.query.careProgramId
     }
   },
@@ -180,6 +180,7 @@ export default {
           hospitalId: this.$route.query.hospitalId
         }
         await hospitalHealthyList(objectValue).then(res => {
+          console.log(res.data.data)
           if (res.data.resultCode === '0000') {
             this.healthyList = res.data.data.careProgramResponses
           }

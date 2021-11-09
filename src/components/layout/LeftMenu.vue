@@ -36,6 +36,7 @@
 
 <script>
 import {fetchMedicineList, fetchMyCheckupList, fetchUserLogout} from '../../api'
+import * as appService from '../../api/iosMessage'
 
 export default {
   data () {
@@ -86,6 +87,7 @@ export default {
     },
     logoutFnt () {
       fetchUserLogout().then(res => {
+        iosRegister()
         if (res.data.resultCode !== 'error' && this.$route.name.indexOf('mainHome') > -1) {
           this.$router.go()
         } else {
@@ -98,6 +100,13 @@ export default {
       })
     }
   }
+}
+
+function iosRegister () {
+  var message = {
+    'action': 'logout'
+  }
+  appService.iosinfoClean3(message)
 }
 </script>
 

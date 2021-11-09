@@ -37,12 +37,34 @@
 <!--    </div>-->
 <!--    <button type="button" @click="modalTestFnt('conFirm')">확인 버튼</button>-->
 <!--  </div>-->
-  <div>
-    <div ref="test"></div>
-    <p v-for="item in listSize" class="mt6">123 {{item}}</p>
-    <div is="suggest_gaugeGraph"></div>
-    <p v-for="item in listSize" class="mt6">123 {{item}}</p>
-    <button type="button" class="btnFix_top " @click="scrollTop" v-show="visible">위로</button>
+<!--  <div>-->
+<!--    <div ref="test"></div>-->
+<!--    <p v-for="item in listSize" class="mt6">123 {{item}}</p>-->
+<!--    <div is="suggest_gaugeGraph"></div>-->
+<!--    <p v-for="item in listSize" class="mt6">123 {{item}}</p>-->
+<!--    <button type="button" class="btnFix_top " @click="scrollTop" v-show="visible">위로</button>-->
+<!--  </div>-->
+<!--  <div class="switch small" :class="cssToggle" >-->
+<!--    <input type="radio" class="switch-input" name="view" value="N" id="on" v-model="alarmOnOff"  @click="alarmFnt('1')">-->
+<!--    <label for="on" class="switch-label switch-label-off">켜짐</label>-->
+<!--    <input type="radio" class="switch-input" name="view" value="Y" id="off" v-model="alarmOnOff"  @click="alarmFnt('2')">-->
+<!--    <label for="off" class="switch-label switch-label-on">꺼짐</label>-->
+<!--    <span class="switch-selection"></span>-->
+<!--    {{alarmOnOff}}-->
+<!--  </div>-->
+  <div class="fullPop_wrap">
+    <div class="footer typeB">
+      <div class="btnArea">
+        <button class="btn_fill">가입
+        </button>
+      </div>
+    </div>
+    <div class="h-well_result">
+      <div class="btnArea">
+        <iframe id="app_init_frame" style="display:none"></iframe>
+        <a type="button" class="btn_border" href="cellimedi://import_healthexam" target="app_init_frame"><i class="icoCom_refresh mr3"></i>국민건강보험 정보 다시 가져오기</a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -61,7 +83,9 @@ export default {
       modalTitle: '',
       modalContent: '',
       listSize: [1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7],
-      visible: false
+      visible: false,
+      cssToggle: 'onTarget',
+      alarmOnOff: 'Y'
     }
   },
   methods: {
@@ -86,6 +110,21 @@ export default {
       } else {
         this.isOpenModal = !this.isOpenModal
         this.modalGbn = moveModal
+      }
+    },
+    alarmFnt (gbn) {
+      console.log(gbn)
+      console.log(this.alarmOnOff)
+      if (this.alarmOnOff === 'Y') {
+        this.modalTitle = '확인'
+        this.modalContent = '알림 받기를 설정하였습니다'
+        this.cssToggle = 'offTarget'
+        this.alarmOnOff = 'N'
+      } else {
+        this.modalTitle = '확인'
+        this.modalContent = '알림을 받기를 취소하셨습니다'
+        this.cssToggle = 'onTarget'
+        this.alarmOnOff = 'Y'
       }
     }
   },
@@ -318,3 +357,11 @@ function goodStepChart (obj) {
 }
 </script>
 <!--Swiper.js-->
+<style>
+.onTarget {
+  background: #60CFE3
+}
+.offTarget {
+  background: #B4B8D0
+}
+</style>

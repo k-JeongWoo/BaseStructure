@@ -251,7 +251,7 @@
         <!--//box_wrap-->
         <div class="box_wrap">
           <section class="box_p32 bgColorB"
-                   v-if="result_code !== 'error'">
+                   v-if="result_code !== 'error' && alarmList.length < 1">
             <p class="title_05 colorA">복약 관리 안내</p>
             <h2 class="title_02">약 먹는 시간을 알려드려요!</h2>
             <p class="contTxt_06 mt4">약 먹는 시간을 자꾸 잊어버리시나요?<br>
@@ -801,6 +801,7 @@ function getChartList (obj) {
   // eslint-disable-next-line no-undef,no-unused-expressions
   var chartLine = AmCharts.makeChart('everWalk_bargraph',
     {
+      hideCredits: true,
       'type': 'serial',
       'autoMarginOffset': 0,
       'marginTop': 70,

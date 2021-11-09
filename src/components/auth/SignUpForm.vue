@@ -67,6 +67,8 @@
           <input type="text" v-model="usr_address_detail" name="" placeholder="상세주소를 입력하세요.">
         </p>
       </li>
+      <li style="margin-top: 80px;">
+      </li>
     </ul>
     <!-- footer -->
     <div class="footer typeB">

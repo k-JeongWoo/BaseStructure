@@ -11,12 +11,17 @@ import VueI18n from 'vue-i18n'
 import en from './locales/en.json'
 import ko from './locales/ko.json'
 import {fetchLoginUserInfo} from './api'
+import VueCookie from 'vue-cookies'
 
+Vue.use(VueCookie)
 Vue.use(VueI18n)
 Vue.use(AmCharts)
 Vue.use(AmSerial)
 Vue.use(AmPie)
 Vue.use(AMGauge)
+
+// 씨젠 직원 검증페이지 처리
+Vue.$cookies.config('365d')
 
 // 다국어 처리
 const i18n = new VueI18n({
@@ -28,7 +33,7 @@ const i18n = new VueI18n({
 router.beforeEach((to, from, next) => {
   // 사용자별 언어 설정 분기할 부분
   // i18n.locale = 'en'
-  if (to.name === 'SamplePage') {
+  if (sessionStorage.getItem('pageNone')) {
     next()
   } else {
     fetchLoginUserInfo().then(response => {
