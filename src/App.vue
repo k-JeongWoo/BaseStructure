@@ -1,34 +1,16 @@
 <template>
   <div id="app" class="wrap">
-    <router-view name="pdf"></router-view>
-    <div id="container" class="container" :class="$route.meta.conClass" v-if="$route.name !== 'ScreeningDocumentPdf'">
-      <router-view name="header" v-on:eventdata="transData" v-bind:propsdata="receiveData" :key="$route.fullPath + 'h'"></router-view>
-      <router-view name="leftMenu" v-on:eventdata="transData" v-bind:propsdata="receiveData" :key="$route.fullPath + 'l'"></router-view>
-      <router-view name="default" v-on:eventdata="transData" v-bind:propsdata="receiveData" :key="$route.fullPath"></router-view>
-      <router-view name="footer" v-on:eventdata="transData" v-bind:propsdata="receiveData" :key="$route.fullPath + 'f'"></router-view>
+    <div id="container" class="container">
+      <router-view name="header"></router-view>
+      <router-view name="leftMenu"></router-view>
+      <router-view name="default"></router-view>
+      <router-view name="footer"></router-view>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  methods: {
-    transData: function (value) {
-      this.receiveData = value
-    }
-  },
-  data () {
-    return {
-      receiveData: Object
-    }
-  },
-  created () {
-    if (this.$cookies.isKey('pageNone')) {
-      this.$router.push({name: 'mainHome'})
-    } else {
-      this.$router.replace({name: 'EnterCodePage'})
-    }
-  }
 }
 </script>
 
