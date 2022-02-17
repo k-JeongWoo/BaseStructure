@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import sample from './sample'
+import Login from './Login'
 
 Vue.use(Router)
-//
-// const routes = [
-//   ...sample
-// ]
+
+const routes = [
+  ...Login
+]
 
 export default new Router({
-//  routes: routes,
+  routes: routes,
   mode: 'history',
   scrollBehavior () {
     return { x: 0, y: 0 }
